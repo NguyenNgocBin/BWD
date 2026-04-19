@@ -1,0 +1,393 @@
+﻿.profile-main {
+    padding: 102px 0 70px;
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at 22% 8%, rgba(229, 188, 78, 0.09), transparent 36%),
+        radial-gradient(circle at 80% 35%, rgba(229, 188, 78, 0.05), transparent 25%),
+        #0b0908;
+}
+
+.profile-hero {
+    background: linear-gradient(90deg, #1e1917 0%, #27211f 48%, #191513 100%);
+    border: 1px solid rgba(229, 188, 78, 0.15);
+    padding: 28px;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 24px;
+    align-items: center;
+}
+
+.identity-block {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.avatar-box {
+    width: 160px;
+    height: 160px;
+    border: 3px solid #e2b948;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.avatar-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.level-chip {
+    position: absolute;
+    right: -6px;
+    bottom: -8px;
+    background: #dcb44a;
+    color: #241b06;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 6px 12px;
+}
+
+.identity-copy h1 {
+    font-family: "Newsreader", serif;
+    font-size: clamp(40px, 4.2vw, 64px);
+    line-height: 0.95;
+    color: #e6be50;
+    white-space: nowrap;
+}
+
+.identity-copy p {
+    margin-top: 8px;
+    color: #b7aa9f;
+    font-style: italic;
+    font-size: 36px;
+}
+
+.hero-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.2fr;
+    gap: 14px;
+}
+
+.hero-stats div span {
+    display: block;
+    text-transform: uppercase;
+    font-size: 12px;
+    color: #8f847a;
+    letter-spacing: 0.09em;
+    margin-bottom: 5px;
+}
+
+.hero-stats div strong {
+    font-family: "Newsreader", serif;
+    font-size: clamp(34px, 2.4vw, 44px);
+    color: #f1c95f;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.hero-stats div:last-child {
+    text-align: center;
+}
+
+.hero-stats div:last-child span {
+    text-align: center;
+}
+
+.overview {
+    margin-top: 22px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 22px;
+}
+
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.kpi-card {
+    background: #1d1816;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 16px;
+}
+
+.kpi-icon {
+    color: #e3be58;
+    font-size: 20px;
+}
+
+.kpi-card p {
+    margin-top: 8px;
+    color: #9d9187;
+    text-transform: uppercase;
+    font-size: 13px;
+}
+
+.kpi-card strong {
+    display: block;
+    margin-top: 4px;
+    color: #f2ece4;
+    font-family: "Newsreader", serif;
+    font-size: 42px;
+}
+
+.panel {
+    margin-top: 16px;
+}
+
+.panel h2,
+.side-card h2 {
+    font-family: "Newsreader", serif;
+    color: #f4efe8;
+    font-size: 48px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    padding-bottom: 10px;
+    margin-bottom: 14px;
+}
+
+.achievement-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.game-ach-card {
+    background: #1f1917;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+}
+
+.game-ach-card img {
+    width: 100%;
+    height: 132px;
+    object-fit: cover;
+}
+
+.game-ach-card h3 {
+    color: #e5bf54;
+    font-size: 40px;
+    padding: 12px 14px 8px;
+    font-family: "Newsreader", serif;
+}
+
+.game-ach-card ul {
+    list-style: none;
+    padding: 0 14px 14px;
+}
+
+.game-ach-card li {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 6px;
+}
+
+.game-ach-card li span {
+    color: #a89c91;
+}
+
+.game-ach-card li strong {
+    color: #f1cc6c;
+}
+
+.badge-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+}
+
+.badge-item {
+    background: #1d1816;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    text-align: center;
+    padding: 16px 10px;
+}
+
+.badge-item span {
+    font-size: 32px;
+    color: #ebc95f;
+}
+
+.badge-item p {
+    margin-top: 8px;
+    color: #c8bcb0;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.badge-item.locked span,
+.badge-item.locked p {
+    color: #706861;
+}
+
+.side-card {
+    background: #1f1a18;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    padding: 18px;
+}
+
+.challenge-card .task-row {
+    margin-top: 12px;
+}
+
+.task-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    color: #dfd3c7;
+}
+
+.task-head strong {
+    color: #f1c95f;
+}
+
+.progress {
+    margin-top: 8px;
+    width: 100%;
+    height: 8px;
+    background: #3a342f;
+    border-radius: 999px;
+}
+
+.progress span {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: #e1ba4d;
+}
+
+.task-row small {
+    display: block;
+    margin-top: 6px;
+    color: #ad9f92;
+    text-align: right;
+    text-transform: uppercase;
+    font-size: 11px;
+}
+
+.history-card {
+    margin-top: 14px;
+}
+
+.history-item {
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 10px;
+    background: #28221f;
+    margin-top: 10px;
+    padding: 12px;
+}
+
+.dot {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    background: rgba(225, 186, 77, 0.25);
+    display: grid;
+    place-items: center;
+    color: #e6c15c;
+}
+
+.history-item h3 {
+    color: #f2ece4;
+    font-size: 30px;
+    font-family: "Newsreader", serif;
+}
+
+.history-item p {
+    color: #aca094;
+    margin-top: 3px;
+}
+
+.history-item p b {
+    color: #e8c35d;
+}
+
+.side-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.btn-ghost,
+.btn-danger {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: #161210;
+    color: #f2ece3;
+    padding: 11px 18px;
+    min-width: 130px;
+}
+
+.btn-danger {
+    border-color: rgba(132, 30, 30, 0.5);
+    background: #360909;
+}
+
+@media (max-width: 1200px) {
+    .profile-hero {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-stats {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .overview {
+        grid-template-columns: 1fr;
+    }
+
+    .kpi-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .achievement-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .badge-grid {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .profile-main {
+        padding-top: 92px;
+    }
+
+    .identity-block {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .hero-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .kpi-grid,
+    .badge-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .identity-copy h1 {
+        font-size: 54px;
+        white-space: normal;
+    }
+
+    .identity-copy p,
+    .panel h2,
+    .side-card h2 {
+        font-size: 36px;
+    }
+
+    .game-ach-card h3,
+    .history-item h3,
+    .hero-stats div strong,
+    .kpi-card strong {
+        font-size: 34px;
+    }
+}

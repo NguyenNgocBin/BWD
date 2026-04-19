@@ -157,13 +157,12 @@
     height: 100%;
     object-fit: cover;
     display: block;
-    filter: grayscale(100%);
     transition: 0.8s ease;
     box-shadow: var(--shadow);
 }
 
 .highlight-image:hover img {
-    filter: grayscale(0%);
+    transform: scale(1.01);
 }
 
 .highlight-mark {

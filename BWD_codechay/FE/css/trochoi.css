@@ -1,0 +1,558 @@
+﻿.trochoi-page {
+    background: #070605;
+    color: #f2ece6;
+}
+
+.games-main {
+    overflow: hidden;
+    background:
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 0, rgba(255, 255, 255, 0.03) 1px, transparent 1px, transparent 25%),
+        radial-gradient(circle at 85% 20%, rgba(220, 177, 73, 0.08), transparent 25%),
+        #070605;
+    background-size: 100% 100%, 100% 100%, 100% 100%;
+}
+
+.hero-section {
+    padding: 126px 0 88px;
+}
+
+.hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 440px;
+    gap: 72px;
+    align-items: center;
+}
+
+.hero-copy h1 {
+    font-family: "Newsreader", serif;
+    font-size: clamp(54px, 7vw, 88px);
+    line-height: 0.92;
+    color: #e5bc4e;
+    margin-bottom: 20px;
+    letter-spacing: -0.04em;
+}
+
+.hero-copy p {
+    max-width: 540px;
+    color: #cbc0b8;
+    font-size: 17px;
+    line-height: 1.8;
+}
+
+.hero-actions {
+    margin-top: 32px;
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.btn-primary,
+.btn-ghost,
+.card-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 150px;
+    padding: 13px 20px;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 700;
+    border: 1px solid transparent;
+    transition: all 0.25s ease;
+}
+
+.btn-primary {
+    background: #dcb149;
+    color: #251b03;
+    border-color: #dcb149;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(220, 177, 73, 0.25);
+}
+
+.btn-ghost,
+.card-btn {
+    border-color: rgba(220, 177, 73, 0.45);
+    color: #f3d378;
+    background: rgba(0, 0, 0, 0.35);
+}
+
+.btn-ghost:hover,
+.card-btn:hover {
+    background: rgba(220, 177, 73, 0.1);
+}
+
+.hero-card {
+    background: linear-gradient(180deg, #221d19 0%, #1a1613 100%);
+    border: 1px solid rgba(220, 177, 73, 0.14);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.02), 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.hero-card-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.hero-label,
+.hero-score p {
+    color: #998d83;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.hero-card h2 {
+    font-size: 20px;
+    color: #f0cd70;
+    margin-top: 4px;
+    font-family: "Newsreader", serif;
+}
+
+.hero-score {
+    text-align: right;
+}
+
+.hero-score strong {
+    font-size: 38px;
+    line-height: 1;
+    color: #fff7e5;
+    font-family: "Newsreader", serif;
+}
+
+.drum-frame {
+    margin: 18px 0;
+    padding: 18px;
+    background: #0b0a09;
+    border: 1px solid rgba(220, 177, 73, 0.16);
+}
+
+.drum-frame img {
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    filter: saturate(0.9) brightness(0.88);
+}
+
+.hero-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.hero-stats div {
+    text-align: center;
+    padding-top: 8px;
+    border-top: 1px solid rgba(220, 177, 73, 0.16);
+}
+
+.hero-stats strong {
+    display: block;
+    color: #f2cd69;
+    font-family: "Newsreader", serif;
+    font-size: 26px;
+    line-height: 1.1;
+}
+
+.hero-stats span {
+    color: #9f938a;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.howto-section,
+.game-list-section,
+.challenge-section,
+.cta-section {
+    padding: 82px 0;
+}
+
+.howto-section {
+    background: linear-gradient(to bottom, #181311 0%, #0e0b0a 100%);
+}
+
+.section-title {
+    font-family: "Newsreader", serif;
+    font-size: clamp(42px, 5vw, 62px);
+    line-height: 0.95;
+    color: #f6f0ea;
+    margin-bottom: 34px;
+}
+
+.section-title.big {
+    color: #e5bc4e;
+}
+
+.howto-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 26px;
+}
+
+.howto-item {
+    position: relative;
+    padding: 16px 10px 10px;
+}
+
+.step-number {
+    position: absolute;
+    top: -4px;
+    left: 0;
+    font-family: "Newsreader", serif;
+    font-size: 76px;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.06);
+}
+
+.step-icon {
+    width: 30px;
+    height: 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(220, 177, 73, 0.12);
+    color: #e2bf63;
+    border: 1px solid rgba(220, 177, 73, 0.3);
+    margin: 38px 0 14px;
+}
+
+.howto-item h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    font-family: "Newsreader", serif;
+    color: #f9f3ea;
+}
+
+.howto-item p {
+    color: #b2a79d;
+    line-height: 1.75;
+}
+
+.game-list-section {
+    background: #070605;
+}
+
+.section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 22px;
+    margin-bottom: 30px;
+}
+
+.section-head p {
+    color: #a89d94;
+}
+
+.slider-nav {
+    display: flex;
+    gap: 8px;
+}
+
+.slide-btn {
+    width: 36px;
+    height: 36px;
+    border: 1px solid rgba(220, 177, 73, 0.35);
+    color: #eac96f;
+    background: transparent;
+    font-size: 24px;
+    line-height: 1;
+}
+
+.slide-btn:hover {
+    background: rgba(220, 177, 73, 0.12);
+}
+
+.games-track {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.game-card {
+    background: linear-gradient(180deg, #1a1512 0%, #120f0d 100%);
+    border: 1px solid rgba(220, 177, 73, 0.18);
+    padding: 14px;
+}
+
+.game-media {
+    overflow: hidden;
+    border: 1px solid rgba(220, 177, 73, 0.12);
+}
+
+.game-media img {
+    height: 190px;
+    object-fit: cover;
+    transition: transform 0.35s ease;
+}
+
+.game-card:hover .game-media img {
+    transform: scale(1.04);
+}
+
+.game-body {
+    padding: 18px 2px 2px;
+}
+
+.game-body h3 {
+    font-family: "Newsreader", serif;
+    font-size: 33px;
+    line-height: 1;
+    color: #f4efe6;
+    margin-bottom: 11px;
+}
+
+.game-body p {
+    color: #b6aba2;
+    line-height: 1.75;
+    min-height: 78px;
+}
+
+.game-meta {
+    margin: 14px 0 18px;
+    display: flex;
+    justify-content: space-between;
+    color: #9a8f86;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.game-meta b {
+    color: #f1cc69;
+    font-size: 20px;
+    font-family: "Newsreader", serif;
+    margin-right: 4px;
+    text-transform: none;
+}
+
+.card-btn {
+    width: 100%;
+}
+
+.challenge-section {
+    background: linear-gradient(to bottom, #130f0d 0%, #090706 100%);
+}
+
+.challenge-grid {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 24px;
+}
+
+.challenge-main {
+    background: #15110f;
+    border: 1px solid rgba(220, 177, 73, 0.18);
+    padding: 26px;
+}
+
+.tag {
+    display: inline-block;
+    border: 1px solid rgba(220, 177, 73, 0.5);
+    padding: 5px 8px;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: #e2be64;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.challenge-main h2 {
+    font-family: "Newsreader", serif;
+    font-size: 52px;
+    line-height: 0.96;
+    margin-bottom: 14px;
+    color: #f6f1ea;
+}
+
+.challenge-main p {
+    color: #b6aaa0;
+    line-height: 1.8;
+}
+
+.reward-box {
+    margin-top: 24px;
+    border: 1px solid rgba(220, 177, 73, 0.45);
+    background: rgba(220, 177, 73, 0.06);
+    padding: 14px;
+}
+
+.reward-box span,
+.reward-box small {
+    color: #baae9f;
+    font-size: 12px;
+    display: block;
+}
+
+.reward-box strong {
+    display: block;
+    font-family: "Newsreader", serif;
+    font-size: 28px;
+    line-height: 1.1;
+    color: #f0cc6b;
+    margin: 6px 0;
+}
+
+.challenge-list {
+    display: grid;
+    gap: 12px;
+}
+
+.challenge-item {
+    border: 1px solid rgba(220, 177, 73, 0.2);
+    background: #181411;
+    padding: 18px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 14px;
+}
+
+.challenge-item h3 {
+    font-size: 21px;
+    color: #f6efe4;
+    margin-bottom: 4px;
+    font-family: "Newsreader", serif;
+}
+
+.challenge-item p {
+    color: #ab9f96;
+}
+
+.challenge-item span {
+    color: #56d67a;
+    font-size: 12px;
+    border: 1px solid rgba(86, 214, 122, 0.35);
+    padding: 4px 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.challenge-item button {
+    border: 1px solid rgba(220, 177, 73, 0.48);
+    color: #efca6a;
+    padding: 8px 12px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+}
+
+.cta-section {
+    text-align: center;
+    background:
+        radial-gradient(circle at center, rgba(220, 177, 73, 0.08), transparent 42%),
+        #0b0807;
+    padding-bottom: 96px;
+}
+
+.cta-wrap {
+    max-width: 760px;
+}
+
+.cta-wrap h2 {
+    font-family: "Newsreader", serif;
+    font-size: clamp(52px, 7vw, 88px);
+    line-height: 0.95;
+    color: #f5efe7;
+    margin-bottom: 14px;
+}
+
+.cta-wrap p {
+    color: #b8aca2;
+    margin-bottom: 28px;
+    line-height: 1.75;
+}
+
+.cta-wrap .btn-primary {
+    min-width: 240px;
+}
+
+.cta-wrap small {
+    display: block;
+    margin-top: 14px;
+    color: #9a8f86;
+}
+
+@media (max-width: 1120px) {
+    .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 34px;
+    }
+
+    .hero-card {
+        max-width: 440px;
+    }
+
+    .howto-grid,
+    .games-track,
+    .challenge-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .challenge-main {
+        grid-column: span 2;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-section,
+    .howto-section,
+    .game-list-section,
+    .challenge-section,
+    .cta-section {
+        padding: 70px 0;
+    }
+
+    .section-title {
+        margin-bottom: 24px;
+    }
+
+    .howto-grid,
+    .challenge-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .challenge-main {
+        grid-column: auto;
+    }
+
+    .section-head {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .games-track {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 14px;
+        padding-bottom: 8px;
+    }
+
+    .games-track::-webkit-scrollbar {
+        height: 8px;
+    }
+
+    .games-track::-webkit-scrollbar-thumb {
+        background: rgba(220, 177, 73, 0.28);
+    }
+
+    .game-card {
+        min-width: 82%;
+        scroll-snap-align: start;
+    }
+
+    .hero-score strong {
+        font-size: 30px;
+    }
+
+    .challenge-item {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}

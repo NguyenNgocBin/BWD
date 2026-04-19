@@ -1,0 +1,354 @@
+﻿.pattern-main {
+    padding: 110px 0 70px;
+    background:
+        radial-gradient(circle at 20% 0%, rgba(212, 175, 55, 0.16), transparent 30%),
+        radial-gradient(circle at 85% 30%, rgba(212, 175, 55, 0.08), transparent 32%),
+        #0b0807;
+    min-height: 100vh;
+}
+
+.pattern-hero {
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.hero-tag {
+    display: inline-block;
+    border: 1px solid rgba(212, 175, 55, 0.45);
+    color: #e6c04f;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    margin-bottom: 10px;
+}
+
+.pattern-hero h1 {
+    font-family: "Newsreader", serif;
+    font-size: clamp(46px, 6vw, 78px);
+    line-height: 0.95;
+    color: #f0d388;
+    margin-bottom: 14px;
+}
+
+.hero-desc {
+    width: min(880px, 100%);
+    margin: 0 auto;
+    color: #d3c8c0;
+    line-height: 1.75;
+    font-size: 17px;
+}
+
+.hero-meta {
+    margin-top: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+.hero-meta span {
+    border: 1px solid rgba(212, 175, 55, 0.25);
+    color: #bcae9f;
+    font-size: 13px;
+    padding: 5px 10px;
+}
+
+.game-shell {
+    width: min(980px, calc(100% - 36px));
+}
+
+.intro-card,
+.play-card,
+.result-card {
+    background: linear-gradient(180deg, #1c1614 0%, #130f0d 100%);
+    border: 1px solid rgba(212, 175, 55, 0.24);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+    padding: 28px;
+}
+
+.intro-card h2,
+.result-card h2 {
+    font-family: "Newsreader", serif;
+    font-size: 44px;
+    line-height: 0.95;
+    color: #f8f2e9;
+    margin-bottom: 12px;
+}
+
+.intro-card p {
+    color: #bcaea2;
+    line-height: 1.8;
+    margin-bottom: 18px;
+}
+
+.rule-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.rule-grid div {
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.rule-grid span {
+    display: block;
+    font-size: 12px;
+    color: #9b8f83;
+    margin-bottom: 6px;
+}
+
+.rule-grid strong {
+    color: #efcb6e;
+    font-family: "Newsreader", serif;
+    font-size: 30px;
+    line-height: 1;
+}
+
+.btn-primary,
+.btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    font-size: 13px;
+    font-weight: 700;
+    min-width: 170px;
+    padding: 12px 18px;
+    border: 1px solid transparent;
+    transition: 0.25s ease;
+}
+
+.btn-primary {
+    background: #d4af37;
+    color: #281e08;
+    border-color: #d4af37;
+}
+
+.btn-primary:hover {
+    background: #e4c458;
+}
+
+.btn-secondary {
+    border-color: rgba(212, 175, 55, 0.45);
+    color: #efce74;
+    background: transparent;
+}
+
+.btn-secondary:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.hud {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.hud-item {
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    background: rgba(0, 0, 0, 0.18);
+    padding: 12px;
+    text-align: center;
+}
+
+.hud-item span {
+    display: block;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #9f9287;
+}
+
+.hud-item strong {
+    color: #f1d47f;
+    font-family: "Newsreader", serif;
+    font-size: 34px;
+    line-height: 1;
+}
+
+.prompt-box {
+    margin-top: 14px;
+    padding: 16px;
+    border-left: 3px solid #d4af37;
+    background: linear-gradient(90deg, rgba(212, 175, 55, 0.12) 0%, rgba(212, 175, 55, 0) 70%);
+}
+
+.prompt-label {
+    font-size: 12px;
+    color: #ae9f8f;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+#questionText {
+    margin: 4px 0 8px;
+    color: #fff6e7;
+    font-family: "Newsreader", serif;
+    font-size: clamp(30px, 4vw, 44px);
+    line-height: 0.98;
+}
+
+.prompt-tip {
+    color: #9f9489;
+    font-size: 14px;
+}
+
+.option-grid {
+    margin-top: 16px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.option-btn {
+    border: 1px solid rgba(212, 175, 55, 0.26);
+    background: #1f1916;
+    color: #f4eee7;
+    text-align: left;
+    padding: 14px;
+    transition: 0.2s ease;
+}
+
+.option-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    background: #2a221e;
+}
+
+.option-btn:disabled {
+    cursor: default;
+}
+
+.option-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+}
+
+.option-symbol {
+    width: 42px;
+    height: 42px;
+    border: 1px solid rgba(212, 175, 55, 0.38);
+    background: rgba(212, 175, 55, 0.1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 23px;
+}
+
+.option-name {
+    font-size: 30px;
+    font-family: "Newsreader", serif;
+    line-height: 1;
+}
+
+.option-note {
+    color: #a9998c;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.option-btn.correct {
+    border-color: #43b964;
+    background: rgba(67, 185, 100, 0.18);
+}
+
+.option-btn.wrong {
+    border-color: #d45353;
+    background: rgba(212, 83, 83, 0.18);
+}
+
+.feedback-box {
+    margin-top: 14px;
+    min-height: 88px;
+    border: 1px dashed rgba(212, 175, 55, 0.35);
+    padding: 12px;
+}
+
+.feedback-main {
+    color: #f0d695;
+    margin-bottom: 8px;
+}
+
+.feedback-knowledge {
+    color: #b8aca1;
+    line-height: 1.7;
+}
+
+.result-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.result-grid div {
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    padding: 12px;
+}
+
+.result-grid span {
+    display: block;
+    color: #9f9286;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.result-grid strong {
+    color: #f4d98d;
+    font-size: 36px;
+    line-height: 1;
+    font-family: "Newsreader", serif;
+}
+
+.result-comment {
+    color: #e8ddca;
+    font-size: 18px;
+    margin-bottom: 18px;
+}
+
+.result-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.hidden {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .pattern-main {
+        padding-top: 100px;
+    }
+
+    .intro-card,
+    .play-card,
+    .result-card {
+        padding: 18px;
+    }
+
+    .rule-grid,
+    .hud,
+    .option-grid,
+    .result-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .option-name {
+        font-size: 26px;
+    }
+
+    .result-actions .btn-primary,
+    .result-actions .btn-secondary,
+    .intro-card .btn-primary {
+        width: 100%;
+    }
+}

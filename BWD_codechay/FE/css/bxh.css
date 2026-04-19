@@ -1,0 +1,348 @@
+﻿.bxh-main {
+    padding: 102px 0 72px;
+    min-height: 100vh;
+    background:
+        linear-gradient(180deg, rgba(8, 12, 14, 0.92), rgba(10, 8, 7, 0.98)),
+        radial-gradient(circle at 20% 12%, rgba(202, 155, 50, 0.08), transparent 34%),
+        #0a0807;
+}
+
+.bxh-hero {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 28px;
+    align-items: center;
+    padding: 34px 0 30px;
+}
+
+.kicker {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 13px;
+    color: #dfbb56;
+    margin-bottom: 8px;
+}
+
+.hero-copy h1 {
+    font-family: "Newsreader", serif;
+    font-size: clamp(58px, 8vw, 96px);
+    line-height: 0.9;
+    color: #f5f0ea;
+    margin-bottom: 14px;
+}
+
+.hero-copy h1 span {
+    color: #e5bc4e;
+    font-style: italic;
+}
+
+.hero-copy p {
+    color: #c2b7af;
+    max-width: 620px;
+    line-height: 1.65;
+    font-size: 17px;
+}
+
+.hero-profile {
+    background: linear-gradient(120deg, #2a2422, #1d1918);
+    border: 1px solid rgba(229, 188, 78, 0.18);
+    padding: 24px;
+    position: relative;
+}
+
+.hero-profile::after {
+    content: "★";
+    position: absolute;
+    right: 18px;
+    bottom: 14px;
+    font-size: 90px;
+    color: rgba(255, 255, 255, 0.06);
+}
+
+.hero-profile h2 {
+    font-family: "Newsreader", serif;
+    color: #f0cf77;
+    font-size: 40px;
+    margin-bottom: 14px;
+}
+
+.hero-profile-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+}
+
+.hero-profile-grid span {
+    display: block;
+    color: #968a82;
+    font-size: 12px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+
+.hero-profile-grid strong {
+    color: #f3ede4;
+    font-size: 40px;
+    font-family: "Newsreader", serif;
+    line-height: 1;
+}
+
+.tab-wrap {
+    margin-top: 8px;
+    border: 1px solid rgba(229, 188, 78, 0.24);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    background: #1a1513;
+}
+
+.tab-btn {
+    border: 0;
+    color: #bdb0a5;
+    background: transparent;
+    padding: 14px 10px;
+    font-size: 18px;
+    position: relative;
+}
+
+.tab-btn.active {
+    color: #e8c35a;
+}
+
+.tab-btn.active::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: #e5bc4e;
+}
+
+.podium-section {
+    padding-top: 46px;
+}
+
+.podium-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    align-items: end;
+}
+
+.podium-card {
+    background: #2a2422;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    text-align: center;
+    padding: 24px 18px;
+    min-height: 300px;
+    position: relative;
+}
+
+.podium-card.first {
+    border-top: 3px solid #e2b948;
+    min-height: 370px;
+}
+
+.podium-card.second {
+    border-top: 3px solid #9da2ab;
+}
+
+.podium-card.third {
+    border-top: 3px solid #c0521f;
+}
+
+.crown {
+    position: absolute;
+    top: -26px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 42px;
+    height: 42px;
+    border-radius: 999px;
+    border: 3px solid #e1ba49;
+    display: grid;
+    place-items: center;
+    color: #e8c251;
+    background: #161312;
+}
+
+.avatar-wrap {
+    width: 128px;
+    height: 128px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 3px solid #e4bd51;
+    margin: 8px auto;
+    background: #0f0d0c;
+}
+
+.podium-card.second .avatar-wrap,
+.podium-card.third .avatar-wrap {
+    width: 96px;
+    height: 96px;
+    border-radius: 14px;
+}
+
+.avatar-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.rank-badge {
+    display: inline-flex;
+    width: 42px;
+    height: 42px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background: #e5bc4e;
+    color: #2d2209;
+    font-weight: 800;
+    margin-top: 10px;
+}
+
+.podium-card h3 {
+    margin-top: 10px;
+    font-family: "Newsreader", serif;
+    color: #f6f0e6;
+    font-size: 48px;
+}
+
+.podium-card p {
+    color: #ddd2c5;
+    font-size: 33px;
+}
+
+.podium-card small {
+    color: #9f9287;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    font-size: 12px;
+}
+
+.my-rank-strip {
+    margin-top: 24px;
+    border: 1px solid rgba(229, 188, 78, 0.28);
+    background: rgba(68, 62, 58, 0.66);
+    display: grid;
+    grid-template-columns: 1.1fr 1.3fr 1fr;
+    padding: 10px 16px;
+    align-items: center;
+    gap: 12px;
+}
+
+.my-rank-strip span,
+.my-rank-strip small {
+    color: #c8bcb1;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.my-rank-strip strong {
+    display: inline-block;
+    color: #f1cd6b;
+    font-family: "Newsreader", serif;
+    font-size: 42px;
+    line-height: 1;
+}
+
+.table-section {
+    padding-top: 52px;
+}
+
+.leader-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #1c1816;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.leader-table th,
+.leader-table td {
+    padding: 16px 20px;
+    text-align: left;
+}
+
+.leader-table thead th {
+    font-size: 13px;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: #a99c8f;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.leader-table tbody tr {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.leader-table tbody tr:last-child {
+    border-bottom: 0;
+}
+
+.leader-table td {
+    color: #e3d8cd;
+    font-size: 17px;
+}
+
+.player-cell {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.player-cell img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.score-col {
+    color: #efca63 !important;
+    font-weight: 700;
+}
+
+@media (max-width: 1100px) {
+    .bxh-hero {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-profile-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .podium-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .my-rank-strip {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .bxh-main {
+        padding-top: 92px;
+    }
+
+    .tab-wrap {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .leader-table th,
+    .leader-table td {
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    .podium-card h3 {
+        font-size: 38px;
+    }
+
+    .podium-card p,
+    .my-rank-strip strong {
+        font-size: 30px;
+    }
+}
