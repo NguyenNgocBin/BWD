@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Newsreader:opsz,wght@6..72,300;6..72,400;6..72,700;6..72,800&display=swap');
+
+:root {
+    --bg: #161311;
+    --bg-soft: #1f1b19;
+    --bg-card: #231f1d;
+    --bg-deep: #110d0c;
+    --text: #eae1dd;
+    --text-muted: #c7beb8;
+    --text-fade: #93877f;
+    --gold: #ffd700;
+    --gold-soft: #e9c400;
+    --line: #3b342f;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Manrope", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+}
+
+img {
+    display: block;
+    width: 100%;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    background: transparent;
+}
+
+/* CONTAINER */
+.container {
+    width: min(1320px, calc(100% - 64px));
+    margin: 0 auto;
+}

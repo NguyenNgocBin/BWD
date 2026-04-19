@@ -1,0 +1,136 @@
+/* ================= GAME ================= */
+.game-container {
+    max-width: 1000px;
+    margin: 32px auto 0;
+    padding: 24px;
+}
+
+.game-status {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 30px;
+    background: #231f1d;
+    padding: 16px 20px;
+    border-radius: 12px;
+}
+
+.game-main {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.question-section {
+    background: #231f1d;
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.question-section h1 {
+    font-size: 28px;
+    line-height: 1.5;
+    color: #ffd700;
+}
+
+.camera-section {
+    background: #1f1b19;
+    padding: 24px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+#webcam {
+    width: 100%;
+    max-width: 500px;
+    height: 300px;
+    object-fit: cover;
+    border: 5px solid red;
+    border-radius: 12px;
+    background: rgb(255, 255, 255);
+    transform: scaleX(-1);
+    display: block;
+    margin: 0 auto;
+}
+
+.head-status {
+    color: #e9c400;
+    margin-top: 12px;
+}
+
+.answers-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.answer-btn {
+    padding: 24px;
+    font-size: 20px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    background: #2e2927;
+    color: white;
+    transition: 0.3s;
+}
+
+.answer-btn:hover {
+    background: #3b342f;
+}
+
+.answer-btn.correct {
+    background: #2e7d32;
+}
+
+.answer-btn.wrong {
+    background: #b71c1c;
+}
+
+.feedback-section {
+    min-height: 40px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: #161311;
+}
+
+.game-actions {
+    margin-top: 24px;
+    text-align: center;
+}
+
+#start-btn {
+    padding: 14px 28px;
+    font-size: 18px;
+    background: #ffd700;
+    color: #161311;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 900px) {
+    .nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .menu {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .game-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .answers-section {
+        grid-template-columns: 1fr;
+    }
+}

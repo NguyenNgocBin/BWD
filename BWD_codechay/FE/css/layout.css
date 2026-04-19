@@ -1,0 +1,139 @@
+/* HEADER */
+.header {
+    position: fixed;
+    inset: 0 0 auto 0;
+    width: 100%;
+    z-index: 1000;
+    background: rgba(22, 19, 17, 0.88);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 215, 0, 0.08);
+}
+
+.nav {
+    min-height: 76px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-icon {
+    color: var(--gold);
+    font-size: 28px;
+}
+
+.logo-text {
+    font-family: "Newsreader", serif;
+    color: var(--gold);
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+.menu-link {
+    font-size: 14px;
+    color: #b2a79d;
+    transition: 0.3s;
+    position: relative;
+}
+
+.menu-link:hover,
+.menu-link.active {
+    color: var(--gold);
+}
+
+.menu-link.active::after,
+.menu-link:hover::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 1px;
+    background: var(--gold);
+}
+
+.btn-login {
+    padding: 10px 16px;
+    color: var(--gold);
+    border: 1px solid rgba(255, 215, 0, 0.15);
+    transition: 0.3s;
+}
+
+.btn-login:hover {
+    background: rgba(255, 215, 0, 0.08);
+}
+
+/* FOOTER */
+.footer {
+    background: var(--bg-deep);
+    padding: 48px 0;
+}
+
+.footer-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 28px;
+    flex-wrap: wrap;
+}
+
+.footer-left h3 {
+    font-family: "Newsreader", serif;
+    color: var(--gold);
+    font-size: 28px;
+    margin-bottom: 6px;
+}
+
+.footer-left p,
+.footer-contact p,
+.footer-right a {
+    color: #8b8179;
+    font-size: 14px;
+}
+
+.footer-contact h4,
+.footer-right h4 {
+    color: var(--gold);
+    margin-bottom: 10px;
+}
+
+.footer-right {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* RESPONSIVE LAYOUT */
+@media (max-width: 768px) {
+    .menu {
+        position: absolute;
+        top: 76px;
+        left: 0;
+        width: 100%;
+        background: #1a1513;
+        border-top: 1px solid rgba(255, 215, 0, 0.08);
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px 24px;
+        gap: 16px;
+        display: none;
+    }
+
+    .footer-wrap {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
