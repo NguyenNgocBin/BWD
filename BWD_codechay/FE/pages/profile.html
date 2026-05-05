@@ -28,7 +28,7 @@
             </nav>
 
             <div class="nav-action">
-                <button class="btn-login" type="button">Đăng nhập</button>
+                <a class="btn-login" href="./login.html">Đăng nhập</a>
             </div>
         </div>
     </header>
@@ -37,28 +37,28 @@
         <section class="profile-hero container">
             <div class="identity-block">
                 <div class="avatar-box">
-                    <img src="../images/dongsonz1.jpg" alt="Ảnh đại diện">
-                    <span class="level-chip">LV. 12</span>
+                    <img id="profileAvatar" src="../images/dongsonz1.jpg" alt="Ảnh đại diện">
+                    <span id="profileLevel" class="level-chip">LV. 12</span>
                 </div>
 
                 <div class="identity-copy">
-                    <h1 id="profileName">Nguyễn Ngọc Bin</h1>
-                    <p>Người khám phá Đông Sơn</p>
+                    <h1 id="profileName">Đang tải...</h1>
+                    <p id="profileSubtitle">Người khám phá Đông Sơn</p>
                 </div>
             </div>
 
             <div class="hero-stats">
                 <div>
                     <span>Tổng điểm</span>
-                    <strong>320</strong>
+                    <strong id="heroTotalScore">320</strong>
                 </div>
                 <div>
                     <span>Xếp hạng</span>
-                    <strong>#12</strong>
+                    <strong id="heroRank">#12</strong>
                 </div>
                 <div>
                     <span>Mạnh nhất</span>
-                    <strong>Ghép hình</strong>
+                    <strong id="heroBestGame">Ghép hình</strong>
                 </div>
             </div>
         </section>
@@ -69,28 +69,28 @@
                     <article class="kpi-card">
                         <span class="kpi-icon">🏆</span>
                         <p>Tổng điểm</p>
-                        <strong>320</strong>
+                        <strong id="kpiTotalScore">320</strong>
                     </article>
                     <article class="kpi-card">
                         <span class="kpi-icon">🎮</span>
                         <p>Số lượt chơi</p>
-                        <strong>25</strong>
+                        <strong id="kpiPlayCount">25</strong>
                     </article>
                     <article class="kpi-card">
                         <span class="kpi-icon">◎</span>
                         <p>Độ chính xác</p>
-                        <strong>78%</strong>
+                        <strong id="kpiAccuracy">78%</strong>
                     </article>
                     <article class="kpi-card">
                         <span class="kpi-icon">⚡</span>
                         <p>Chuỗi ngày</p>
-                        <strong>3 ngày</strong>
+                        <strong id="kpiStreak">3 ngày</strong>
                     </article>
                 </div>
 
                 <section class="panel">
                     <h2>Thành tựu trò chơi</h2>
-                    <div class="achievement-cards">
+                    <div class="achievement-cards" id="achievementCards">
                         <article class="game-ach-card">
                             <img src="../images/dongsonz3.jpg" alt="Tìm họa tiết">
                             <h3>Tìm họa tiết</h3>

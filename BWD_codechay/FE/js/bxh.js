@@ -1,4 +1,5 @@
 ﻿(function () {
+    const API_BASE_URL = "http://localhost:5000/api/v1/auth";
     const DATA = {
         tong: {
             user: { score: "12,450", rank: "#42", best: "Tìm họa tiết", top: "Top 5% người chơi" },
@@ -82,6 +83,64 @@
         thirdAvatar: document.getElementById("thirdAvatar"),
     };
 
+    function getStoredAuth() {
+        const token = localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
+        const rawUser = localStorage.getItem("authUser") || sessionStorage.getItem("authUser");
+
+        let user = null;
+        if (rawUser) {
+            try {
+                user = JSON.parse(rawUser);
+            } catch (error) {
+                user = null;
+            }
+        }
+
+        return { token, user };
+    }
+
+    function formatScore(value) {
+        return Number(value || 0).toLocaleString("vi-VN");
+    }
+
+    async function fetchCurrentUser(token) {
+        const response = await fetch(`${API_BASE_URL}/me`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok) {
+            throw new Error(data.message || "Khong lay duoc thong tin nguoi dung");
+        }
+
+        return data.user;
+    }
+
+    async function hydrateCurrentUserForTotalTab() {
+        const { token, user } = getStoredAuth();
+
+        if (user) {
+            const score = formatScore(user.total_score || 0);
+            ids.userScore.textContent = score;
+            ids.stripName.textContent = `Bạn (${user.username})`;
+            ids.stripScore.textContent = score;
+        }
+
+        if (!token) return;
+
+        try {
+            const freshUser = await fetchCurrentUser(token);
+            const score = formatScore(freshUser.total_score || 0);
+            ids.userScore.textContent = score;
+            ids.stripName.textContent = `Bạn (${freshUser.username})`;
+            ids.stripScore.textContent = score;
+        } catch (error) {
+            // Neu backend chua phan hoi, giu dataset gia dang hien thi.
+        }
+    }
+
     function renderRows(rows) {
         bodyEl.innerHTML = rows
             .map(
@@ -126,6 +185,10 @@
         ids.thirdAvatar.src = data.top3[2].avatar;
 
         renderRows(data.rows);
+
+        if (tabKey === "tong") {
+            hydrateCurrentUserForTotalTab();
+        }
     }
 
     tabButtons.forEach((btn) => {

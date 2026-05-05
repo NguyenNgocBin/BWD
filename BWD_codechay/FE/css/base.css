@@ -12,6 +12,10 @@
     --gold-soft: #e9c400;
     --line: #3b342f;
     --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-pill: 999px;
 }
 
 /* RESET */

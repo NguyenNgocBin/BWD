@@ -1,115 +1,93 @@
-import datetime
-import os
+from flask import g, jsonify, request
 
-import bcrypt
-import jwt
-from flask import jsonify, request
-from sqlalchemy.exc import IntegrityError
-
-from config.db import db
-from models.user_model import User
-
-
-def build_user_response(user):
-    return {
-        "id": user.id,
-        "username": user.username,
-        "email": user.email,
-        "avatar": user.avatar,
-        "total_score": user.total_score,
-    }
+from services.auth_service import (
+    AuthError,
+    change_user_password,
+    get_current_user,
+    login_user,
+    logout_user,
+    register_user,
+    update_current_user_profile,
+)
 
 
+# Chuyen loi nghiep vu thanh response JSON thong nhat cho client.
+def handle_auth_error(error):
+    return jsonify({"message": error.message}), error.status_code
+
+
+# Nhan request dang ky va goi service tao tai khoan moi.
 def register():
     try:
         data = request.get_json(silent=True) or {}
-        username = data.get("username")
-        email = data.get("email")
-        password = data.get("password")
-
-        if not username or not email or not password:
-            return jsonify({"message": "Vui long nhap day du thong tin"}), 400
-
-        username = username.strip()
-        email = email.strip().lower()
-
-        if User.query.filter_by(email=email).first():
-            return jsonify({"message": "Email da ton tai"}), 400
-
-        if User.query.filter_by(username=username).first():
-            return jsonify({"message": "Username da ton tai"}), 400
-
-        hashed_password = bcrypt.hashpw(
-            password.encode("utf-8"),
-            bcrypt.gensalt(),
-        ).decode("utf-8")
-
-        new_user = User(
-            username=username,
-            email=email,
-            password=hashed_password,
+        result = register_user(
+            data.get("username"),
+            data.get("email"),
+            data.get("password"),
         )
-
-        db.session.add(new_user)
-        db.session.commit()
-
-        return jsonify(
-            {
-                "message": "Dang ky thanh cong",
-                "user": build_user_response(new_user),
-            }
-        ), 201
-    except IntegrityError:
-        db.session.rollback()
-        return jsonify({"message": "Email hoac username da ton tai"}), 400
+        return jsonify(result), 201
+    except AuthError as error:
+        return handle_auth_error(error)
     except Exception as error:
-        db.session.rollback()
         return jsonify({"message": "Loi server", "error": str(error)}), 500
 
 
+# Nhan request dang nhap va tra ve token neu thong tin hop le.
 def login():
     try:
         data = request.get_json(silent=True) or {}
-        email = data.get("email")
-        password = data.get("password")
+        result = login_user(data.get("email"), data.get("password"))
+        return jsonify(result), 200
+    except AuthError as error:
+        return handle_auth_error(error)
+    except Exception as error:
+        return jsonify({"message": "Loi server", "error": str(error)}), 500
 
-        if not email or not password:
-            return jsonify({"message": "Vui long nhap day du thong tin"}), 400
 
-        email = email.strip().lower()
-        user = User.query.filter_by(email=email).first()
+# Tra ve thong tin cua nguoi dung dang dang nhap.
+def get_me():
+    try:
+        return jsonify(get_current_user(g.current_user)), 200
+    except Exception as error:
+        return jsonify({"message": "Loi server", "error": str(error)}), 500
 
-        if not user:
-            return jsonify({"message": "Email khong ton tai"}), 400
 
-        is_match = bcrypt.checkpw(
-            password.encode("utf-8"),
-            user.password.encode("utf-8"),
+# Xac nhan dang xuat de frontend xoa token da luu.
+def logout():
+    try:
+        return jsonify(logout_user()), 200
+    except Exception as error:
+        return jsonify({"message": "Loi server", "error": str(error)}), 500
+
+
+# Nhan request doi mat khau cho tai khoan hien tai.
+def change_password():
+    try:
+        data = request.get_json(silent=True) or {}
+        result = change_user_password(
+            g.current_user,
+            data.get("current_password"),
+            data.get("new_password"),
         )
+        return jsonify(result), 200
+    except AuthError as error:
+        return handle_auth_error(error)
+    except Exception as error:
+        return jsonify({"message": "Loi server", "error": str(error)}), 500
 
-        if not is_match:
-            return jsonify({"message": "Sai mat khau"}), 400
 
-        jwt_secret = os.getenv("JWT_SECRET")
-        if not jwt_secret:
-            return jsonify({"message": "JWT_SECRET chua duoc cau hinh"}), 500
-
-        token = jwt.encode(
-            {
-                "user_id": user.id,
-                "exp": datetime.datetime.now(datetime.timezone.utc)
-                + datetime.timedelta(days=7),
-            },
-            jwt_secret,
-            algorithm="HS256",
+# Nhan request cap nhat username, email va avatar cua user.
+def update_profile():
+    try:
+        data = request.get_json(silent=True) or {}
+        result = update_current_user_profile(
+            g.current_user,
+            data.get("username"),
+            data.get("email"),
+            data.get("avatar"),
         )
-
-        return jsonify(
-            {
-                "message": "Dang nhap thanh cong",
-                "token": token,
-                "user": build_user_response(user),
-            }
-        ), 200
+        return jsonify(result), 200
+    except AuthError as error:
+        return handle_auth_error(error)
     except Exception as error:
         return jsonify({"message": "Loi server", "error": str(error)}), 500

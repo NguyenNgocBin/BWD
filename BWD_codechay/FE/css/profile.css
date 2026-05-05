@@ -10,6 +10,7 @@
 .profile-hero {
     background: linear-gradient(90deg, #1e1917 0%, #27211f 48%, #191513 100%);
     border: 1px solid rgba(229, 188, 78, 0.15);
+    border-radius: 18px;
     padding: 28px;
     display: grid;
     grid-template-columns: 1.2fr 1fr;
@@ -113,6 +114,7 @@
 .kpi-card {
     background: #1d1816;
     border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 14px;
     padding: 16px;
 }
 
@@ -159,6 +161,7 @@
 .game-ach-card {
     background: #1f1917;
     border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
     overflow: hidden;
 }
 
@@ -204,6 +207,7 @@
 .badge-item {
     background: #1d1816;
     border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 14px;
     text-align: center;
     padding: 16px 10px;
 }
@@ -228,6 +232,7 @@
 .side-card {
     background: #1f1a18;
     border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 14px;
     padding: 18px;
 }
 
@@ -280,6 +285,7 @@
     gap: 10px;
     background: #28221f;
     margin-top: 10px;
+    border-radius: 12px;
     padding: 12px;
 }
 
@@ -321,6 +327,7 @@
     color: #f2ece3;
     padding: 11px 18px;
     min-width: 130px;
+    border-radius: 999px;
 }
 
 .btn-danger {

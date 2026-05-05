@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đăng nhập - Đông Sơn</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@400;500;600" />
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/login.css">
+</head>
+
+<body class="auth-page" data-auth-page="login">
+    <header class="header">
+        <div class="nav container">
+            <a class="logo" href="../index.html" aria-label="Về trang chủ Đông Sơn">
+                <span class="logo-icon">*</span>
+                <span class="logo-text">Đông Sơn</span>
+            </a>
+
+            <nav class="menu" aria-label="Menu chính">
+                <a href="../index.html" class="menu-link">Trang chủ</a>
+                <a href="./hocvui.html" class="menu-link">Học vui</a>
+                <a href="./trochoi.html" class="menu-link">Trò chơi</a>
+                <a href="./bxh.html" class="menu-link">Xếp hạng</a>
+                <a href="./profile.html" class="menu-link">Cá nhân</a>
+            </nav>
+
+            <div class="nav-action">
+                <a class="btn-login" href="./register.html">Đăng ký</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="auth-shell">
+        <div class="auth-bg" aria-hidden="true"></div>
+
+        <div class="auth-layout">
+            <section class="auth-visual" aria-label="Đông Sơn">
+                <span class="section-label">TIẾP NỐI HÀNH TRÌNH</span>
+                <h1>Trống Đồng<br>Đông Sơn</h1>
+                <p>Khám phá văn hóa Việt qua bài học, thử thách và lịch sử.</p>
+            </section>
+
+            <section class="auth-card" aria-labelledby="loginTitle">
+                <div class="auth-card-head">
+                    <span class="material-symbols-outlined" aria-hidden="true">trip_origin</span>
+                    <span>Đông Sơn</span>
+                </div>
+
+                <h2 class="auth-title" id="loginTitle">Đăng nhập</h2>
+
+                <form class="auth-form" id="loginForm" novalidate>
+                    <div class="auth-field">
+                        <label class="auth-label" for="loginEmail">Email</label>
+                    <div class="auth-input-wrap">
+                            <input class="auth-input" id="loginEmail" name="email" type="email" autocomplete="email" placeholder="Nhập email của bạn" required>
+                            <span class="material-symbols-outlined auth-icon" aria-hidden="true">mail</span>
+                        </div>
+                        <p class="field-error" data-error-for="email"></p>
+                    </div>
+
+                    <div class="auth-field">
+                        <label class="auth-label" for="loginPassword">Mật khẩu</label>
+                    <div class="auth-input-wrap">
+                            <input class="auth-input" id="loginPassword" name="password" type="password" autocomplete="current-password" placeholder="Nhập mật khẩu của bạn" required>
+                            <button class="password-toggle" type="button" aria-label="Hiện mật khẩu" data-toggle-password="loginPassword">
+                                <span class="material-symbols-outlined" aria-hidden="true">visibility</span>
+                            </button>
+                        </div>
+                        <p class="field-error" data-error-for="password"></p>
+                    </div>
+
+                    <div class="auth-row">
+                        <label class="remember-label">
+                            <input type="checkbox" name="remember">
+                            <span>Ghi nhớ tôi</span>
+                        </label>
+                        <a class="auth-link" href="#">Quên mật khẩu?</a>
+                    </div>
+
+                    <p class="form-message" id="loginMessage" role="status" aria-live="polite"></p>
+
+                    <button class="auth-button" type="submit">Đăng nhập</button>
+                </form>
+
+                <div class="auth-divider">hoặc</div>
+
+                <div class="social-grid">
+                    <button class="social-button" type="button" data-social="Google">
+                        <span class="social-mark">G</span>
+                        <span>Google</span>
+                    </button>
+                    <button class="social-button" type="button" data-social="Facebook">
+                        <span class="social-mark">F</span>
+                        <span>Facebook</span>
+                    </button>
+                </div>
+
+                <p class="auth-switch">
+                    Chưa có tài khoản?
+                    <a class="auth-link" href="./register.html">Đăng ký ngay</a>
+                </p>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer" id="footer">
+        <div class="container footer-wrap">
+            <div class="footer-left">
+                <h3>Đông Sơn</h3>
+                <p>Khám phá di sản trống đồng &amp; văn hóa Việt cổ.</p>
+                <p>© 2026 CỔ VẬT SỐ. All rights reserved.</p>
+            </div>
+
+            <div class="footer-contact">
+                <h4>Liên hệ</h4>
+                <p>037 435 2966</p>
+                <p>dongson@gmail.com</p>
+            </div>
+
+            <div class="footer-right">
+                <h4>Kết nối</h4>
+                <a href="#">Facebook</a>
+                <a href="#">TikTok</a>
+                <a href="#">YouTube</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/login.js"></script>
+</body>
+
+</html>

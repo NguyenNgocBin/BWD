@@ -66,9 +66,13 @@
 }
 
 .btn-login {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     padding: 10px 16px;
     color: var(--gold);
     border: 1px solid rgba(255, 215, 0, 0.15);
+    border-radius: var(--radius-pill, 999px);
     transition: 0.3s;
 }
 
@@ -125,6 +129,7 @@
         width: 100%;
         background: #1a1513;
         border-top: 1px solid rgba(255, 215, 0, 0.08);
+        border-radius: 0 0 16px 16px;
         flex-direction: column;
         align-items: flex-start;
         padding: 20px 24px;

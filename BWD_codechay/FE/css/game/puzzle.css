@@ -159,6 +159,7 @@ body {
     position: absolute;
     border: 1.5px dashed rgba(255, 221, 154, 0.45);
     background: rgba(255, 199, 98, 0.06);
+    border-radius: 8px;
     transition: 0.18s ease;
 }
 
@@ -169,7 +170,7 @@ body {
 
 .piece {
     position: absolute;
-    border-radius: 8px;
+    border-radius: 10px;
     border: 1px solid rgba(255, 228, 171, 0.6);
     background-image: url('/BWD_codechay/FE/images/TrongDong.png');
     background-repeat: no-repeat;
@@ -281,6 +282,7 @@ body {
     justify-content: center;
     background: rgba(10, 6, 4, 0.78);
     z-index: 99;
+    backdrop-filter: blur(4px);
 }
 
 .popup-backdrop.hidden {

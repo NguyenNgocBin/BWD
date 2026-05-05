@@ -59,6 +59,7 @@
     text-transform: uppercase;
     font-weight: 700;
     border: 1px solid transparent;
+    border-radius: 999px;
     transition: all 0.25s ease;
 }
 
@@ -130,6 +131,8 @@
     padding: 18px;
     background: #0b0a09;
     border: 1px solid rgba(220, 177, 73, 0.16);
+    border-radius: 12px;
+    overflow: hidden;
 }
 
 .drum-frame img {
@@ -218,6 +221,7 @@
     background: rgba(220, 177, 73, 0.12);
     color: #e2bf63;
     border: 1px solid rgba(220, 177, 73, 0.3);
+    border-radius: 9px;
     margin: 38px 0 14px;
 }
 
@@ -262,6 +266,7 @@
     background: transparent;
     font-size: 24px;
     line-height: 1;
+    border-radius: 999px;
 }
 
 .slide-btn:hover {
@@ -277,12 +282,14 @@
 .game-card {
     background: linear-gradient(180deg, #1a1512 0%, #120f0d 100%);
     border: 1px solid rgba(220, 177, 73, 0.18);
+    border-radius: 14px;
     padding: 14px;
 }
 
 .game-media {
     overflow: hidden;
     border: 1px solid rgba(220, 177, 73, 0.12);
+    border-radius: 10px;
 }
 
 .game-media img {
@@ -348,6 +355,7 @@
 .challenge-main {
     background: #15110f;
     border: 1px solid rgba(220, 177, 73, 0.18);
+    border-radius: 14px;
     padding: 26px;
 }
 
@@ -359,6 +367,7 @@
     letter-spacing: 0.08em;
     color: #e2be64;
     text-transform: uppercase;
+    border-radius: 999px;
     margin-bottom: 12px;
 }
 
@@ -379,6 +388,7 @@
     margin-top: 24px;
     border: 1px solid rgba(220, 177, 73, 0.45);
     background: rgba(220, 177, 73, 0.06);
+    border-radius: 12px;
     padding: 14px;
 }
 
@@ -406,6 +416,7 @@
 .challenge-item {
     border: 1px solid rgba(220, 177, 73, 0.2);
     background: #181411;
+    border-radius: 12px;
     padding: 18px 20px;
     display: flex;
     justify-content: space-between;
@@ -429,6 +440,7 @@
     font-size: 12px;
     border: 1px solid rgba(86, 214, 122, 0.35);
     padding: 4px 10px;
+    border-radius: 999px;
     text-transform: uppercase;
     letter-spacing: 0.08em;
 }
@@ -437,6 +449,7 @@
     border: 1px solid rgba(220, 177, 73, 0.48);
     color: #efca6a;
     padding: 8px 12px;
+    border-radius: 999px;
     font-size: 12px;
     text-transform: uppercase;
     letter-spacing: 0.07em;

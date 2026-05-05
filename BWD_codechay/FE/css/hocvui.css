@@ -144,6 +144,7 @@ a {
 .intro-image img {
     aspect-ratio: 1 / 1;
     object-fit: cover;
+    border-radius: 18px;
     box-shadow: var(--shadow);
 }
 
@@ -204,6 +205,7 @@ a {
     text-align: center;
     min-height: 220px;
     border: 1px solid rgba(255, 255, 255, 0.02);
+    border-radius: 14px;
     transition: transform 0.25s ease, border-color 0.25s ease;
 }
 
@@ -272,6 +274,7 @@ a {
 .story-gallery img {
     height: 170px;
     object-fit: cover;
+    border-radius: 12px;
     box-shadow: var(--shadow);
 }
 
@@ -340,6 +343,7 @@ a {
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
+    border-radius: 999px;
     transition: all 0.25s ease;
 }
 

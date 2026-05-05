@@ -20,6 +20,7 @@
     letter-spacing: 0.1em;
     text-transform: uppercase;
     padding: 4px 10px;
+    border-radius: 999px;
     margin-bottom: 10px;
 }
 
@@ -52,6 +53,7 @@
     color: #bcae9f;
     font-size: 13px;
     padding: 5px 10px;
+    border-radius: 999px;
 }
 
 .game-shell {
@@ -64,6 +66,7 @@
     background: linear-gradient(180deg, #1c1614 0%, #130f0d 100%);
     border: 1px solid rgba(212, 175, 55, 0.24);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+    border-radius: 16px;
     padding: 28px;
 }
 
@@ -93,6 +96,7 @@
     border: 1px solid rgba(212, 175, 55, 0.2);
     padding: 12px;
     background: rgba(255, 255, 255, 0.02);
+    border-radius: 12px;
 }
 
 .rule-grid span {
@@ -121,6 +125,7 @@
     min-width: 170px;
     padding: 12px 18px;
     border: 1px solid transparent;
+    border-radius: 999px;
     transition: 0.25s ease;
 }
 
@@ -155,6 +160,7 @@
     background: rgba(0, 0, 0, 0.18);
     padding: 12px;
     text-align: center;
+    border-radius: 12px;
 }
 
 .hud-item span {
@@ -177,6 +183,7 @@
     padding: 16px;
     border-left: 3px solid #d4af37;
     background: linear-gradient(90deg, rgba(212, 175, 55, 0.12) 0%, rgba(212, 175, 55, 0) 70%);
+    border-radius: 12px;
 }
 
 .prompt-label {
@@ -212,6 +219,7 @@
     color: #f4eee7;
     text-align: left;
     padding: 14px;
+    border-radius: 14px;
     transition: 0.2s ease;
 }
 
@@ -239,6 +247,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    border-radius: 10px;
     font-size: 23px;
 }
 
@@ -268,6 +277,7 @@
     margin-top: 14px;
     min-height: 88px;
     border: 1px dashed rgba(212, 175, 55, 0.35);
+    border-radius: 12px;
     padding: 12px;
 }
 
@@ -290,6 +300,7 @@
 
 .result-grid div {
     border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 12px;
     padding: 12px;
 }
 
