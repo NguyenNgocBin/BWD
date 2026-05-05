@@ -1,64 +1,93 @@
-# Apple — Style Reference
-> Gallery wall at natural light — enormous type casts shadows on a white surface, color enters only as product.
+# Resend — Style Reference
+> Obsidian developer terminal — every surface reads like polished black glass under a focused beam of white type.
 
-**Theme:** light
+**Theme:** dark
 
-Apple's MacBook Neo product page radiates cool luminosity — a gallery-white canvas where enormous weight-700 headlines at 80-96px dominate above feather-light body copy, creating a tension between mass and air. The page background stays #f5f5f7, one step off pure white, giving cards and content wells a surface-lift effect without any shadows. Negative letter-spacing tightens progressively with size — display headlines track at -0.022em while body text breathes at -0.003em, a signature move that makes large type feel chiseled rather than loose. The single interactive accent (#0071e3 CTA blue) appears only on the 'Buy' pill button and nav links, rationed so every appearance reads as an instruction to act. Product gradients — dark-to-citrus-green, dark-to-blue, dark-to-violet — serve as full-bleed theatrical backdrops for each color finish showcase, never decorating UI chrome.
+Resend is a pure black command surface — the canvas is #000000 with near-zero colorfulness (1%), giving the entire interface the weight of polished obsidian. Headlines use a custom serif (Domaine) at display sizes with tight -0.01em tracking, while UI copy runs in Inter and monospaced code elements appear in CommitMono, creating a three-voice typographic hierarchy that signals dev tooling without decoration. Color appears almost exclusively as functional data punctuation: violet for code identity, blue for interactive borders, and a handful of vivid status colors (green, red, yellow, light blue) that function as email event indicators — never as decoration. The system uses subtle border-based elevation (1px hairlines at #292d30) rather than shadows, keeping all surfaces flush and matte on black.
 
 ## Tokens — Colors
 
 | Name | Value | Token | Role |
 |------|-------|-------|------|
-| Ink | `#1d1d1f` | `--color-ink` | Primary text, headings, nav labels, icon fills — near-black with just enough warmth to avoid harshness on white |
-| Graphite | `#707070` | `--color-graphite` | Secondary body copy, captions, footnotes, muted nav items |
-| Slate | `#474747` | `--color-slate` | Tertiary body text, supporting link text, secondary nav |
-| Ash | `#333333` | `--color-ash` | Icon strokes, mid-weight body text, button labels in ghost state |
-| Fog | `#f5f5f7` | `--color-fog` | Page canvas background, section divider bands, badge fills |
-| Snow | `#ffffff` | `--color-snow` | Card surfaces, nav background, elevated container fills |
-| Obsidian | `#000000` | `--color-obsidian` | Dark card variant, hero icon fills, maximum-contrast black card |
-| Silver Mist | `#e8e8ed` | `--color-silver-mist` | Frosted pill button background (country selector), input backgrounds |
-| Azure | `#0071e3` | `--color-azure` | Primary CTA button fill, active nav 'Buy' button — the sole permission-to-act color on the entire page |
-| Cobalt Link | `#0066cc` | `--color-cobalt-link` | Inline text links, navigation anchor colors — slightly darker than Azure to distinguish interactive text from interactive buttons |
-| Citrus Gradient | `linear-gradient(184deg, rgb(29, 29, 31) 0%, rgb(223, 231, 79) 33%, rgb(94, 156, 42) 66%, rgb(10, 134, 26) 95%)` | `--color-citrus-gradient` | MacBook Neo Citrus finish showcase backdrop — dark-to-citrus theatrical product gradient |
-| Indigo Gradient | `linear-gradient(184deg, rgb(29, 29, 31) 20%, rgb(168, 211, 251) 43%, rgb(0, 18, 249) 76%, rgb(37, 53, 224) 95%)` | `--color-indigo-gradient` | MacBook Neo Indigo finish showcase backdrop — dark-to-deep-blue theatrical product gradient |
-| Blush Gradient | `linear-gradient(184deg, rgb(29, 29, 31) 20%, rgb(243, 196, 246) 43%, rgb(245, 0, 180) 76%, rgb(204, 41, 188) 95%)` | `--color-blush-gradient` | MacBook Neo Blush finish showcase backdrop — dark-to-magenta-violet theatrical product gradient |
-| Citrus Finish | `#dddc8c` | `--color-citrus-finish` | Product color swatch — Citrus finish selector chip |
-| Blush Finish | `#e8d0d0` | `--color-blush-finish` | Product color swatch — Blush finish selector chip |
-| Indigo Finish | `#596680` | `--color-indigo-finish` | Product color swatch — Indigo finish selector chip |
-| Caution | `#b64400` | `--color-caution` | Badge warning text, price asterisk callouts — deep amber-orange for inline semantic alerts |
+| Void Black | `#000000` | `--color-void-black` | Page canvas, card backgrounds — the dominant surface across every section |
+| Graphite Rail | `#292d30` | `--color-graphite-rail` | Component borders, dividers, image frames — hairline structural separation on black |
+| Smoke | `#464a4d` | `--color-smoke` | Subtle secondary borders and muted text-adjacent strokes |
+| Ash | `#6c6c6c` | `--color-ash` | Tertiary text, badge labels, de-emphasized body content |
+| Steel | `#6e727a` | `--color-steel` | Secondary body text, icon strokes at reduced opacity |
+| Fog | `#a1a4a5` | `--color-fog` | Primary muted body text, icon fills, badge borders |
+| Mist | `#abafb4` | `--color-mist` | Slightly brighter secondary UI text, active badge outlines |
+| Frost | `#f0f0f0` | `--color-frost` | Primary content text — headings, body copy, nav labels — the single high-contrast text color on black |
+| Pure White | `#ffffff` | `--color-pure-white` | Maximum-emphasis text, icon fills, active button labels |
+| Electric Blue | `#3b9eff` | `--color-electric-blue` | Blue action color for filled buttons, selected navigation states, and focused conversion moments. |
+| Resend Violet | `linear-gradient(to right bottom in oklab, rgb(146, 129, 247) 0%, rgb(154, 84, 220) 100%)` | `--color-resend-violet` | Code syntax highlights, email address text in product UI, decorative icon borders — the brand's signature hue, always used inside product surfaces rather than nav or shell; Email app icon gradient from violet to purple — product identity mark |
+| Surface Lift | `linear-gradient(rgb(27, 27, 27), rgb(3, 3, 3))` | `--color-surface-lift` | Subtle card-to-canvas gradient top — barely perceptible surface elevation on dark UI |
+| Delivered Green | `#3ad389` | `--color-delivered-green` | Green decorative accent for icons, marks, and small graphic details. Use as a supporting accent, not as a status color |
+| Bounced Red | `#ff9592` | `--color-bounced-red` | Red decorative accent for icons, marks, and small graphic details. Use as a supporting accent, not as a status color |
+| Complained Yellow | `#ffca16` | `--color-complained-yellow` | Yellow decorative accent for icons, marks, and small graphic details. Use as a supporting accent, not as a status color |
+| Opened Blue | `#70b8ff` | `--color-opened-blue` | Blue decorative accent for icons, marks, and small graphic details. Use as a supporting accent, not as a status color |
+| Clicked Lavender | `#baa7ff` | `--color-clicked-lavender` | Violet decorative accent for icons, marks, and small graphic details. Use as a supporting accent, not as a status color |
 
 ## Tokens — Typography
 
-### SF Pro Display — All marketing headlines, product name lockups, section titles. Weight 700 at 80-96px is the page's defining visual move — these headlines are 2-4 words at near-poster scale, taking up half the viewport before any product image appears. Negative tracking at display sizes (-0.022em at largest) tightens letterforms into a single typographic mass. · `--font-sf-pro-display`
-- **Substitute:** Inter, system-ui
-- **Weights:** 600, 700
-- **Sizes:** 21px, 24px, 28px, 32px, 40px, 56px, 80px, 96px
-- **Line height:** 1.04–1.20
-- **Letter spacing:** -0.022em at 96px, -0.019em at 80px, -0.016em at 56px, -0.015em at 40px, -0.005em at 28px, +0.004em at 21px
-- **OpenType features:** `"numr"`
-- **Role:** All marketing headlines, product name lockups, section titles. Weight 700 at 80-96px is the page's defining visual move — these headlines are 2-4 words at near-poster scale, taking up half the viewport before any product image appears. Negative tracking at display sizes (-0.022em at largest) tightens letterforms into a single typographic mass.
+### Inter — All UI chrome — nav, buttons, body copy, captions, links. The workhorse that disappears into the interface. 600 weight used for interactive emphasis, 400 for running text. · `--font-inter`
+- **Substitute:** Inter (free via Google Fonts)
+- **Weights:** 400, 500, 600
+- **Sizes:** 12px, 14px, 16px, 18px, 24px
+- **Line height:** 1.33–1.60
+- **Letter spacing:** normal
+- **Role:** All UI chrome — nav, buttons, body copy, captions, links. The workhorse that disappears into the interface. 600 weight used for interactive emphasis, 400 for running text.
 
-### SF Pro Text — Body copy, nav labels, captions, button labels, footnotes. Weight 400 at 17px is the default body size. Weight 300 appears at larger marketing sizes (20-24px) for subheadings that should feel lighter than headlines. Weight 600 for emphasis labels. The -0.003em tracking at body sizes is subtle but keeps dense paragraphs from sprawling. · `--font-sf-pro-text`
-- **Substitute:** Inter, system-ui
-- **Weights:** 300, 400, 500, 600
-- **Sizes:** 12px, 14px, 17px, 18px, 20px, 24px, 44px
-- **Line height:** 1.24–1.50
-- **Letter spacing:** -0.022em at 44px, -0.010em at 20px, -0.006em at 17px, -0.003em at 14px, -0.003em at 12px
-- **OpenType features:** `"numr"`
-- **Role:** Body copy, nav labels, captions, button labels, footnotes. Weight 400 at 17px is the default body size. Weight 300 appears at larger marketing sizes (20-24px) for subheadings that should feel lighter than headlines. Weight 600 for emphasis labels. The -0.003em tracking at body sizes is subtle but keeps dense paragraphs from sprawling.
+### Domaine — Display-only serif for the largest hero statements and section closers. Weight 400 at near-100px is anti-convention — most dev tools use grotesque sans at this scale, the serif creates authority through editorial restraint. Tightest tracking in the system. · `--font-domaine`
+- **Substitute:** DM Serif Display, Playfair Display
+- **Weights:** 400
+- **Sizes:** 77px, 96px
+- **Line height:** 1.00
+- **Letter spacing:** -0.01em
+- **OpenType features:** `"ss01", "ss04", "ss11"`
+- **Role:** Display-only serif for the largest hero statements and section closers. Weight 400 at near-100px is anti-convention — most dev tools use grotesque sans at this scale, the serif creates authority through editorial restraint. Tightest tracking in the system.
+
+### ABCFavorit — Section headings and subheadings. At 56px weight 400 with -0.05em tracking, punches well above its point size. At 14-20px used for feature labels and callouts. The custom geometric grotesque gives sharper corners than Inter, distinguishing marketing headings from UI copy. · `--font-abcfavorit`
+- **Substitute:** ABC Favorit (commercial), Söhne, GT America
+- **Weights:** 400, 500
+- **Sizes:** 14px, 16px, 20px, 56px
+- **Line height:** 1.00–1.50
+- **Letter spacing:** -0.05em at 56px; +0.025em at smaller display sizes
+- **OpenType features:** `"ss01", "ss04", "ss11"; also "ss01", "ss03", "ss04"`
+- **Role:** Section headings and subheadings. At 56px weight 400 with -0.05em tracking, punches well above its point size. At 14-20px used for feature labels and callouts. The custom geometric grotesque gives sharper corners than Inter, distinguishing marketing headings from UI copy.
+
+### CommitMono — Code samples, badge labels, filename strings, and terminal-style inline snippets. Distinguishes developer content from prose at a glance — the monospace voice signals 'this is actual code', not metaphor. · `--font-commitmono`
+- **Substitute:** JetBrains Mono, Fira Code
+- **Weights:** 400
+- **Sizes:** 12px, 14px, 16px
+- **Line height:** 1.33–1.50
+- **Letter spacing:** normal
+- **Role:** Code samples, badge labels, filename strings, and terminal-style inline snippets. Distinguishes developer content from prose at a glance — the monospace voice signals 'this is actual code', not metaphor.
+
+### Helvetica — Helvetica — detected in extracted data but not described by AI · `--font-helvetica`
+- **Weights:** 400, 600, 700
+- **Sizes:** 14px
+- **Line height:** 1, 1.71
+- **Role:** Helvetica — detected in extracted data but not described by AI
+
+### -apple-system — -apple-system — detected in extracted data but not described by AI · `--font-apple-system`
+- **Weights:** 400
+- **Sizes:** 14px
+- **Line height:** 1.5, 1.55
+- **OpenType features:** `"liga" 0`
+- **Role:** -apple-system — detected in extracted data but not described by AI
 
 ### Type Scale
 
 | Role | Size | Line Height | Letter Spacing | Token |
 |------|------|-------------|----------------|-------|
-| caption | 12px | 1.33 | -0.26px | `--text-caption` |
-| body-sm | 14px | 1.43 | -0.04px | `--text-body-sm` |
-| body | 17px | 1.47 | -0.1px | `--text-body` |
-| subheading | 20px | 1.4 | -0.2px | `--text-subheading` |
-| heading-sm | 24px | 1.29 | -0.36px | `--text-heading-sm` |
-| heading | 40px | 1.17 | -0.6px | `--text-heading` |
-| heading-lg | 56px | 1.07 | -0.9px | `--text-heading-lg` |
-| display | 96px | 1.04 | -2.11px | `--text-display` |
+| caption | 12px | 1.33 | — | `--text-caption` |
+| body-sm | 14px | 1.43 | — | `--text-body-sm` |
+| body | 16px | 1.5 | — | `--text-body` |
+| subheading | 18px | 1.6 | — | `--text-subheading` |
+| heading-sm | 20px | 1.3 | — | `--text-heading-sm` |
+| heading | 24px | 1.33 | — | `--text-heading` |
+| heading-lg | 56px | 1 | -2.8px | `--text-heading-lg` |
+| display | 96px | 1 | -0.96px | `--text-display` |
 
 ## Tokens — Spacing & Shapes
 
@@ -79,184 +108,181 @@ Apple's MacBook Neo product page radiates cool luminosity — a gallery-white ca
 | 28 | 28px | `--spacing-28` |
 | 32 | 32px | `--spacing-32` |
 | 40 | 40px | `--spacing-40` |
-| 44 | 44px | `--spacing-44` |
 | 48 | 48px | `--spacing-48` |
-| 52 | 52px | `--spacing-52` |
-| 76 | 76px | `--spacing-76` |
+| 64 | 64px | `--spacing-64` |
 | 80 | 80px | `--spacing-80` |
-| 120 | 120px | `--spacing-120` |
+| 96 | 96px | `--spacing-96` |
+| 104 | 104px | `--spacing-104` |
 | 144 | 144px | `--spacing-144` |
 
 ### Border Radius
 
 | Element | Value |
 |---------|-------|
-| cards | 28px |
-| buttons | 999px |
-| navItems | 980px |
-| pillButtons | 999px |
-| featureLinks | 28px |
-| smallButtons | 10px |
-| roundedButtons | 36px |
+| tags | 10px |
+| cards | 16px |
+| large | 24px |
+| badges | 6px |
+| modals | 16px |
+| buttons | 6px |
+
+### Shadows
+
+| Name | Value | Token |
+|------|-------|-------|
+| subtle | `rgba(176, 199, 217, 0.145) 0px 0px 0px 1px` | `--shadow-subtle` |
+| subtle-2 | `rgb(0, 0, 0) 0px 0px 0px 8px` | `--shadow-subtle-2` |
+| subtle-3 | `rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.1) 0p...` | `--shadow-subtle-3` |
 
 ### Layout
 
 - **Page max-width:** 1200px
 - **Section gap:** 80-120px
-- **Card padding:** 28px
-- **Element gap:** 10px
+- **Card padding:** 32px
+- **Element gap:** 16px
 
 ## Components
 
-### Primary Buy Button
-**Role:** Sole conversion CTA across page and sticky nav
+### Primary Outlined Action Button
+**Role:** Main CTA — 'Get started' in nav and hero
 
-backgroundColor #0071e3, color #ffffff, borderRadius 999px, paddingTop 8px, paddingBottom 8px, paddingLeft 16px, paddingRight 16px, font SF Pro Text 17px weight 400. Appears in global nav and anchored product nav. The only #0071e3 element on the page — isolated blue against all-neutral surroundings makes it impossible to miss without competing colors.
+Transparent background, 1px solid #3b9eff border, 8px radius, #ffffff text at Inter 14px weight 500. Padding: 1px all sides (tight fit to border). On dark canvas the electric blue ring is the single chromatic signal in the entire nav bar, drawing the eye to the only action that matters.
 
-### Ghost Text Button
-**Role:** Section 'Learn more' links styled as buttons
+### Ghost Navigation Button
+**Role:** Nav dropdowns — Features, Company, Resources, Help, Docs, AI
 
-backgroundColor transparent, color #1d1d1f, borderRadius 0px, no padding. Rendered as plain weighted text. Used for secondary actions inside feature cards — avoids visual noise next to the single primary CTA.
+Transparent background, no visible border, #f0f0f0 at 71% opacity text, Inter 14px weight 400. Padding: 4px vertical, 0px horizontal. Chevron indicator appended. Zero radius. Fades into the black nav bar, deferring attention to the CTA.
 
-### Rounded Ghost Button
-**Role:** Feature navigation tabs (Calls and Texts, Handoff, iPhone Mirroring, AirDrop)
+### Ghost Text Link Button
+**Role:** Secondary actions — Documentation, Log in, View on GitHub
 
-backgroundColor transparent, color #1d1d1f, borderRadius 28px, no padding. Circular border implied by radius; acts as a pill-shaped tab toggle. Text at SF Pro Text 17px weight 400.
+No background, no border, #fcfdff at ~94% opacity, Inter 14px weight 400. Padding: 0. Used inline beside filled/outlined actions as the quieter alternative path.
 
-### Frosted Pill Selector
-**Role:** Country/region selector and segmented control overlays
+### Muted Secondary Button
+**Role:** Tertiary navigation links — Pricing
 
-backgroundColor rgba(210, 210, 215, 0.64), color rgba(0,0,0,0.56), borderRadius 36px, no explicit padding. backdrop-filter blur(20px). The frosted glass treatment signals a temporary overlay or in-page selector, visually distinct from all opaque buttons.
+No background, no border, #a1a4a5 text, Inter 14px weight 400. Padding: 4px top/bottom. The lowest-contrast button in the system — visually recedes to a hint.
 
-### Dark Pill Button
-**Role:** Hero section 'Buy' CTA on dark product backdrops
+### Announcement Badge / Pill
+**Role:** Inline announcement tag — 'Announcing Resend Forward'
 
-backgroundColor #000000, color #ffffff, borderRadius 999px, paddingLeft 16px, paddingRight 16px. Used when the backdrop is a product color gradient — switches from #0071e3 to #000000 to remain legible against vivid gradient backgrounds.
+Transparent background, 1px solid #292d30 border, 16px radius, #f0f0f0 text at Inter 14px weight 400. Small arrow glyph appended. Sits above hero headline as a notification-style entry point.
 
-### White Feature Card
-**Role:** Primary content card for feature showcases
+### Feature Card
+**Role:** Product feature highlight panels in section grids
 
-backgroundColor #ffffff, borderRadius 28px, boxShadow none, padding 28px. Lifts off the #f5f5f7 canvas by 1 surface level. The 28px radius is signature Apple — rounded enough to feel premium, not so round it reads as a chip or badge.
+Background #000000 (or near-black gradient from #1b1b1b to #030303), 16px radius, 1px solid #292d30 border, 32px padding all sides. No box-shadow. Content: icon + heading (Inter 16-18px weight 600, #ffffff) + body (Inter 14px weight 400, #a1a4a5).
 
-### Fog Feature Card
-**Role:** Alternate feature card on white backgrounds
+### Testimonial Card
+**Role:** Social proof quote cards in horizontal scroll section
 
-backgroundColor #f5f5f7, borderRadius 28px, boxShadow none, padding 28px. Used when the parent section is #ffffff — reverses the surface/card relationship so the card reads as recessed rather than elevated.
+Background #000000, 16px radius, 1px solid #292d30 border, 32px padding. Quote body in Inter 14px weight 400 at #f0f0f0, attribution in #a1a4a5 at 12px. Avatar image at 32px rounded-full. No shadow — sits flush in dark scroll container.
 
-### Dark Feature Card
-**Role:** High-contrast product detail card
+### Code Snippet Block
+**Role:** Inline product demo code panels in feature sections
 
-backgroundColor #000000, borderRadius 28px, boxShadow none. Text color #ffffff. Used as a single accent card within a light card grid — maximum contrast without color.
+Background near-black with 1px #292d30 border, 16px radius. CommitMono 14px weight 400. Keywords and identifiers in #9281f7 (Resend Violet), email addresses in #9281f7, strings in #f0f0f0. Filename tabs use Inter 12px #a1a4a5 with #3b9eff for active file color.
 
-### Global Navigation Bar
-**Role:** Persistent top nav with product categories
+### Status Event Badge
+**Role:** Email event row indicators in analytics product UI
 
-backgroundColor #f5f5f7 (or rgba(250,250,252) when open), height ~44px, nav links at SF Pro Text 12px weight 400 color #1d1d1f, Apple logo SVG fill #000000. Sticky, transitions background to semi-opaque white on scroll. Contains 'Buy' primary button at far right.
+No background, no border-radius. Icon + label text at 14px Inter weight 400. Delivered = #3ad389, Bounced = #ff9592, Complained = #ffca16, Opened = #70b8ff, Clicked = #baa7ff. These are the only vivid color uses in the entire product surface.
 
-### Sticky Product Sub-Nav
-**Role:** Page-section navigator (Overview, Tech Specs, Compare, Switch from PC to Mac)
+### Email App Icon
+**Role:** Brand product mark shown in logo/hero sections
 
-backgroundColor #ffffff, borderBottom 1px solid #e8e8ed, height ~52px, link text SF Pro Text 14px weight 400 color #1d1d1f, active link has 3px underline in #1d1d1f. Contains Buy pill button in #0071e3 at far right. Stays fixed after hero scroll.
+Rounded square with 24px radius, violet-to-purple gradient (linear-gradient from #9281f7 to #9a54dc in oklab colorspace). Envelope icon in white centered. Dark inner shadow creates depth. Represents the Resend email product identity.
 
-### Product Color Swatch Chip
-**Role:** Finish selector for Silver, Blush, Citrus, Indigo
+### Navigation Bar
+**Role:** Site-wide sticky top bar
 
-Small circular or short pill, backgroundColor from finish token (--finish-blush #e8d0d0, --finish-citrus #dddc8c, --finish-indigo #596680, --finish-silver #e3e4e5), borderRadius 999px. Selected state adds 3px solid #1d1d1f border ring.
+Background #000000 with backdrop-filter blur(25px) for frosted glass behavior when content scrolls beneath. Height 59px. Left: Resend wordmark in white. Center: ghost nav buttons. Right: Log in ghost link + 'Get started' outlined blue CTA. 1px solid #292d30 bottom border separates from content.
 
-### New Badge
-**Role:** Product 'New' label in nav and product cards
+### Logo / Partner Wordmark Strip
+**Role:** Trust signal section — company logo grid
 
-backgroundColor transparent, color #1d1d1f, borderRadius 0px, font SF Pro Text 12px weight 600. Appears as a plain text label, not a pill — anti-convention for a badge, reads as an editorial stamp rather than a UI chip.
-
-### Carousel Pagination Dot
-**Role:** Slide indicator in feature carousels
-
-Active dot: backgroundColor #1d1d1f, width ~8px, height ~8px, borderRadius 999px. Inactive dots: backgroundColor rgba(210,210,215,0.64), same dimensions. Horizontally centered below carousel, gap 6px.
+White SVG logos (#ffffff, 60-80% opacity) on black background. No cards or borders — logos float directly on canvas. Two rows, 6 columns. Caption text above in #a1a4a5 at Inter 14px.
 
 ## Do's and Don'ts
 
 ### Do
-- Use 28px border-radius for all feature cards (#ffffff and #f5f5f7 backgrounds) — this exact value is the page's geometric signature.
-- Reserve #0071e3 exclusively for the primary 'Buy' CTA button. No other UI element uses this blue — its scarcity makes it the only color that reads as an imperative.
-- Apply negative letter-spacing scaled to font size: -2.11px at 96px display, -0.9px at 56px heading-lg, -0.1px at 17px body. Positive or zero tracking at display sizes breaks the chiseled headline aesthetic.
-- Use #f5f5f7 as page canvas and #ffffff as card surface. Never reverse this — cards must always be lighter than their parent background.
-- Set SF Pro Display weight 700 for all primary product headlines at 56px and above. Weight 600 is for supporting headers (24-40px), never for hero text.
-- Use rgba(210,210,215,0.64) with backdrop-filter blur(20px) for any temporary overlay controls (country selectors, segmented pickers) — this is the frosted-glass layer distinct from all opaque surfaces.
-- Product finish gradients (Citrus, Indigo, Blush) are used only as full-bleed section backdrops for that finish's showcase. Never use them as UI chrome, card backgrounds, or button fills.
+- Use #000000 as the default background for every section, card, and container — deviations must be justified by a visible elevation hierarchy via 1px #292d30 border.
+- Apply Domaine weight 400 exclusively to hero display text (77-96px) and use ABCFavorit for section headings (56px) — never swap these roles.
+- Reserve the six vivid status colors (#3ad389, #ff9592, #ffca16, #70b8ff, #baa7ff, #9281f7) strictly for product-UI data contexts such as email event rows or code syntax — never for decorative section backgrounds or nav elements.
+- Use CommitMono for any code, filename, CLI snippet, or developer token — never Inter or ABCFavorit in code contexts.
+- Keep button borders at 6px radius for action buttons and pill badges at 16px radius — maintain this distinction to separate call-to-action shape from tagging shape.
+- Use #3b9eff only as the outlined border on the primary CTA button — this is the only chromatic color in the nav/shell and must remain singular.
+- Set all card padding to 32px and maintain 1px solid #292d30 as the only border treatment — no shadow stacks, no color fills, no gradients on cards.
 
 ### Don't
-- Do not add box-shadow to any card or container. The entire elevation system is color-value-only — shadows break the flat-lit gallery effect.
-- Do not use #0066cc (Cobalt Link) for button backgrounds. It is an inline text link color only — using it on filled buttons conflicts with the #0071e3 CTA hierarchy.
-- Do not use font weight 300 for headlines below 40px — below that threshold, weight 300 loses definition against the white/fog background.
-- Do not place two rounded-pill buttons side by side in the same visual zone. The 999px radius is rationed to one CTA per section to prevent diffusion of focus.
-- Do not use the product finish colors (#dddc8c Citrus, #e8d0d0 Blush, #596680 Indigo) as semantic or UI accent colors — they exist only as product identity swatches and gradient source colors.
-- Do not use positive letter-spacing on SF Pro Display at sizes above 28px. The +0.007em–+0.011em values from the data appear only at small display sizes (21px); at headline scale positive tracking is tonally inconsistent.
-- Do not center-align body paragraphs longer than 2 lines. Apple's body copy left-aligns in two-column feature layouts; centered text is reserved for single-line hero subheadings and price callouts.
+- Never use a filled colored background for action buttons — the design uses outlined (#3b9eff border) or ghost (transparent) buttons exclusively. A filled blue or violet button breaks the matte black surface language.
+- Never apply Domaine or ABCFavorit to UI chrome such as nav labels, badge text, or button copy — those belong exclusively to Inter.
+- Never use more than one vivid status color in a non-product-UI context — the moment a page-level section uses green or yellow as decoration, the email event system loses its meaning.
+- Never add drop shadows to cards or sections — elevation is achieved through 1px border contrast on black, not shadow lifting.
+- Never use a white or light background for any full-width section — even 'light' content blocks must remain on near-black (#000000 or #0b0e14).
+- Never increase letter-spacing on display text — Domaine and ABCFavorit run at negative tracking (-0.01em and -0.05em respectively); positive tracking at display sizes conflicts with the editorial compression of this system.
+- Never mix more than two typefaces in a single component — one font for UI copy (Inter) and one for code (CommitMono) is the maximum; headings use ABCFavorit or Domaine depending on size, never both simultaneously.
 
 ## Surfaces
 
 | Level | Name | Value | Purpose |
 |-------|------|-------|---------|
-| 0 | Canvas | `#f5f5f7` | Page body background — one step off white, creates implicit depth against pure-white cards |
-| 1 | Card | `#ffffff` | Feature cards, info panels, modal containers — lifts off canvas without shadow, pure separation by value |
-| 2 | Recessed | `#f5f5f7` | Inset content areas within white cards — same as canvas, creates nested depth by repetition |
-| 3 | Frosted Control | `#d2d2d7` | Pill selector backgrounds (country dropdown, segmented controls) — rgba(210,210,215,0.64) with backdrop blur |
-| 4 | Dark Stage | `#000000` | Full-bleed dark card variant for maximum-contrast product showcases; used sparingly as a dramatic section divider |
+| 0 | Canvas | `#000000` | Page background — pure black, the dominant surface |
+| 1 | Card Surface | `#0b0e14` | Feature cards and elevated containers — barely distinguishable from canvas, separation via 1px #292d30 border |
+| 2 | UI Rail | `#292d30` | Border color for all component edges, image frames, dividers |
+| 3 | Overlay | `#1b1b1b` | Gradient top of dark cards and hero overlays; backdrop-filter: blur(25px) for frosted glass dropdowns |
 
 ## Elevation
 
-Zero box-shadows across all 73 card instances. Elevation is expressed entirely through background-color differential: #ffffff cards float above #f5f5f7 canvas by value contrast alone. This forces the eye to read depth through color rather than cast shadow — a choice that keeps the page feeling like a flat lit surface rather than a stacked document. The only visual separation is the 28px border-radius rounding the card edges, making containment geometric rather than dimensional.
+- **Icon ring:** `rgba(176, 199, 217, 0.145) 0px 0px 0px 1px`
+- **Dropdown / popover:** `rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.1) 0px 1px 2px -1px`
+- **Focus ring / outline:** `rgb(0, 0, 0) 0px 0px 0px 8px`
 
 ## Imagery
 
-Product photography dominates: the MacBook is always the sole subject, photographed on pure white or against the Fog (#f5f5f7) surface — zero lifestyle context, no hands (except the hero hand hold), no desk environment. The hero image is the laptop balanced on a single palm from below-frame, shot at a near-overhead angle with the vivid Citrus finish as the sole color note in an otherwise achromatic composition. Color finish showcases use full-bleed theatrical gradients (dark-to-citrus, dark-to-indigo, dark-to-blush) as the backdrop, with the open laptop emerging from the gradient — product-as-light-source. No illustration. Icons are SF Symbols style: mono, filled/outlined hybrid, 1.5-2px apparent stroke, #1d1d1f on light backgrounds, #ffffff on dark cards. The page is image-heavy relative to text — each major section is anchored by a product image occupying 50-80% of viewport height, with text floating above or below in compact lockups.
+Resend's visual language centers on high-fidelity 3D-rendered objects — the hero shows a black modular cube cluster rendered with physically-based lighting on pure black, casting no visible floor shadow. Objects have a lacquered, almost ceramic finish: deep black with subtle specular highlights that emerge from the scene's single directional light. There is no lifestyle photography, no people, no abstract patterns. Product screenshots (email analytics tables, code editors) appear as contained UI panels inside dark card frames, treated as flat surfaces rather than floating mockups. The email app icon uses a violet-to-purple gradient as its only chromatic surface. Icon style is outlined with consistent ~1.5px stroke weight, monochromatic white or gray — never filled with color. Overall image density is low: one hero 3D object, one or two product video panels per section, white company logos on black. The site is text and code dominant; imagery serves as punctuation, not wallpaper.
 
 ## Layout
 
-Max-width ~1200px centered on a #f5f5f7 canvas. Hero is full-viewport centered headline stack (product name at 24px, hero headline at 80-96px, price subtext at 17px, single Buy pill) with product image breaking below the text fold — classic Apple centered-stack hero. Sub-nav becomes sticky at ~52px height after the hero. Section rhythm: alternating white (#ffffff full-width bands) and fog (#f5f5f7) bands with no explicit dividers — the color shift alone creates section breaks. Feature sections use 2-column split (text left at ~40% width, product image right at ~60%) or full-bleed product gradient cards. Highlight carousel is a single-column centered card with horizontal scroll and pagination dots. Specs section uses a tight left-label / right-value two-column table pattern at body-sm size. Feature detail cards stack in a 2×2 grid at 28px radius, each card self-contained. Navigation: translucent sticky global nav at top (12px text, ~44px tall) plus sticky product sub-nav below it (14px text, ~52px tall) — two navigation layers are always visible, keeping section context persistent during long scroll.
+Max-width approximately 1200px centered on a full-bleed black canvas. Hero is full-viewport dark — left-aligned headline block with announcement pill above, two action buttons below, and a right-positioned 3D rendered object floating in the dark field. Section rhythm is seamless black-on-black with only hairline dividers (1px #292d30) separating bands — no alternating light/dark sections, no distinct color shifts between sections. Feature sections use left-text / right-product-video two-column layouts at roughly 40/60 split, alternating which side holds the visual. Social proof uses a horizontal scroll card strip. Code showcase sections use a centered stack with the code panel as the hero visual. The navigation is a fixed top bar at 59px. Footer is minimal — two links only. Overall the page feels vertically long with generous spacing (80-120px section gaps) and very low content density per viewport, pushing focus onto each individual product moment.
 
 ## Agent Prompt Guide
 
-QUICK COLOR REFERENCE:
-• Page background: #f5f5f7
-• Card surface: #ffffff
-• Primary text / headlines: #1d1d1f
-• Secondary text: #707070
-• CTA button fill: #0071e3
-• Inline links: #0066cc
-• Border / divider: #e8e8ed
+**Quick Color Reference**
+- text (primary): #f0f0f0
+- text (secondary): #a1a4a5
+- background: #000000
+- border: #292d30
+- accent / brand: #9281f7 (violet, code/product contexts only)
+- primary action: #3b9eff (filled action)
 
-EXAMPLE COMPONENT PROMPTS:
+**Example Component Prompts**
 
-1. Hero section: Full-width, background #f5f5f7. Center-stack layout. Eyebrow at SF Pro Text 24px weight 600, color #1d1d1f, letter-spacing -0.36px. Headline at SF Pro Display 96px weight 700, color #1d1d1f, letter-spacing -2.11px, lineHeight 1.04. Price subtext at SF Pro Text 17px weight 400, color #1d1d1f. Single Buy pill button: backgroundColor #000000, color #ffffff, borderRadius 999px, paddingLeft 16px, paddingRight 16px, paddingTop 8px, paddingBottom 8px. Product photo centered below text at full viewport width.
+1. **Nav Bar**: Black background (#000000), height 59px, 1px solid #292d30 bottom border, backdrop-filter blur(25px). Left: 'Resend' wordmark in #ffffff Inter 500 16px. Center: ghost links (#f0f0f0 71% opacity, Inter 400 14px, chevron appended, 0 radius). Right: 'Log in' ghost text (#f0f0f0, Inter 400 14px) + 'Get started' button (transparent bg, 1px solid #3b9eff border, 8px radius, #ffffff Inter 500 14px, 8px vertical / 16px horizontal padding).
 
-2. Sticky product sub-nav: backgroundColor #ffffff, borderBottom 1px solid #e8e8ed, height 52px. Nav links: SF Pro Text 14px weight 400, color #1d1d1f, spaced 24px apart. Active link has 3px solid #1d1d1f underline. Far-right Buy button: backgroundColor #0071e3, color #ffffff, borderRadius 999px, paddingLeft 16px, paddingRight 16px, paddingTop 8px, paddingBottom 8px, SF Pro Text 17px weight 400.
+2. **Hero Section**: Full-bleed black (#000000). Left column: announcement pill (transparent bg, 1px solid #292d30 border, 16px radius, #f0f0f0 Inter 400 14px, '→' glyph). Below: headline in ABCFavorit weight 400 56px #ffffff letter-spacing -0.05em, line-height 1.0. Subtext: Inter 400 18px #a1a4a5 line-height 1.6. Two buttons below: 'Get started' (transparent, 1px #3b9eff border, 6px radius, #ffffff Inter 500 14px) + 'Documentation' ghost text (#f0f0f0 Inter 400 14px). Right column: 3D rendered black cube object, no background or shadow.
 
-3. Feature card grid (2-column): Parent band background alternates #ffffff / #f5f5f7. Cards: backgroundColor opposite of parent (#f5f5f7 on white, #ffffff on fog), borderRadius 28px, boxShadow none, padding 28px. Headline inside card: SF Pro Display 28px weight 600, color #1d1d1f, letter-spacing -0.07em. Body: SF Pro Text 17px weight 400, color #707070. Secondary link: color #0066cc, no underline default.
+3. **Feature Card**: Background #000000, 1px solid #292d30 border, 16px radius, 32px padding. Monochrome icon in #ffffff at 24px. Heading Inter 600 16px #ffffff, margin-top 16px. Body text Inter 400 14px #a1a4a5, line-height 1.5, margin-top 8px. No box-shadow.
 
-4. Product color gradient showcase: Full-bleed section, height 100vh. Background: linear-gradient(184deg, #1d1d1f 20%, [finish peak color] 43%, [finish mid] 70%, [finish end] 95%). Centered headline: SF Pro Display 56px weight 700, color #ffffff, letter-spacing -0.9px. Product image centered and overlapping gradient. Color swatch chips below: borderRadius 999px, 28px diameter each, separated 8px, selected state has 3px solid #ffffff ring.
+4. **Code Block Panel**: Background #000000, 1px solid #292d30 border, 16px radius. Tab bar: Inter 12px #a1a4a5 filename, active file in #3b9eff. Code body: CommitMono 400 14px, line-height 1.5. Identifiers/keywords: #9281f7. String values and normal text: #f0f0f0. Email addresses: #9281f7. Status values (delivered/bounced): use respective semantic colors (#3ad389 / #ff9592).
 
-5. Section header (left-aligned): Background #f5f5f7 or #ffffff band, padding 40px 40px 20px. Headline: SF Pro Display 40px weight 700, color #1d1d1f, letter-spacing -0.6px, lineHeight 1.17. Supporting paragraph: SF Pro Text 20px weight 300, color #1d1d1f, letter-spacing -0.2px, lineHeight 1.40, max-width 560px.
+5. **Testimonial Card**: Background #000000, 1px solid #292d30 border, 16px radius, 32px padding. Quote text Inter 400 14px #f0f0f0 line-height 1.6. Attribution row: 32px circular avatar + name Inter 500 14px #ffffff + role Inter 400 12px #a1a4a5. No shadow, no gradient.
 
-## Motion System
+## Motion Philosophy
 
-Primary duration: 0.344s (page transitions, card reveals). Quick feedback: 0.1s (hover states, button presses). Scroll-driven animations: 0.32s ease. Default easing: ease (CSS keyword) for 97% of transitions. background-color and color transitions are the most common animated properties — hover states shift between neutral values. opacity transitions power section entrance reveals. transform transitions handle product image parallax and carousel movement. The overall motion personality is 'expressive' but anchored by slow-ease timing that feels gravity-weighted rather than springy.
+Animation is functional and fast, not decorative. Primary durations: 0.15s for hover state transitions (color, border-color, background-color via ease), 0.2s for component entrance animations (opacity + transform). Named animations include hero-text-slide-up-fade (text entering viewport from below), header-slide-down-fade (nav appearing on scroll), and open-scale-up-fade (dropdowns expanding). The scroll-x animation drives the horizontal logo marquee. All interactive state transitions use ease (not ease-in-out) — this gives hover responses a slightly snappier feel on the way in, preventing the 'sticky' sensation of symmetric easing on fast micro-interactions.
 
-## Product Finish Color System
+## Status Color System
 
-Four hardware finishes map to CSS tokens and gradient backdrops:
-• Silver: swatch #e3e4e5 (--finish-silver), no gradient showcase
-• Blush: swatch #e8d0d0 (--finish-blush), gradient from #1d1d1f → #f3c4f6 → #f500b4 → #cc29bc
-• Citrus: swatch #dddc8c (--finish-citrus), gradient from #1d1d1f → #dfe74f → #5e9c2a → #0a8619
-• Indigo: swatch #596680 (--finish-indigo), gradient from #1d1d1f → #a8d3fb → #0012f9 → #2535e2
-Each swatch chip: 28px diameter, borderRadius 999px. Selected state: 3px solid border in #1d1d1f (on light) or #ffffff (on dark). Gradient showcases are full-bleed 184° linear gradients used exclusively as section backdrops, never UI fills.
+Six vivid colors exist exclusively as email event status indicators within the product analytics UI. They follow a consistent pattern: icon + label, no background fill, icon outlined at ~1px with the status color as borderColor and fill. Green (#3ad389) = delivered, Red (#ff9592) = bounced, Yellow (#ffca16) = complained, Light blue (#70b8ff) = opened, Lavender (#baa7ff) = clicked, Violet (#9281f7) = general code/identity marker. These six colors must never appear as section backgrounds, illustration fills, or button colors — their scarcity on the black canvas is what gives them signal strength.
 
 ## Similar Brands
 
-- **Samsung Galaxy product pages** — Same pattern of full-bleed product color gradients as section backdrops with centered heavyweight headlines above product photography
-- **Dyson product pages** — White/near-white canvas with zero shadows, large isolated product photography, and a single restrained CTA blue as the only chromatic UI element
-- **Sony product pages** — Sticky dual-navigation pattern (global nav + product sub-nav) and alternating light/dark section bands for feature storytelling
-- **Teenage Engineering** — Extreme weight and scale contrast between headline and body type, near-achromatic palette with product color as the only chromatic note
+- **Linear** — Same pure-black canvas, outlined ghost CTA, achromatic palette with single chromatic accent, developer-tool positioning
+- **Vercel** — Identical near-zero colorfulness dark UI with white type on black, hairline border cards, monospace code blocks as hero visuals
+- **Raycast** — Custom geometric grotesque headings, dark product screenshots as primary imagery, single-accent color on otherwise achromatic shell
+- **Planetscale** — Developer-facing dark site with serif display type mixed into otherwise sans-heavy UI, status color vocabulary for DB event states
+- **Loops** — Email-infrastructure dark SaaS with violet brand accent, Inter for UI, code-centric product screenshots
 
 ## Quick Start
 
@@ -265,59 +291,55 @@ Each swatch chip: 28px diameter, borderRadius 999px. Selected state: 3px solid b
 ```css
 :root {
   /* Colors */
-  --color-ink: #1d1d1f;
-  --color-graphite: #707070;
-  --color-slate: #474747;
-  --color-ash: #333333;
-  --color-fog: #f5f5f7;
-  --color-snow: #ffffff;
-  --color-obsidian: #000000;
-  --color-silver-mist: #e8e8ed;
-  --color-azure: #0071e3;
-  --color-cobalt-link: #0066cc;
-  --color-citrus-gradient: #dddc8c;
-  --gradient-citrus-gradient: linear-gradient(184deg, rgb(29, 29, 31) 0%, rgb(223, 231, 79) 33%, rgb(94, 156, 42) 66%, rgb(10, 134, 26) 95%);
-  --color-indigo-gradient: #2535e2;
-  --gradient-indigo-gradient: linear-gradient(184deg, rgb(29, 29, 31) 20%, rgb(168, 211, 251) 43%, rgb(0, 18, 249) 76%, rgb(37, 53, 224) 95%);
-  --color-blush-gradient: #cc29bc;
-  --gradient-blush-gradient: linear-gradient(184deg, rgb(29, 29, 31) 20%, rgb(243, 196, 246) 43%, rgb(245, 0, 180) 76%, rgb(204, 41, 188) 95%);
-  --color-citrus-finish: #dddc8c;
-  --color-blush-finish: #e8d0d0;
-  --color-indigo-finish: #596680;
-  --color-caution: #b64400;
+  --color-void-black: #000000;
+  --color-graphite-rail: #292d30;
+  --color-smoke: #464a4d;
+  --color-ash: #6c6c6c;
+  --color-steel: #6e727a;
+  --color-fog: #a1a4a5;
+  --color-mist: #abafb4;
+  --color-frost: #f0f0f0;
+  --color-pure-white: #ffffff;
+  --color-electric-blue: #3b9eff;
+  --color-resend-violet: #9281f7;
+  --gradient-resend-violet: linear-gradient(to right bottom in oklab, rgb(146, 129, 247) 0%, rgb(154, 84, 220) 100%);
+  --color-surface-lift: #1b1b1b;
+  --gradient-surface-lift: linear-gradient(rgb(27, 27, 27), rgb(3, 3, 3));
+  --color-delivered-green: #3ad389;
+  --color-bounced-red: #ff9592;
+  --color-complained-yellow: #ffca16;
+  --color-opened-blue: #70b8ff;
+  --color-clicked-lavender: #baa7ff;
 
   /* Typography — Font Families */
-  --font-sf-pro-display: 'SF Pro Display', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-sf-pro-text: 'SF Pro Text', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-inter: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-domaine: 'Domaine', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-abcfavorit: 'ABCFavorit', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-commitmono: 'CommitMono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-helvetica: 'Helvetica', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-apple-system: '-apple-system', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
   /* Typography — Scale */
   --text-caption: 12px;
   --leading-caption: 1.33;
-  --tracking-caption: -0.26px;
   --text-body-sm: 14px;
   --leading-body-sm: 1.43;
-  --tracking-body-sm: -0.04px;
-  --text-body: 17px;
-  --leading-body: 1.47;
-  --tracking-body: -0.1px;
-  --text-subheading: 20px;
-  --leading-subheading: 1.4;
-  --tracking-subheading: -0.2px;
-  --text-heading-sm: 24px;
-  --leading-heading-sm: 1.29;
-  --tracking-heading-sm: -0.36px;
-  --text-heading: 40px;
-  --leading-heading: 1.17;
-  --tracking-heading: -0.6px;
+  --text-body: 16px;
+  --leading-body: 1.5;
+  --text-subheading: 18px;
+  --leading-subheading: 1.6;
+  --text-heading-sm: 20px;
+  --leading-heading-sm: 1.3;
+  --text-heading: 24px;
+  --leading-heading: 1.33;
   --text-heading-lg: 56px;
-  --leading-heading-lg: 1.07;
-  --tracking-heading-lg: -0.9px;
+  --leading-heading-lg: 1;
+  --tracking-heading-lg: -2.8px;
   --text-display: 96px;
-  --leading-display: 1.04;
-  --tracking-display: -2.11px;
+  --leading-display: 1;
+  --tracking-display: -0.96px;
 
   /* Typography — Weights */
-  --font-weight-light: 300;
   --font-weight-regular: 400;
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
@@ -334,43 +356,43 @@ Each swatch chip: 28px diameter, borderRadius 999px. Selected state: 3px solid b
   --spacing-28: 28px;
   --spacing-32: 32px;
   --spacing-40: 40px;
-  --spacing-44: 44px;
   --spacing-48: 48px;
-  --spacing-52: 52px;
-  --spacing-76: 76px;
+  --spacing-64: 64px;
   --spacing-80: 80px;
-  --spacing-120: 120px;
+  --spacing-96: 96px;
+  --spacing-104: 104px;
   --spacing-144: 144px;
 
   /* Layout */
   --page-max-width: 1200px;
   --section-gap: 80-120px;
-  --card-padding: 28px;
-  --element-gap: 10px;
+  --card-padding: 32px;
+  --element-gap: 16px;
 
   /* Border Radius */
+  --radius-md: 6px;
   --radius-lg: 10px;
-  --radius-3xl: 28px;
-  --radius-3xl-2: 32px;
-  --radius-3xl-3: 36px;
-  --radius-full: 980px;
-  --radius-full-2: 999px;
+  --radius-2xl: 16px;
+  --radius-3xl: 24px;
 
   /* Named Radii */
-  --radius-cards: 28px;
-  --radius-buttons: 999px;
-  --radius-navitems: 980px;
-  --radius-pillbuttons: 999px;
-  --radius-featurelinks: 28px;
-  --radius-smallbuttons: 10px;
-  --radius-roundedbuttons: 36px;
+  --radius-tags: 10px;
+  --radius-cards: 16px;
+  --radius-large: 24px;
+  --radius-badges: 6px;
+  --radius-modals: 16px;
+  --radius-buttons: 6px;
+
+  /* Shadows */
+  --shadow-subtle: rgba(176, 199, 217, 0.145) 0px 0px 0px 1px;
+  --shadow-subtle-2: rgb(0, 0, 0) 0px 0px 0px 8px;
+  --shadow-subtle-3: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.1) 0px 1px 2px -1px;
 
   /* Surfaces */
-  --surface-canvas: #f5f5f7;
-  --surface-card: #ffffff;
-  --surface-recessed: #f5f5f7;
-  --surface-frosted-control: #d2d2d7;
-  --surface-dark-stage: #000000;
+  --surface-canvas: #000000;
+  --surface-card-surface: #0b0e14;
+  --surface-ui-rail: #292d30;
+  --surface-overlay: #1b1b1b;
 }
 ```
 
@@ -379,53 +401,51 @@ Each swatch chip: 28px diameter, borderRadius 999px. Selected state: 3px solid b
 ```css
 @theme {
   /* Colors */
-  --color-ink: #1d1d1f;
-  --color-graphite: #707070;
-  --color-slate: #474747;
-  --color-ash: #333333;
-  --color-fog: #f5f5f7;
-  --color-snow: #ffffff;
-  --color-obsidian: #000000;
-  --color-silver-mist: #e8e8ed;
-  --color-azure: #0071e3;
-  --color-cobalt-link: #0066cc;
-  --color-citrus-gradient: #dddc8c;
-  --color-indigo-gradient: #2535e2;
-  --color-blush-gradient: #cc29bc;
-  --color-citrus-finish: #dddc8c;
-  --color-blush-finish: #e8d0d0;
-  --color-indigo-finish: #596680;
-  --color-caution: #b64400;
+  --color-void-black: #000000;
+  --color-graphite-rail: #292d30;
+  --color-smoke: #464a4d;
+  --color-ash: #6c6c6c;
+  --color-steel: #6e727a;
+  --color-fog: #a1a4a5;
+  --color-mist: #abafb4;
+  --color-frost: #f0f0f0;
+  --color-pure-white: #ffffff;
+  --color-electric-blue: #3b9eff;
+  --color-resend-violet: #9281f7;
+  --color-surface-lift: #1b1b1b;
+  --color-delivered-green: #3ad389;
+  --color-bounced-red: #ff9592;
+  --color-complained-yellow: #ffca16;
+  --color-opened-blue: #70b8ff;
+  --color-clicked-lavender: #baa7ff;
 
   /* Typography */
-  --font-sf-pro-display: 'SF Pro Display', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-sf-pro-text: 'SF Pro Text', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-inter: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-domaine: 'Domaine', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-abcfavorit: 'ABCFavorit', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-commitmono: 'CommitMono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-helvetica: 'Helvetica', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-apple-system: '-apple-system', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
   /* Typography — Scale */
   --text-caption: 12px;
   --leading-caption: 1.33;
-  --tracking-caption: -0.26px;
   --text-body-sm: 14px;
   --leading-body-sm: 1.43;
-  --tracking-body-sm: -0.04px;
-  --text-body: 17px;
-  --leading-body: 1.47;
-  --tracking-body: -0.1px;
-  --text-subheading: 20px;
-  --leading-subheading: 1.4;
-  --tracking-subheading: -0.2px;
-  --text-heading-sm: 24px;
-  --leading-heading-sm: 1.29;
-  --tracking-heading-sm: -0.36px;
-  --text-heading: 40px;
-  --leading-heading: 1.17;
-  --tracking-heading: -0.6px;
+  --text-body: 16px;
+  --leading-body: 1.5;
+  --text-subheading: 18px;
+  --leading-subheading: 1.6;
+  --text-heading-sm: 20px;
+  --leading-heading-sm: 1.3;
+  --text-heading: 24px;
+  --leading-heading: 1.33;
   --text-heading-lg: 56px;
-  --leading-heading-lg: 1.07;
-  --tracking-heading-lg: -0.9px;
+  --leading-heading-lg: 1;
+  --tracking-heading-lg: -2.8px;
   --text-display: 96px;
-  --leading-display: 1.04;
-  --tracking-display: -2.11px;
+  --leading-display: 1;
+  --tracking-display: -0.96px;
 
   /* Spacing */
   --spacing-4: 4px;
@@ -437,20 +457,22 @@ Each swatch chip: 28px diameter, borderRadius 999px. Selected state: 3px solid b
   --spacing-28: 28px;
   --spacing-32: 32px;
   --spacing-40: 40px;
-  --spacing-44: 44px;
   --spacing-48: 48px;
-  --spacing-52: 52px;
-  --spacing-76: 76px;
+  --spacing-64: 64px;
   --spacing-80: 80px;
-  --spacing-120: 120px;
+  --spacing-96: 96px;
+  --spacing-104: 104px;
   --spacing-144: 144px;
 
   /* Border Radius */
+  --radius-md: 6px;
   --radius-lg: 10px;
-  --radius-3xl: 28px;
-  --radius-3xl-2: 32px;
-  --radius-3xl-3: 36px;
-  --radius-full: 980px;
-  --radius-full-2: 999px;
+  --radius-2xl: 16px;
+  --radius-3xl: 24px;
+
+  /* Shadows */
+  --shadow-subtle: rgba(176, 199, 217, 0.145) 0px 0px 0px 1px;
+  --shadow-subtle-2: rgb(0, 0, 0) 0px 0px 0px 8px;
+  --shadow-subtle-3: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.1) 0px 1px 2px -1px;
 }
 ```

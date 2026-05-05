@@ -1,5 +1,8 @@
 (function () {
-    const API_BASE_URL = "http://localhost:5000/api/v1/auth";
+    const BACKEND_ORIGIN = `${window.location.protocol === "file:" ? "http:" : window.location.protocol}//${window.location.hostname || "localhost"}:5000`;
+    const API_BASE_URL = `${BACKEND_ORIGIN}/api/v1/auth`;
+    const REQUEST_TIMEOUT_MS = 8000;
+    const BACKEND_UNAVAILABLE_MESSAGE = `Không kết nối được backend. Hãy chạy Flask server ở ${BACKEND_ORIGIN} rồi thử lại.`;
     const form = document.getElementById("registerForm");
     const message = document.getElementById("registerMessage");
     const passwordInput = document.getElementById("registerPassword");
@@ -98,22 +101,47 @@
         });
     }
 
+    async function requestJson(url, options) {
+        const controller = new AbortController();
+        const timeoutId = window.setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+
+        let response;
+        try {
+            response = await fetch(url, {
+                ...options,
+                signal: controller.signal,
+            });
+        } catch (error) {
+            throw new Error(BACKEND_UNAVAILABLE_MESSAGE);
+        } finally {
+            window.clearTimeout(timeoutId);
+        }
+
+        const data = await response.json().catch(() => ({}));
+
+        if (!response.ok) {
+            if (response.status >= 500) {
+                throw new Error(
+                    data.error
+                        ? `Backend đang lỗi server: ${data.error}`
+                        : "Backend đang lỗi server. Kiểm tra terminal Flask, DATABASE_URL và JWT_SECRET."
+                );
+            }
+
+            throw new Error(data.message || "Có lỗi xảy ra, vui lòng thử lại");
+        }
+
+        return data;
+    }
+
     async function register(payload) {
-        const response = await fetch(`${API_BASE_URL}/register`, {
+        return requestJson(`${API_BASE_URL}/register`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(payload),
         });
-
-        const data = await response.json().catch(() => ({}));
-
-        if (!response.ok) {
-            throw new Error(data.message || "Có lỗi xảy ra, vui lòng thử lại");
-        }
-
-        return data;
     }
 
     function setupForm() {
@@ -171,11 +199,7 @@
                     window.location.href = "./login.html";
                 }, 900);
             } catch (error) {
-                const errorMessage =
-                    error instanceof TypeError
-                        ? "Khong ket noi duoc backend. Hay kiem tra Flask server dang chay o http://localhost:5000 va DATABASE_URL Supabase da dung."
-                        : error.message;
-                setMessage(errorMessage, false);
+                setMessage(error.message || "Không đăng ký được, vui lòng thử lại", false);
             } finally {
                 submitButton.disabled = false;
             }
