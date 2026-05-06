@@ -1,27 +1,32 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BXH - Đông Sơn</title>
+    <title>Bảng xếp hạng Đông Sơn</title>
+    <meta name="description" content="Bảng xếp hạng người chơi khám phá di sản trống đồng Đông Sơn – So sánh thành tích và xem ai đang dẫn đầu.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,700;1,6..72,400;1,6..72,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/layout.css">
-    <link rel="stylesheet" href="../css/bxh.css">
     <link rel="stylesheet" href="../css/skillfe.css?v=20260505-5">
+    <link rel="stylesheet" href="../css/bxh.css?v=20260505-ds2">
 </head>
 
 <body>
     <header class="header">
         <div class="nav container">
             <div class="logo">
-                <span class="logo-icon">*</span>
+                <span class="logo-icon">⊙</span>
                 <span class="logo-text">Đông Sơn</span>
             </div>
 
             <nav class="menu" id="menu" aria-label="Menu chính">
                 <a href="../index.html" class="menu-link">Trang chủ</a>
                 <a href="./hocvui.html" class="menu-link">Học vui</a>
+                <a href="./trochoi.html" class="menu-link">Trò chơi</a>
                 <a href="./bxh.html" class="menu-link active">Xếp hạng</a>
                 <a href="./profile.html" class="menu-link">Cá nhân</a>
             </nav>
@@ -33,17 +38,19 @@
     </header>
 
     <main class="bxh-main">
+
+        <!-- ── HERO ── -->
         <section class="bxh-hero container">
             <div class="hero-copy">
-                <p class="kicker">Bảng xếp hạng người chơi</p>
+                <p class="kicker">⊙ &nbsp; Nghi thức vinh danh · Di sản Đông Sơn</p>
                 <h1>Bảng xếp hạng <span>Đông Sơn</span></h1>
                 <p>
-                    So sánh thành tích của bạn với những người chơi khác và xem ai đang dẫn đầu trong hành trình khám
-                    phá di sản.
+                    So sánh thành tích của bạn với những người chơi khác và xem
+                    ai đang dẫn đầu trong hành trình khám phá di sản trống đồng.
                 </p>
             </div>
 
-            <article class="hero-profile">
+            <article class="hero-profile" aria-label="Thông tin cá nhân">
                 <h2>Thông tin cá nhân</h2>
                 <div class="hero-profile-grid">
                     <div>
@@ -56,47 +63,61 @@
                     </div>
                     <div>
                         <span>Game mạnh nhất</span>
-                        <strong id="userBest">Tìm họa tiết</strong>
+                        <strong id="userBest" style="font-size:18px;padding-top:6px;display:block;">Tìm họa tiết</strong>
                     </div>
                 </div>
             </article>
         </section>
 
+        <!-- ── TABS ── -->
         <section class="tab-wrap container" aria-label="Lọc bảng xếp hạng">
-            <button class="tab-btn active" type="button" data-tab="tong">Tổng</button>
-            <button class="tab-btn" type="button" data-tab="hoatiet">Tìm họa tiết</button>
-            <button class="tab-btn" type="button" data-tab="ghephinh">Ghép hình</button>
-            <button class="tab-btn" type="button" data-tab="dungsai">Đúng / Sai</button>
+            <button class="tab-btn active" type="button" id="tab-tong"        data-tab="tong">🏆 Tổng</button>
+            <button class="tab-btn"        type="button" id="tab-hoatiet"     data-tab="hoatiet">🔍 Tìm họa tiết</button>
+            <button class="tab-btn"        type="button" id="tab-ghephinh"    data-tab="ghephinh">🧩 Ghép hình</button>
+            <button class="tab-btn"        type="button" id="tab-dungsai"     data-tab="dungsai">⚡ Đúng / Sai</button>
         </section>
 
+        <!-- ── PODIUM ── -->
         <section class="podium-section container">
             <div class="podium-grid">
+
+                <!-- #2 – bạc -->
                 <article class="podium-card second" id="cardSecond">
-                    <div class="avatar-wrap"><img id="secondAvatar" src="../images/dongsonz2.png" alt="Top 2"></div>
+                    <div class="avatar-wrap">
+                        <img id="secondAvatar" src="../images/dongsonz2.png" alt="Top 2">
+                    </div>
                     <span class="rank-badge">2</span>
                     <h3 id="secondName">Quang Minh</h3>
-                    <p id="secondScore">17,520 pts</p>
+                    <p  id="secondScore">17,520 pts</p>
                     <small id="secondTag">Ghép hình master</small>
                 </article>
 
+                <!-- #1 – vàng đồng -->
                 <article class="podium-card first" id="cardFirst">
                     <div class="crown">★</div>
-                    <div class="avatar-wrap"><img id="firstAvatar" src="../images/dongsonz3.jpg" alt="Top 1"></div>
+                    <div class="avatar-wrap">
+                        <img id="firstAvatar" src="../images/dongsonz3.jpg" alt="Top 1">
+                    </div>
                     <span class="rank-badge">1</span>
                     <h3 id="firstName">Huyền My</h3>
-                    <p id="firstScore">18,940 pts</p>
+                    <p  id="firstScore">18,940 pts</p>
                     <small id="firstTag">Sứ giả di sản</small>
                 </article>
 
+                <!-- #3 – đồng nâu -->
                 <article class="podium-card third" id="cardThird">
-                    <div class="avatar-wrap"><img id="thirdAvatar" src="../images/dongsonz4.png" alt="Top 3"></div>
+                    <div class="avatar-wrap">
+                        <img id="thirdAvatar" src="../images/dongsonz4.png" alt="Top 3">
+                    </div>
                     <span class="rank-badge">3</span>
                     <h3 id="thirdName">Gia Bảo</h3>
-                    <p id="thirdScore">16,880 pts</p>
+                    <p  id="thirdScore">16,880 pts</p>
                     <small id="thirdTag">Sử học gia trẻ</small>
                 </article>
+
             </div>
 
+            <!-- strip vị trí của bạn -->
             <div class="my-rank-strip">
                 <div>
                     <span>Vị trí của bạn</span>
@@ -113,8 +134,9 @@
             </div>
         </section>
 
+        <!-- ── TABLE ── -->
         <section class="table-section container">
-            <table class="leader-table">
+            <table class="leader-table" aria-label="Bảng xếp hạng chi tiết">
                 <thead>
                     <tr>
                         <th>Hạng</th>
@@ -149,6 +171,7 @@
                 </tbody>
             </table>
         </section>
+
     </main>
 
     <footer class="footer" id="footer">

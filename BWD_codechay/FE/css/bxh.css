@@ -1,356 +1,531 @@
-﻿.bxh-main {
-    padding: 102px 0 72px;
-    min-height: 100vh;
-    background:
-        linear-gradient(180deg, rgba(8, 12, 14, 0.92), rgba(10, 8, 7, 0.98)),
-        radial-gradient(circle at 20% 12%, rgba(202, 155, 50, 0.08), transparent 34%),
-        #0a0807;
+/* ============================================================
+   BXH – BẢNG XẾP HẠNG ĐÔNG SƠN
+   Palette:
+     Nền chính   : #231f1a  (than nâu, chất bảo tàng)
+     Đồng cổ     : #8a5a2b / #c89a3c / #e6d2b5
+     Xanh gỉ đồng: #2f6f64 / #3f8276 / #76a79d
+     Bạc (#2)    : #d8c3a3 / #e6d2b5
+     Sơn son (#3): #9e2f1c / #c44a32
+   ============================================================ */
+
+/* ---- SVG drum-pattern dùng inline ở :root ---- */
+:root {
+  --bronze:       #8a5a2b;
+  --bronze-light: #c89a3c;
+  --bronze-pale:  #e6d2b5;
+  --moss:         #2f6f64;
+  --moss-mid:     #3f8276;
+  --moss-light:   #76a79d;
+  --bg-page:      #231f1a;
+  --bg-card:      #2b241f;
+  --bg-card2:     #332a23;
+  --silver:       #d8c3a3;
+  --copper:       #9e2f1c;
+  --text-main:    #f7f0e3;
+  --text-muted:   #d8c3a3;
 }
 
+/* ============================================================
+   MAIN WRAPPER – nền xanh đen sâu + hoa văn mờ
+   ============================================================ */
+.bxh-main {
+  padding: 102px 0 80px;
+  min-height: 100vh;
+  background-color: var(--bg-page);
+  background-image:
+    radial-gradient(ellipse 60% 40% at 50% 0%, rgba(200,154,60,0.1) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 30% at 0% 50%, rgba(47,111,100,0.14) 0%, transparent 50%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Ccircle cx='40' cy='40' r='36' fill='none' stroke='%23c9922a' stroke-width='0.4' stroke-dasharray='4 6' opacity='0.13'/%3E%3Ccircle cx='40' cy='40' r='24' fill='none' stroke='%23c9922a' stroke-width='0.3' opacity='0.09'/%3E%3Ccircle cx='40' cy='40' r='12' fill='none' stroke='%23c9922a' stroke-width='0.3' opacity='0.07'/%3E%3Cline x1='40' y1='4' x2='40' y2='76' stroke='%23c9922a' stroke-width='0.25' opacity='0.05'/%3E%3Cline x1='4' y1='40' x2='76' y2='40' stroke='%23c9922a' stroke-width='0.25' opacity='0.05'/%3E%3C/svg%3E");
+  background-size: auto, auto, 80px 80px;
+  position: relative;
+}
+
+/* top amber glow bar */
+.bxh-main::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--bronze), var(--bronze-light), var(--bronze), transparent);
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
 .bxh-hero {
-    display: grid;
-    grid-template-columns: 1.05fr 0.95fr;
-    gap: 28px;
-    align-items: center;
-    padding: 34px 0 30px;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 32px;
+  align-items: center;
+  padding: 40px 0 32px;
 }
 
 .kicker {
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    font-size: 13px;
-    color: #dfbb56;
-    margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 11px;
+  color: var(--moss-light);
+  margin-bottom: 10px;
 }
 
+/* Tiêu đề lớn – khắc trên kim loại */
 .hero-copy h1 {
-    font-family: "Newsreader", serif;
-    font-size: clamp(58px, 8vw, 96px);
-    line-height: 0.9;
-    color: #f5f0ea;
-    margin-bottom: 14px;
+  font-family: "Newsreader", serif !important;
+  font-size: clamp(52px, 7.5vw, 90px) !important;
+  line-height: 0.92 !important;
+  color: #e8ddd0 !important;
+  margin-bottom: 16px;
+  text-shadow: 0 2px 18px rgba(0,0,0,0.6);
 }
 
 .hero-copy h1 span {
-    color: #e5bc4e;
-    font-style: italic;
+  color: #e8b84b !important;
+  font-style: italic !important;
+  text-shadow: 0 0 28px rgba(232,184,75,0.35), 0 2px 6px rgba(0,0,0,0.5) !important;
 }
 
 .hero-copy p {
-    color: #c2b7af;
-    max-width: 620px;
-    line-height: 1.65;
-    font-size: 17px;
+  color: var(--text-muted);
+  max-width: 580px;
+  line-height: 1.7;
+  font-size: 16px;
 }
 
+/* ============================================================
+   HERO PROFILE BOX – "Thông tin cá nhân"
+   ============================================================ */
 .hero-profile {
-    background: linear-gradient(120deg, #2a2422, #1d1918);
-    border: 1px solid rgba(229, 188, 78, 0.18);
-    border-radius: 16px;
-    padding: 24px;
-    position: relative;
+  background: linear-gradient(135deg, #332a23 0%, #2b241f 62%, #17130f 100%);
+  border: 1px solid rgba(200,154,60,0.34);
+  border-top: 2px solid var(--bronze);
+  border-radius: 18px;
+  padding: 28px 26px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.45), inset 0 1px 0 rgba(232,184,75,0.12);
+  transition: box-shadow 0.4s;
 }
 
+.hero-profile:hover {
+  box-shadow: 0 12px 50px rgba(0,0,0,0.55), 0 0 24px rgba(201,146,42,0.12);
+}
+
+/* decorative drum ring */
+.hero-profile::before {
+  content: "";
+  position: absolute;
+  width: 180px; height: 180px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(201,146,42,0.12);
+  right: -40px; bottom: -40px;
+  pointer-events: none;
+}
 .hero-profile::after {
-    content: "★";
-    position: absolute;
-    right: 18px;
-    bottom: 14px;
-    font-size: 90px;
-    color: rgba(255, 255, 255, 0.06);
+  content: "";
+  position: absolute;
+  width: 110px; height: 110px;
+  border-radius: 50%;
+  border: 1px solid rgba(201,146,42,0.08);
+  right: -5px; bottom: -5px;
+  pointer-events: none;
 }
 
 .hero-profile h2 {
-    font-family: "Newsreader", serif;
-    color: #f0cf77;
-    font-size: 40px;
-    margin-bottom: 14px;
+  font-family: "Newsreader", serif !important;
+  color: #f0cf77 !important;
+  font-size: 26px !important;
+  margin-bottom: 18px;
+  letter-spacing: 0.03em;
+  border-bottom: 1px solid rgba(201,146,42,0.28);
+  padding-bottom: 12px;
 }
 
 .hero-profile-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 14px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.hero-profile-grid > div {
+  background: rgba(23,19,15,0.42);
+  border: 1px solid rgba(200,154,60,0.18);
+  border-radius: 12px;
+  padding: 12px;
 }
 
 .hero-profile-grid span {
-    display: block;
-    color: #968a82;
-    font-size: 12px;
-    text-transform: uppercase;
-    margin-bottom: 4px;
+  display: block;
+  color: var(--text-muted);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 6px;
 }
 
 .hero-profile-grid strong {
-    color: #f3ede4;
-    font-size: 40px;
-    font-family: "Newsreader", serif;
-    line-height: 1;
+  color: var(--bronze-pale);
+  font-size: 32px;
+  font-family: "Newsreader", serif;
+  line-height: 1;
+  text-shadow: 0 0 14px rgba(240,207,119,0.3);
 }
 
+/* ============================================================
+   TABS – active = đồng nhẹ, inactive = xanh rêu
+   ============================================================ */
 .tab-wrap {
-    margin-top: 8px;
-    border: 1px solid rgba(229, 188, 78, 0.24);
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    background: #1a1513;
-    border-radius: 14px;
-    overflow: hidden;
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: #17130f;
+  border: 1px solid rgba(61,92,76,0.45);
+  border-radius: 14px;
+  overflow: hidden;
 }
 
 .tab-btn {
-    border: 0;
-    color: #bdb0a5;
-    background: transparent;
-    padding: 14px 10px;
-    font-size: 18px;
-    position: relative;
+  border: 0 !important;
+  color: #6b9080 !important;
+  background: transparent !important;
+  padding: 15px 10px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  position: relative;
+  transition: color 0.25s, background 0.25s;
+  border-right: 1px solid rgba(61,92,76,0.25) !important;
+}
+
+.tab-btn:last-child { border-right: 0; }
+
+.tab-btn:hover:not(.active) {
+  color: var(--bronze-light);
+  background: rgba(61,92,76,0.18);
 }
 
 .tab-btn.active {
-    color: #e8c35a;
+  color: #f0cf77 !important;
+  background: rgba(201,146,42,0.12) !important;
 }
 
 .tab-btn.active::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 2px;
-    background: #e5bc4e;
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--bronze-light), transparent);
 }
 
+/* ============================================================
+   PODIUM SECTION
+   ============================================================ */
 .podium-section {
-    padding-top: 46px;
+  padding-top: 52px;
 }
 
 .podium-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    align-items: end;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  align-items: end;
 }
 
+/* Base card */
 .podium-card {
-    background: #2a2422;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    text-align: center;
-    padding: 24px 18px;
-    min-height: 300px;
-    border-radius: 16px;
-    position: relative;
+  background: linear-gradient(160deg, var(--bg-card2), var(--bg-card));
+  border: 1px solid rgba(255,255,255,0.06);
+  text-align: center;
+  padding: 28px 18px 22px;
+  min-height: 300px;
+  border-radius: 18px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: default;
 }
 
+.podium-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.35s;
+  pointer-events: none;
+}
+
+.podium-card:hover {
+  transform: translateY(-5px);
+}
+
+/* ── RANK 1 – vàng đồng sáng ── */
 .podium-card.first {
-    border-top: 3px solid #e2b948;
-    min-height: 370px;
+  border-top: 3px solid var(--bronze-light);
+  min-height: 380px;
+  background: linear-gradient(160deg, #5b3518, #332a23, #231f1a);
+  box-shadow: 0 0 0 1px rgba(232,184,75,0.18), 0 12px 48px rgba(0,0,0,0.55);
+}
+.podium-card.first::before {
+  background: radial-gradient(ellipse at 50% 0%, rgba(232,184,75,0.10) 0%, transparent 65%);
+  opacity: 1;
+}
+.podium-card.first:hover {
+  box-shadow: 0 0 0 1px rgba(232,184,75,0.30), 0 20px 60px rgba(0,0,0,0.65), 0 0 30px rgba(232,184,75,0.12);
 }
 
+/* ── RANK 2 – bạc xám ── */
 .podium-card.second {
-    border-top: 3px solid #9da2ab;
+  border-top: 3px solid var(--silver);
+  box-shadow: 0 0 0 1px rgba(157,162,171,0.12), 0 8px 32px rgba(0,0,0,0.4);
+}
+.podium-card.second::before {
+  background: radial-gradient(ellipse at 50% 0%, rgba(157,162,171,0.07) 0%, transparent 60%);
+  opacity: 1;
+}
+.podium-card.second:hover {
+  box-shadow: 0 0 0 1px rgba(157,162,171,0.25), 0 16px 48px rgba(0,0,0,0.5), 0 0 22px rgba(157,162,171,0.08);
 }
 
+/* ── RANK 3 – đồng nâu ── */
 .podium-card.third {
-    border-top: 3px solid #c0521f;
+  border-top: 3px solid var(--copper);
+  box-shadow: 0 0 0 1px rgba(192,113,58,0.12), 0 8px 32px rgba(0,0,0,0.4);
+}
+.podium-card.third::before {
+  background: radial-gradient(ellipse at 50% 0%, rgba(192,113,58,0.08) 0%, transparent 60%);
+  opacity: 1;
+}
+.podium-card.third:hover {
+  box-shadow: 0 0 0 1px rgba(192,113,58,0.25), 0 16px 48px rgba(0,0,0,0.5), 0 0 22px rgba(192,113,58,0.10);
 }
 
+/* Crown */
 .crown {
-    position: absolute;
-    top: -26px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 42px;
-    height: 42px;
-    border-radius: 999px;
-    border: 3px solid #e1ba49;
-    display: grid;
-    place-items: center;
-    color: #e8c251;
-    background: #161312;
+  position: absolute;
+  top: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  border: 2px solid var(--bronze-light);
+  display: grid;
+  place-items: center;
+  font-size: 20px;
+  color: var(--bronze-pale);
+  background: #17130f;
+  box-shadow: 0 0 14px rgba(232,184,75,0.35);
+  animation: crownPulse 2.8s ease-in-out infinite;
 }
 
+@keyframes crownPulse {
+  0%, 100% { box-shadow: 0 0 14px rgba(232,184,75,0.35); }
+  50%       { box-shadow: 0 0 26px rgba(232,184,75,0.60), 0 0 8px rgba(240,207,119,0.4); }
+}
+
+/* Avatar */
 .avatar-wrap {
-    width: 128px;
-    height: 128px;
-    border-radius: 16px;
-    overflow: hidden;
-    border: 3px solid #e4bd51;
-    margin: 8px auto;
-    background: #0f0d0c;
+  width: 120px; height: 120px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 3px solid var(--bronze-light);
+  margin: 10px auto;
+  background: #17130f;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.5);
+  transition: box-shadow 0.3s;
 }
 
 .podium-card.second .avatar-wrap,
-.podium-card.third .avatar-wrap {
-    width: 96px;
-    height: 96px;
-    border-radius: 14px;
+.podium-card.third  .avatar-wrap {
+  width: 90px; height: 90px;
+  border-radius: 12px;
+  border-color: var(--silver);
+}
+.podium-card.third .avatar-wrap { border-color: var(--copper); }
+
+.podium-card:hover .avatar-wrap {
+  box-shadow: 0 6px 28px rgba(0,0,0,0.7), 0 0 16px rgba(232,184,75,0.2);
 }
 
 .avatar-wrap img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s;
+}
+.podium-card:hover .avatar-wrap img { transform: scale(1.06); }
+
+/* Rank badge */
+.rank-badge {
+  display: inline-flex;
+  width: 38px; height: 38px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9px;
+  font-weight: 800;
+  font-size: 16px;
+  margin-top: 10px;
 }
 
-.rank-badge {
-    display: inline-flex;
-    width: 42px;
-    height: 42px;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
-    background: #e5bc4e;
-    color: #2d2209;
-    font-weight: 800;
-    margin-top: 10px;
-}
+.podium-card.first  .rank-badge { background: linear-gradient(135deg,#c9922a,#f0cf77) !important; color: #1a0e00 !important; box-shadow: 0 2px 12px rgba(201,146,42,0.5); }
+.podium-card.second .rank-badge { background: linear-gradient(135deg,#7c828a,#b8bec8) !important; color: #0a0f14 !important; }
+.podium-card.third  .rank-badge { background: linear-gradient(135deg,#7a3e18,#c0713a) !important; color: #ffeedd !important; }
 
 .podium-card h3 {
-    margin-top: 10px;
-    font-family: "Newsreader", serif;
-    color: #f6f0e6;
-    font-size: 48px;
+  margin-top: 10px;
+  font-family: "Newsreader", serif !important;
+  color: #e8ddd0 !important;
+  font-size: 28px;
 }
 
 .podium-card p {
-    color: #ddd2c5;
-    font-size: 33px;
+  color: #f0cf77 !important;
+  font-size: 20px;
+  font-weight: 700;
+  margin-top: 4px;
 }
+
+.podium-card.second p { color: #9da2ab !important; }
+.podium-card.third  p { color: #c0713a !important; }
 
 .podium-card small {
-    color: #9f9287;
-    text-transform: uppercase;
-    letter-spacing: 0.09em;
-    font-size: 12px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.10em;
+  font-size: 10px;
+  margin-top: 6px;
+  display: block;
 }
 
+/* ============================================================
+   MY RANK STRIP
+   ============================================================ */
 .my-rank-strip {
-    margin-top: 24px;
-    border: 1px solid rgba(229, 188, 78, 0.28);
-    background: rgba(68, 62, 58, 0.66);
-    display: grid;
-    grid-template-columns: 1.1fr 1.3fr 1fr;
-    padding: 10px 16px;
-    align-items: center;
-    gap: 12px;
-    border-radius: 14px;
+  margin-top: 22px;
+  border: 1px solid rgba(201,146,42,0.25);
+  background: linear-gradient(90deg, rgba(51,42,35,0.94), rgba(43,36,31,0.88));
+  display: grid;
+  grid-template-columns: 1fr 1.6fr 1fr;
+  padding: 14px 20px;
+  align-items: center;
+  gap: 16px;
+  border-radius: 14px;
+  position: relative;
+  overflow: hidden;
+}
+
+.my-rank-strip::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--bronze-light), var(--bronze));
+  border-radius: 2px 0 0 2px;
 }
 
 .my-rank-strip span,
 .my-rank-strip small {
-    color: #c8bcb1;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
+  color: var(--text-muted);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.10em;
+  display: block;
 }
 
 .my-rank-strip strong {
-    display: inline-block;
-    color: #f1cd6b;
-    font-family: "Newsreader", serif;
-    font-size: 42px;
-    line-height: 1;
+  display: inline-block;
+  color: var(--bronze-pale);
+  font-family: "Newsreader", serif;
+  font-size: 36px;
+  line-height: 1;
+  text-shadow: 0 0 16px rgba(240,207,119,0.3);
 }
 
-.table-section {
-    padding-top: 52px;
-}
+/* ============================================================
+   TABLE SECTION
+   ============================================================ */
+.table-section { padding-top: 52px; padding-bottom: 52px; }
 
 .leader-table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    background: #1c1816;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 14px;
-    overflow: hidden;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #2b241f;
+  border: 1px solid rgba(61,92,76,0.35);
+  border-radius: 16px;
+  overflow: hidden;
 }
 
 .leader-table th,
 .leader-table td {
-    padding: 16px 20px;
-    text-align: left;
+  padding: 15px 20px;
+  text-align: left;
 }
 
 .leader-table thead th {
-    font-size: 13px;
-    letter-spacing: 0.09em;
-    text-transform: uppercase;
-    color: #a99c8f;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--moss-light);
+  background: rgba(61,92,76,0.18);
+  border-bottom: 1px solid rgba(61,92,76,0.30);
 }
 
 .leader-table tbody tr {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  transition: background 0.22s;
 }
 
-.leader-table tbody tr:last-child {
-    border-bottom: 0;
+.leader-table tbody tr:last-child { border-bottom: 0; }
+
+.leader-table tbody tr:hover {
+  background: rgba(201,146,42,0.06);
 }
 
 .leader-table td {
-    color: #e3d8cd;
-    font-size: 17px;
+  color: var(--text-main);
+  font-size: 15px;
+}
+
+.leader-table td:first-child {
+  color: var(--text-muted);
+  font-weight: 700;
+  font-size: 13px;
 }
 
 .player-cell {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .player-cell img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1.5px solid rgba(201,146,42,0.30);
 }
 
 .score-col {
-    color: #efca63 !important;
-    font-weight: 700;
+  color: var(--bronze-pale) !important;
+  font-weight: 700;
+  font-size: 15px;
 }
 
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
 @media (max-width: 1100px) {
-    .bxh-hero {
-        grid-template-columns: 1fr;
-    }
-
-    .hero-profile-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .podium-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .my-rank-strip {
-        grid-template-columns: 1fr;
-    }
+  .bxh-hero              { grid-template-columns: 1fr; }
+  .hero-profile-grid     { grid-template-columns: repeat(3,1fr); }
+  .podium-grid           { grid-template-columns: 1fr; }
+  .my-rank-strip         { grid-template-columns: 1fr; }
+  .tab-wrap              { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 768px) {
-    .bxh-main {
-        padding-top: 92px;
-    }
-
-    .tab-wrap {
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .leader-table th,
-    .leader-table td {
-        padding: 12px;
-        font-size: 14px;
-    }
-
-    .podium-card h3 {
-        font-size: 38px;
-    }
-
-    .podium-card p,
-    .my-rank-strip strong {
-        font-size: 30px;
-    }
+  .bxh-main              { padding-top: 90px; }
+  .leader-table th,
+  .leader-table td        { padding: 11px 12px; font-size: 13px; }
+  .podium-card h3         { font-size: 22px; }
+  .podium-card p          { font-size: 16px; }
+  .my-rank-strip strong   { font-size: 28px; }
+  .hero-profile-grid      { grid-template-columns: 1fr; }
 }

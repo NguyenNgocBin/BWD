@@ -1,23 +1,23 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+Display:wght@400;600&display=swap");
 
 :root {
-    --color-void-black: #0a0f15;
-    --color-graphite-rail: #3b424c;
-    --color-smoke: #58616b;
-    --color-ash: #858c95;
-    --color-steel: #6e727a;
-    --color-fog: #b4b8bd;
-    --color-mist: #c1c7cf;
-    --color-frost: #f3f5f7;
-    --color-pure-white: #ffffff;
-    --color-electric-blue: #3b9eff;
-    --color-resend-violet: #9281f7;
-    --gradient-resend-violet: linear-gradient(135deg, #9281f7 0%, #9a54dc 100%);
-    --color-delivered-green: #3ad389;
-    --color-bounced-red: #ff9592;
-    --color-complained-yellow: #ffca16;
-    --color-opened-blue: #70b8ff;
-    --color-clicked-lavender: #baa7ff;
+    --color-void-black: #231f1a;
+    --color-graphite-rail: #6f5435;
+    --color-smoke: #8a5a2b;
+    --color-ash: #b89a72;
+    --color-steel: #6b5b4a;
+    --color-fog: #d8c3a3;
+    --color-mist: #e6d2b5;
+    --color-frost: #f7f0e3;
+    --color-pure-white: #fff9ef;
+    --color-electric-blue: #9e2f1c;
+    --color-resend-violet: #8a5a2b;
+    --gradient-resend-violet: linear-gradient(135deg, #9e2f1c 0%, #8a5a2b 100%);
+    --color-delivered-green: #2f6f64;
+    --color-bounced-red: #c44a32;
+    --color-complained-yellow: #c89a3c;
+    --color-opened-blue: #203a5b;
+    --color-clicked-lavender: #c89a3c;
 
     --font-inter: "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     --font-domaine: "Noto Serif Display", Georgia, serif;
@@ -26,7 +26,7 @@
 
     --bg: var(--color-void-black);
     --bg-soft: var(--color-void-black);
-    --bg-card: #101720;
+    --bg-card: #332a23;
     --bg-deep: var(--color-void-black);
     --text: var(--color-frost);
     --text-muted: var(--color-fog);
@@ -34,7 +34,7 @@
     --gold: var(--color-pure-white);
     --gold-soft: var(--color-fog);
     --line: var(--color-graphite-rail);
-    --shadow: none;
+    --shadow: 0 16px 40px rgba(23, 19, 15, 0.34);
 
     --page-max-width: 1200px;
     --radius-buttons: 6px;
@@ -62,7 +62,7 @@ body {
 }
 
 body::selection {
-    background: rgba(59, 158, 255, 0.32);
+    background: rgba(158, 47, 28, 0.34);
     color: var(--color-pure-white);
 }
 
@@ -78,7 +78,7 @@ img {
     position: fixed;
     inset: 0 0 auto 0;
     height: 59px;
-    background: rgba(5, 7, 10, 0.9) !important;
+    background: rgba(23, 19, 15, 0.92) !important;
     border-bottom: 1px solid var(--color-graphite-rail) !important;
     backdrop-filter: blur(25px);
     box-shadow: none !important;
@@ -106,7 +106,7 @@ img {
     font-family: var(--font-commitmono);
     font-size: 17px !important;
     line-height: 1;
-    background: linear-gradient(180deg, #1c222b 0%, #080b10 100%);
+    background: linear-gradient(180deg, #5b3518 0%, #231f1a 100%);
     transition: border-color var(--motion-fast), transform var(--motion-fast);
 }
 
@@ -219,7 +219,7 @@ img {
 .tab-btn:hover,
 .btn:hover,
 .challenge-item button:hover {
-    background: rgba(59, 158, 255, 0.08) !important;
+    background: rgba(158, 47, 28, 0.1) !important;
     border-color: var(--color-electric-blue) !important;
     color: var(--color-pure-white) !important;
     transform: translateY(-1px);
@@ -452,7 +452,7 @@ p,
 .highlight::before,
 .auth-shell::after {
     background:
-        linear-gradient(180deg, rgba(10, 15, 21, 0.06), rgba(10, 15, 21, 0.68)) !important;
+        linear-gradient(180deg, rgba(35, 31, 26, 0.1), rgba(23, 19, 15, 0.76)) !important;
     opacity: 1 !important;
     filter: none !important;
 }
@@ -529,7 +529,7 @@ p,
     padding: 32px;
     border: 1px solid var(--color-graphite-rail);
     border-radius: var(--radius-large);
-    background: linear-gradient(180deg, #1c222b 0%, #080b10 100%);
+    background: linear-gradient(180deg, #5b3518 0%, #231f1a 100%);
     overflow: hidden;
 }
 
@@ -785,7 +785,7 @@ p,
 .side-card:hover,
 .option-btn:hover:not(:disabled),
 .card:hover {
-    background: linear-gradient(180deg, #1c222b 0%, #080b10 100%) !important;
+    background: linear-gradient(180deg, #5b3518 0%, #231f1a 100%) !important;
     border-color: var(--color-smoke) !important;
     transform: translateY(-2px);
 }
@@ -855,7 +855,7 @@ p,
 
 .leaderboard-item.top1,
 .ranking-item.top-1 {
-    background: linear-gradient(180deg, #1c222b 0%, #080b10 100%) !important;
+    background: linear-gradient(180deg, #5b3518 0%, #231f1a 100%) !important;
     border-color: var(--color-electric-blue) !important;
     transform: none !important;
 }
@@ -1078,7 +1078,7 @@ p,
 
 .strength-track,
 .progress {
-    background: #101214 !important;
+    background: #17130f !important;
     border: 1px solid var(--color-graphite-rail);
 }
 
@@ -1179,7 +1179,7 @@ p,
 
 .face-box::before,
 .face-box::after {
-    background: rgba(59, 158, 255, 0.22) !important;
+    background: rgba(158, 47, 28, 0.24) !important;
 }
 
 .face-line {
