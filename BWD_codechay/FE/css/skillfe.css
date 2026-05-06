@@ -433,6 +433,12 @@ p,
     box-shadow: none !important;
 }
 
+.highlight {
+    isolation: isolate;
+    overflow: hidden;
+    background: var(--color-void-black) !important;
+}
+
 .hero,
 .hocvui-hero,
 .hero-section {
@@ -440,10 +446,22 @@ p,
     padding-top: 104px !important;
 }
 
-.hero-bg,
 .auth-bg {
     filter: grayscale(0.7) contrast(1.05) brightness(0.76) !important;
     opacity: 0.5 !important;
+}
+
+.hero-video {
+    position: absolute;
+    z-index: 0;
+    top: -22%;
+    left: -26%;
+    width: 140%;
+    height: 134%;
+    object-fit: cover;
+    object-position: 62% 58%;
+    filter: saturate(0.86) contrast(1.08) brightness(0.64) !important;
+    pointer-events: none;
 }
 
 .hero-overlay,
@@ -455,6 +473,28 @@ p,
         linear-gradient(180deg, rgba(35, 31, 26, 0.1), rgba(23, 19, 15, 0.76)) !important;
     opacity: 1 !important;
     filter: none !important;
+}
+
+.hero-overlay {
+    z-index: 1;
+}
+
+.highlight::before {
+    background: url("../images/TrongDongbg.png") center / cover no-repeat !important;
+    filter: grayscale(0.72) contrast(1.05) brightness(0.94) !important;
+    opacity: 0.46 !important;
+    z-index: 0;
+}
+
+.highlight::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+        linear-gradient(90deg, rgba(23, 19, 15, 0.88), rgba(23, 19, 15, 0.72)),
+        radial-gradient(circle at top left, rgba(255, 255, 255, 0.1), transparent 34%);
 }
 
 .hero-content,
@@ -490,19 +530,22 @@ p,
 .home-hero-grid .hero-title {
     margin-left: 0;
     margin-right: 0;
-    max-width: 620px;
-    font-family: var(--font-inter) !important;
-    font-size: clamp(48px, 7vw, 84px) !important;
-    font-weight: 650 !important;
+    max-width: 700px;
+    font-family: var(--font-domaine) !important;
+    font-size: clamp(54px, 8vw, 96px) !important;
+    font-weight: 400 !important;
     line-height: 0.98 !important;
     letter-spacing: 0 !important;
     white-space: normal;
+    text-wrap: balance;
+    overflow-wrap: break-word;
+    text-shadow: 0 2px 0 #000, 0 18px 36px rgba(0, 0, 0, 0.42);
 }
 
 .home-hero-grid .hero-title span {
     display: block;
     color: var(--color-pure-white) !important;
-    white-space: nowrap;
+    white-space: normal;
 }
 
 .home-hero-grid .hero-desc {

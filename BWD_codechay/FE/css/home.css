@@ -8,13 +8,16 @@
     overflow: hidden;
 }
 
-.hero-bg {
+.hero-video {
     position: absolute;
-    inset: 0;
-    background: url("../images/TrongDongbg.png") center/cover no-repeat;
-    transform: scale(1.05);
-    filter: blur(3px);
-    opacity: 0.7;
+    top: -22%;
+    left: -26%;
+    width: 140%;
+    height: 134%;
+    object-fit: cover;
+    object-position: 62% 58%;
+    filter: saturate(0.86) contrast(1.06) brightness(0.68);
+    pointer-events: none;
 }
 
 .hero-overlay {
@@ -104,19 +107,31 @@
 /* HIGHLIGHT */
 .highlight {
     position: relative;
-    background:
-        radial-gradient(circle at top left, rgba(255, 215, 0, 0.03), transparent 30%),
-        var(--bg);
+    isolation: isolate;
+    background: var(--bg);
+    overflow: hidden;
 }
 
 .highlight::before {
     content: "";
     position: absolute;
     inset: 0;
-    background-image: radial-gradient(rgba(255, 215, 0, 0.035) 12%, transparent 13%);
-    background-size: 120px 120px;
+    background: url("../images/TrongDongbg.png") center/cover no-repeat;
+    filter: grayscale(0.72) contrast(1.05) brightness(0.94);
     pointer-events: none;
-    opacity: 0.5;
+    opacity: 0.46;
+    z-index: 0;
+}
+
+.highlight::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(90deg, rgba(23, 19, 15, 0.88), rgba(23, 19, 15, 0.72)),
+        radial-gradient(circle at top left, rgba(255, 255, 255, 0.1), transparent 34%);
+    pointer-events: none;
+    z-index: 0;
 }
 
 .highlight-grid {
@@ -207,7 +222,7 @@
     font-family: "Newsreader", serif;
     font-size: clamp(58px, 6vw, 90px);
     line-height: 1.02;
-    color: var(--gold);
+    color: var(--text);
     margin-bottom: 30px;
     font-weight: 300;
     max-width: 100%;
