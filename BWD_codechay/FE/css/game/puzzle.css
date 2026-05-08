@@ -146,7 +146,7 @@ body {
     border: 2px solid rgba(255, 214, 129, 0.65);
     background:
         radial-gradient(circle at center, rgba(208, 152, 74, 0.3), rgba(86, 43, 19, 0.7)),
-        url('/BWD_codechay/FE/images/TrongDong.png') center / cover no-repeat;
+        url("../../images/TrongDong.png") center / cover no-repeat;
     overflow: visible;
 }
 
@@ -172,7 +172,7 @@ body {
     position: absolute;
     border-radius: 10px;
     border: 1px solid rgba(255, 228, 171, 0.6);
-    background-image: url('/BWD_codechay/FE/images/TrongDong.png');
+    background-image: url("../../images/TrongDong.png");
     background-repeat: no-repeat;
     cursor: grab;
     box-shadow: 0 8px 14px rgba(0, 0, 0, 0.35);
@@ -379,4 +379,144 @@ body {
     .actions button {
         flex: 1;
     }
+}
+
+/* Dong Son museum theme alignment */
+body {
+    --bronze: #8a5a2b;
+    --bronze-light: #c89a3c;
+    --bronze-pale: #e6d2b5;
+    --moss: #2f6f64;
+    --moss-mid: #3f8276;
+    --moss-light: #76a79d;
+    --bg-page: #231f1a;
+    --bg-card: #2b241f;
+    --bg-card2: #332a23;
+    --bg-deep: #17130f;
+    --text-main: #f7f0e3;
+    --text-muted: #d8c3a3;
+    font-family: "Manrope", sans-serif;
+    background-color: var(--bg-page);
+    background-image:
+        radial-gradient(ellipse 60% 40% at 50% 0%, rgba(200, 154, 60, 0.1) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 30% at 0% 46%, rgba(47, 111, 100, 0.14) 0%, transparent 50%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Ccircle cx='40' cy='40' r='36' fill='none' stroke='%23c9922a' stroke-width='0.4' stroke-dasharray='4 6' opacity='0.13'/%3E%3Ccircle cx='40' cy='40' r='24' fill='none' stroke='%23c9922a' stroke-width='0.3' opacity='0.09'/%3E%3Ccircle cx='40' cy='40' r='12' fill='none' stroke='%23c9922a' stroke-width='0.3' opacity='0.07'/%3E%3Cline x1='40' y1='4' x2='40' y2='76' stroke='%23c9922a' stroke-width='0.25' opacity='0.05'/%3E%3Cline x1='4' y1='40' x2='76' y2='40' stroke='%23c9922a' stroke-width='0.25' opacity='0.05'/%3E%3C/svg%3E");
+    background-size: auto, auto, 80px 80px;
+    color: var(--text-main);
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--bronze), var(--bronze-light), var(--bronze), transparent);
+    z-index: 1001;
+}
+
+.puzzle-main {
+    padding-top: 32px;
+}
+
+.card,
+.popup-content {
+    border: 1px solid rgba(200, 154, 60, 0.34);
+    border-top: 2px solid var(--bronze);
+    border-radius: 18px;
+    background: linear-gradient(135deg, #332a23 0%, #2b241f 62%, #17130f 100%);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(232, 184, 75, 0.12);
+}
+
+.puzzle-intro h1,
+.stage-right h2,
+.rules h2,
+.ranking h2,
+.popup-content h3 {
+    color: #e8ddd0;
+    font-family: "Newsreader", serif;
+    letter-spacing: 0;
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.45);
+}
+
+.puzzle-intro h1 {
+    font-size: clamp(44px, 6vw, 72px);
+    line-height: 0.96;
+}
+
+.puzzle-intro p,
+.rules p,
+.popup-content p,
+.status-line {
+    color: var(--text-muted);
+}
+
+.hud-item,
+.piece-tray,
+.ranking-list li {
+    border-color: rgba(200, 154, 60, 0.18);
+    border-radius: 12px;
+    background: rgba(23, 19, 15, 0.42);
+}
+
+.hud-item span {
+    color: var(--text-muted);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.hud-item strong,
+.combo-banner,
+.ranking-list li,
+.level-btn.unlocked {
+    color: #f0cf77;
+}
+
+.puzzle-board {
+    border-color: rgba(240, 207, 119, 0.68);
+    box-shadow: 0 10px 34px rgba(0, 0, 0, 0.42);
+}
+
+.slot {
+    border-color: rgba(230, 210, 181, 0.42);
+    background: rgba(201, 146, 42, 0.06);
+}
+
+.level-btn,
+.btn-primary,
+.btn-secondary {
+    border-radius: 12px;
+}
+
+.level-btn {
+    border-color: rgba(200, 154, 60, 0.36);
+    background: rgba(23, 19, 15, 0.46);
+    color: var(--text-muted);
+}
+
+.level-btn.active,
+.btn-primary {
+    border: 1px solid rgba(240, 207, 119, 0.7);
+    background: linear-gradient(135deg, #c9922a, #f0cf77);
+    color: #1a0e00;
+    box-shadow: 0 2px 12px rgba(201, 146, 42, 0.32);
+}
+
+.level-btn.completed {
+    border-color: rgba(118, 167, 157, 0.45);
+    background: rgba(47, 111, 100, 0.18);
+    color: var(--moss-light);
+}
+
+.btn-secondary {
+    border: 1px solid rgba(200, 154, 60, 0.36);
+    background: rgba(23, 19, 15, 0.46);
+    color: #f0cf77;
+}
+
+.popup-backdrop {
+    background: rgba(23, 19, 15, 0.82);
 }

@@ -1,5 +1,6 @@
 (function () {
-    const API_BASE_URL = "http://localhost:5000/api/v1/auth";
+    const BACKEND_ORIGIN = `${window.location.protocol === "file:" ? "http:" : window.location.protocol}//${window.location.hostname || "localhost"}:5000`;
+    const API_BASE_URL = `${BACKEND_ORIGIN}/api/v1/auth`;
     const DEFAULT_AVATAR = "../images/dongsonz1.jpg";
 
     const els = {

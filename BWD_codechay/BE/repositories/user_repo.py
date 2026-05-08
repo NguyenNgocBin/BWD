@@ -1,9 +1,9 @@
-from dataclasses import dataclass
+import dataclasses
 
-from config.db import execute, fetch_one
+import config.db as db
 
 
-@dataclass
+@dataclasses.dataclass
 class User:
     id: int
     username: str
@@ -30,7 +30,7 @@ def row_to_user(row):
 
 # Tim user theo id de phuc vu xac thuc va lay ho so.
 def find_user_by_id(user_id):
-    row = fetch_one(
+    row = db.fetch_one(
         """
         select id, username, email, password_hash, avatar, total_score
         from users
@@ -43,7 +43,7 @@ def find_user_by_id(user_id):
 
 # Tim user theo email de kiem tra dang nhap va trung lap.
 def find_user_by_email(email):
-    row = fetch_one(
+    row = db.fetch_one(
         """
         select id, username, email, password_hash, avatar, total_score
         from users
@@ -56,7 +56,7 @@ def find_user_by_email(email):
 
 # Tim user theo username de kiem tra trung lap khi dang ky va cap nhat.
 def find_user_by_username(username):
-    row = fetch_one(
+    row = db.fetch_one(
         """
         select id, username, email, password_hash, avatar, total_score
         from users
@@ -69,7 +69,7 @@ def find_user_by_username(username):
 
 # Tao user moi trong bang users va tra ve du lieu vua duoc tao.
 def create_user(username, email, password_hash):
-    row = execute(
+    row = db.execute(
         """
         insert into users (username, email, password_hash)
         values (%s, %s, %s)
@@ -83,7 +83,7 @@ def create_user(username, email, password_hash):
 
 # Cap nhat mat khau moi cho user theo id.
 def update_user_password(user_id, password_hash):
-    execute(
+    db.execute(
         """
         update users
         set password_hash = %s,
@@ -96,7 +96,7 @@ def update_user_password(user_id, password_hash):
 
 # Cap nhat thong tin ho so va tra ve user sau khi luu.
 def update_user_profile(user_id, username, email, avatar):
-    row = execute(
+    row = db.execute(
         """
         update users
         set username = %s,

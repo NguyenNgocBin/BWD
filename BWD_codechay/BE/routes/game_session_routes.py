@@ -1,10 +1,14 @@
-from flask import Blueprint
+import flask
 
-from controllers.game_session_controller import create_session, get_my_sessions
-from middlewares.auth_middleware import require_auth
+import controllers.game_session_controller as game_session_controller
+import middlewares.auth_middleware as auth_middleware
 
 
-game_session_bp = Blueprint("game_sessions", __name__)
+game_session_bp = flask.Blueprint("game_sessions", __name__)
 
-game_session_bp.route("/", methods=["POST"])(require_auth(create_session))
-game_session_bp.route("/me", methods=["GET"])(require_auth(get_my_sessions))
+game_session_bp.route("/", methods=["POST"])(
+    auth_middleware.require_auth(game_session_controller.create_session)
+)
+game_session_bp.route("/me", methods=["GET"])(
+    auth_middleware.require_auth(game_session_controller.get_my_sessions)
+)

@@ -1,9 +1,9 @@
-from dataclasses import dataclass
+import dataclasses
 
-from config.db import fetch_one
+import config.db as db
 
 
-@dataclass
+@dataclasses.dataclass
 class Game:
     id: int
     code: str
@@ -28,7 +28,7 @@ def row_to_game(row):
 
 # Tim game theo ma code de map payload frontend vao bang games.
 def find_game_by_code(code):
-    row = fetch_one(
+    row = db.fetch_one(
         """
         select id, code, name, description, is_active
         from games

@@ -1,18 +1,18 @@
 import os
 
-from dotenv import load_dotenv
-from flask import Flask
-from flask_cors import CORS
+import dotenv
+import flask
+import flask_cors
 
-from config.db import get_connection
-from routes.auth_routes import auth_bp
-from routes.game_session_routes import game_session_bp
+import config.db as db
+import routes.auth_routes as auth_routes
+import routes.game_session_routes as game_session_routes
 
 
-load_dotenv()
+dotenv.load_dotenv()
 
-app = Flask(__name__)
-CORS(app)
+app = flask.Flask(__name__)
+flask_cors.CORS(app)
 
 database_url = os.getenv("DATABASE_URL")
 if not database_url:
@@ -32,7 +32,7 @@ def create_database_tables():
         if statement.strip()
     ]
 
-    with get_connection() as connection:
+    with db.get_connection() as connection:
         with connection.cursor() as cursor:
             for statement in statements:
                 cursor.execute(statement)
@@ -41,8 +41,11 @@ def create_database_tables():
 
 create_database_tables()
 
-app.register_blueprint(auth_bp, url_prefix="/api/v1/auth")
-app.register_blueprint(game_session_bp, url_prefix="/api/v1/game-sessions")
+app.register_blueprint(auth_routes.auth_bp, url_prefix="/api/v1/auth")
+app.register_blueprint(
+    game_session_routes.game_session_bp,
+    url_prefix="/api/v1/game-sessions",
+)
 
 
 @app.route("/")

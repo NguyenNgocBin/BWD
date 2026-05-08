@@ -1,8 +1,8 @@
 /* ============================================================
    BXH – BẢNG XẾP HẠNG ĐÔNG SƠN
    Palette:
-     Nền chính   : #231f1a  (than nâu, chất bảo tàng)
-     Đồng cổ     : #8a5a2b / #c89a3c / #e6d2b5
+    n chính   : #231f1a  (than nâu, chất bảo tàng)
+     Đồ Nềng cổ     : #8a5a2b / #c89a3c / #e6d2b5
      Xanh gỉ đồng: #2f6f64 / #3f8276 / #76a79d
      Bạc (#2)    : #d8c3a3 / #e6d2b5
      Sơn son (#3): #9e2f1c / #c44a32
@@ -10,19 +10,19 @@
 
 /* ---- SVG drum-pattern dùng inline ở :root ---- */
 :root {
-  --bronze:       #8a5a2b;
+  --bronze: #8a5a2b;
   --bronze-light: #c89a3c;
-  --bronze-pale:  #e6d2b5;
-  --moss:         #2f6f64;
-  --moss-mid:     #3f8276;
-  --moss-light:   #76a79d;
-  --bg-page:      #231f1a;
-  --bg-card:      #2b241f;
-  --bg-card2:     #332a23;
-  --silver:       #d8c3a3;
-  --copper:       #9e2f1c;
-  --text-main:    #f7f0e3;
-  --text-muted:   #d8c3a3;
+  --bronze-pale: #e6d2b5;
+  --moss: #2f6f64;
+  --moss-mid: #3f8276;
+  --moss-light: #76a79d;
+  --bg-page: #231f1a;
+  --bg-card: #2b241f;
+  --bg-card2: #332a23;
+  --silver: #d8c3a3;
+  --copper: #9e2f1c;
+  --text-main: #f7f0e3;
+  --text-muted: #d8c3a3;
 }
 
 /* ============================================================
@@ -33,8 +33,8 @@
   min-height: 100vh;
   background-color: var(--bg-page);
   background-image:
-    radial-gradient(ellipse 60% 40% at 50% 0%, rgba(200,154,60,0.1) 0%, transparent 60%),
-    radial-gradient(ellipse 40% 30% at 0% 50%, rgba(47,111,100,0.14) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 40% at 50% 0%, rgba(200, 154, 60, 0.1) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 30% at 0% 50%, rgba(47, 111, 100, 0.14) 0%, transparent 50%),
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Ccircle cx='40' cy='40' r='36' fill='none' stroke='%23c9922a' stroke-width='0.4' stroke-dasharray='4 6' opacity='0.13'/%3E%3Ccircle cx='40' cy='40' r='24' fill='none' stroke='%23c9922a' stroke-width='0.3' opacity='0.09'/%3E%3Ccircle cx='40' cy='40' r='12' fill='none' stroke='%23c9922a' stroke-width='0.3' opacity='0.07'/%3E%3Cline x1='40' y1='4' x2='40' y2='76' stroke='%23c9922a' stroke-width='0.25' opacity='0.05'/%3E%3Cline x1='4' y1='40' x2='76' y2='40' stroke='%23c9922a' stroke-width='0.25' opacity='0.05'/%3E%3C/svg%3E");
   background-size: auto, auto, 80px 80px;
   position: relative;
@@ -44,7 +44,9 @@
 .bxh-main::before {
   content: "";
   position: absolute;
-  top: 0; left: 0; right: 0;
+  top: 0;
+  left: 0;
+  right: 0;
   height: 3px;
   background: linear-gradient(90deg, transparent, var(--bronze), var(--bronze-light), var(--bronze), transparent);
 }
@@ -75,13 +77,13 @@
   line-height: 0.92 !important;
   color: #e8ddd0 !important;
   margin-bottom: 16px;
-  text-shadow: 0 2px 18px rgba(0,0,0,0.6);
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.6);
 }
 
 .hero-copy h1 span {
   color: #e8b84b !important;
   font-style: italic !important;
-  text-shadow: 0 0 28px rgba(232,184,75,0.35), 0 2px 6px rgba(0,0,0,0.5) !important;
+  text-shadow: 0 0 28px rgba(232, 184, 75, 0.35), 0 2px 6px rgba(0, 0, 0, 0.5) !important;
 }
 
 .hero-copy p {
@@ -96,37 +98,42 @@
    ============================================================ */
 .hero-profile {
   background: linear-gradient(135deg, #332a23 0%, #2b241f 62%, #17130f 100%);
-  border: 1px solid rgba(200,154,60,0.34);
+  border: 1px solid rgba(200, 154, 60, 0.34);
   border-top: 2px solid var(--bronze);
   border-radius: 18px;
   padding: 28px 26px;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 8px 40px rgba(0,0,0,0.45), inset 0 1px 0 rgba(232,184,75,0.12);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(232, 184, 75, 0.12);
   transition: box-shadow 0.4s;
 }
 
 .hero-profile:hover {
-  box-shadow: 0 12px 50px rgba(0,0,0,0.55), 0 0 24px rgba(201,146,42,0.12);
+  box-shadow: 0 12px 50px rgba(0, 0, 0, 0.55), 0 0 24px rgba(201, 146, 42, 0.12);
 }
 
 /* decorative drum ring */
 .hero-profile::before {
   content: "";
   position: absolute;
-  width: 180px; height: 180px;
+  width: 180px;
+  height: 180px;
   border-radius: 50%;
-  border: 1.5px solid rgba(201,146,42,0.12);
-  right: -40px; bottom: -40px;
+  border: 1.5px solid rgba(201, 146, 42, 0.12);
+  right: -40px;
+  bottom: -40px;
   pointer-events: none;
 }
+
 .hero-profile::after {
   content: "";
   position: absolute;
-  width: 110px; height: 110px;
+  width: 110px;
+  height: 110px;
   border-radius: 50%;
-  border: 1px solid rgba(201,146,42,0.08);
-  right: -5px; bottom: -5px;
+  border: 1px solid rgba(201, 146, 42, 0.08);
+  right: -5px;
+  bottom: -5px;
   pointer-events: none;
 }
 
@@ -136,7 +143,7 @@
   font-size: 26px !important;
   margin-bottom: 18px;
   letter-spacing: 0.03em;
-  border-bottom: 1px solid rgba(201,146,42,0.28);
+  border-bottom: 1px solid rgba(201, 146, 42, 0.28);
   padding-bottom: 12px;
 }
 
@@ -146,9 +153,9 @@
   gap: 12px;
 }
 
-.hero-profile-grid > div {
-  background: rgba(23,19,15,0.42);
-  border: 1px solid rgba(200,154,60,0.18);
+.hero-profile-grid>div {
+  background: rgba(23, 19, 15, 0.42);
+  border: 1px solid rgba(200, 154, 60, 0.18);
   border-radius: 12px;
   padding: 12px;
 }
@@ -167,7 +174,7 @@
   font-size: 32px;
   font-family: "Newsreader", serif;
   line-height: 1;
-  text-shadow: 0 0 14px rgba(240,207,119,0.3);
+  text-shadow: 0 0 14px rgba(240, 207, 119, 0.3);
 }
 
 /* ============================================================
@@ -178,7 +185,7 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   background: #17130f;
-  border: 1px solid rgba(61,92,76,0.45);
+  border: 1px solid rgba(61, 92, 76, 0.45);
   border-radius: 14px;
   overflow: hidden;
 }
@@ -193,25 +200,29 @@
   letter-spacing: 0.04em;
   position: relative;
   transition: color 0.25s, background 0.25s;
-  border-right: 1px solid rgba(61,92,76,0.25) !important;
+  border-right: 1px solid rgba(61, 92, 76, 0.25) !important;
 }
 
-.tab-btn:last-child { border-right: 0; }
+.tab-btn:last-child {
+  border-right: 0;
+}
 
 .tab-btn:hover:not(.active) {
   color: var(--bronze-light);
-  background: rgba(61,92,76,0.18);
+  background: rgba(61, 92, 76, 0.18);
 }
 
 .tab-btn.active {
   color: #f0cf77 !important;
-  background: rgba(201,146,42,0.12) !important;
+  background: rgba(201, 146, 42, 0.12) !important;
 }
 
 .tab-btn.active::after {
   content: "";
   position: absolute;
-  left: 0; right: 0; bottom: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   height: 2px;
   background: linear-gradient(90deg, transparent, var(--bronze-light), transparent);
 }
@@ -233,7 +244,7 @@
 /* Base card */
 .podium-card {
   background: linear-gradient(160deg, var(--bg-card2), var(--bg-card));
-  border: 1px solid rgba(255,255,255,0.06);
+  border: 1px solid rgba(255, 255, 255, 0.06);
   text-align: center;
   padding: 28px 18px 22px;
   min-height: 300px;
@@ -262,40 +273,46 @@
   border-top: 3px solid var(--bronze-light);
   min-height: 380px;
   background: linear-gradient(160deg, #5b3518, #332a23, #231f1a);
-  box-shadow: 0 0 0 1px rgba(232,184,75,0.18), 0 12px 48px rgba(0,0,0,0.55);
+  box-shadow: 0 0 0 1px rgba(232, 184, 75, 0.18), 0 12px 48px rgba(0, 0, 0, 0.55);
 }
+
 .podium-card.first::before {
-  background: radial-gradient(ellipse at 50% 0%, rgba(232,184,75,0.10) 0%, transparent 65%);
+  background: radial-gradient(ellipse at 50% 0%, rgba(232, 184, 75, 0.10) 0%, transparent 65%);
   opacity: 1;
 }
+
 .podium-card.first:hover {
-  box-shadow: 0 0 0 1px rgba(232,184,75,0.30), 0 20px 60px rgba(0,0,0,0.65), 0 0 30px rgba(232,184,75,0.12);
+  box-shadow: 0 0 0 1px rgba(232, 184, 75, 0.30), 0 20px 60px rgba(0, 0, 0, 0.65), 0 0 30px rgba(232, 184, 75, 0.12);
 }
 
 /* ── RANK 2 – bạc xám ── */
 .podium-card.second {
   border-top: 3px solid var(--silver);
-  box-shadow: 0 0 0 1px rgba(157,162,171,0.12), 0 8px 32px rgba(0,0,0,0.4);
+  box-shadow: 0 0 0 1px rgba(157, 162, 171, 0.12), 0 8px 32px rgba(0, 0, 0, 0.4);
 }
+
 .podium-card.second::before {
-  background: radial-gradient(ellipse at 50% 0%, rgba(157,162,171,0.07) 0%, transparent 60%);
+  background: radial-gradient(ellipse at 50% 0%, rgba(157, 162, 171, 0.07) 0%, transparent 60%);
   opacity: 1;
 }
+
 .podium-card.second:hover {
-  box-shadow: 0 0 0 1px rgba(157,162,171,0.25), 0 16px 48px rgba(0,0,0,0.5), 0 0 22px rgba(157,162,171,0.08);
+  box-shadow: 0 0 0 1px rgba(157, 162, 171, 0.25), 0 16px 48px rgba(0, 0, 0, 0.5), 0 0 22px rgba(157, 162, 171, 0.08);
 }
 
 /* ── RANK 3 – đồng nâu ── */
 .podium-card.third {
   border-top: 3px solid var(--copper);
-  box-shadow: 0 0 0 1px rgba(192,113,58,0.12), 0 8px 32px rgba(0,0,0,0.4);
+  box-shadow: 0 0 0 1px rgba(192, 113, 58, 0.12), 0 8px 32px rgba(0, 0, 0, 0.4);
 }
+
 .podium-card.third::before {
-  background: radial-gradient(ellipse at 50% 0%, rgba(192,113,58,0.08) 0%, transparent 60%);
+  background: radial-gradient(ellipse at 50% 0%, rgba(192, 113, 58, 0.08) 0%, transparent 60%);
   opacity: 1;
 }
+
 .podium-card.third:hover {
-  box-shadow: 0 0 0 1px rgba(192,113,58,0.25), 0 16px 48px rgba(0,0,0,0.5), 0 0 22px rgba(192,113,58,0.10);
+  box-shadow: 0 0 0 1px rgba(192, 113, 58, 0.25), 0 16px 48px rgba(0, 0, 0, 0.5), 0 0 22px rgba(192, 113, 58, 0.10);
 }
 
 /* Crown */
@@ -304,7 +321,8 @@
   top: -22px;
   left: 50%;
   transform: translateX(-50%);
-  width: 44px; height: 44px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   border: 2px solid var(--bronze-light);
   display: grid;
@@ -312,50 +330,67 @@
   font-size: 20px;
   color: var(--bronze-pale);
   background: #17130f;
-  box-shadow: 0 0 14px rgba(232,184,75,0.35);
+  box-shadow: 0 0 14px rgba(232, 184, 75, 0.35);
   animation: crownPulse 2.8s ease-in-out infinite;
 }
 
 @keyframes crownPulse {
-  0%, 100% { box-shadow: 0 0 14px rgba(232,184,75,0.35); }
-  50%       { box-shadow: 0 0 26px rgba(232,184,75,0.60), 0 0 8px rgba(240,207,119,0.4); }
+
+  0%,
+  100% {
+    box-shadow: 0 0 14px rgba(232, 184, 75, 0.35);
+  }
+
+  50% {
+    box-shadow: 0 0 26px rgba(232, 184, 75, 0.60), 0 0 8px rgba(240, 207, 119, 0.4);
+  }
 }
 
 /* Avatar */
 .avatar-wrap {
-  width: 120px; height: 120px;
+  width: 120px;
+  height: 120px;
   border-radius: 16px;
   overflow: hidden;
   border: 3px solid var(--bronze-light);
   margin: 10px auto;
   background: #17130f;
-  box-shadow: 0 4px 18px rgba(0,0,0,0.5);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5);
   transition: box-shadow 0.3s;
 }
 
 .podium-card.second .avatar-wrap,
-.podium-card.third  .avatar-wrap {
-  width: 90px; height: 90px;
+.podium-card.third .avatar-wrap {
+  width: 90px;
+  height: 90px;
   border-radius: 12px;
   border-color: var(--silver);
 }
-.podium-card.third .avatar-wrap { border-color: var(--copper); }
+
+.podium-card.third .avatar-wrap {
+  border-color: var(--copper);
+}
 
 .podium-card:hover .avatar-wrap {
-  box-shadow: 0 6px 28px rgba(0,0,0,0.7), 0 0 16px rgba(232,184,75,0.2);
+  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.7), 0 0 16px rgba(232, 184, 75, 0.2);
 }
 
 .avatar-wrap img {
-  width: 100%; height: 100%;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   transition: transform 0.4s;
 }
-.podium-card:hover .avatar-wrap img { transform: scale(1.06); }
+
+.podium-card:hover .avatar-wrap img {
+  transform: scale(1.06);
+}
 
 /* Rank badge */
 .rank-badge {
   display: inline-flex;
-  width: 38px; height: 38px;
+  width: 38px;
+  height: 38px;
   align-items: center;
   justify-content: center;
   border-radius: 9px;
@@ -364,9 +399,21 @@
   margin-top: 10px;
 }
 
-.podium-card.first  .rank-badge { background: linear-gradient(135deg,#c9922a,#f0cf77) !important; color: #1a0e00 !important; box-shadow: 0 2px 12px rgba(201,146,42,0.5); }
-.podium-card.second .rank-badge { background: linear-gradient(135deg,#7c828a,#b8bec8) !important; color: #0a0f14 !important; }
-.podium-card.third  .rank-badge { background: linear-gradient(135deg,#7a3e18,#c0713a) !important; color: #ffeedd !important; }
+.podium-card.first .rank-badge {
+  background: linear-gradient(135deg, #c9922a, #f0cf77) !important;
+  color: #1a0e00 !important;
+  box-shadow: 0 2px 12px rgba(201, 146, 42, 0.5);
+}
+
+.podium-card.second .rank-badge {
+  background: linear-gradient(135deg, #7c828a, #b8bec8) !important;
+  color: #0a0f14 !important;
+}
+
+.podium-card.third .rank-badge {
+  background: linear-gradient(135deg, #7a3e18, #c0713a) !important;
+  color: #ffeedd !important;
+}
 
 .podium-card h3 {
   margin-top: 10px;
@@ -382,8 +429,13 @@
   margin-top: 4px;
 }
 
-.podium-card.second p { color: #9da2ab !important; }
-.podium-card.third  p { color: #c0713a !important; }
+.podium-card.second p {
+  color: #9da2ab !important;
+}
+
+.podium-card.third p {
+  color: #c0713a !important;
+}
 
 .podium-card small {
   color: var(--text-muted);
@@ -399,8 +451,8 @@
    ============================================================ */
 .my-rank-strip {
   margin-top: 22px;
-  border: 1px solid rgba(201,146,42,0.25);
-  background: linear-gradient(90deg, rgba(51,42,35,0.94), rgba(43,36,31,0.88));
+  border: 1px solid rgba(201, 146, 42, 0.25);
+  background: linear-gradient(90deg, rgba(51, 42, 35, 0.94), rgba(43, 36, 31, 0.88));
   display: grid;
   grid-template-columns: 1fr 1.6fr 1fr;
   padding: 14px 20px;
@@ -414,7 +466,9 @@
 .my-rank-strip::before {
   content: "";
   position: absolute;
-  left: 0; top: 0; bottom: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
   width: 3px;
   background: linear-gradient(180deg, var(--bronze-light), var(--bronze));
   border-radius: 2px 0 0 2px;
@@ -435,20 +489,23 @@
   font-family: "Newsreader", serif;
   font-size: 36px;
   line-height: 1;
-  text-shadow: 0 0 16px rgba(240,207,119,0.3);
+  text-shadow: 0 0 16px rgba(240, 207, 119, 0.3);
 }
 
 /* ============================================================
    TABLE SECTION
    ============================================================ */
-.table-section { padding-top: 52px; padding-bottom: 52px; }
+.table-section {
+  padding-top: 52px;
+  padding-bottom: 52px;
+}
 
 .leader-table {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
   background: #2b241f;
-  border: 1px solid rgba(61,92,76,0.35);
+  border: 1px solid rgba(61, 92, 76, 0.35);
   border-radius: 16px;
   overflow: hidden;
 }
@@ -464,19 +521,21 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--moss-light);
-  background: rgba(61,92,76,0.18);
-  border-bottom: 1px solid rgba(61,92,76,0.30);
+  background: rgba(61, 92, 76, 0.18);
+  border-bottom: 1px solid rgba(61, 92, 76, 0.30);
 }
 
 .leader-table tbody tr {
-  border-bottom: 1px solid rgba(255,255,255,0.04);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
   transition: background 0.22s;
 }
 
-.leader-table tbody tr:last-child { border-bottom: 0; }
+.leader-table tbody tr:last-child {
+  border-bottom: 0;
+}
 
 .leader-table tbody tr:hover {
-  background: rgba(201,146,42,0.06);
+  background: rgba(201, 146, 42, 0.06);
 }
 
 .leader-table td {
@@ -497,10 +556,11 @@
 }
 
 .player-cell img {
-  width: 38px; height: 38px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   object-fit: cover;
-  border: 1.5px solid rgba(201,146,42,0.30);
+  border: 1.5px solid rgba(201, 146, 42, 0.30);
 }
 
 .score-col {
@@ -513,19 +573,51 @@
    RESPONSIVE
    ============================================================ */
 @media (max-width: 1100px) {
-  .bxh-hero              { grid-template-columns: 1fr; }
-  .hero-profile-grid     { grid-template-columns: repeat(3,1fr); }
-  .podium-grid           { grid-template-columns: 1fr; }
-  .my-rank-strip         { grid-template-columns: 1fr; }
-  .tab-wrap              { grid-template-columns: repeat(2, 1fr); }
+  .bxh-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-profile-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .podium-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .my-rank-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .tab-wrap {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 768px) {
-  .bxh-main              { padding-top: 90px; }
+  .bxh-main {
+    padding-top: 90px;
+  }
+
   .leader-table th,
-  .leader-table td        { padding: 11px 12px; font-size: 13px; }
-  .podium-card h3         { font-size: 22px; }
-  .podium-card p          { font-size: 16px; }
-  .my-rank-strip strong   { font-size: 28px; }
-  .hero-profile-grid      { grid-template-columns: 1fr; }
+  .leader-table td {
+    padding: 11px 12px;
+    font-size: 13px;
+  }
+
+  .podium-card h3 {
+    font-size: 22px;
+  }
+
+  .podium-card p {
+    font-size: 16px;
+  }
+
+  .my-rank-strip strong {
+    font-size: 28px;
+  }
+
+  .hero-profile-grid {
+    grid-template-columns: 1fr;
+  }
 }

@@ -363,3 +363,135 @@
         width: 100%;
     }
 }
+
+/* Dong Son museum theme alignment */
+.pattern-main {
+    --bronze: #8a5a2b;
+    --bronze-light: #c89a3c;
+    --bronze-pale: #e6d2b5;
+    --moss: #2f6f64;
+    --moss-mid: #3f8276;
+    --moss-light: #76a79d;
+    --bg-page: #231f1a;
+    --bg-card: #2b241f;
+    --bg-card2: #332a23;
+    --bg-deep: #17130f;
+    --text-main: #f7f0e3;
+    --text-muted: #d8c3a3;
+    position: relative;
+    background-color: var(--bg-page);
+    background-image:
+        radial-gradient(ellipse 60% 40% at 50% 0%, rgba(200, 154, 60, 0.1) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 30% at 0% 46%, rgba(47, 111, 100, 0.14) 0%, transparent 50%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Ccircle cx='40' cy='40' r='36' fill='none' stroke='%23c9922a' stroke-width='0.4' stroke-dasharray='4 6' opacity='0.13'/%3E%3Ccircle cx='40' cy='40' r='24' fill='none' stroke='%23c9922a' stroke-width='0.3' opacity='0.09'/%3E%3Ccircle cx='40' cy='40' r='12' fill='none' stroke='%23c9922a' stroke-width='0.3' opacity='0.07'/%3E%3Cline x1='40' y1='4' x2='40' y2='76' stroke='%23c9922a' stroke-width='0.25' opacity='0.05'/%3E%3Cline x1='4' y1='40' x2='76' y2='40' stroke='%23c9922a' stroke-width='0.25' opacity='0.05'/%3E%3C/svg%3E");
+    background-size: auto, auto, 80px 80px;
+}
+
+.pattern-main::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--bronze), var(--bronze-light), var(--bronze), transparent);
+}
+
+.hero-tag {
+    border-color: rgba(47, 111, 100, 0.55);
+    border-radius: 9px;
+    background: rgba(47, 111, 100, 0.14);
+    color: var(--moss-light);
+    font-weight: 800;
+    letter-spacing: 0.14em;
+}
+
+.pattern-hero h1,
+.intro-card h2,
+.result-card h2,
+#questionText,
+.option-name {
+    color: #e8ddd0;
+    letter-spacing: 0;
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.45);
+}
+
+.hero-desc,
+.intro-card p,
+.feedback-knowledge,
+.option-note,
+.result-comment {
+    color: var(--text-muted);
+}
+
+.intro-card,
+.play-card,
+.result-card {
+    border: 1px solid rgba(200, 154, 60, 0.34);
+    border-top: 2px solid var(--bronze);
+    border-radius: 18px;
+    background: linear-gradient(135deg, #332a23 0%, #2b241f 62%, #17130f 100%);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(232, 184, 75, 0.12);
+}
+
+.hero-meta span,
+.rule-grid div,
+.hud-item,
+.result-grid div,
+.option-btn,
+.feedback-box {
+    border-color: rgba(200, 154, 60, 0.18);
+    border-radius: 12px;
+    background: rgba(23, 19, 15, 0.42);
+}
+
+.rule-grid span,
+.hud-item span,
+.result-grid span,
+.prompt-label,
+.prompt-tip {
+    color: var(--text-muted);
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.rule-grid strong,
+.hud-item strong,
+.result-grid strong,
+.feedback-main {
+    color: #f0cf77;
+}
+
+.prompt-box {
+    border-left-color: var(--bronze-light);
+    background: linear-gradient(90deg, rgba(201, 146, 42, 0.12), transparent 72%);
+}
+
+.option-symbol {
+    border-color: rgba(201, 146, 42, 0.34);
+    background: rgba(201, 146, 42, 0.12);
+    color: #f0cf77;
+}
+
+.option-btn:hover:not(:disabled) {
+    background: rgba(61, 92, 76, 0.18);
+}
+
+.btn-primary,
+.btn-secondary {
+    border-radius: 12px;
+}
+
+.btn-primary {
+    border-color: rgba(240, 207, 119, 0.7);
+    background: linear-gradient(135deg, #c9922a, #f0cf77);
+    color: #1a0e00;
+    box-shadow: 0 2px 12px rgba(201, 146, 42, 0.32);
+}
+
+.btn-secondary {
+    border-color: rgba(200, 154, 60, 0.36);
+    background: rgba(23, 19, 15, 0.46);
+    color: #f0cf77;
+}

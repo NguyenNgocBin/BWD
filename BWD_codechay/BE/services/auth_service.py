@@ -2,16 +2,10 @@ import datetime
 import os
 
 import jwt
-from psycopg2.errors import UniqueViolation
+import psycopg2.errors
 
-from repositories.user_repo import (
-    create_user,
-    find_user_by_email,
-    find_user_by_username,
-    update_user_password,
-    update_user_profile,
-)
-from utils.hash import check_password, hash_password
+import repositories.user_repo as user_repo
+import utils.hash as hash_utils
 
 
 class AuthError(Exception):
@@ -44,19 +38,19 @@ def register_user(username, email, password):
     if len(password) < 6:
         raise AuthError("Mat khau phai co it nhat 6 ky tu")
 
-    if find_user_by_email(email):
+    if user_repo.find_user_by_email(email):
         raise AuthError("Email da ton tai")
 
-    if find_user_by_username(username):
+    if user_repo.find_user_by_username(username):
         raise AuthError("Username da ton tai")
 
     try:
-        user = create_user(
+        user = user_repo.create_user(
             username=username,
             email=email,
-            password_hash=hash_password(password),
+            password_hash=hash_utils.hash_password(password),
         )
-    except UniqueViolation as error:
+    except psycopg2.errors.UniqueViolation as error:
         raise AuthError("Email hoac username da ton tai") from error
 
     return {
@@ -71,12 +65,12 @@ def login_user(email, password):
         raise AuthError("Vui long nhap day du thong tin")
 
     email = email.strip().lower()
-    user = find_user_by_email(email)
+    user = user_repo.find_user_by_email(email)
 
     if not user:
         raise AuthError("Email khong ton tai")
 
-    if not check_password(password, user.password_hash):
+    if not hash_utils.check_password(password, user.password_hash):
         raise AuthError("Sai mat khau")
 
     jwt_secret = os.getenv("JWT_SECRET")
@@ -121,10 +115,10 @@ def change_user_password(user, current_password, new_password):
     if len(new_password) < 6:
         raise AuthError("Mat khau moi phai co it nhat 6 ky tu")
 
-    if not check_password(current_password, user.password_hash):
+    if not hash_utils.check_password(current_password, user.password_hash):
         raise AuthError("Mat khau hien tai khong dung")
 
-    update_user_password(user.id, hash_password(new_password))
+    user_repo.update_user_password(user.id, hash_utils.hash_password(new_password))
 
     return {"message": "Doi mat khau thanh cong"}
 
@@ -136,7 +130,7 @@ def update_current_user_profile(user, username=None, email=None, avatar=None):
         if not username:
             raise AuthError("Username khong duoc de trong")
 
-        existing_user = find_user_by_username(username)
+        existing_user = user_repo.find_user_by_username(username)
         if existing_user and existing_user.id != user.id:
             raise AuthError("Username da ton tai")
 
@@ -147,7 +141,7 @@ def update_current_user_profile(user, username=None, email=None, avatar=None):
         if not email:
             raise AuthError("Email khong duoc de trong")
 
-        existing_user = find_user_by_email(email)
+        existing_user = user_repo.find_user_by_email(email)
         if existing_user and existing_user.id != user.id:
             raise AuthError("Email da ton tai")
 
@@ -158,13 +152,13 @@ def update_current_user_profile(user, username=None, email=None, avatar=None):
         user.avatar = avatar or "default-avatar.png"
 
     try:
-        updated_user = update_user_profile(
+        updated_user = user_repo.update_user_profile(
             user.id,
             user.username,
             user.email,
             user.avatar,
         )
-    except UniqueViolation as error:
+    except psycopg2.errors.UniqueViolation as error:
         raise AuthError("Email hoac username da ton tai") from error
 
     return {

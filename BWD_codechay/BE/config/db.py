@@ -1,7 +1,8 @@
 import os
+import urllib.parse
 
 import psycopg2
-from psycopg2.extras import RealDictCursor
+import psycopg2.extras
 
 
 # Lay chuoi ket noi database tu bien moi truong va kiem tra gia tri co hop le khong.
@@ -10,15 +11,36 @@ def get_database_url():
     if not database_url:
         raise RuntimeError("DATABASE_URL chua duoc cau hinh trong file .env")
 
-    if "username:password@host" in database_url:
-        raise RuntimeError("DATABASE_URL dang la gia tri mau. Hay thay bang connection string Supabase that.")
+    if "username:password@host" in database_url or "[YOUR-PASSWORD]" in database_url:
+        raise RuntimeError(
+            "DATABASE_URL dang la gia tri mau. Hay thay bang connection string Supabase that."
+        )
 
-    return database_url.replace("postgres://", "postgresql://", 1)
+    database_url = database_url.replace("postgres://", "postgresql://", 1)
+    parts = urllib.parse.urlsplit(database_url)
+
+    if "supabase.com" in parts.hostname and "sslmode=" not in parts.query:
+        query = dict(urllib.parse.parse_qsl(parts.query, keep_blank_values=True))
+        query["sslmode"] = "require"
+        database_url = urllib.parse.urlunsplit(
+            (
+                parts.scheme,
+                parts.netloc,
+                parts.path,
+                urllib.parse.urlencode(query),
+                parts.fragment,
+            )
+        )
+
+    return database_url
 
 
 # Tao ket noi moi toi Supabase Postgres de thuc thi truy van.
 def get_connection():
-    return psycopg2.connect(get_database_url(), cursor_factory=RealDictCursor)
+    return psycopg2.connect(
+        get_database_url(),
+        cursor_factory=psycopg2.extras.RealDictCursor,
+    )
 
 
 # Chay truy van va lay ve duy nhat mot dong du lieu.

@@ -1,11 +1,8 @@
 import json
 
-from repositories.game_repo import find_game_by_code
-from repositories.game_session_repo import (
-    create_game_session,
-    get_recent_game_sessions_by_user,
-)
-from services.auth_service import AuthError
+import repositories.game_repo as game_repo
+import repositories.game_session_repo as game_session_repo
+import services.auth_service as auth_service
 
 
 # Chuan hoa du lieu game session gui ve frontend.
@@ -40,7 +37,11 @@ def build_user_game_stats_response(stats_row, game):
         "total_score": stats_row["total_score"],
         "play_count": stats_row["play_count"],
         "best_streak": stats_row["best_streak"],
-        "last_played_at": stats_row["last_played_at"].isoformat() if stats_row["last_played_at"] else None,
+        "last_played_at": (
+            stats_row["last_played_at"].isoformat()
+            if stats_row["last_played_at"]
+            else None
+        ),
     }
 
 
@@ -71,10 +72,10 @@ def parse_non_negative_int(value, field_name, default_value=0):
     try:
         parsed_value = int(value)
     except (TypeError, ValueError) as error:
-        raise AuthError(f"{field_name} phai la so nguyen") from error
+        raise auth_service.AuthError(f"{field_name} phai la so nguyen") from error
 
     if parsed_value < 0:
-        raise AuthError(f"{field_name} khong duoc am")
+        raise auth_service.AuthError(f"{field_name} khong duoc am")
 
     return parsed_value
 
@@ -87,10 +88,10 @@ def parse_non_negative_float(value, field_name, default_value=0):
     try:
         parsed_value = float(value)
     except (TypeError, ValueError) as error:
-        raise AuthError(f"{field_name} phai la so") from error
+        raise auth_service.AuthError(f"{field_name} phai la so") from error
 
     if parsed_value < 0:
-        raise AuthError(f"{field_name} khong duoc am")
+        raise auth_service.AuthError(f"{field_name} khong duoc am")
 
     return parsed_value
 
@@ -99,48 +100,54 @@ def parse_non_negative_float(value, field_name, default_value=0):
 def create_user_game_session(user, payload):
     game_code = (payload.get("game_code") or "").strip()
     if not game_code:
-        raise AuthError("game_code khong duoc de trong")
+        raise auth_service.AuthError("game_code khong duoc de trong")
 
-    game = find_game_by_code(game_code)
+    game = game_repo.find_game_by_code(game_code)
     if not game:
-        raise AuthError("Game khong ton tai")
+        raise auth_service.AuthError("Game khong ton tai")
 
     if not game.is_active:
-        raise AuthError("Game hien dang tam dung")
+        raise auth_service.AuthError("Game hien dang tam dung")
 
     score = parse_non_negative_int(payload.get("score"), "score")
     correct_count = parse_non_negative_int(payload.get("correct_count"), "correct_count")
     wrong_count = parse_non_negative_int(payload.get("wrong_count"), "wrong_count")
     total_questions = parse_non_negative_int(payload.get("total_questions"), "total_questions")
-    duration_seconds = parse_non_negative_int(payload.get("duration_seconds"), "duration_seconds", None)
+    duration_seconds = parse_non_negative_int(
+        payload.get("duration_seconds"),
+        "duration_seconds",
+        None,
+    )
     best_streak = parse_non_negative_int(payload.get("best_streak"), "best_streak")
     level_reached = parse_non_negative_int(payload.get("level_reached"), "level_reached", None)
     accuracy = payload.get("accuracy")
     metadata = payload.get("metadata") or {}
 
     if duration_seconds is not None and duration_seconds < 0:
-        raise AuthError("duration_seconds khong duoc am")
+        raise auth_service.AuthError("duration_seconds khong duoc am")
 
     if level_reached is not None and level_reached <= 0:
-        raise AuthError("level_reached phai lon hon 0")
+        raise auth_service.AuthError("level_reached phai lon hon 0")
 
     if not isinstance(metadata, dict):
-        raise AuthError("metadata phai la object")
+        raise auth_service.AuthError("metadata phai la object")
 
     if total_questions == 0:
         total_questions = correct_count + wrong_count
 
     if total_questions < correct_count + wrong_count:
-        raise AuthError("total_questions khong duoc nho hon correct_count + wrong_count")
+        raise auth_service.AuthError(
+            "total_questions khong duoc nho hon correct_count + wrong_count"
+        )
 
     if accuracy is None or accuracy == "":
         accuracy_value = round((correct_count / total_questions) * 100, 2) if total_questions > 0 else 0
     else:
         accuracy_value = parse_non_negative_float(accuracy, "accuracy")
         if accuracy_value > 100:
-            raise AuthError("accuracy khong duoc lon hon 100")
+            raise auth_service.AuthError("accuracy khong duoc lon hon 100")
 
-    session_row, stats_row, user_row = create_game_session(
+    session_row, stats_row, user_row = game_session_repo.create_game_session(
         user_id=user.id,
         game_id=game.id,
         score=score,
@@ -171,7 +178,7 @@ def get_my_recent_game_sessions(user, limit_value):
     if limit > 50:
         limit = 50
 
-    rows = get_recent_game_sessions_by_user(user.id, limit)
+    rows = game_session_repo.get_recent_game_sessions_by_user(user.id, limit)
     return {
         "message": "Lay lich su choi game thanh cong",
         "sessions": [build_recent_session_item(row) for row in rows],

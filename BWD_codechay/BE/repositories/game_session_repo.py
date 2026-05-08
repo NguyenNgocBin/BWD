@@ -1,4 +1,4 @@
-from config.db import fetch_all, get_connection
+import config.db as db
 
 
 # Tao mot game session moi, dong bo bang thong ke va tinh lai tong diem user.
@@ -15,7 +15,7 @@ def create_game_session(
     level_reached,
     metadata,
 ):
-    with get_connection() as connection:
+    with db.get_connection() as connection:
         with connection.cursor() as cursor:
             cursor.execute(
                 """
@@ -124,7 +124,7 @@ def create_game_session(
 
 # Lay lich su choi game gan day cua user hien tai.
 def get_recent_game_sessions_by_user(user_id, limit=10):
-    return fetch_all(
+    return db.fetch_all(
         """
         select
             gs.id,
