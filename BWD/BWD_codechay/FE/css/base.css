@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,700;1,6..72,400;1,6..72,700&display=swap');
+
+:root {
+    --bg: #2d251f;
+    --bg-soft: #3c3026;
+    --bg-card: #47382b;
+    --bg-deep: #1e1915;
+    --text: #f7f0e3;
+    --text-muted: #ead7b6;
+    --text-fade: #cbb18a;
+    --gold: #d99b28;
+    --gold-soft: #f4dfbb;
+    --bronze: #a36a2a;
+    --red-son: #9e2f1c;
+    --patina: #2f6f64;
+    --indigo: #203a5b;
+    --line: rgba(216, 195, 163, 0.22);
+    --shadow: 0 16px 40px rgba(23, 19, 15, 0.38);
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-pill: 999px;
+}
+
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Manrope", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+}
+
+img {
+    display: block;
+    width: 100%;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    background: transparent;
+}
+
+/* CONTAINER */
+.container {
+    width: min(1320px, calc(100% - 64px));
+    margin: 0 auto;
+}

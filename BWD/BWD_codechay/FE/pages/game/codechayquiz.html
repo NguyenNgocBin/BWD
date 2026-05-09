@@ -1,0 +1,241 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <link rel="stylesheet" href="../../css/layout.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/game/codechayquiz.css?v=20260419-6">
+</head>
+
+<body>
+    <header class="header">
+        <div class="nav container">
+            <div class="logo">
+                <span class="logo-icon">⊙</span>
+                <span class="logo-text">Đông Sơn</span>
+            </div>
+
+            <nav class="menu" id="menu" aria-label="Menu chính">
+                <a href="../../index.html" class="menu-link">Trang chủ</a>
+                <a href="../hocvui.html" class="menu-link">Học vui</a>
+                <a href="../trochoi.html" class="menu-link active">Trò chơi</a>
+                <a href="../bxh.html" class="menu-link">Xếp hạng</a>
+                <a href="../profile.html" class="menu-link">Cá nhân</a>
+            </nav>
+
+            <div class="nav-action">
+                <a class="btn-login" href="../login.html">Đăng nhập</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="game-main-layout">
+        <div class="game-content">
+            <section class="question-intro">
+                <h1 id="question">Nhấn Bắt đầu để chơi</h1>
+                <p id="question-subtitle">
+                    Hãy định vị khuôn mặt vào khung hình để hệ thống xác nhận danh tính trước khi bắt đầu.
+                </p>
+            </section>
+
+            <section class="camera-stage">
+                <aside class="timer-rail">
+                    <section class="game-topbar game-topbar-side">
+                        <div class="status-group">
+                            <div class="status-item">
+                                <p class="status-label">SCORE</p>
+                                <p class="status-value score-value" id="score">0</p>
+                            </div>
+
+                            <div class="status-item">
+                                <p class="status-label">QUESTION</p>
+                                <p class="status-value question-value">
+                                    <span id="current-question">1</span><span>/</span><span
+                                        id="total-question">25</span>
+                                </p>
+                            </div>
+
+                            <div class="status-item status-item-timer">
+                                <p class="status-label">TIME</p>
+                                <div class="timer-box timer-box-inline">
+                                    <span class="timer-icon">⏱</span>
+                                    <span class="timer-text"><span id="time">10</span>s</span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </aside>
+
+                <section class="camera-preview">
+                    <div class="camera-frame">
+                        <video id="webcam" autoplay playsinline muted></video>
+                    </div>
+
+                    <section class="answers-section answers-overlay">
+                        <button class="answer-btn" id="answerA">A</button>
+                        <button class="answer-btn" id="answerB">B</button>
+                    </section>
+                </section>
+            </section>
+
+            <section class="game-action">
+                <div class="action-buttons">
+                    <button class="btn btn-primary" id="start-btn">▶ Bắt đầu chơi</button>
+                    <button class="btn btn-secondary" id="restart-btn">Chơi lại</button>
+                    <button class="btn btn-secondary" id="camera-toggle-btn">📷 Bật/Tắt camera</button>
+                    <button class="btn btn-secondary btn-next-chapter" id="next-chapter-btn">⏭ Chương tiếp theo</button>
+                </div>
+
+                <p class="action-note" id="action-note">Hệ thống sẽ mở camera và bắt đầu đếm giờ</p>
+                <p class="game-feedback" id="feedback"></p>
+            </section>
+
+            <section class="ranking-board" id="experience">
+                <h2 class="ranking-title">🏆 Xếp hạng tuần này</h2>
+                <div class="ranking-list">
+                    <div class="ranking-item top-1">
+                        <span class="rank-medal">🥇</span>
+                        <span class="rank-name">Nguyễn Văn A</span>
+                        <span class="rank-score">1250 điểm</span>
+                    </div>
+                    <div class="ranking-item">
+                        <span class="rank-medal">🥈</span>
+                        <span class="rank-name">Trần Thị B</span>
+                        <span class="rank-score">1100 điểm</span>
+                    </div>
+                    <div class="ranking-item">
+                        <span class="rank-medal">🥉</span>
+                        <span class="rank-name">Lê Văn C</span>
+                        <span class="rank-score">980 điểm</span>
+                    </div>
+                    <div class="ranking-item">
+                        <span class="rank-medal rank-order">4</span>
+                        <span class="rank-name">Phạm D</span>
+                        <span class="rank-score">870 điểm</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <aside class="game-sidebar">
+            <section class="side-card tracking-card">
+                <div class="tracking-status">
+                    <span class="tracking-dot" id="tracking-dot"></span>
+                    <span id="head-status">Chưa bắt đầu</span>
+                </div>
+            </section>
+
+            <section class="side-card">
+                <h3 class="side-title">ⓘ Cách chơi</h3>
+
+                <div class="info-list">
+                    <div class="info-item">
+                        <div class="info-icon">◎</div>
+                        <div class="info-text">
+                            <h4>Cấp quyền camera</h4>
+                            <p>Cho phép trò chơi sử dụng camera để thực hiện các thao tác tương tác bằng khuôn mặt.</p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">〰</div>
+                        <div class="info-text">
+                            <h4>Nhận diện họa tiết</h4>
+                            <p>Nghiên đầu sang trái hoặc phải để lựa chọn đáp án đúng.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="side-card">
+                <h3 class="side-title">🏆 Thành tựu</h3>
+
+                <div class="achievement-grid">
+                    <div class="achievement-box">
+                        <p class="achievement-label">CHUỖI ĐÚNG</p>
+                        <p class="achievement-value" id="streak-value">0</p>
+                    </div>
+
+                    <div class="achievement-box">
+                        <p class="achievement-label">ĐỘ CHÍNH XÁC</p>
+                        <p class="achievement-value" id="accuracy-value">0%</p>
+                    </div>
+
+                    <div class="achievement-box achievement-box-wide">
+                        <p class="achievement-label">ĐIỂM CAO NHẤT HÔM NAY</p>
+                        <p class="achievement-value" id="best-score-value">0</p>
+                    </div>
+                </div>
+
+                <div class="badge-box">
+                    <div class="badge-icon">🏆</div>
+                    <div class="badge-text">
+                        <p class="badge-label">HUY HIỆU HIỆN TẠI</p>
+                        <h4>Người giải mã trống đồng</h4>
+                    </div>
+                </div>
+            </section>
+
+            <section class="side-card">
+                <h3 class="side-title">▣ Tiến độ chương</h3>
+
+                <div class="progress-list" id="chapter-progress-list">
+                    <div class="progress-item active" data-chapter-index="0">
+                        <span class="progress-dot"></span>
+                        <div class="progress-content">Chương 1: Nguồn gốc trống đồng</div>
+                    </div>
+
+                    <div class="progress-item" data-chapter-index="1">
+                        <span class="progress-dot"></span>
+                        <div class="progress-content">Chương 2: Hoa văn và biểu tượng</div>
+                    </div>
+
+                    <div class="progress-item" data-chapter-index="2">
+                        <span class="progress-dot"></span>
+                        <div class="progress-content">Chương 3: Kỹ thuật và cấu tạo</div>
+                    </div>
+
+                    <div class="progress-item" data-chapter-index="3">
+                        <span class="progress-dot"></span>
+                        <div class="progress-content">Chương 4: Giá trị lịch sử</div>
+                    </div>
+
+                    <div class="progress-item" data-chapter-index="4">
+                        <span class="progress-dot"></span>
+                        <div class="progress-content">Chương 5: Bảo tồn và phát huy</div>
+                    </div>
+                </div>
+            </section>
+        </aside>
+    </main>
+
+    <footer class="footer" id="footer">
+        <div class="container footer-wrap">
+            <div class="footer-left">
+                <h3>Đông Sơn</h3>
+                <p>Khám phá di sản trống đồng &amp; văn hoá Việt cổ.</p>
+                <p>© 2026 Cổ Vật Số. All rights reserved.</p>
+            </div>
+
+            <div class="footer-contact">
+                <h4>Liên hệ</h4>
+                <p>&#128222; 037 435 2966</p>
+                <p>&#128231; dongson@gmail.com</p>
+            </div>
+
+            <div class="footer-right">
+                <h4>Kết nối</h4>
+                <a href="#"><span class="footer-icon footer-icon-facebook" aria-hidden="true">F</span>Facebook</a>
+                <a href="#"><span class="footer-icon footer-icon-tiktok" aria-hidden="true">&#9834;</span>TikTok</a>
+                <a href="#"><span class="footer-icon footer-icon-youtube" aria-hidden="true">&#9654;</span>YouTube</a>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="../../js/game/codechayquiz.js?v=20260419-6"></script>
+</body>
+
+</html>
