@@ -397,6 +397,7 @@
     border-radius: 18px;
     background: linear-gradient(160deg, var(--bg-card2), var(--bg-card));
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.36);
+    transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
 }
 
 .type-card::before,
@@ -406,6 +407,11 @@
     inset: 0;
     background: radial-gradient(ellipse at 50% 0%, rgba(232, 184, 75, 0.08) 0%, transparent 62%);
     pointer-events: none;
+}
+
+.type-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.48), 0 0 26px rgba(201, 146, 42, 0.1);
 }
 
 .type-primary {
@@ -431,10 +437,53 @@
 }
 
 .type-number {
+    position: relative;
+    z-index: 2;
     width: 46px;
     height: 46px;
-    margin-bottom: 18px;
+    margin-bottom: 16px;
     font-size: 26px;
+}
+
+.type-media {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    height: 280px;
+    margin: 0 0 20px;
+    padding: 14px;
+    overflow: hidden;
+    border: 1px solid rgba(200, 154, 60, 0.2);
+    border-bottom: 1px solid rgba(200, 154, 60, 0.2);
+    border-radius: 14px;
+    background:
+        radial-gradient(circle at 50% 36%, rgba(244, 223, 187, 0.14), transparent 52%),
+        linear-gradient(180deg, rgba(30, 25, 21, 0.46), rgba(30, 25, 21, 0.82));
+}
+
+.type-media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: inset 0 0 34px rgba(0, 0, 0, 0.34);
+    pointer-events: none;
+}
+
+.type-media img {
+    width: auto;
+    max-width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    filter: saturate(1.04) brightness(0.98) contrast(1.08);
+    transition: transform 0.45s ease, filter 0.45s ease;
+}
+
+.type-card:hover .type-media img {
+    transform: scale(1.03);
+    filter: saturate(1.12) brightness(1) contrast(1.08);
 }
 
 .type-name {
@@ -828,6 +877,10 @@
         min-height: 0;
     }
 
+    .type-media {
+        height: 300px;
+    }
+
     .type-card h3 {
         min-height: 0;
     }
@@ -866,5 +919,10 @@
 
     .artifact-card img {
         height: 190px;
+    }
+
+    .type-media {
+        height: 260px;
+        padding: 12px;
     }
 }
