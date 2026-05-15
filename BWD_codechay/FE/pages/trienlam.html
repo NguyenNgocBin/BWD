@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Triển lãm Đông Sơn - Bảo tàng số</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/trienlam.css">
+</head>
+
+<body>
+    <header class="header">
+        <div class="nav container">
+            <a class="logo" href="../index.html" aria-label="Về trang chủ Đông Sơn">
+                <span class="logo-icon">⊙</span>
+                <span class="logo-text">Đông Sơn</span>
+            </a>
+
+            <nav class="menu" id="menu" aria-label="Menu chính">
+                <a href="../index.html" class="menu-link">Trang chủ</a>
+                <a href="./hocvui.html" class="menu-link">Học vui</a>
+                <a href="./trienlam.html" class="menu-link active">Triển lãm</a>
+                <a href="./trochoi.html" class="menu-link">Trò chơi</a>
+                <a href="./bxh.html" class="menu-link">Xếp hạng</a>
+                <a href="./profile.html" class="menu-link">Cá nhân</a>
+            </nav>
+
+            <div class="nav-action">
+                <a class="btn-login" href="./login.html">Đăng nhập</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="trienlam-main">
+        <section class="trienlam-hero">
+            <div class="container">
+                <span class="section-label">Triển lãm trực tuyến</span>
+                <h1>Không gian trưng bày văn hóa Đông Sơn</h1>
+                <p>
+                    Tham quan triển lãm 3D trống đồng Đông Sơn ngay trên trình duyệt.
+                    Di chuyển, xoay và khám phá từng hiện vật trong không gian ảo.
+                </p>
+            </div>
+        </section>
+
+        <section class="trienlam-embed">
+            <div class="container">
+                <div class="iframe-wrapper">
+                    <div class="iframe-loading" id="iframeLoading">
+                        Đang tải triển lãm...
+                    </div>
+                    <iframe
+                        id="trienlam-iframe"
+                        src="https://vnmh.egal.vn/tours/dongson/"
+                        title="Triển lãm trực tuyến văn hóa Đông Sơn"
+                        allowfullscreen
+                        loading="lazy"
+                        sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
+                        onload="document.getElementById('iframeLoading').classList.add('hidden')"
+                    ></iframe>
+                </div>
+
+                <div class="trienlam-actions">
+                    <button class="btn-fullscreen" onclick="toggleFullscreen()" aria-label="Xem toàn màn hình">
+                        <span>⛶</span>
+                        <span>Toàn màn hình</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer" id="footer">
+        <div class="container footer-wrap">
+            <div class="footer-left">
+                <h3>Đông Sơn</h3>
+                <p>Khám phá di sản trống đồng và văn hóa Việt cổ.</p>
+                <p>© 2026 Cổ Vật Số. All rights reserved.</p>
+            </div>
+
+            <div class="footer-contact">
+                <h4>Liên hệ</h4>
+                <p>&#128222; 037 435 2966</p>
+                <p>&#128231; dongson@gmail.com</p>
+            </div>
+
+            <div class="footer-right">
+                <h4>Kết nối</h4>
+                <a href="#"><span class="footer-icon footer-icon-facebook" aria-hidden="true">F</span>Facebook</a>
+                <a href="#"><span class="footer-icon footer-icon-tiktok" aria-hidden="true">&#9834;</span>TikTok</a>
+                <a href="#"><span class="footer-icon footer-icon-youtube" aria-hidden="true">&#9654;</span>YouTube</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleFullscreen() {
+            const wrapper = document.querySelector('.iframe-wrapper');
+            if (!document.fullscreenElement) {
+                wrapper.requestFullscreen().catch(err => {
+                    alert('Trình duyệt không hỗ trợ toàn màn hình: ' + err.message);
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        }
+    </script>
+</body>
+
+</html>
