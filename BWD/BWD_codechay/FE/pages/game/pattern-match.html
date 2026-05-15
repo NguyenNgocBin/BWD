@@ -37,13 +37,13 @@
             <p class="hero-tag">Mini Game Đông Sơn</p>
             <h1>Tìm đúng họa tiết</h1>
             <p class="hero-desc">
-                Hãy chọn đúng họa tiết như chim Lạc, ngôi sao, thuyền hoặc con người. Quan sát thật kỹ để không bị
-                nhầm nhé. +15 điểm cho mỗi lượt trả lời đúng.
+                Quan sát ảnh trống đồng và click vào đúng vùng chứa họa tiết được yêu cầu.
+                Mỗi câu trả lời đúng được +15 điểm.
             </p>
             <div class="hero-meta">
                 <span>10 câu / lượt</span>
-                <span>4 lựa chọn / câu</span>
-                <span>Sai không trừ điểm</span>
+                <span>Click vào ảnh</span>
+                <span>15s mỗi câu</span>
             </div>
         </section>
 
@@ -51,8 +51,8 @@
             <article class="intro-card" id="introCard">
                 <h2>Cách chơi</h2>
                 <p>
-                    Em hãy quan sát yêu cầu ở phía trên màn hình, sau đó chọn đúng họa tiết tương ứng bên dưới.
-                    Mỗi câu trả lời đúng sẽ được cộng điểm. Càng chính xác và nhanh tay, em càng đạt điểm cao.
+                    Em sẽ thấy ảnh mặt trống đồng Đông Sơn. Đề bài sẽ yêu cầu tìm một họa tiết cụ thể
+                    (chim Lạc, ngôi sao, thuyền, người múa...). Hãy click đúng vào vùng chứa họa tiết đó trên ảnh.
                 </p>
                 <div class="rule-grid">
                     <div>
@@ -65,7 +65,7 @@
                     </div>
                     <div>
                         <span>Thời gian mỗi câu</span>
-                        <strong>10s</strong>
+                        <strong>15s</strong>
                     </div>
                 </div>
                 <button id="startBtn" class="btn-primary" type="button">Bắt đầu</button>
@@ -83,20 +83,28 @@
                     </div>
                     <div class="hud-item">
                         <span>Thời gian</span>
-                        <strong><span id="timeValue">10</span>s</strong>
+                        <strong><span id="timeValue">15</span>s</strong>
                     </div>
                 </div>
 
                 <div class="prompt-box">
                     <p class="prompt-label">Yêu cầu</p>
-                    <h3 id="questionText">Hãy chọn họa tiết chim Lạc</h3>
-                    <p class="prompt-tip">Chọn 1 đáp án đúng</p>
+                    <h3 id="questionText">Hãy click vào vùng có họa tiết chim Lạc</h3>
+                    <p class="prompt-tip">Click vào đúng vị trí trên ảnh trống đồng</p>
                 </div>
 
-                <div class="option-grid" id="optionGrid"></div>
+                <div class="drum-image-container" id="imageContainer">
+                    <img
+                        id="drumImage"
+                        src="../../images/TrongDong.png"
+                        alt="Mặt trống đồng Đông Sơn - click vào vùng họa tiết"
+                        draggable="false"
+                    >
+                    <div class="image-crosshair" id="crosshair"></div>
+                </div>
 
                 <div class="feedback-box" id="feedbackBox" aria-live="polite">
-                    <p class="feedback-main" id="feedbackMain">Sẵn sàng chưa? Chọn đáp án đầu tiên thôi nào.</p>
+                    <p class="feedback-main" id="feedbackMain">Click vào đúng vị trí họa tiết trên ảnh trống đồng.</p>
                     <p class="feedback-knowledge" id="feedbackKnowledge"></p>
                 </div>
             </article>
