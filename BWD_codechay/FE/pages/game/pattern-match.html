@@ -21,6 +21,7 @@
             <nav class="menu" id="menu" aria-label="Menu chính">
                 <a href="../../index.html" class="menu-link">Trang chủ</a>
                 <a href="../hocvui.html" class="menu-link">Học vui</a>
+                <a href="../trienlam.html" class="menu-link">Triển lãm</a>
                 <a href="../trochoi.html" class="menu-link active">Trò chơi</a>
                 <a href="../bxh.html" class="menu-link">Xếp hạng</a>
                 <a href="../profile.html" class="menu-link">Cá nhân</a>
@@ -37,13 +38,13 @@
             <p class="hero-tag">Mini Game Đông Sơn</p>
             <h1>Tìm đúng họa tiết</h1>
             <p class="hero-desc">
-                Hãy chọn đúng họa tiết như chim Lạc, ngôi sao, thuyền hoặc con người. Quan sát thật kỹ để không bị
-                nhầm nhé. +15 điểm cho mỗi lượt trả lời đúng.
+                Quan sát hình vẽ họa tiết trên trống đồng và nhận diện đúng tên gọi.
+                Mỗi câu trả lời đúng được +15 điểm.
             </p>
             <div class="hero-meta">
                 <span>10 câu / lượt</span>
                 <span>4 lựa chọn / câu</span>
-                <span>Sai không trừ điểm</span>
+                <span>12s mỗi câu</span>
             </div>
         </section>
 
@@ -51,8 +52,8 @@
             <article class="intro-card" id="introCard">
                 <h2>Cách chơi</h2>
                 <p>
-                    Em hãy quan sát yêu cầu ở phía trên màn hình, sau đó chọn đúng họa tiết tương ứng bên dưới.
-                    Mỗi câu trả lời đúng sẽ được cộng điểm. Càng chính xác và nhanh tay, em càng đạt điểm cao.
+                    Em sẽ thấy hình vẽ một họa tiết trên trống đồng Đông Sơn (chim Lạc, cò thìa, bồ nông, 
+                    chim công, nhà sàn...). Hãy quan sát kỹ đặc điểm hình dáng rồi chọn đúng đáp án bên dưới.
                 </p>
                 <div class="rule-grid">
                     <div>
@@ -65,7 +66,7 @@
                     </div>
                     <div>
                         <span>Thời gian mỗi câu</span>
-                        <strong>10s</strong>
+                        <strong>12s</strong>
                     </div>
                 </div>
                 <button id="startBtn" class="btn-primary" type="button">Bắt đầu</button>
@@ -83,20 +84,23 @@
                     </div>
                     <div class="hud-item">
                         <span>Thời gian</span>
-                        <strong><span id="timeValue">10</span>s</strong>
+                        <strong><span id="timeValue">12</span>s</strong>
                     </div>
                 </div>
 
                 <div class="prompt-box">
-                    <p class="prompt-label">Yêu cầu</p>
-                    <h3 id="questionText">Hãy chọn họa tiết chim Lạc</h3>
-                    <p class="prompt-tip">Chọn 1 đáp án đúng</p>
+                    <p class="prompt-label">Câu hỏi</p>
+                    <h3 id="questionText">Đây là họa tiết gì trên trống đồng?</h3>
+                </div>
+
+                <div class="motif-display">
+                    <img id="motifImage" src="" alt="Họa tiết trống đồng Đông Sơn" draggable="false">
                 </div>
 
                 <div class="option-grid" id="optionGrid"></div>
 
                 <div class="feedback-box" id="feedbackBox" aria-live="polite">
-                    <p class="feedback-main" id="feedbackMain">Sẵn sàng chưa? Chọn đáp án đầu tiên thôi nào.</p>
+                    <p class="feedback-main" id="feedbackMain">Quan sát hình ảnh và chọn đáp án đúng.</p>
                     <p class="feedback-knowledge" id="feedbackKnowledge"></p>
                 </div>
             </article>
@@ -142,15 +146,15 @@
 
             <div class="footer-contact">
                 <h4>Liên hệ</h4>
-                <p>📞 037 435 2966</p>
-                <p>📧 dongson@gmail.com</p>
+                <p>&#128222; 037 435 2966</p>
+                <p>&#128231; dongson@gmail.com</p>
             </div>
 
             <div class="footer-right">
                 <h4>Kết nối</h4>
-                <a href="#">Facebook</a>
-                <a href="#">TikTok</a>
-                <a href="#">YouTube</a>
+                <a href="#"><span class="footer-icon footer-icon-facebook" aria-hidden="true">F</span>Facebook</a>
+                <a href="#"><span class="footer-icon footer-icon-tiktok" aria-hidden="true">&#9834;</span>TikTok</a>
+                <a href="#"><span class="footer-icon footer-icon-youtube" aria-hidden="true">&#9654;</span>YouTube</a>
             </div>
         </div>
     </footer>
