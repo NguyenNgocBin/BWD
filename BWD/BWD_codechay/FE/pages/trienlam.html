@@ -14,7 +14,6 @@
     <header class="header">
         <div class="nav container">
             <a class="logo" href="../index.html" aria-label="Về trang chủ Đông Sơn">
-                <span class="logo-icon">⊙</span>
                 <span class="logo-text">Đông Sơn</span>
             </a>
 
@@ -25,6 +24,7 @@
                 <a href="./trochoi.html" class="menu-link">Trò chơi</a>
                 <a href="./bxh.html" class="menu-link">Xếp hạng</a>
                 <a href="./profile.html" class="menu-link">Cá nhân</a>
+                <a href="./tailieu.html" class="menu-link">Tài liệu</a>
             </nav>
 
             <div class="nav-action">
@@ -35,38 +35,79 @@
 
     <main class="trienlam-main">
         <section class="trienlam-hero">
-            <div class="container">
-                <span class="section-label">Triển lãm trực tuyến</span>
-                <h1>Không gian trưng bày văn hóa Đông Sơn</h1>
-                <p>
-                    Tham quan triển lãm 3D trống đồng Đông Sơn ngay trên trình duyệt.
-                    Di chuyển, xoay và khám phá từng hiện vật trong không gian ảo.
-                </p>
+            <div class="container trienlam-hero-grid">
+                <div class="trienlam-hero-copy">
+                    <span class="section-label">Triển lãm trực tuyến</span>
+                    <h1>Bước vào không gian Đông Sơn</h1>
+                    <p class="hero-lead">
+                        Một không gian trưng bày 3D tập trung vào trống đồng, hoa văn và những lớp nghĩa văn hóa Việt cổ.
+                    </p>
+
+                    <div class="trienlam-hero-actions">
+                        <a href="#viewer-stage" class="hero-enter-btn">Bắt đầu tham quan</a>
+                        <button class="hero-ghost-btn" type="button" onclick="toggleFullscreen()">
+                            <span>Toàn màn hình</span>
+                        </button>
+                    </div>
+                </div>
+
+                <aside class="trienlam-hero-preview" aria-label="Điểm nhấn triển lãm">
+                    <div class="preview-orbit">
+                        <img src="../images/TrongDongHV.jpg" alt="Trống đồng Đông Sơn">
+                    </div>
+
+                    <article class="preview-note">
+                        <span class="preview-kicker">Điểm nhấn</span>
+                        <p>Trống đồng được đặt làm tâm điểm để người xem đi thẳng vào trải nghiệm triển lãm chính.</p>
+                    </article>
+                </aside>
             </div>
         </section>
 
-        <section class="trienlam-embed">
-            <div class="container">
-                <div class="iframe-wrapper">
-                    <div class="iframe-loading" id="iframeLoading">
-                        Đang tải triển lãm...
+        <section class="trienlam-stage" id="viewer-stage">
+            <div class="container stage-shell">
+                <div class="viewer-column">
+                    <div class="viewer-intro">
+                        <span class="panel-label">Không gian trưng bày</span>
+                        <h2>Triển lãm 3D Đông Sơn</h2>
+                        <p>Màn hình bên dưới là trải nghiệm chính. Mở toàn màn hình để quan sát rộng và rõ hơn.</p>
                     </div>
-                    <iframe
-                        id="trienlam-iframe"
-                        src="https://vnmh.egal.vn/tours/dongson/"
-                        title="Triển lãm trực tuyến văn hóa Đông Sơn"
-                        allowfullscreen
-                        loading="lazy"
-                        sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
-                        onload="document.getElementById('iframeLoading').classList.add('hidden')"
-                    ></iframe>
-                </div>
 
-                <div class="trienlam-actions">
-                    <button class="btn-fullscreen" onclick="toggleFullscreen()" aria-label="Xem toàn màn hình">
-                        <span>⛶</span>
-                        <span>Toàn màn hình</span>
-                    </button>
+                    <div class="viewer-shell">
+                        <div class="viewer-toolbar">
+                            <div class="viewer-toolbar-copy">
+                                <span class="panel-label">Khám phá trực tiếp</span>
+                                <strong>Không gian triển lãm</strong>
+                            </div>
+
+                            <div class="viewer-toolbar-actions">
+                                <button class="toolbar-btn" type="button" onclick="toggleFullscreen()">
+                                    <span>Toàn màn hình</span>
+                                </button>
+                                <button class="toolbar-btn toolbar-btn-secondary" type="button" onclick="openExhibition()">
+                                    <span>Mở tab mới</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="iframe-wrapper">
+                            <div class="iframe-loading" id="iframeLoading">
+                                <div class="loading-shell">
+                                    <span class="loading-ring"></span>
+                                    <strong>Đang tải triển lãm</strong>
+                                    <p>Không gian trưng bày đang được khởi tạo, vui lòng chờ trong giây lát.</p>
+                                </div>
+                            </div>
+                            <iframe id="trienlam-iframe" src="https://vnmh.egal.vn/tours/dongson/"
+                                title="Triển lãm trực tuyến văn hóa Đông Sơn" allowfullscreen loading="lazy"
+                                sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
+                                onload="handleExhibitionLoad()"></iframe>
+                        </div>
+                    </div>
+
+                    <div class="viewer-footnote">
+                        <span>Gợi ý: trải nghiệm tốt nhất trên màn hình ngang hoặc ở chế độ toàn màn hình.</span>
+                    </div>
                 </div>
             </div>
         </section>
@@ -88,7 +129,7 @@
 
             <div class="footer-right">
                 <h4>Kết nối</h4>
-                <a href="#"><span class="footer-icon footer-icon-facebook" aria-hidden="true">F</span>Facebook</a>
+                <a href="https://www.facebook.com/nguyen.ngoc.bin.908961" target="_blank" rel="noopener noreferrer"><span class="footer-icon footer-icon-facebook" aria-hidden="true">F</span>Facebook</a>
                 <a href="#"><span class="footer-icon footer-icon-tiktok" aria-hidden="true">&#9834;</span>TikTok</a>
                 <a href="#"><span class="footer-icon footer-icon-youtube" aria-hidden="true">&#9654;</span>YouTube</a>
             </div>
@@ -96,14 +137,27 @@
     </footer>
 
     <script>
+        const exhibitionUrl = "https://vnmh.egal.vn/tours/dongson/";
+
         function toggleFullscreen() {
-            const wrapper = document.querySelector('.iframe-wrapper');
+            const wrapper = document.querySelector(".iframe-wrapper");
             if (!document.fullscreenElement) {
-                wrapper.requestFullscreen().catch(err => {
-                    alert('Trình duyệt không hỗ trợ toàn màn hình: ' + err.message);
+                wrapper.requestFullscreen().catch((err) => {
+                    alert("Trình duyệt không hỗ trợ toàn màn hình: " + err.message);
                 });
             } else {
                 document.exitFullscreen();
+            }
+        }
+
+        function openExhibition() {
+            window.open(exhibitionUrl, "_blank", "noopener,noreferrer");
+        }
+
+        function handleExhibitionLoad() {
+            const loading = document.getElementById("iframeLoading");
+            if (loading) {
+                loading.classList.add("hidden");
             }
         }
     </script>
