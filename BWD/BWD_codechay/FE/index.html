@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Khám phá trống đồng Đông Sơn qua nội dung học tập, hiện vật tiêu biểu, tài liệu tham khảo và trò chơi tương tác." />
     <title>Đông Sơn - Di sản văn hóa Việt cổ</title>
     <link rel="stylesheet" href="./css/base.css">
     <link rel="stylesheet" href="./css/layout.css">
@@ -11,19 +13,25 @@
 </head>
 
 <body>
-    <header class="header">
+    <header class="header dongson-header">
         <div class="nav container">
-            <a class="logo" href="./index.html" aria-label="Về trang chủ Đông Sơn">
-                <span class="logo-icon">⊙</span>
-                <span class="logo-text">Đông Sơn</span>
+            <a class="logo dongson-logo" href="./index.html" aria-label="Về trang chủ Đông Sơn">
+                <span class="logo-mark" aria-hidden="true">
+                    <img src="./images/TrongDong.png" alt="">
+                </span>
+                <span class="logo-copy">
+                    <strong>Đông Sơn</strong>
+                    <small>Trống đồng & văn hóa Việt cổ</small>
+                </span>
             </a>
 
-            <nav class="menu" id="menu" aria-label="Menu chính">
+            <nav class="menu drum-menu" id="menu" aria-label="Menu chính">
                 <a href="./index.html" class="menu-link active">Trang chủ</a>
                 <a href="./pages/hocvui.html" class="menu-link">Học vui</a>
                 <a href="./pages/trochoi.html" class="menu-link">Trò chơi</a>
                 <a href="./pages/bxh.html" class="menu-link">Xếp hạng</a>
                 <a href="./pages/profile.html" class="menu-link">Cá nhân</a>
+                <a href="./pages/tailieu.html" class="menu-link">Tài liệu</a>
             </nav>
 
             <div class="nav-action">
@@ -43,16 +51,31 @@
                 <div class="hero-content">
                     <p class="hero-subtitle">Bảo tàng số Đông Sơn</p>
                     <h1 class="hero-title">
-                        <span>Trống đồng</span>
+                        <span>Trống Đồng</span>
                         <span>Đông Sơn</span>
                     </h1>
                     <p class="hero-desc">
-                        Không gian học tập tương tác về di sản Việt cổ, nơi họa tiết, nghi lễ và kỹ thuật đúc đồng
-                        được kể lại bằng trải nghiệm số.
+                        Không gian học tập tương tác về di sản Việt cổ, nơi hoa văn, nghi lễ, đời sống cộng đồng và
+                        kỹ thuật đúc đồng được kể lại bằng trải nghiệm số.
                     </p>
                     <div class="hero-actions">
-                        <a href="./pages/hocvui.html" class="hero-btn">Khám phá ngay</a>
-                        <a href="./pages/trochoi.html" class="btn-secondary">Vào trò chơi</a>
+                        <a href="./pages/hocvui.html" class="hero-btn">Học nhanh 3 phút</a>
+                        <a href="./pages/tailieu.html" class="btn-secondary">Xem tài liệu</a>
+                    </div>
+                    <div class="hero-quickstart">
+                        <a href="./pages/hocvui.html" class="quickstart-card">
+                            <strong>Học vui</strong>
+                            <span>Làm quen với khái niệm, họa tiết và câu chuyện mở đầu bằng ngôn ngữ dễ hiểu.</span>
+                        </a>
+                        <a href="./pages/tailieu.html" class="quickstart-card">
+                            <strong>Tài liệu</strong>
+                            <span>Đi sâu vào phân loại Heger, cấu tạo, mô-típ và các hiện vật tiêu biểu.</span>
+                        </a>
+                        <a href="./pages/trochoi.html" class="quickstart-card">
+                            <strong>Trò chơi</strong>
+                            <span>Chuyển kiến thức thành trải nghiệm bằng ghép hình, nhận diện và thử thách
+                                nhanh.</span>
+                        </a>
                     </div>
                 </div>
 
@@ -62,12 +85,18 @@
                     </div>
                     <div class="terminal-panel">
                         <div class="terminal-tabs">
-                            <span class="active">dongson.data</span>
-                            <span>motif.json</span>
+                            <span class="active">dongson.vn</span>
+                            <span>museum mode</span>
                         </div>
-                        <div class="status-row delivered"><span></span><strong>17</strong><p>họa tiết đã giải mã</p></div>
-                        <div class="status-row opened"><span></span><strong>04</strong><p>chủ đề học tập</p></div>
-                        <div class="status-row clicked"><span></span><strong>03</strong><p>trò chơi tương tác</p></div>
+                        <div class="status-row delivered"><span></span><strong>06</strong>
+                            <p>mô-típ mở đầu dễ nhận diện</p>
+                        </div>
+                        <div class="status-row opened"><span></span><strong>04</strong>
+                            <p>nhóm trống trong hệ Heger</p>
+                        </div>
+                        <div class="status-row clicked"><span></span><strong>03</strong>
+                            <p>trò chơi để học rồi nhớ lâu hơn</p>
+                        </div>
                     </div>
                 </aside>
             </div>
@@ -78,61 +107,307 @@
             </div>
         </section>
 
-        <section class="highlight" id="history">
-            <div class="container highlight-grid">
-                <div class="highlight-image">
-                    <img src="./images/TrongDongHV.jpg" alt="Trống đồng Đông Sơn trưng bày">
+        <section class="gateway" id="start">
+            <div class="container">
+                <div class="section-intro centered">
+                    <span class="section-label">Bắt đầu từ đâu?</span>
+                    <h2>Chọn lối khám phá phù hợp với bạn</h2>
+                    <p>
+                        Dù bạn là người mới tìm hiểu, muốn đọc tư liệu kỹ hơn hay thích học bằng trò chơi, bảo tàng số
+                        này đều có một lối vào rõ ràng để bắt đầu.
+                    </p>
                 </div>
 
-                <div class="highlight-content">
-                    <span class="section-label">Báu vật quốc gia</span>
-                    <h2>Biểu tượng của quyền lực và tâm linh</h2>
-                    <p class="lead">
-                        Trống đồng không chỉ là nhạc khí nghi lễ. Đó là bản ghi bằng hình ảnh về đời sống, tín ngưỡng,
-                        tổ chức cộng đồng và trình độ luyện kim của cư dân Lạc Việt cổ.
+                <div class="gateway-grid">
+                    <article class="gateway-card">
+                        <div class="gateway-number">01</div>
+                        <h3>Vào Học vui trước</h3>
+                        <p>
+                            Phần này phù hợp nhất cho lần đầu ghé thăm: ngắn gọn, dễ hiểu, tập trung vào khái niệm và
+                            những chi tiết dễ nhận ra trên trống đồng.
+                        </p>
+                        <a href="./pages/hocvui.html" class="gateway-link">Khám phá học vui</a>
+                    </article>
+
+                    <article class="gateway-card">
+                        <div class="gateway-number">02</div>
+                        <h3>Mở Tài liệu để đọc sâu</h3>
+                        <p>
+                            Khi muốn hệ thống lại kiến thức, bạn có thể đi tiếp sang phần phân loại, cấu tạo, hoa văn,
+                            niên đại và các hiện vật tiêu biểu.
+                        </p>
+                        <a href="./pages/tailieu.html" class="gateway-link">Mở trang tài liệu</a>
+                    </article>
+
+                    <article class="gateway-card">
+                        <div class="gateway-number">03</div>
+                        <h3>Chuyển sang Trò chơi</h3>
+                        <p>
+                            Học xong là có thể chơi ngay: nhận diện họa tiết, ghép hình và kiểm tra trí nhớ để biến
+                            việc đọc thành trải nghiệm thật sự.
+                        </p>
+                        <a href="./pages/trochoi.html" class="gateway-link">Vào khu trò chơi</a>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="overview-band" id="history">
+            <div class="container overview-grid">
+                <div class="overview-copy">
+                    <span class="section-label">Khám phá nhanh</span>
+                    <h2>Trống đồng là một bản ghi bằng hình ảnh</h2>
+                    <p>
+                        Trống đồng không chỉ là nhạc khí nghi lễ. Nó còn gắn với biểu tượng quyền lực, đồng thời lưu
+                        lại dấu vết về đời sống, tín ngưỡng, giao thông đường nước, kỹ thuật đúc đồng và cách cộng
+                        đồng xưa hình dung về thế giới.
                     </p>
-                    <p class="sub">
-                        Từ ngôi sao nhiều cánh ở trung tâm đến chim Lạc, thuyền, người múa và các vòng hoa văn đồng tâm,
-                        mỗi chi tiết đều tạo nên một hệ biểu tượng có nhịp điệu rõ ràng.
+                    <p>
+                        Chỉ cần nắm vài điểm mấu chốt như cấu tạo, mô-típ và phân loại, bạn sẽ dễ theo dõi hơn khi đi
+                        sang phần hiện vật, tư liệu và trò chơi tương tác.
                     </p>
-                    <a href="./pages/hocvui.html" class="text-link">
+                    <a href="./pages/tailieu.html" class="text-link">
                         <span class="text-link-line"></span>
-                        <span>Tìm hiểu thêm</span>
+                        <span>Xem bản tài liệu đầy đủ</span>
                         <span class="text-link-arrow">→</span>
                     </a>
+                </div>
+
+                <div class="overview-topics">
+                    <article class="topic-card">
+                        <strong>Khái niệm</strong>
+                        <h3>Trống đồng là gì?</h3>
+                        <p>Một loại nhạc khí bằng hợp kim đồng, gắn với nghi lễ, quyền lực và ký ức cộng đồng.</p>
+                    </article>
+
+                    <article class="topic-card">
+                        <strong>Phân loại</strong>
+                        <h3>Có mấy loại?</h3>
+                        <p>Hệ Heger chia trống đồng thành bốn nhóm chính, trong đó loại I thường được xem là tiêu biểu
+                            nhất.</p>
+                    </article>
+
+                    <article class="topic-card">
+                        <strong>Nhận diện</strong>
+                        <h3>Mặt trống có gì?</h3>
+                        <p>Ngôi sao trung tâm, hình chim, thuyền, người múa và các vòng hoa văn đồng tâm.</p>
+                    </article>
+
+                    <article class="topic-card">
+                        <strong>Ý nghĩa</strong>
+                        <h3>Vì sao quan trọng?</h3>
+                        <p>Vì mỗi chiếc trống kể câu chuyện về kỹ thuật, biểu tượng và đời sống Việt cổ.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="artifact-showcase" id="artifacts">
+            <div class="container">
+                <div class="section-intro">
+                    <span class="section-label">Hiện vật tiêu biểu</span>
+                    <h2>Bốn chiếc trống nên xem đầu tiên</h2>
+                    <p>
+                        Đây là bốn hiện vật tiêu biểu để bắt đầu: có chiếc giúp nhận ra vẻ đẹp chuẩn mực, có chiếc để
+                        so sánh bố cục, có chiếc cho thấy sự tiếp nối loại hình, và có chiếc đưa câu chuyện vào bối
+                        cảnh lịch sử cụ thể.
+                    </p>
+                </div>
+
+                <div class="artifact-grid">
+                    <article class="artifact-card">
+                        <div class="artifact-media">
+                            <img src="./images/ngocLu.gif" alt="Trống đồng Ngọc Lũ">
+                        </div>
+                        <div class="artifact-body">
+                            <span>Heger I</span>
+                            <h3>Ngọc Lũ</h3>
+                            <p>
+                                Thường được xem là một trong những chiếc trống Đông Sơn đẹp và giàu hoa văn nhất, rất
+                                phù hợp để học cách đọc mặt trống từ tâm ra ngoài.
+                            </p>
+                            <a href="./pages/tailieu.html#artifacts" class="artifact-link">Xem trong tài liệu</a>
+                        </div>
+                    </article>
+
+                    <article class="artifact-card">
+                        <div class="artifact-media">
+                            <img src="./images/hoangha.png" alt="Trống đồng Hoàng Hạ">
+                        </div>
+                        <div class="artifact-body">
+                            <span>Heger I</span>
+                            <h3>Hoàng Hạ</h3>
+                            <p>
+                                Nổi bật với bố cục gần với Ngọc Lũ nhưng vẫn có sắc thái riêng, thích hợp để so sánh
+                                cách các dải hoa văn được tổ chức trên thân và mặt trống.
+                            </p>
+                            <a href="./pages/tailieu.html#artifacts" class="artifact-link">Xem trong tài liệu</a>
+                        </div>
+                    </article>
+
+                    <article class="artifact-card">
+                        <div class="artifact-media">
+                            <img src="./images/coloa.png" alt="Trống đồng Cổ Loa">
+                        </div>
+                        <div class="artifact-body">
+                            <span>Heger I</span>
+                            <h3>Cổ Loa</h3>
+                            <p>
+                                Gắn với không gian khảo cổ Cổ Loa, chiếc trống này giúp đặt hiện vật vào bối cảnh lịch
+                                sử của vùng châu thổ sông Hồng.
+                            </p>
+                            <a href="./pages/tailieu.html#artifacts" class="artifact-link">Xem trong tài liệu</a>
+                        </div>
+                    </article>
+
+                    <article class="artifact-card">
+                        <div class="artifact-media">
+                            <img src="./images/dongsonz2.png" alt="Trống đồng Tân Long">
+                        </div>
+                        <div class="artifact-body">
+                            <span>Heger II</span>
+                            <h3>Tân Long</h3>
+                            <p>
+                                Đây là một ví dụ của nhóm Heger II, thích hợp để quan sát sự tiếp nối và biến đổi của
+                                truyền thống trống đồng sau nhóm Heger I.
+                            </p>
+                            <a href="./pages/tailieu.html#artifacts" class="artifact-link">Xem trong tài liệu</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="journey" id="experience">
+            <div class="container">
+                <div class="section-intro centered">
+                    <span class="section-label">Hành trình trải nghiệm</span>
+                    <h2>Đọc để hiểu, nhìn để nhớ, chơi để thuộc</h2>
+                    <p>
+                        Mỗi chặng trong hành trình này nối tiếp nhau tự nhiên, giúp người học đi từ kiến thức nền đến
+                        trải nghiệm tương tác một cách liền mạch.
+                    </p>
+                </div>
+
+                <div class="journey-grid">
+                    <article class="journey-step">
+                        <div class="journey-number">1</div>
+                        <h3>Bắt đầu bằng câu chuyện</h3>
+                        <p>
+                            Học vui giúp người mới làm quen với trống đồng qua cách kể đơn giản, hình ảnh rõ và các ý
+                            chính dễ nắm.
+                        </p>
+                    </article>
+
+                    <article class="journey-step">
+                        <div class="journey-number">2</div>
+                        <h3>Đi sâu bằng tư liệu</h3>
+                        <p>
+                            Tài liệu mở rộng sang phân loại, cấu tạo, mốc thời gian và hiện vật để người học có thể hệ
+                            thống lại kiến thức.
+                        </p>
+                    </article>
+
+                    <article class="journey-step">
+                        <div class="journey-number">3</div>
+                        <h3>Củng cố bằng trò chơi</h3>
+                        <p>
+                            Trò chơi biến phần đã học thành phản xạ nhận diện và ghi nhớ thông qua thử thách ngắn,
+                            nhanh và có điểm số.
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="play-teaser" id="play">
+            <div class="container play-grid">
+                <div class="play-copy">
+                    <span class="section-label">Chơi để nhớ lâu</span>
+                    <h2>Ba dạng thử thách cho ba kiểu ghi nhớ</h2>
+                    <p>
+                        Mỗi trò chơi tập trung vào một kiểu ghi nhớ khác nhau: có game để nhận diện mô-típ, có game để
+                        nhớ bố cục và có game để kiểm tra tốc độ hiểu sau khi học.
+                    </p>
+                    <p>
+                        Khi chuyển từ đọc sang chơi, kiến thức về chim Lạc, ngôi sao, thuyền và mặt trống sẽ trở nên
+                        trực quan hơn, dễ nhớ hơn và vui hơn.
+                    </p>
+                    <div class="play-actions">
+                        <a href="./pages/trochoi.html" class="hero-btn">Vào trò chơi</a>
+                        <a href="./pages/hocvui.html" class="ghost-btn">Ôn lại kiến thức</a>
+                    </div>
+                </div>
+
+                <div class="play-cards">
+                    <article class="play-card">
+                        <img src="./images/dongsonz3.jpg" alt="Trò chơi tìm họa tiết">
+                        <div class="play-card-body">
+                            <strong>Quan sát</strong>
+                            <h3>Tìm đúng họa tiết</h3>
+                            <p>Phù hợp để ghi nhớ chim Lạc, ngôi sao, thuyền và những mô-típ dễ nhầm lẫn.</p>
+                            <a href="./pages/game/pattern-match.html">Chơi ngay</a>
+                        </div>
+                    </article>
+
+                    <article class="play-card">
+                        <img src="./images/dongsonz2.png" alt="Trò chơi ghép hình trống đồng">
+                        <div class="play-card-body">
+                            <strong>Ghi nhớ</strong>
+                            <h3>Ghép hình trống đồng</h3>
+                            <p>Giúp người học quan sát tổng thể bố cục mặt trống và nhớ cấu trúc qua mảnh ghép.</p>
+                            <a href="./pages/game/puzzle.html">Chơi ngay</a>
+                        </div>
+                    </article>
+
+                    <article class="play-card">
+                        <img src="./images/dongsonz4.png" alt="Trò chơi đúng hay sai">
+                        <div class="play-card-body">
+                            <strong>Kiểm tra</strong>
+                            <h3>Đúng hay Sai?</h3>
+                            <p>Dùng để rà nhanh kiến thức sau khi đọc, rất hợp cho phần ôn tập cuối chặng.</p>
+                            <a href="./pages/game/codechayquiz.html">Chơi ngay</a>
+                        </div>
+                    </article>
                 </div>
             </div>
         </section>
 
         <section class="leaderboard" id="ranking">
             <div class="container">
-                <h2 class="leaderboard-title">Xếp hạng tuần này</h2>
+                <div class="leaderboard-copy">
+                    <h2 class="leaderboard-title">Xếp hạng tuần này</h2>
+                    <p class="leaderboard-note">
+                        Những người chơi dẫn đầu tuần này đang bứt lên nhờ tốc độ quan sát và khả năng ghi nhớ họa tiết
+                        Đông Sơn qua từng vòng thử thách.
+                    </p>
+                </div>
 
                 <div class="leaderboard-list">
                     <div class="leaderboard-item top1">
                         <span class="rank">01</span>
-                        <img src="./images/dongsonz3.jpg" alt="Người chơi Huyền My">
+                        <span class="avatar-badge">HM</span>
                         <span class="name">Huyền My</span>
                         <span class="score">18,940 điểm</span>
                     </div>
 
                     <div class="leaderboard-item">
                         <span class="rank">02</span>
-                        <img src="./images/dongsonz2.png" alt="Người chơi Quang Minh">
+                        <span class="avatar-badge">QM</span>
                         <span class="name">Quang Minh</span>
                         <span class="score">17,520 điểm</span>
                     </div>
 
                     <div class="leaderboard-item">
                         <span class="rank">03</span>
-                        <img src="./images/dongsonz4.png" alt="Người chơi Gia Bảo">
+                        <span class="avatar-badge">GB</span>
                         <span class="name">Gia Bảo</span>
                         <span class="score">16,880 điểm</span>
                     </div>
 
                     <div class="leaderboard-item">
                         <span class="rank">04</span>
-                        <img src="./images/dongsonz1.jpg" alt="Người chơi Hoàng Nam">
+                        <span class="avatar-badge">HN</span>
                         <span class="name">Hoàng Nam</span>
                         <span class="score">12,100 điểm</span>
                     </div>
@@ -140,35 +415,19 @@
             </div>
         </section>
 
-        <section class="features" id="discover">
+        <section class="home-cta">
             <div class="container">
-                <div class="feature-grid">
-                    <article class="feature-card">
-                        <div class="feature-icon">01</div>
-                        <h3>Nguồn gốc thiên niên kỷ</h3>
-                        <p>
-                            Theo dõi hành trình của văn hóa Đông Sơn qua bản đồ tư liệu, niên đại và phát hiện khảo cổ.
-                        </p>
-                        <a href="./pages/hocvui.html">Chi tiết</a>
-                    </article>
-
-                    <article class="feature-card">
-                        <div class="feature-icon">02</div>
-                        <h3>Giải mã họa tiết</h3>
-                        <p>
-                            Nhận diện chim Lạc, ngôi sao, thuyền và các vòng hoa văn bằng cách học trực quan.
-                        </p>
-                        <a href="./pages/hocvui.html">Chi tiết</a>
-                    </article>
-
-                    <article class="feature-card" id="experience">
-                        <div class="feature-icon">03</div>
-                        <h3>Trò chơi tương tác</h3>
-                        <p>
-                            Ghép hình, trả lời nhanh và tìm đúng họa tiết để kiểm tra kiến thức sau mỗi phần học.
-                        </p>
-                        <a href="./pages/trochoi.html">Chi tiết</a>
-                    </article>
+                <div class="cta-shell">
+                    <span class="section-label">Sẵn sàng bắt đầu?</span>
+                    <h2>Đi từ hiện vật đến câu chuyện, rồi biến nó thành trải nghiệm</h2>
+                    <p>
+                        Hãy bắt đầu từ một chiếc trống tiêu biểu, đọc câu chuyện của nó, rồi thử kiểm tra trí nhớ bằng
+                        những trò chơi ngắn để hành trình khám phá trở nên sống động hơn.
+                    </p>
+                    <div class="cta-actions">
+                        <a href="./pages/tailieu.html" class="hero-btn">Khám phá tài liệu</a>
+                        <a href="./pages/trochoi.html" class="ghost-btn">Bắt đầu chơi</a>
+                    </div>
                 </div>
             </div>
         </section>
