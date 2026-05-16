@@ -5,7 +5,7 @@
     const heroName = document.getElementById("gameHeroName");
     const heroScore = document.getElementById("gameHeroScore");
 
-    // Lay token va user dang luu sau khi dang nhap.
+    // Lấy token và user đang lưu sau khi đăng nhập.
     function getStoredAuth() {
         const token = localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
         const rawUser = localStorage.getItem("authUser") || sessionStorage.getItem("authUser");
@@ -22,19 +22,19 @@
         return { token, user };
     }
 
-    // Doi diem so thanh chuoi hien thi.
+    // Đổi điểm số thành chuỗi hiển thị.
     function formatScore(value) {
         return Number(value || 0).toLocaleString("vi-VN");
     }
 
-    // Chi thay ten va diem hien tai vi BE da co user va total_score.
+    // Chỉ thay tên và điểm hiện tại vì BE đã có user và total_score.
     function renderHeroUser(user) {
         if (!user) return;
         if (heroName) heroName.textContent = user.username || "Người chơi";
         if (heroScore) heroScore.textContent = formatScore(user.total_score || 0);
     }
 
-    // Lay user moi nhat tu backend neu co token.
+    // Lấy user mới nhất từ backend nếu có token.
     async function hydrateHeroUser() {
         const { token, user } = getStoredAuth();
         renderHeroUser(user);
@@ -53,7 +53,7 @@
                 renderHeroUser(data.user);
             }
         } catch (error) {
-            // Neu backend chua phan hoi, giu dataset gia dang hien thi.
+            // Nếu backend chưa phản hồi, giữ dataset giả đang hiển thị.
         }
     }
 

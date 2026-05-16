@@ -13,7 +13,7 @@
         logoutBtn: document.getElementById("logoutBtn"),
     };
 
-    // Lay token va user dang luu sau khi dang nhap.
+    // Lấy token và user đang lưu sau khi đăng nhập.
     function getStoredAuth() {
         const token = localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
         const rawUser = localStorage.getItem("authUser") || sessionStorage.getItem("authUser");
@@ -30,7 +30,7 @@
         return { token, user };
     }
 
-    // Xoa thong tin dang nhap da luu o trinh duyet.
+    // Xóa thông tin đăng nhập đã lưu ở trình duyệt.
     function clearAuth() {
         localStorage.removeItem("authToken");
         localStorage.removeItem("authUser");
@@ -38,7 +38,7 @@
         sessionStorage.removeItem("authUser");
     }
 
-    // Luu user moi nhat vao noi dang chua authUser.
+    // Lưu user mới nhất vào nơi đang chứa authUser.
     function persistUser(user) {
         const payload = JSON.stringify(user);
         if (localStorage.getItem("authUser")) {
@@ -50,12 +50,12 @@
         }
     }
 
-    // Doi diem so thanh chuoi de hien thi.
+    // Đổi điểm số thành chuỗi để hiển thị.
     function formatScore(value) {
         return Number(value || 0).toLocaleString("vi-VN");
     }
 
-    // Chi cap nhat nhung truong BE da co du lieu that: ten, email, avatar, total_score.
+    // Chỉ cập nhật những trường BE đã có dữ liệu thật: tên, email, avatar, total_score.
     function renderUser(user) {
         if (!user) return;
 
@@ -67,7 +67,7 @@
         if (els.kpiTotalScore) els.kpiTotalScore.textContent = totalScore;
     }
 
-    // Goi API /me de lay user moi nhat tu backend.
+    // Gọi API /me để lấy user mới nhất từ backend.
     async function fetchCurrentUser(token) {
         const response = await fetch(`${API_BASE_URL}/me`, {
             headers: {
@@ -83,7 +83,7 @@
         return data.user;
     }
 
-    // Goi API /profile de cap nhat username that trong database.
+    // Gọi API /profile để cập nhật username thật trong database.
     async function updateProfile(token, payload) {
         const response = await fetch(`${API_BASE_URL}/profile`, {
             method: "PUT",
@@ -102,7 +102,7 @@
         return data.user;
     }
 
-    // Goi logout backend roi xoa auth local.
+    // Gọi logout backend rồi xóa auth local.
     async function logout(token) {
         if (token) {
             try {
@@ -113,7 +113,7 @@
                     },
                 });
             } catch (error) {
-                // Neu server tam thoi khong phan hoi, van dang xuat local.
+                // Nếu server tạm thời không phản hồi, vẫn đăng xuất local.
             }
         }
 
@@ -121,7 +121,7 @@
         window.location.href = "./login.html";
     }
 
-    // Nap profile: dung local truoc, sau do dong bo lai voi backend.
+    // Nạp profile: dùng local trước, sau đó đồng bộ lại với backend.
     async function hydrateProfile() {
         const { token, user } = getStoredAuth();
 

@@ -137,7 +137,7 @@
             ids.stripName.textContent = `Bạn (${freshUser.username})`;
             ids.stripScore.textContent = score;
         } catch (error) {
-            // Neu backend chua phan hoi, giu dataset gia dang hien thi.
+            // Nếu backend chưa phản hồi, giữ dataset giả đang hiển thị.
         }
     }
 

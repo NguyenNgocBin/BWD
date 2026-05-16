@@ -1,12 +1,5 @@
-main {
+﻿main {
     background-color: var(--bg);
-    background-image:
-        radial-gradient(ellipse 64% 42% at 50% 0%, rgba(232, 184, 75, 0.17), transparent 62%),
-        radial-gradient(ellipse 42% 32% at 0% 46%, rgba(47, 111, 100, 0.2), transparent 52%),
-        linear-gradient(180deg, #2d251f 0%, #261f1a 46%, #1e1915 100%);
-    background-position: center, left top, center;
-    background-repeat: no-repeat, no-repeat, no-repeat;
-    background-size: auto, auto, auto;
 }
 
 .hero,
@@ -32,7 +25,7 @@ main {
     right: 0;
     z-index: 2;
     height: 3px;
-    background: linear-gradient(90deg, transparent, #b9792c, #ffd978, #b9792c, transparent);
+    background: #d99b28;
     box-shadow: 0 0 18px rgba(240, 207, 119, 0.18);
 }
 
@@ -141,7 +134,7 @@ main {
 
 .hero-btn {
     border: 1px solid rgba(240, 207, 119, 0.7);
-    background: linear-gradient(135deg, #d99b28, #ffd978);
+    background: #d99b28;
     color: #1a0e00;
     box-shadow: 0 8px 24px rgba(201, 146, 42, 0.32);
 }
@@ -149,7 +142,7 @@ main {
 .btn-secondary,
 .ghost-btn {
     border: 1px solid rgba(240, 207, 119, 0.44);
-    background: rgba(47, 111, 100, 0.18);
+    background: rgba(217, 155, 40, 0.1);
     color: #ffd978;
 }
 
@@ -167,7 +160,7 @@ main {
     position: absolute;
     inset: -20% auto -20% -30%;
     width: 38%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.34), transparent);
+    background: rgba(255, 255, 255, 0.34);
     transform: skewX(-24deg) translateX(-180%);
     opacity: 0;
     pointer-events: none;
@@ -208,10 +201,7 @@ main {
 .hero-overlay {
     position: absolute;
     inset: 0;
-    background:
-        radial-gradient(ellipse 54% 38% at 54% 28%, rgba(240, 207, 119, 0.24), transparent 62%),
-        radial-gradient(ellipse 34% 28% at 20% 58%, rgba(47, 111, 100, 0.18), transparent 64%),
-        linear-gradient(to bottom, rgba(23, 19, 15, 0.66), rgba(23, 19, 15, 0.38), rgba(23, 19, 15, 0.92));
+    background: rgba(23, 19, 15, 0.72);
     animation: heroOverlayPulse 10s ease-in-out infinite;
 }
 
@@ -317,6 +307,7 @@ main {
     display: block;
     padding: 18px 18px 20px;
     border: 1px solid rgba(232, 184, 75, 0.24);
+    border-top-width: 3px;
     border-radius: 18px;
     background: rgba(30, 25, 21, 0.62);
     backdrop-filter: blur(8px);
@@ -327,14 +318,17 @@ main {
 
 .quickstart-card:nth-child(1) {
     animation-delay: 0.54s;
+    border-top-color: var(--gold);
 }
 
 .quickstart-card:nth-child(2) {
     animation-delay: 0.64s;
+    border-top-color: #9bc9be;
 }
 
 .quickstart-card:nth-child(3) {
     animation-delay: 0.74s;
+    border-top-color: var(--red-son);
 }
 
 .quickstart-card:hover {
@@ -381,7 +375,7 @@ main {
 .cta-shell {
     border: 1px solid rgba(232, 184, 75, 0.24);
     border-radius: 18px;
-    background: linear-gradient(160deg, #3f3328, #2f271f);
+    background: #3f3328;
     box-shadow: 0 14px 44px rgba(0, 0, 0, 0.32), 0 0 28px rgba(201, 146, 42, 0.06);
 }
 
@@ -506,7 +500,7 @@ main {
 .scroll-line {
     width: 1px;
     height: 56px;
-    background: linear-gradient(var(--gold), transparent);
+    background: var(--gold);
     transform-origin: top;
     animation: scrollGlow 1.8s ease-in-out infinite;
 }
@@ -557,7 +551,7 @@ main {
 .podium-card:hover,
 .leaderboard-rest:hover {
     transform: translateY(-5px);
-    background: linear-gradient(160deg, #47382b, #312820);
+    background: #47382b;
 }
 
 .gateway-number,
@@ -653,9 +647,7 @@ main {
 /* OVERVIEW */
 .overview-band {
     overflow: hidden;
-    background:
-        linear-gradient(90deg, rgba(47, 39, 31, 0.76), rgba(23, 19, 15, 0.68)),
-        radial-gradient(ellipse 34% 24% at 100% 50%, rgba(47, 111, 100, 0.18), transparent 64%);
+    background: rgba(47, 39, 31, 0.76);
 }
 
 .overview-grid {
@@ -665,7 +657,7 @@ main {
     align-items: start;
 }
 
-.overview-copy p + p {
+.overview-copy p+p {
     margin-top: 16px;
 }
 
@@ -681,7 +673,24 @@ main {
 
 .topic-card {
     padding: 22px;
+    border-top-width: 3px;
     transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.topic-card:nth-child(1) {
+    border-top-color: var(--gold);
+}
+
+.topic-card:nth-child(2) {
+    border-top-color: #9bc9be;
+}
+
+.topic-card:nth-child(3) {
+    border-top-color: var(--red-son);
+}
+
+.topic-card:nth-child(4) {
+    border-top-color: #ead7b6;
 }
 
 .topic-card strong {
@@ -707,15 +716,33 @@ main {
 
 .artifact-card {
     overflow: hidden;
+    border-top-width: 3px;
     transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.artifact-card:nth-child(1),
+.play-card:nth-child(1) {
+    border-top-color: var(--gold);
+}
+
+.artifact-card:nth-child(2),
+.play-card:nth-child(2) {
+    border-top-color: #9bc9be;
+}
+
+.artifact-card:nth-child(3),
+.play-card:nth-child(3) {
+    border-top-color: var(--red-son);
+}
+
+.artifact-card:nth-child(4) {
+    border-top-color: #ead7b6;
 }
 
 .artifact-media {
     height: 260px;
     padding: 16px;
-    background:
-        radial-gradient(ellipse at top, rgba(217, 155, 40, 0.14), transparent 64%),
-        rgba(24, 19, 16, 0.72);
+    background: rgba(24, 19, 16, 0.72);
 }
 
 .artifact-media img {
@@ -740,9 +767,7 @@ main {
 
 /* JOURNEY */
 .journey {
-    background:
-        radial-gradient(ellipse 44% 30% at 0% 50%, rgba(47, 111, 100, 0.14), transparent 60%),
-        transparent;
+    background: transparent;
 }
 
 .journey-grid {
@@ -753,7 +778,20 @@ main {
 
 .journey-step {
     padding: 28px;
+    border-top-width: 3px;
     transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.journey-step:nth-child(1) {
+    border-top-color: var(--gold);
+}
+
+.journey-step:nth-child(2) {
+    border-top-color: #9bc9be;
+}
+
+.journey-step:nth-child(3) {
+    border-top-color: var(--red-son);
 }
 
 .journey-step h3 {
@@ -791,6 +829,7 @@ main {
 
 .play-card {
     overflow: hidden;
+    border-top-width: 3px;
     transition: transform 0.3s ease, background 0.3s ease;
 }
 
@@ -815,18 +854,29 @@ main {
 
 /* LEADERBOARD */
 .leaderboard {
+    overflow: hidden;
     background: rgba(47, 39, 31, 0.36);
 }
 
 .leaderboard-title {
     font-size: clamp(40px, 4.5vw, 60px);
     text-align: center;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-shadow: 0 2px 0 rgba(120, 72, 28, 0.48), 0 0 24px rgba(217, 155, 40, 0.18);
 }
 
 .leaderboard-copy {
+    position: relative;
+    z-index: 1;
     max-width: 760px;
     margin: 0 auto 42px;
     text-align: center;
+}
+
+.leaderboard-copy .section-label {
+    color: #8fd2c2;
+    text-shadow: 0 0 18px rgba(143, 210, 194, 0.18);
 }
 
 .leaderboard-note {
@@ -834,6 +884,8 @@ main {
 }
 
 .leaderboard-stage {
+    position: relative;
+    z-index: 1;
     max-width: 1100px;
     margin: 0 auto;
     display: grid;
@@ -845,6 +897,8 @@ main {
 
 .podium-card {
     position: relative;
+    overflow: hidden;
+    isolation: isolate;
     padding: 26px 24px 24px;
     min-height: 250px;
     display: flex;
@@ -853,14 +907,76 @@ main {
     transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
+.podium-card::before {
+    content: "";
+    position: absolute;
+    top: 38px;
+    right: 20px;
+    width: 190px;
+    height: 82px;
+    z-index: 0;
+    opacity: 0.12;
+    pointer-events: none;
+    background: url("../images/chim-lac-pattern.png") center / contain no-repeat;
+    filter: sepia(0.45) saturate(1.12) brightness(1.08);
+    transform: rotate(-4deg);
+}
+
+.podium-card::after {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    z-index: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: rgba(255, 236, 178, 0.05);
+}
+
+.podium-card > * {
+    position: relative;
+    z-index: 1;
+}
+
 .podium-top {
-    min-height: 320px;
+    min-height: 340px;
     padding-top: 34px;
     border-color: rgba(240, 207, 119, 0.62);
     background:
-        radial-gradient(ellipse 72% 58% at 50% 0%, rgba(240, 207, 119, 0.16), transparent 70%),
-        linear-gradient(160deg, #6b421c, #3f3328, #261f1a);
-    box-shadow: 0 22px 54px rgba(0, 0, 0, 0.34), 0 0 36px rgba(217, 155, 40, 0.12);
+        linear-gradient(145deg, #d49a37 0%, #9b6727 44%, #5a3a1f 100%);
+    box-shadow: inset 0 1px 0 rgba(255, 236, 178, 0.28);
+}
+
+.leaderboard-stage .podium-card:nth-child(1) {
+    border-color: rgba(220, 226, 232, 0.58);
+    background:
+        linear-gradient(145deg, #c1c8ce 0%, #858d96 42%, #4f575a 100%);
+    box-shadow: inset 0 1px 0 rgba(245, 248, 248, 0.24);
+}
+
+.leaderboard-stage .podium-card:nth-child(2) {
+    border-color: rgba(240, 207, 119, 0.72);
+    background:
+        linear-gradient(145deg, #d49a37 0%, #9b6727 44%, #5a3a1f 100%);
+    box-shadow: inset 0 1px 0 rgba(255, 236, 178, 0.28);
+}
+
+.leaderboard-stage .podium-card:nth-child(3) {
+    border-color: rgba(184, 105, 49, 0.62);
+    background:
+        linear-gradient(145deg, #bd6d3a 0%, #8e542f 45%, #51301f 100%);
+    box-shadow: inset 0 1px 0 rgba(255, 205, 159, 0.18);
+}
+
+.podium-top::before {
+    top: 54px;
+    right: 20px;
+    width: 230px;
+    height: 98px;
+    opacity: 0.16;
+}
+
+.podium-top::after {
+    background: rgba(255, 231, 154, 0.08);
 }
 
 .podium-rank {
@@ -870,7 +986,8 @@ main {
     color: var(--gold);
     font-size: 13px;
     font-weight: 800;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.2em;
+    text-shadow: 0 0 16px rgba(255, 213, 122, 0.24);
 }
 
 .podium-spotlight {
@@ -880,12 +997,13 @@ main {
     padding: 8px 12px;
     border: 1px solid rgba(240, 207, 119, 0.36);
     border-radius: 999px;
-    background: rgba(240, 207, 119, 0.12);
+    background: rgba(240, 207, 119, 0.14);
     color: #ffe6ad;
     font-size: 11px;
     font-weight: 800;
     letter-spacing: 0.14em;
     text-transform: uppercase;
+    box-shadow: inset 0 1px 0 rgba(255, 236, 178, 0.16), 0 0 20px rgba(217, 155, 40, 0.1);
 }
 
 .podium-avatar,
@@ -896,9 +1014,7 @@ main {
     height: 54px;
     border: 1px solid rgba(201, 146, 42, 0.42);
     border-radius: 50%;
-    background:
-        radial-gradient(circle at 30% 30%, rgba(255, 232, 182, 0.18), transparent 42%),
-        rgba(201, 146, 42, 0.12);
+    background: rgba(201, 146, 42, 0.12);
     color: #f8e6ba;
     font-size: 15px;
     font-weight: 700;
@@ -913,11 +1029,12 @@ main {
 
 .podium-tag {
     margin: 16px 0 8px;
-    color: #9bc9be;
+    color: #9ed6c8;
     font-size: 11px;
     font-weight: 800;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
+    text-shadow: 0 0 14px rgba(47, 111, 100, 0.24);
 }
 
 .podium-card h3 {
@@ -944,6 +1061,7 @@ main {
     font-family: "Newsreader", serif;
     font-size: 34px;
     line-height: 1;
+    text-shadow: 0 0 18px rgba(217, 155, 40, 0.16);
 }
 
 .podium-side .podium-score {
@@ -951,13 +1069,23 @@ main {
 }
 
 .leaderboard-rest {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
     max-width: 1100px;
     margin: 0 auto;
     padding: 14px 22px 10px;
+    border-color: rgba(188, 124, 48, 0.32);
+    background: rgba(52, 41, 31, 0.82);
+    box-shadow:
+        0 18px 44px rgba(39, 21, 11, 0.28),
+        inset 0 1px 0 rgba(255, 224, 161, 0.08);
     transition: transform 0.3s ease, background 0.3s ease;
 }
 
 .leaderboard-rest-head {
+    position: relative;
+    z-index: 1;
     display: flex;
     justify-content: space-between;
     gap: 16px;
@@ -970,18 +1098,25 @@ main {
 }
 
 .leaderboard-rest-list {
+    position: relative;
+    z-index: 1;
     display: flex;
     flex-direction: column;
+    gap: 10px;
 }
 
 .leaderboard-rest-item {
+    position: relative;
     display: grid;
     grid-template-columns: 70px minmax(0, 1fr) auto;
     align-items: center;
     gap: 18px;
-    padding: 16px 4px;
-    border-top: 1px solid rgba(217, 155, 40, 0.14);
-    transition: background 0.25s ease, transform 0.25s ease;
+    padding: 14px 16px;
+    border: 1px solid rgba(217, 155, 40, 0.14);
+    border-radius: 12px;
+    background: rgba(74, 54, 36, 0.46);
+    box-shadow: inset 0 1px 0 rgba(255, 224, 161, 0.06);
+    transition: background 0.25s ease, transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .leaderboard-rest-item:first-child {
@@ -989,7 +1124,11 @@ main {
 }
 
 .leaderboard-rest-item:hover {
-    background: rgba(255, 255, 255, 0.02);
+    border-color: rgba(217, 155, 40, 0.3);
+    background: rgba(92, 64, 38, 0.58);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 224, 161, 0.1),
+        0 0 22px rgba(217, 155, 40, 0.08);
     transform: translateX(4px);
 }
 
@@ -998,6 +1137,13 @@ main {
     font-size: 20px;
     font-weight: 700;
     font-family: "Newsreader", serif;
+    display: inline-grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(217, 155, 40, 0.28);
+    border-radius: 50%;
+    background: rgba(30, 25, 21, 0.32);
 }
 
 .rest-player {
@@ -1033,9 +1179,7 @@ main {
 .cta-shell {
     padding: 42px;
     text-align: center;
-    background:
-        radial-gradient(ellipse 48% 38% at 50% 0%, rgba(217, 155, 40, 0.16), transparent 64%),
-        linear-gradient(160deg, #3f3328, #2f271f);
+    background: #3f3328;
 }
 
 .home-cta p {
@@ -1052,6 +1196,7 @@ main {
 
 /* MOTION */
 @keyframes scrollGlow {
+
     0%,
     100% {
         opacity: 0.55;
@@ -1082,6 +1227,7 @@ main {
 }
 
 @keyframes heroOverlayPulse {
+
     0%,
     100% {
         opacity: 0.94;
@@ -1093,6 +1239,7 @@ main {
 }
 
 @keyframes artifactFloat {
+
     0%,
     100% {
         transform: translate3d(0, 0, 0) rotate(-1.2deg);
@@ -1106,6 +1253,7 @@ main {
 }
 
 @keyframes goldBreath {
+
     0%,
     100% {
         text-shadow: 0 0 20px rgba(232, 184, 75, 0.22), 0 2px 6px rgba(0, 0, 0, 0.5);
@@ -1117,6 +1265,7 @@ main {
 }
 
 @keyframes statusPulse {
+
     0%,
     100% {
         background: rgba(255, 255, 255, 0);
@@ -1141,6 +1290,7 @@ main {
 
 /* RESPONSIVE */
 @media (max-width: 1180px) {
+
     .home-hero-grid,
     .overview-grid,
     .play-grid {
@@ -1315,6 +1465,7 @@ main {
 }
 
 @media (max-width: 480px) {
+
     .section-label,
     .hero-subtitle {
         letter-spacing: 0.12em;
@@ -1366,4 +1517,128 @@ main {
     .play-card a::after {
         transition: none !important;
     }
+}
+
+/* Homepage local theme polish. */
+main :is(h1, h2) {
+    letter-spacing: 0.02em;
+    text-shadow: 0 2px 18px rgba(0, 0, 0, 0.58), 0 0 18px rgba(217, 155, 40, 0.08);
+}
+
+main :is(.section-label, .podium-tag) {
+    color: #9bc9be;
+    letter-spacing: 0.16em;
+    text-shadow: 0 0 14px rgba(47, 111, 100, 0.2);
+}
+
+main :is(
+    .hero-btn,
+    .btn-secondary,
+    .ghost-btn,
+    .quickstart-card,
+    .drum-object,
+    .terminal-panel,
+    .gateway-card,
+    .topic-card,
+    .artifact-card,
+    .journey-step,
+    .play-card,
+    .leaderboard-rest,
+    .leaderboard-rest-item,
+    .cta-shell,
+    .podium-spotlight
+) {
+    box-shadow: none !important;
+}
+
+main :is(
+    .hero-btn,
+    .btn-secondary,
+    .ghost-btn,
+    .quickstart-card,
+    .gateway-card,
+    .topic-card,
+    .artifact-card,
+    .journey-step,
+    .play-card,
+    .leaderboard-rest,
+    .leaderboard-rest-item
+):hover {
+    box-shadow: none !important;
+}
+
+.leaderboard-stage .podium-card:nth-child(1) {
+    box-shadow: inset 0 1px 0 rgba(245, 248, 248, 0.24) !important;
+}
+
+.leaderboard-stage .podium-card:nth-child(2) {
+    box-shadow: inset 0 1px 0 rgba(255, 236, 178, 0.28) !important;
+}
+
+.leaderboard-stage .podium-card:nth-child(3) {
+    box-shadow: inset 0 1px 0 rgba(255, 205, 159, 0.18) !important;
+}
+
+.leaderboard-stage .podium-card:hover {
+    filter: brightness(1.13) saturate(1.05);
+}
+
+.leaderboard-stage .podium-card:hover::after {
+    background: rgba(255, 236, 178, 0.14);
+}
+
+.leaderboard-stage .podium-top:hover::after {
+    background: rgba(255, 231, 154, 0.18);
+}
+
+main :is(
+    .quickstart-card,
+    .gateway-card,
+    .topic-card,
+    .artifact-card,
+    .journey-step,
+    .play-card
+) {
+    border-top-width: 3px !important;
+    border-top-style: solid !important;
+}
+
+main :is(
+    .quickstart-card:nth-child(1),
+    .gateway-card:nth-child(1),
+    .topic-card:nth-child(1),
+    .artifact-card:nth-child(1),
+    .journey-step:nth-child(1),
+    .play-card:nth-child(1)
+) {
+    border-top-color: var(--gold) !important;
+}
+
+main :is(
+    .quickstart-card:nth-child(2),
+    .gateway-card:nth-child(2),
+    .topic-card:nth-child(2),
+    .artifact-card:nth-child(2),
+    .journey-step:nth-child(2),
+    .play-card:nth-child(2)
+) {
+    border-top-color: #ead7b6 !important;
+}
+
+main :is(
+    .quickstart-card:nth-child(3),
+    .gateway-card:nth-child(3),
+    .topic-card:nth-child(3),
+    .artifact-card:nth-child(3),
+    .journey-step:nth-child(3),
+    .play-card:nth-child(3)
+) {
+    border-top-color: #0f8f86 !important;
+}
+
+main :is(
+    .topic-card:nth-child(4),
+    .artifact-card:nth-child(4)
+) {
+    border-top-color: var(--red-son) !important;
 }

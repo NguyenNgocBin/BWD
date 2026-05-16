@@ -188,8 +188,7 @@
     padding: 54px 0;
     border-top: 1px solid rgba(217, 155, 40, 0.28);
     background:
-        radial-gradient(ellipse 42% 34% at 50% 0%, rgba(217, 155, 40, 0.12), transparent 64%),
-        linear-gradient(180deg, #241d18 0%, var(--bg-deep) 100%);
+                linear-gradient(180deg, #241d18 0%, var(--bg-deep) 100%);
     box-shadow: 0 -18px 42px rgba(0, 0, 0, 0.22);
 }
 

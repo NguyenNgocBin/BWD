@@ -1,14 +1,14 @@
-/* ============================================================
-   BXH – BẢNG XẾP HẠNG ĐÔNG SƠN
+﻿/* ============================================================
+   BXH - Bảng xếp hạng Đông Sơn
    Palette:
-    n chính   : #2d251f  (than nâu, chất bảo tàng)
-     Đồ Nềng cổ     : #a36a2a / #d99b28 / #f4dfbb
-     Xanh gỉ đồng: #2f6f64 / #3f8276 / #9bc9be
-     Bạc (#2)    : #ead7b6 / #f4dfbb
-     Sơn son (#3): #9e2f1c / #c44a32
+     Nền chính       : #2d251f  (than nâu, chất bảo tàng)
+     Đồng nâu cổ     : #a36a2a / #d99b28 / #f4dfbb
+     Xanh gỉ đồng    : #2f6f64 / #3f8276 / #9bc9be
+     Bạc (#2)        : #ead7b6 / #f4dfbb
+     Sơn son (#3)    : #9e2f1c / #c44a32
    ============================================================ */
 
-/* ---- SVG drum-pattern dùng inline ở :root ---- */
+/* SVG drum-pattern dùng inline ở :root. */
 :root {
   --bronze: #a36a2a;
   --bronze-light: #d99b28;
@@ -26,17 +26,14 @@
 }
 
 /* ============================================================
-   MAIN WRAPPER – nền xanh đen sâu + hoa văn mờ
+   Main wrapper - nền xanh đen sâu và hoa văn mờ
    ============================================================ */
 .bxh-main {
   padding: 102px 0 80px;
   min-height: 100vh;
   background-color: var(--bg-page);
-  background-image:
-    radial-gradient(ellipse 60% 40% at 50% 0%, rgba(232, 184, 75, 0.16) 0%, transparent 60%),
-    radial-gradient(ellipse 40% 30% at 0% 50%, rgba(47, 111, 100, 0.2) 0%, transparent 50%),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Ccircle cx='40' cy='40' r='36' fill='none' stroke='%23c9922a' stroke-width='0.4' stroke-dasharray='4 6' opacity='0.13'/%3E%3Ccircle cx='40' cy='40' r='24' fill='none' stroke='%23c9922a' stroke-width='0.3' opacity='0.09'/%3E%3Ccircle cx='40' cy='40' r='12' fill='none' stroke='%23c9922a' stroke-width='0.3' opacity='0.07'/%3E%3Cline x1='40' y1='4' x2='40' y2='76' stroke='%23c9922a' stroke-width='0.25' opacity='0.05'/%3E%3Cline x1='4' y1='40' x2='76' y2='40' stroke='%23c9922a' stroke-width='0.25' opacity='0.05'/%3E%3C/svg%3E");
-  background-size: auto, auto, 80px 80px;
+  background-image: none;
+  background-size: auto;
   position: relative;
 }
 
@@ -70,7 +67,7 @@
   margin-bottom: 10px;
 }
 
-/* Tiêu đề lớn – khắc trên kim loại */
+/* Tiêu đề lớn - cảm giác khắc trên kim loại. */
 .hero-copy h1 {
   font-family: "Newsreader", serif !important;
   font-size: clamp(52px, 7.5vw, 90px) !important;
@@ -94,7 +91,7 @@
 }
 
 /* ============================================================
-   HERO PROFILE BOX – "Thông tin cá nhân"
+   Hero profile box - thông tin cá nhân
    ============================================================ */
 .hero-profile {
   background: linear-gradient(135deg, #47382b 0%, #3c3026 62%, #1e1915 100%);
@@ -178,7 +175,7 @@
 }
 
 /* ============================================================
-   TABS – active = đồng nhẹ, inactive = xanh rêu
+   Tabs - active màu đồng nhẹ, inactive màu xanh rêu
    ============================================================ */
 .tab-wrap {
   margin-top: 10px;
@@ -268,7 +265,7 @@
   transform: translateY(-5px);
 }
 
-/* ── RANK 1 – vàng đồng sáng ── */
+/* Rank 1 - vàng đồng sáng. */
 .podium-card.first {
   border-top: 3px solid var(--bronze-light);
   min-height: 380px;
@@ -277,7 +274,7 @@
 }
 
 .podium-card.first::before {
-  background: radial-gradient(ellipse at 50% 0%, rgba(232, 184, 75, 0.10) 0%, transparent 65%);
+  background: transparent;
   opacity: 1;
 }
 
@@ -285,14 +282,14 @@
   box-shadow: 0 0 0 1px rgba(232, 184, 75, 0.30), 0 20px 60px rgba(0, 0, 0, 0.65), 0 0 30px rgba(232, 184, 75, 0.12);
 }
 
-/* ── RANK 2 – bạc xám ── */
+/* Rank 2 - bạc xám. */
 .podium-card.second {
   border-top: 3px solid var(--silver);
   box-shadow: 0 0 0 1px rgba(157, 162, 171, 0.12), 0 8px 32px rgba(0, 0, 0, 0.4);
 }
 
 .podium-card.second::before {
-  background: radial-gradient(ellipse at 50% 0%, rgba(157, 162, 171, 0.07) 0%, transparent 60%);
+  background: transparent;
   opacity: 1;
 }
 
@@ -300,14 +297,14 @@
   box-shadow: 0 0 0 1px rgba(157, 162, 171, 0.25), 0 16px 48px rgba(0, 0, 0, 0.5), 0 0 22px rgba(157, 162, 171, 0.08);
 }
 
-/* ── RANK 3 – đồng nâu ── */
+/* Rank 3 - đồng nâu. */
 .podium-card.third {
   border-top: 3px solid var(--copper);
   box-shadow: 0 0 0 1px rgba(192, 113, 58, 0.12), 0 8px 32px rgba(0, 0, 0, 0.4);
 }
 
 .podium-card.third::before {
-  background: radial-gradient(ellipse at 50% 0%, rgba(192, 113, 58, 0.08) 0%, transparent 60%);
+  background: transparent;
   opacity: 1;
 }
 
@@ -620,4 +617,108 @@
   .hero-profile-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* Local page theme polish. */
+:root {
+  --ds-metal-edge: rgba(201, 146, 42, 0.28);
+  --ds-metal-edge-strong: rgba(240, 207, 119, 0.52);
+  --ds-card-deep: rgba(47, 39, 31, 0.74);
+  --ds-card-warm: rgba(71, 56, 43, 0.68);
+  --ds-patina-soft: #9bc9be;
+  --ds-bronze-glow: rgba(217, 155, 40, 0.14);
+  --ds-hot-shadow: rgba(74, 36, 14, 0.34);
+}
+
+body {
+  background: #2d251f;
+}
+
+body>main {
+  color: var(--text, #f7f0e3);
+}
+
+body>main :is(h1, h2) {
+  letter-spacing: 0.02em;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.58), 0 0 18px rgba(217, 155, 40, 0.08);
+}
+
+body>main :is(.section-label, .kicker, .learn-kicker, .panel-label, .preview-kicker, .podium-tag) {
+  color: var(--ds-patina-soft);
+  letter-spacing: 0.16em;
+  text-shadow: 0 0 14px rgba(47, 111, 100, 0.2);
+}
+
+body>main :is(.gateway-card,
+  .topic-card,
+  .artifact-card,
+  .journey-step,
+  .play-card,
+  .leaderboard-rest,
+  .quick-facts div,
+  .study-note,
+  .type-card,
+  .anatomy-list article,
+  .anatomy-visual,
+  .motif-card,
+  .timeline-list article,
+  .source-list a,
+  .hero-profile,
+  .leader-table,
+  .preview-note,
+  .viewer-intro,
+  .viewer-shell,
+  .game-card,
+  .auth-card,
+  .profile-card) {
+  border-color: var(--ds-metal-edge);
+  background-color: var(--ds-card-deep);
+  box-shadow:
+    0 14px 36px rgba(0, 0, 0, 0.26),
+    0 0 24px var(--ds-bronze-glow),
+    inset 0 1px 0 rgba(244, 223, 187, 0.07);
+}
+
+body>main :is(.gateway-card,
+  .topic-card,
+  .artifact-card,
+  .journey-step,
+  .play-card,
+  .quick-facts div,
+  .type-card,
+  .motif-card,
+  .timeline-list article,
+  .source-list a,
+  .game-card,
+  .profile-card):hover {
+  border-color: var(--ds-metal-edge-strong);
+  background-color: var(--ds-card-warm);
+  box-shadow:
+    0 18px 42px var(--ds-hot-shadow),
+    0 0 26px rgba(217, 155, 40, 0.12),
+    inset 0 1px 0 rgba(244, 223, 187, 0.1);
+}
+
+body>main :is(.hero-btn,
+  .learn-btn.primary,
+  .hero-enter-btn,
+  .toolbar-btn,
+  .auth-submit,
+  .game-start-btn) {
+  border-color: rgba(240, 207, 119, 0.68);
+  box-shadow: 0 10px 26px rgba(201, 146, 42, 0.22), inset 0 1px 0 rgba(255, 236, 178, 0.22);
+}
+
+body>main :is(.btn-secondary,
+  .ghost-btn,
+  .learn-btn.ghost,
+  .hero-ghost-btn,
+  .toolbar-btn-secondary,
+  .tab-btn) {
+  border-color: rgba(201, 146, 42, 0.34);
+  color: #ffd978;
+}
+
+body>main :is(.leader-table thead th, .leaderboard-rest-head, .tab-btn.active) {
+  color: var(--ds-patina-soft);
 }
