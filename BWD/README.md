@@ -113,6 +113,19 @@ DATABASE_URL=postgresql://USER:PASSWORD@HOST:PORT/DATABASE
 JWT_SECRET=your-jwt-secret
 PORT=5000
 FLASK_ENV=development
+
+# RAG + LLM chatbox
+LLM_PROVIDER=gemini
+GEMINI_API_KEY=your-gemini-api-key
+GEMINI_MODEL=gemini-1.5-flash
+
+# Hoặc dùng OpenAI
+# LLM_PROVIDER=openai
+# OPENAI_API_KEY=your-openai-api-key
+# OPENAI_MODEL=gpt-4o-mini
+
+# Tùy chọn: ngưỡng lọc context RAG, distance càng nhỏ càng liên quan
+RAG_MAX_DISTANCE=1.35
 ```
 
 Nếu dùng Supabase, connection string thường có dạng:
@@ -174,7 +187,36 @@ Sau đó mở trình duyệt tại:
 http://localhost:5500
 ```
 
-Frontend gọi backend tại port `5000`, vì vậy cần chạy Flask server trước khi sử dụng các chức năng đăng ký, đăng nhập, hồ sơ người dùng hoặc lưu điểm game.
+Frontend gọi backend tại port `5000`, vì vậy cần chạy Flask server trước khi sử dụng các chức năng đăng ký, đăng nhập, hồ sơ người dùng, lưu điểm game hoặc chatbox AI Đông Sơn.
+
+### 5. Chuẩn bị RAG cho chatbox
+
+Chatbox dùng ChromaDB để truy xuất context từ kho tri thức tại `BE/knowledge/dong_son_knowledge_base.md`. Nếu chưa có vector database hoặc muốn cập nhật tài liệu, chạy:
+
+```bash
+cd BWD/BE
+python scripts/ingest_knowledge.py
+```
+
+Sau đó cấu hình một trong hai provider LLM trong `BE/.env`:
+
+```env
+# Gemini
+LLM_PROVIDER=gemini
+GEMINI_API_KEY=your-gemini-api-key
+GEMINI_MODEL=gemini-1.5-flash
+```
+
+Hoặc:
+
+```env
+# OpenAI
+LLM_PROVIDER=openai
+OPENAI_API_KEY=your-openai-api-key
+OPENAI_MODEL=gpt-4o-mini
+```
+
+Khi người dùng hỏi, backend sẽ search context liên quan trong ChromaDB, gửi `context + question` tới LLM và trả `answer` về frontend. Nếu context không đủ tốt hoặc LLM lỗi, API trả fallback an toàn thay vì bịa thông tin.
 
 ## API chính
 
@@ -199,6 +241,34 @@ Các endpoint yêu cầu đăng nhập cần gửi header:
 
 ```http
 Authorization: Bearer <token>
+```
+
+### Chat RAG
+
+```text
+POST /chat/ask
+```
+
+Body:
+
+```json
+{
+  "question": "Trống đồng Đông Sơn là gì?",
+  "top_k": 5
+}
+```
+
+Response chính:
+
+```json
+{
+  "answer": "Câu trả lời sinh bởi Gemini/OpenAI dựa trên context RAG...",
+  "question": "Trống đồng Đông Sơn là gì?",
+  "context": "...",
+  "sources": [],
+  "fallback": false,
+  "fallback_reason": null
+}
 ```
 
 ### Game Sessions
@@ -241,7 +311,6 @@ FE/pages/profile.html
 FE/pages/login.html
 FE/pages/register.html
 FE/pages/game/codechayquiz.html
-FE/pages/game/pattern-match.html
 FE/pages/game/puzzle.html
 ```
 

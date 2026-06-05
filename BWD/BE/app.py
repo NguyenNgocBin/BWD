@@ -6,6 +6,7 @@ import flask_cors
 
 import config.db as db
 import routes.auth_routes as auth_routes
+import routes.chat_routes as chat_routes
 import routes.game_session_routes as game_session_routes
 
 
@@ -42,6 +43,7 @@ def create_database_tables():
 create_database_tables()
 
 app.register_blueprint(auth_routes.auth_bp, url_prefix="/api/v1/auth")
+app.register_blueprint(chat_routes.chat_bp, url_prefix="/api/v1/chat")
 app.register_blueprint(
     game_session_routes.game_session_bp,
     url_prefix="/api/v1/game-sessions",

@@ -1,15 +1,4 @@
-﻿/* ============================================================
-   BXH - Bảng xếp hạng Đông Sơn
-   Palette:
-     Nền chính       : #2d251f  (than nâu, chất bảo tàng)
-     Đồng nâu cổ     : #a36a2a / #d99b28 / #f4dfbb
-     Xanh gỉ đồng    : #2f6f64 / #3f8276 / #9bc9be
-     Bạc (#2)        : #ead7b6 / #f4dfbb
-     Sơn son (#3)    : #9e2f1c / #c44a32
-   ============================================================ */
-
-/* SVG drum-pattern dùng inline ở :root. */
-:root {
+﻿:root {
   --bronze: #a36a2a;
   --bronze-light: #d99b28;
   --bronze-pale: #f4dfbb;

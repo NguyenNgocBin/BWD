@@ -1,0 +1,537 @@
+/* Đông Sơn Digital Museum — AI Chatbox (theo mockup vàng/đồng) */
+
+:root {
+    --ds-gold: #d8a548;
+    --ds-gold-strong: #f6d58b;
+    --ds-gold-soft: #c08b37;
+    --ds-ink: #0f0b07;
+    --ds-panel: rgba(19, 13, 9, 0.95);
+    --ds-panel-2: rgba(28, 19, 12, 0.9);
+    --ds-text: #f6e7c7;
+    --ds-muted: #b89a6a;
+    --ds-line: rgba(216, 165, 72, 0.22);
+    --ds-line-soft: rgba(216, 165, 72, 0.14);
+    --ds-shadow: 0 22px 60px rgba(0, 0, 0, 0.58);
+}
+
+#ds-chat-root {
+    position: fixed;
+    right: 18px;
+    bottom: 16px;
+    z-index: 2600;
+    font-family: "Manrope", sans-serif;
+    pointer-events: none;
+}
+
+/* ===== Floating trigger coin ===== */
+/* Biểu tượng của chatbox: dùng phần hình ảnh tròn ở trung tâm từ AI.png */
+.ds-chat-fab-wrap {
+    position: absolute;
+    right: 8px;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    pointer-events: auto;
+}
+
+.ds-chat-fab {
+    width: 104px;
+    height: 104px;
+    border-radius: 999px;
+    border: none;
+    background: url("../images/AI.png") center/cover no-repeat;
+    color: var(--ds-gold-strong);
+    box-shadow: 0 18px 32px rgba(0, 0, 0, 0.58);
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s ease;
+}
+
+.ds-chat-fab::before,
+.ds-chat-fab::after {
+    content: none;
+}
+
+.ds-chat-fab__icon {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+}
+
+.ds-chat-fab__text {
+    color: var(--ds-gold-strong);
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 20px;
+    line-height: 1.15;
+    text-align: center;
+    max-width: 170px;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
+}
+
+/* ===== Panel ===== */
+.ds-chat-panel {
+    width: min(360px, calc(100vw - 26px));
+    height: min(660px, calc(100vh - 26px));
+    border-radius: 22px;
+    border: 1px solid rgba(246, 213, 139, 0.45);
+    background: linear-gradient(180deg, var(--ds-panel), var(--ds-panel-2));
+    box-shadow:
+        0 0 0 1px rgba(216, 165, 72, 0.14) inset,
+        0 0 22px rgba(216, 165, 72, 0.16),
+        var(--ds-shadow);
+    position: relative;
+    overflow: hidden;
+    display: none;
+    flex-direction: column;
+    pointer-events: auto;
+    padding-bottom: 8px;
+}
+
+.ds-chat-panel::before {
+    content: none;
+}
+
+.ds-chat-panel.is-open {
+    display: flex;
+    animation: dsPanelIn 0.26s ease;
+}
+
+@keyframes dsPanelIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.ds-chat-header {
+    position: relative;
+    padding: 14px 14px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    border-bottom: 1px solid var(--ds-line-soft);
+    z-index: 1;
+}
+
+.ds-chat-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.ds-chat-brand-copy strong {
+    display: block;
+    color: var(--ds-gold-strong);
+    letter-spacing: 0.04em;
+    font-family: "Newsreader", serif;
+    font-size: 22px;
+    line-height: 1.05;
+}
+
+.ds-chat-brand-copy small {
+    display: block;
+    margin-top: 2px;
+    color: var(--ds-muted);
+    font-size: 12px;
+}
+
+.ds-chat-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.ds-chat-iconbtn {
+    border: 1px solid rgba(246, 213, 139, 0.25);
+    background: rgba(216, 165, 72, 0.08);
+    color: var(--ds-gold-strong);
+    height: 28px;
+    min-width: 28px;
+    border-radius: 8px;
+    cursor: pointer;
+    line-height: 1;
+    font-weight: 700;
+}
+
+.ds-chat-iconbtn:hover {
+    background: rgba(216, 165, 72, 0.16);
+}
+
+.ds-chat-body {
+    position: relative;
+    z-index: 1;
+    padding: 10px 12px 6px;
+    overflow: auto;
+    flex: 1;
+    scroll-behavior: smooth;
+}
+
+/* Intro bubble */
+.ds-chat-intro {
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    gap: 10px;
+    padding: 9px;
+    border: 1px solid var(--ds-line);
+    border-radius: 14px;
+    background: rgba(24, 16, 10, 0.7);
+    margin-bottom: 10px;
+}
+
+.ds-chat-intro-avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 10px;
+    border: 1px solid rgba(246, 190, 88, 0.58);
+    background:
+        linear-gradient(rgba(148, 94, 18, 0.48), rgba(88, 48, 8, 0.56)),
+        url("../images/home-motifs/trongdongbg.jpg") center/cover no-repeat;
+    background-blend-mode: color, normal;
+    display: grid;
+    place-items: center;
+    font-size: 0;
+    filter: sepia(0.85) saturate(1.85) brightness(0.78) contrast(1.18);
+}
+
+.ds-chat-intro p {
+    margin: 0;
+    color: var(--ds-text);
+    font-size: 13px;
+    line-height: 1.45;
+}
+
+/* Quick menu cards */
+.ds-chat-menu {
+    display: grid;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.ds-chat-menu-item {
+    border: 1px solid var(--ds-line);
+    border-radius: 12px;
+    background: rgba(26, 18, 11, 0.64);
+    padding: 10px 10px;
+    display: grid;
+    grid-template-columns: 34px 1fr 18px;
+    align-items: center;
+    gap: 10px;
+    color: inherit;
+    text-decoration: none;
+}
+
+.ds-chat-menu-item:hover {
+    background: rgba(41, 28, 17, 0.76);
+    border-color: rgba(246, 213, 139, 0.33);
+}
+
+.ds-chat-menu-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+    border: 1px solid rgba(246, 213, 139, 0.3);
+    display: grid;
+    place-items: center;
+    color: var(--ds-gold-strong);
+    background: rgba(216, 165, 72, 0.12);
+    font-size: 17px;
+}
+
+.ds-chat-menu-copy strong {
+    display: block;
+    font-size: 13px;
+    color: var(--ds-text);
+    margin-bottom: 1px;
+}
+
+.ds-chat-menu-copy small {
+    color: var(--ds-muted);
+    font-size: 11px;
+}
+
+.ds-chat-menu-arrow {
+    color: var(--ds-gold-strong);
+    font-size: 20px;
+    text-align: right;
+}
+
+/* Messages */
+.ds-chat-messages {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 10px 0 12px;
+}
+
+.ds-chat-message {
+    display: flex;
+    align-items: flex-end;
+    gap: 7px;
+    animation: dsMessageIn 0.2s ease;
+}
+
+.ds-chat-message--user {
+    justify-content: flex-end;
+}
+
+.ds-chat-message--ai {
+    justify-content: flex-start;
+}
+
+.ds-chat-message-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    border: 1px solid rgba(246, 213, 139, 0.28);
+    background: rgba(216, 165, 72, 0.1);
+    color: var(--ds-gold-strong);
+    display: grid;
+    place-items: center;
+    font-size: 10px;
+    font-weight: 800;
+    flex: 0 0 auto;
+}
+
+.ds-chat-message--user .ds-chat-message-avatar {
+    order: 2;
+    background: rgba(246, 213, 139, 0.18);
+    color: #f8df9d;
+}
+
+.ds-chat-bubble {
+    max-width: 78%;
+    border-radius: 14px;
+    padding: 9px 11px;
+    font-size: 12.5px;
+    line-height: 1.45;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.ds-chat-message--ai .ds-chat-bubble {
+    border: 1px solid rgba(216, 165, 72, 0.22);
+    background: rgba(24, 16, 10, 0.78);
+    color: var(--ds-text);
+    border-bottom-left-radius: 5px;
+}
+
+.ds-chat-message--user .ds-chat-bubble {
+    border: 1px solid rgba(246, 213, 139, 0.38);
+    background: linear-gradient(180deg, rgba(216, 165, 72, 0.86), rgba(156, 103, 35, 0.88));
+    color: #1b1008;
+    font-weight: 700;
+    border-bottom-right-radius: 5px;
+}
+
+.ds-chat-message.is-error .ds-chat-bubble {
+    border-color: rgba(255, 118, 118, 0.45);
+    background: rgba(83, 24, 18, 0.72);
+    color: #ffd4c8;
+}
+
+.ds-chat-message.is-loading .ds-chat-bubble {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--ds-muted);
+}
+
+.ds-chat-typing {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.ds-chat-typing i {
+    width: 5px;
+    height: 5px;
+    border-radius: 999px;
+    background: var(--ds-gold-strong);
+    opacity: 0.45;
+    animation: dsTyping 0.9s ease-in-out infinite;
+}
+
+.ds-chat-typing i:nth-child(2) {
+    animation-delay: 0.15s;
+}
+
+.ds-chat-typing i:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+@keyframes dsMessageIn {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes dsTyping {
+
+    0%,
+    100% {
+        opacity: 0.35;
+        transform: translateY(0);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translateY(-3px);
+    }
+}
+
+/* Suggestions */
+.ds-chat-suggest-label {
+    color: var(--ds-muted);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+}
+
+.ds-chat-suggest-list {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin-bottom: 10px;
+}
+
+.ds-chat-chip {
+    width: 100%;
+    text-align: left;
+    border: 1px solid rgba(216, 165, 72, 0.24);
+    background: rgba(216, 165, 72, 0.08);
+    color: var(--ds-text);
+    border-radius: 999px;
+    padding: 8px 12px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.ds-chat-chip:hover {
+    background: rgba(216, 165, 72, 0.16);
+}
+
+/* Footer input */
+.ds-chat-footer {
+    border-top: 1px solid var(--ds-line-soft);
+    padding: 10px 12px 8px;
+    position: relative;
+    z-index: 1;
+}
+
+.ds-chat-input-wrap {
+    border: 1px solid rgba(246, 213, 139, 0.24);
+    border-radius: 999px;
+    background: rgba(17, 12, 8, 0.88);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 8px 6px 12px;
+}
+
+.ds-chat-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: var(--ds-text);
+    font-size: 13px;
+    min-height: 24px;
+}
+
+.ds-chat-input::placeholder {
+    color: #7f6a44;
+}
+
+.ds-chat-send {
+    width: 30px;
+    height: 30px;
+    border-radius: 999px;
+    border: 1px solid rgba(246, 213, 139, 0.4);
+    background: linear-gradient(180deg, rgba(216, 165, 72, 0.34), rgba(153, 104, 39, 0.34));
+    color: #2e1f10;
+    font-size: 14px;
+    font-weight: 900;
+    cursor: pointer;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.ds-chat-send:hover {
+    transform: translateY(-1px);
+}
+
+.ds-chat-send:disabled,
+.ds-chat-send.is-disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.ds-chat-input:disabled {
+    opacity: 0.65;
+    cursor: wait;
+}
+
+.ds-chat-note {
+    margin-top: 6px;
+    color: #846a40;
+    font-size: 10px;
+    text-align: center;
+}
+
+/* states */
+#ds-chat-root.is-open .ds-chat-fab-wrap {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(12px) scale(0.9);
+    pointer-events: none;
+    transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s ease;
+}
+
+/* panel + fab relative placement */
+.ds-chat-shell {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+@media (max-width: 520px) {
+    #ds-chat-root {
+        right: 10px;
+        bottom: 10px;
+    }
+
+    .ds-chat-panel {
+        width: calc(100vw - 20px);
+        height: min(640px, calc(100vh - 24px));
+    }
+
+    .ds-chat-fab {
+        width: 88px;
+        height: 88px;
+    }
+
+    .ds-chat-fab__icon {
+        padding: 5px 10px;
+        font-size: 20px;
+    }
+}

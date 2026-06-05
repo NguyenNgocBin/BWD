@@ -31,12 +31,6 @@ create index if not exists idx_games_active_order on games (is_active, display_o
 insert into games (code, name, description, display_order)
 values
     (
-        'pattern-match',
-        'Tim hoa tiet',
-        'Nguoi choi nhan dien hoa tiet tren trong dong theo tung cau hoi.',
-        1
-    ),
-    (
         'puzzle',
         'Ghep hinh',
         'Nguoi choi keo tha cac manh ghep de hoan thanh buc tranh trong dong.',
@@ -151,12 +145,6 @@ join users u on u.id = ugs.user_id
 join games g on g.id = ugs.game_id;
 
 -- Seed level/chapter mac dinh cho cac game hien co.
-insert into game_levels (game_id, level_number, title, description, config)
-select id, 1, 'Tim hoa tiet', 'Nhan dien cac hoa tiet co ban tren trong dong.', '{"total_questions": 10, "time_per_question": 10}'::jsonb
-from games
-where code = 'pattern-match'
-on conflict (game_id, level_number) do nothing;
-
 insert into game_levels (game_id, level_number, title, description, config)
 select id, 1, 'Ghep hinh 2x2', 'Level dau tien cua game ghep hinh.', '{"rows": 2, "cols": 2, "pieces": 4, "max_time": 60}'::jsonb
 from games

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 
 <head>
@@ -10,9 +10,13 @@
     <link rel="stylesheet" href="./css/base.css">
     <link rel="stylesheet" href="./css/layout.css">
     <link rel="stylesheet" href="./css/home.css">
+    <link rel="stylesheet" href="./css/home-animations.css">
+    <link rel="stylesheet" href="./css/chatbox.css">
 </head>
 
 <body>
+    <div id="scroll-progress"></div>
+    <canvas id="home-particles"></canvas>
     <header class="header dongson-header">
         <div class="nav container">
             <a class="logo dongson-logo" href="./index.html" aria-label="Về trang chủ Đông Sơn">
@@ -107,7 +111,7 @@
 
         <section class="gateway" id="start">
             <div class="container">
-                <div class="section-intro centered">
+                <div class="section-intro centered reveal">
                     <span class="section-label">Bắt đầu từ đâu?</span>
                     <h2>Chọn lối khám phá phù hợp với bạn</h2>
                     <p>
@@ -117,7 +121,7 @@
                 </div>
 
                 <div class="gateway-grid">
-                    <article class="gateway-card">
+                    <article class="gateway-card reveal reveal-delay-1">
                         <div class="gateway-number">01</div>
                         <h3>Vào Học vui trước</h3>
                         <p>
@@ -127,7 +131,7 @@
                         <a href="./pages/hocvui.html" class="gateway-link">Khám phá học vui</a>
                     </article>
 
-                    <article class="gateway-card">
+                    <article class="gateway-card reveal reveal-delay-2">
                         <div class="gateway-number">02</div>
                         <h3>Mở Tài liệu để đọc sâu</h3>
                         <p>
@@ -137,7 +141,7 @@
                         <a href="./pages/tailieu.html" class="gateway-link">Mở trang tài liệu</a>
                     </article>
 
-                    <article class="gateway-card">
+                    <article class="gateway-card reveal reveal-delay-3">
                         <div class="gateway-number">03</div>
                         <h3>Chuyển sang Trò chơi</h3>
                         <p>
@@ -152,7 +156,7 @@
 
         <section class="overview-band" id="history">
             <div class="container overview-grid">
-                <div class="overview-copy">
+                <div class="overview-copy reveal reveal--left">
                     <span class="section-label">Khám phá nhanh</span>
                     <h2>Trống đồng là một bản ghi bằng hình ảnh</h2>
                     <p>
@@ -171,7 +175,7 @@
                     </a>
                 </div>
 
-                <div class="overview-topics">
+                <div class="overview-topics reveal reveal--right">
                     <article class="topic-card">
                         <strong>Khái niệm</strong>
                         <h3>Trống đồng là gì?</h3>
@@ -202,7 +206,7 @@
 
         <section class="artifact-showcase" id="artifacts">
             <div class="container">
-                <div class="section-intro">
+                <div class="section-intro reveal">
                     <span class="section-label">Hiện vật tiêu biểu</span>
                     <h2>Bốn chiếc trống nên xem đầu tiên</h2>
                     <p>
@@ -213,7 +217,7 @@
                 </div>
 
                 <div class="artifact-grid">
-                    <article class="artifact-card">
+                    <article class="artifact-card reveal reveal--scale reveal-delay-1">
                         <div class="artifact-media">
                             <img src="./images/ngocLu.gif" alt="Trống đồng Ngọc Lũ">
                         </div>
@@ -228,7 +232,7 @@
                         </div>
                     </article>
 
-                    <article class="artifact-card">
+                    <article class="artifact-card reveal reveal--scale reveal-delay-2">
                         <div class="artifact-media">
                             <img src="./images/hoangha.png" alt="Trống đồng Hoàng Hạ">
                         </div>
@@ -243,7 +247,7 @@
                         </div>
                     </article>
 
-                    <article class="artifact-card">
+                    <article class="artifact-card reveal reveal--scale reveal-delay-3">
                         <div class="artifact-media">
                             <img src="./images/coloa.png" alt="Trống đồng Cổ Loa">
                         </div>
@@ -258,7 +262,7 @@
                         </div>
                     </article>
 
-                    <article class="artifact-card">
+                    <article class="artifact-card reveal reveal--scale reveal-delay-4">
                         <div class="artifact-media">
                             <img src="./images/dongsonz2.png" alt="Trống đồng Tân Long">
                         </div>
@@ -278,7 +282,7 @@
 
         <section class="journey" id="experience">
             <div class="container">
-                <div class="section-intro centered">
+                <div class="section-intro centered reveal">
                     <span class="section-label">Hành trình trải nghiệm</span>
                     <h2>Đọc để hiểu, nhìn để nhớ, chơi để thuộc</h2>
                     <p>
@@ -288,7 +292,7 @@
                 </div>
 
                 <div class="journey-grid">
-                    <article class="journey-step">
+                    <article class="journey-step reveal reveal-delay-1">
                         <div class="journey-number">1</div>
                         <h3>Bắt đầu bằng câu chuyện</h3>
                         <p>
@@ -297,7 +301,7 @@
                         </p>
                     </article>
 
-                    <article class="journey-step">
+                    <article class="journey-step reveal reveal-delay-2">
                         <div class="journey-number">2</div>
                         <h3>Đi sâu bằng tư liệu</h3>
                         <p>
@@ -306,7 +310,7 @@
                         </p>
                     </article>
 
-                    <article class="journey-step">
+                    <article class="journey-step reveal reveal-delay-3">
                         <div class="journey-number">3</div>
                         <h3>Củng cố bằng trò chơi</h3>
                         <p>
@@ -320,7 +324,7 @@
 
         <section class="play-teaser" id="play">
             <div class="container play-grid">
-                <div class="play-copy">
+                <div class="play-copy reveal reveal--left">
                     <span class="section-label">Chơi để nhớ lâu</span>
                     <h2>Ba dạng thử thách cho ba kiểu ghi nhớ</h2>
                     <p>
@@ -338,17 +342,17 @@
                 </div>
 
                 <div class="play-cards">
-                    <article class="play-card">
+                    <article class="play-card reveal reveal-delay-1">
                         <img src="./images/dongsonz3.jpg" alt="Trò chơi tìm họa tiết">
                         <div class="play-card-body">
                             <strong>Quan sát</strong>
                             <h3>Tìm đúng họa tiết</h3>
                             <p>Phù hợp để ghi nhớ chim Lạc, ngôi sao, thuyền và những mô-típ dễ nhầm lẫn.</p>
-                            <a href="./pages/game/pattern-match.html">Chơi ngay</a>
+                            <a href="./pages/trochoi.html#game-list">Chơi ngay</a>
                         </div>
                     </article>
 
-                    <article class="play-card">
+                    <article class="play-card reveal reveal-delay-2">
                         <img src="./images/dongsonz2.png" alt="Trò chơi ghép hình trống đồng">
                         <div class="play-card-body">
                             <strong>Ghi nhớ</strong>
@@ -358,7 +362,7 @@
                         </div>
                     </article>
 
-                    <article class="play-card">
+                    <article class="play-card reveal reveal-delay-3">
                         <img src="./images/dongsonz4.png" alt="Trò chơi đúng hay sai">
                         <div class="play-card-body">
                             <strong>Kiểm tra</strong>
@@ -373,7 +377,7 @@
 
         <section class="leaderboard" id="ranking">
             <div class="container">
-                <div class="leaderboard-copy">
+                <div class="leaderboard-copy reveal">
                     <span class="section-label">Bảng dẫn đầu</span>
                     <h2 class="leaderboard-title">Xếp hạng tuần này</h2>
                     <p class="leaderboard-note">
@@ -383,7 +387,7 @@
                 </div>
 
                 <div class="leaderboard-stage">
-                    <article class="podium-card podium-side">
+                    <article class="podium-card podium-side reveal reveal-delay-2">
                         <span class="podium-rank">02</span>
                         <span class="podium-avatar">QM</span>
                         <p class="podium-tag">Bứt tốc</p>
@@ -392,7 +396,7 @@
                         <strong class="podium-score">17.520 điểm</strong>
                     </article>
 
-                    <article class="podium-card podium-top">
+                    <article class="podium-card podium-top reveal reveal-delay-1">
                         <span class="podium-rank">01</span>
                         <span class="podium-spotlight">Thủ lĩnh tuần</span>
                         <span class="podium-avatar">HM</span>
@@ -402,7 +406,7 @@
                         <strong class="podium-score">18.940 điểm</strong>
                     </article>
 
-                    <article class="podium-card podium-side">
+                    <article class="podium-card podium-side reveal reveal-delay-3">
                         <span class="podium-rank">03</span>
                         <span class="podium-avatar">GB</span>
                         <p class="podium-tag">Ổn định</p>
@@ -461,7 +465,7 @@
 
         <section class="home-cta">
             <div class="container">
-                <div class="cta-shell">
+                <div class="cta-shell reveal reveal--scale">
                     <span class="section-label">Sẵn sàng bắt đầu?</span>
                     <h2>Đi từ hiện vật đến câu chuyện, rồi biến nó thành trải nghiệm</h2>
                     <p>
@@ -493,12 +497,150 @@
 
             <div class="footer-right">
                 <h4>Kết nối</h4>
-                <a href="https://www.facebook.com/nguyen.ngoc.bin.908961" target="_blank" rel="noopener noreferrer"><span class="footer-icon footer-icon-facebook" aria-hidden="true">F</span>Facebook</a>
+                <a href="https://www.facebook.com/nguyen.ngoc.bin.908961" target="_blank"
+                    rel="noopener noreferrer"><span class="footer-icon footer-icon-facebook"
+                        aria-hidden="true">F</span>Facebook</a>
                 <a href="#"><span class="footer-icon footer-icon-tiktok" aria-hidden="true">&#9834;</span>TikTok</a>
                 <a href="#"><span class="footer-icon footer-icon-youtube" aria-hidden="true">&#9654;</span>YouTube</a>
             </div>
         </div>
     </footer>
+    <script>
+        /* ── SCROLL PROGRESS BAR ──────────────────────────────── */
+        const progressBar = document.getElementById('scroll-progress');
+        window.addEventListener('scroll', () => {
+            const s = document.documentElement.scrollTop;
+            const h = document.documentElement.scrollHeight - window.innerHeight;
+            progressBar.style.width = (s / h * 100) + '%';
+        }, { passive: true });
+
+        /* ── INTERSECTION OBSERVER — REVEAL ──────────────────── */
+        const revealEls = document.querySelectorAll('.reveal');
+        const revealObs = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('is-visible');
+                    revealObs.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+        revealEls.forEach(el => revealObs.observe(el));
+
+        /* ── PARTICLES CANVAS ────────────────────────────────── */
+        (function () {
+            const canvas = document.getElementById('home-particles');
+            const ctx = canvas.getContext('2d');
+            let W, H, particles = [];
+
+            function resize() {
+                W = canvas.width = window.innerWidth;
+                H = canvas.height = window.innerHeight;
+            }
+            resize();
+            window.addEventListener('resize', resize, { passive: true });
+
+            const GOLD = 'rgba(217,155,40,';
+            const PATINA = 'rgba(155,201,190,';
+            const N = 54;
+
+            for (let i = 0; i < N; i++) {
+                particles.push({
+                    x: Math.random() * window.innerWidth,
+                    y: Math.random() * window.innerHeight,
+                    r: Math.random() * 1.6 + 0.4,
+                    vx: (Math.random() - 0.5) * 0.22,
+                    vy: (Math.random() - 0.5) * 0.22,
+                    alpha: Math.random() * 0.5 + 0.15,
+                    col: Math.random() > 0.4 ? GOLD : PATINA,
+                    flicker: Math.random() * Math.PI * 2,
+                    fSpeed: 0.012 + Math.random() * 0.018,
+                });
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, W, H);
+                const now = performance.now() * 0.001;
+                for (const p of particles) {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    if (p.x < -4) p.x = W + 4;
+                    if (p.x > W + 4) p.x = -4;
+                    if (p.y < -4) p.y = H + 4;
+                    if (p.y > H + 4) p.y = -4;
+                    const alpha = p.alpha * (0.6 + 0.4 * Math.sin(now * p.fSpeed * 6 + p.flicker));
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    ctx.fillStyle = p.col + alpha + ')';
+                    ctx.fill();
+                }
+                requestAnimationFrame(draw);
+            }
+            draw();
+        })();
+
+        /* ── TILT EFFECT ON CARDS ────────────────────────────── */
+        document.querySelectorAll('.gateway-card, .topic-card, .artifact-card, .journey-step, .play-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const r = card.getBoundingClientRect();
+                const x = (e.clientX - r.left) / r.width - 0.5;
+                const y = (e.clientY - r.top) / r.height - 0.5;
+                card.style.transform = `translateY(-7px) rotateX(${(-y * 5).toFixed(2)}deg) rotateY(${(x * 6).toFixed(2)}deg)`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+            });
+        });
+
+        /* ── PODIUM SCORE COUNT-UP ───────────────────────────── */
+        function countUp(el, target, duration) {
+            const start = performance.now();
+            const update = (now) => {
+                const t = Math.min((now - start) / duration, 1);
+                const ease = 1 - Math.pow(1 - t, 3);
+                el.textContent = Math.round(target * ease).toLocaleString('vi-VN') + ' điểm';
+                if (t < 1) requestAnimationFrame(update);
+            };
+            requestAnimationFrame(update);
+        }
+
+        const podiumObs = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (!e.isIntersecting) return;
+                e.target.querySelectorAll('.podium-score').forEach(el => {
+                    const raw = parseInt(el.textContent.replace(/\D/g, ''));
+                    countUp(el, raw, 1600);
+                });
+                podiumObs.unobserve(e.target);
+            });
+        }, { threshold: 0.3 });
+
+        const stage = document.querySelector('.leaderboard-stage');
+        if (stage) podiumObs.observe(stage);
+
+        /* ── LEADERBOARD REST-ITEM STAGGER ──────────────────── */
+        const restObs = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (!e.isIntersecting) return;
+                e.target.querySelectorAll('.leaderboard-rest-item').forEach((item, i) => {
+                    setTimeout(() => {
+                        item.style.opacity = '1';
+                        item.style.transform = 'translateX(0)';
+                    }, i * 100);
+                });
+                restObs.unobserve(e.target);
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.leaderboard-rest').forEach(el => {
+            el.querySelectorAll('.leaderboard-rest-item').forEach(item => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateX(-16px)';
+                item.style.transition = 'opacity 0.5s ease, transform 0.5s cubic-bezier(0.22,1,0.36,1)';
+            });
+            restObs.observe(el);
+        });
+    </script>
+    <script src="./js/chatbox-ui.js"></script>
 </body>
 
 </html>

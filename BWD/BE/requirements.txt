@@ -4,3 +4,4 @@ python-dotenv
 bcrypt
 PyJWT
 psycopg2-binary
+chromadb
