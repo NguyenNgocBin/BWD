@@ -1,6 +1,0 @@
-Flask
-flask-cors
-python-dotenv
-bcrypt
-PyJWT
-psycopg2-binary

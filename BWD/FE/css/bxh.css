@@ -1,0 +1,713 @@
+﻿:root {
+  --bronze: #a36a2a;
+  --bronze-light: #d99b28;
+  --bronze-pale: #f4dfbb;
+  --moss: #2f6f64;
+  --moss-mid: #3f8276;
+  --moss-light: #9bc9be;
+  --bg-page: #2d251f;
+  --bg-card: #3c3026;
+  --bg-card2: #47382b;
+  --silver: #ead7b6;
+  --copper: #9e2f1c;
+  --text-main: #f7f0e3;
+  --text-muted: #ead7b6;
+}
+
+/* ============================================================
+   Main wrapper - nền xanh đen sâu và hoa văn mờ
+   ============================================================ */
+.bxh-main {
+  padding: 102px 0 80px;
+  min-height: 100vh;
+  background-color: var(--bg-page);
+  background-image: none;
+  background-size: auto;
+  position: relative;
+}
+
+/* top amber glow bar */
+.bxh-main::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--bronze), var(--bronze-light), var(--bronze), transparent);
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.bxh-hero {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 32px;
+  align-items: center;
+  padding: 40px 0 32px;
+}
+
+.kicker {
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 11px;
+  color: var(--moss-light);
+  margin-bottom: 10px;
+}
+
+/* Tiêu đề lớn - cảm giác khắc trên kim loại. */
+.hero-copy h1 {
+  font-family: "Newsreader", serif !important;
+  font-size: clamp(52px, 7.5vw, 90px) !important;
+  line-height: 0.92 !important;
+  color: #f5ead8 !important;
+  margin-bottom: 16px;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.6);
+}
+
+.hero-copy h1 span {
+  color: #ffd36d !important;
+  font-style: italic !important;
+  text-shadow: 0 0 28px rgba(232, 184, 75, 0.35), 0 2px 6px rgba(0, 0, 0, 0.5) !important;
+}
+
+.hero-copy p {
+  color: var(--text-muted);
+  max-width: 580px;
+  line-height: 1.7;
+  font-size: 16px;
+}
+
+/* ============================================================
+   Hero profile box - thông tin cá nhân
+   ============================================================ */
+.hero-profile {
+  background: linear-gradient(135deg, #47382b 0%, #3c3026 62%, #1e1915 100%);
+  border: 1px solid rgba(200, 154, 60, 0.34);
+  border-top: 2px solid var(--bronze);
+  border-radius: 18px;
+  padding: 28px 26px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(232, 184, 75, 0.12);
+  transition: box-shadow 0.4s;
+}
+
+.hero-profile:hover {
+  box-shadow: 0 12px 50px rgba(0, 0, 0, 0.55), 0 0 24px rgba(201, 146, 42, 0.12);
+}
+
+/* decorative drum ring */
+.hero-profile::before {
+  content: "";
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(201, 146, 42, 0.12);
+  right: -40px;
+  bottom: -40px;
+  pointer-events: none;
+}
+
+.hero-profile::after {
+  content: "";
+  position: absolute;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  border: 1px solid rgba(201, 146, 42, 0.08);
+  right: -5px;
+  bottom: -5px;
+  pointer-events: none;
+}
+
+.hero-profile h2 {
+  font-family: "Newsreader", serif !important;
+  color: #ffd978 !important;
+  font-size: 26px !important;
+  margin-bottom: 18px;
+  letter-spacing: 0.03em;
+  border-bottom: 1px solid rgba(201, 146, 42, 0.28);
+  padding-bottom: 12px;
+}
+
+.hero-profile-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.hero-profile-grid>div {
+  background: rgba(47, 39, 31, 0.46);
+  border: 1px solid rgba(200, 154, 60, 0.18);
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.hero-profile-grid span {
+  display: block;
+  color: var(--text-muted);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 6px;
+}
+
+.hero-profile-grid strong {
+  color: var(--bronze-pale);
+  font-size: 32px;
+  font-family: "Newsreader", serif;
+  line-height: 1;
+  text-shadow: 0 0 14px rgba(240, 207, 119, 0.3);
+}
+
+/* ============================================================
+   Tabs - active màu đồng nhẹ, inactive màu xanh rêu
+   ============================================================ */
+.tab-wrap {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: #1e1915;
+  border: 1px solid rgba(61, 92, 76, 0.45);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.tab-btn {
+  border: 0 !important;
+  color: #6b9080 !important;
+  background: transparent !important;
+  padding: 15px 10px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  position: relative;
+  transition: color 0.25s, background 0.25s;
+  border-right: 1px solid rgba(61, 92, 76, 0.25) !important;
+}
+
+.tab-btn:last-child {
+  border-right: 0;
+}
+
+.tab-btn:hover:not(.active) {
+  color: var(--bronze-light);
+  background: rgba(61, 92, 76, 0.18);
+}
+
+.tab-btn.active {
+  color: #ffd978 !important;
+  background: rgba(201, 146, 42, 0.12) !important;
+}
+
+.tab-btn.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--bronze-light), transparent);
+}
+
+/* ============================================================
+   PODIUM SECTION
+   ============================================================ */
+.podium-section {
+  padding-top: 52px;
+}
+
+.podium-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  align-items: end;
+}
+
+/* Base card */
+.podium-card {
+  background: linear-gradient(160deg, var(--bg-card2), var(--bg-card));
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  text-align: center;
+  padding: 28px 18px 22px;
+  min-height: 300px;
+  border-radius: 18px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: default;
+}
+
+.podium-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.35s;
+  pointer-events: none;
+}
+
+.podium-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Rank 1 - vàng đồng sáng. */
+.podium-card.first {
+  border-top: 3px solid var(--bronze-light);
+  min-height: 380px;
+  background: linear-gradient(160deg, #5b3518, #47382b, #2d251f);
+  box-shadow: 0 0 0 1px rgba(232, 184, 75, 0.18), 0 12px 48px rgba(0, 0, 0, 0.55);
+}
+
+.podium-card.first::before {
+  background: transparent;
+  opacity: 1;
+}
+
+.podium-card.first:hover {
+  box-shadow: 0 0 0 1px rgba(232, 184, 75, 0.30), 0 20px 60px rgba(0, 0, 0, 0.65), 0 0 30px rgba(232, 184, 75, 0.12);
+}
+
+/* Rank 2 - bạc xám. */
+.podium-card.second {
+  border-top: 3px solid var(--silver);
+  box-shadow: 0 0 0 1px rgba(157, 162, 171, 0.12), 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.podium-card.second::before {
+  background: transparent;
+  opacity: 1;
+}
+
+.podium-card.second:hover {
+  box-shadow: 0 0 0 1px rgba(157, 162, 171, 0.25), 0 16px 48px rgba(0, 0, 0, 0.5), 0 0 22px rgba(157, 162, 171, 0.08);
+}
+
+/* Rank 3 - đồng nâu. */
+.podium-card.third {
+  border-top: 3px solid var(--copper);
+  box-shadow: 0 0 0 1px rgba(192, 113, 58, 0.12), 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.podium-card.third::before {
+  background: transparent;
+  opacity: 1;
+}
+
+.podium-card.third:hover {
+  box-shadow: 0 0 0 1px rgba(192, 113, 58, 0.25), 0 16px 48px rgba(0, 0, 0, 0.5), 0 0 22px rgba(192, 113, 58, 0.10);
+}
+
+/* Crown */
+.crown {
+  position: absolute;
+  top: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid var(--bronze-light);
+  display: grid;
+  place-items: center;
+  font-size: 20px;
+  color: var(--bronze-pale);
+  background: #1e1915;
+  box-shadow: 0 0 14px rgba(232, 184, 75, 0.35);
+  animation: crownPulse 2.8s ease-in-out infinite;
+}
+
+@keyframes crownPulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 14px rgba(232, 184, 75, 0.35);
+  }
+
+  50% {
+    box-shadow: 0 0 26px rgba(232, 184, 75, 0.60), 0 0 8px rgba(240, 207, 119, 0.4);
+  }
+}
+
+/* Avatar */
+.avatar-wrap {
+  width: 120px;
+  height: 120px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 3px solid var(--bronze-light);
+  margin: 10px auto;
+  background: #1e1915;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5);
+  transition: box-shadow 0.3s;
+}
+
+.podium-card.second .avatar-wrap,
+.podium-card.third .avatar-wrap {
+  width: 90px;
+  height: 90px;
+  border-radius: 12px;
+  border-color: var(--silver);
+}
+
+.podium-card.third .avatar-wrap {
+  border-color: var(--copper);
+}
+
+.podium-card:hover .avatar-wrap {
+  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.7), 0 0 16px rgba(232, 184, 75, 0.2);
+}
+
+.avatar-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s;
+}
+
+.podium-card:hover .avatar-wrap img {
+  transform: scale(1.06);
+}
+
+/* Rank badge */
+.rank-badge {
+  display: inline-flex;
+  width: 38px;
+  height: 38px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9px;
+  font-weight: 800;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.podium-card.first .rank-badge {
+  background: linear-gradient(135deg, #c9922a, #ffd978) !important;
+  color: #1a0e00 !important;
+  box-shadow: 0 2px 12px rgba(201, 146, 42, 0.5);
+}
+
+.podium-card.second .rank-badge {
+  background: linear-gradient(135deg, #7c828a, #b8bec8) !important;
+  color: #0a0f14 !important;
+}
+
+.podium-card.third .rank-badge {
+  background: linear-gradient(135deg, #7a3e18, #c0713a) !important;
+  color: #ffeedd !important;
+}
+
+.podium-card h3 {
+  margin-top: 10px;
+  font-family: "Newsreader", serif !important;
+  color: #f5ead8 !important;
+  font-size: 28px;
+}
+
+.podium-card p {
+  color: #ffd978 !important;
+  font-size: 20px;
+  font-weight: 700;
+  margin-top: 4px;
+}
+
+.podium-card.second p {
+  color: #9da2ab !important;
+}
+
+.podium-card.third p {
+  color: #c0713a !important;
+}
+
+.podium-card small {
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.10em;
+  font-size: 10px;
+  margin-top: 6px;
+  display: block;
+}
+
+/* ============================================================
+   MY RANK STRIP
+   ============================================================ */
+.my-rank-strip {
+  margin-top: 22px;
+  border: 1px solid rgba(201, 146, 42, 0.25);
+  background: linear-gradient(90deg, rgba(51, 42, 35, 0.94), rgba(43, 36, 31, 0.88));
+  display: grid;
+  grid-template-columns: 1fr 1.6fr 1fr;
+  padding: 14px 20px;
+  align-items: center;
+  gap: 16px;
+  border-radius: 14px;
+  position: relative;
+  overflow: hidden;
+}
+
+.my-rank-strip::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--bronze-light), var(--bronze));
+  border-radius: 2px 0 0 2px;
+}
+
+.my-rank-strip span,
+.my-rank-strip small {
+  color: var(--text-muted);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.10em;
+  display: block;
+}
+
+.my-rank-strip strong {
+  display: inline-block;
+  color: var(--bronze-pale);
+  font-family: "Newsreader", serif;
+  font-size: 36px;
+  line-height: 1;
+  text-shadow: 0 0 16px rgba(240, 207, 119, 0.3);
+}
+
+/* ============================================================
+   TABLE SECTION
+   ============================================================ */
+.table-section {
+  padding-top: 52px;
+  padding-bottom: 52px;
+}
+
+.leader-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #3c3026;
+  border: 1px solid rgba(61, 92, 76, 0.35);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.leader-table th,
+.leader-table td {
+  padding: 15px 20px;
+  text-align: left;
+}
+
+.leader-table thead th {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--moss-light);
+  background: rgba(61, 92, 76, 0.18);
+  border-bottom: 1px solid rgba(61, 92, 76, 0.30);
+}
+
+.leader-table tbody tr {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  transition: background 0.22s;
+}
+
+.leader-table tbody tr:last-child {
+  border-bottom: 0;
+}
+
+.leader-table tbody tr:hover {
+  background: rgba(201, 146, 42, 0.06);
+}
+
+.leader-table td {
+  color: var(--text-main);
+  font-size: 15px;
+}
+
+.leader-table td:first-child {
+  color: var(--text-muted);
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.player-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.player-cell img {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1.5px solid rgba(201, 146, 42, 0.30);
+}
+
+.score-col {
+  color: var(--bronze-pale) !important;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1100px) {
+  .bxh-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-profile-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .podium-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .my-rank-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .tab-wrap {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .bxh-main {
+    padding-top: 90px;
+  }
+
+  .leader-table th,
+  .leader-table td {
+    padding: 11px 12px;
+    font-size: 13px;
+  }
+
+  .podium-card h3 {
+    font-size: 22px;
+  }
+
+  .podium-card p {
+    font-size: 16px;
+  }
+
+  .my-rank-strip strong {
+    font-size: 28px;
+  }
+
+  .hero-profile-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Local page theme polish. */
+:root {
+  --ds-metal-edge: rgba(201, 146, 42, 0.28);
+  --ds-metal-edge-strong: rgba(240, 207, 119, 0.52);
+  --ds-card-deep: rgba(47, 39, 31, 0.74);
+  --ds-card-warm: rgba(71, 56, 43, 0.68);
+  --ds-patina-soft: #9bc9be;
+  --ds-bronze-glow: rgba(217, 155, 40, 0.14);
+  --ds-hot-shadow: rgba(74, 36, 14, 0.34);
+}
+
+body {
+  background: #2d251f;
+}
+
+body>main {
+  color: var(--text, #f7f0e3);
+}
+
+body>main :is(h1, h2) {
+  letter-spacing: 0.02em;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.58), 0 0 18px rgba(217, 155, 40, 0.08);
+}
+
+body>main :is(.section-label, .kicker, .learn-kicker, .panel-label, .preview-kicker, .podium-tag) {
+  color: var(--ds-patina-soft);
+  letter-spacing: 0.16em;
+  text-shadow: 0 0 14px rgba(47, 111, 100, 0.2);
+}
+
+body>main :is(.gateway-card,
+  .topic-card,
+  .artifact-card,
+  .journey-step,
+  .play-card,
+  .leaderboard-rest,
+  .quick-facts div,
+  .study-note,
+  .type-card,
+  .anatomy-list article,
+  .anatomy-visual,
+  .motif-card,
+  .timeline-list article,
+  .source-list a,
+  .hero-profile,
+  .leader-table,
+  .preview-note,
+  .viewer-intro,
+  .viewer-shell,
+  .game-card,
+  .auth-card,
+  .profile-card) {
+  border-color: var(--ds-metal-edge);
+  background-color: var(--ds-card-deep);
+  box-shadow:
+    0 14px 36px rgba(0, 0, 0, 0.26),
+    0 0 24px var(--ds-bronze-glow),
+    inset 0 1px 0 rgba(244, 223, 187, 0.07);
+}
+
+body>main :is(.gateway-card,
+  .topic-card,
+  .artifact-card,
+  .journey-step,
+  .play-card,
+  .quick-facts div,
+  .type-card,
+  .motif-card,
+  .timeline-list article,
+  .source-list a,
+  .game-card,
+  .profile-card):hover {
+  border-color: var(--ds-metal-edge-strong);
+  background-color: var(--ds-card-warm);
+  box-shadow:
+    0 18px 42px var(--ds-hot-shadow),
+    0 0 26px rgba(217, 155, 40, 0.12),
+    inset 0 1px 0 rgba(244, 223, 187, 0.1);
+}
+
+body>main :is(.hero-btn,
+  .learn-btn.primary,
+  .hero-enter-btn,
+  .toolbar-btn,
+  .auth-submit,
+  .game-start-btn) {
+  border-color: rgba(240, 207, 119, 0.68);
+  box-shadow: 0 10px 26px rgba(201, 146, 42, 0.22), inset 0 1px 0 rgba(255, 236, 178, 0.22);
+}
+
+body>main :is(.btn-secondary,
+  .ghost-btn,
+  .learn-btn.ghost,
+  .hero-ghost-btn,
+  .toolbar-btn-secondary,
+  .tab-btn) {
+  border-color: rgba(201, 146, 42, 0.34);
+  color: #ffd978;
+}
+
+body>main :is(.leader-table thead th, .leaderboard-rest-head, .tab-btn.active) {
+  color: var(--ds-patina-soft);
+}
