@@ -4,9 +4,9 @@
         tong: {
             user: { score: "12,450", rank: "#42", best: "Tìm họa tiết", top: "Top 5% người chơi" },
             top3: [
-                { name: "Huyền My", score: "18,940 pts", tag: "Sứ giả di sản", avatar: "../images/dongsonz3.jpg" },
-                { name: "Quang Minh", score: "17,520 pts", tag: "Ghép hình master", avatar: "../images/dongsonz2.png" },
-                { name: "Gia Bảo", score: "16,880 pts", tag: "Sử học gia trẻ", avatar: "../images/dongsonz4.png" },
+                { name: "Huyền My", score: "18.940 điểm", tag: "Giữ phong độ", note: "Dẫn đầu nhờ tốc độ trả lời và độ chính xác cao.", avatar: "../images/dongsonz3.jpg" },
+                { name: "Quang Minh", score: "17.520 điểm", tag: "Bứt tốc", note: "Chuỗi 9 lượt chính xác liên tiếp.", avatar: "../images/dongsonz2.png" },
+                { name: "Gia Bảo", score: "16.880 điểm", tag: "Ổn định", note: "Điểm số đều ở cả ba nhóm trò chơi.", avatar: "../images/dongsonz4.png" },
             ],
             rows: [
                 { rank: "#4", name: "Hoàng Nam", pattern: "4,200", puzzle: "5,100", total: "12,100", avatar: "../images/dongsonz1.jpg" },
@@ -17,9 +17,9 @@
         hoatiet: {
             user: { score: "5,320", rank: "#18", best: "Tìm họa tiết", top: "Top 3% người chơi" },
             top3: [
-                { name: "Bảo Trân", score: "7,180 pts", tag: "Mắt đại bàng", avatar: "../images/dongsonz4.png" },
-                { name: "Huyền My", score: "6,990 pts", tag: "Tinh mắt", avatar: "../images/dongsonz3.jpg" },
-                { name: "Quốc An", score: "6,620 pts", tag: "Nhà quan sát", avatar: "../images/TrongDongHV.jpg" },
+                { name: "Bảo Trân", score: "7.180 điểm", tag: "Tinh mắt", note: "Nhận diện đúng các họa tiết khó nhất.", avatar: "../images/dongsonz4.png" },
+                { name: "Huyền My", score: "6.990 điểm", tag: "Sắc nét", note: "Giữ nhịp trả lời nhanh qua nhiều vòng.", avatar: "../images/dongsonz3.jpg" },
+                { name: "Quốc An", score: "6.620 điểm", tag: "Quan sát", note: "Điểm thưởng cao từ các lượt không sai.", avatar: "../images/TrongDongHV.jpg" },
             ],
             rows: [
                 { rank: "#4", name: "Ngọc Nhi", pattern: "6,200", puzzle: "3,900", total: "10,100", avatar: "../images/dongsonz1.jpg" },
@@ -30,9 +30,9 @@
         ghephinh: {
             user: { score: "4,980", rank: "#25", best: "Ghép hình", top: "Top 8% người chơi" },
             top3: [
-                { name: "Quang Minh", score: "8,220 pts", tag: "Ghép hình master", avatar: "../images/dongsonz2.png" },
-                { name: "Đức Duy", score: "7,900 pts", tag: "Tốc độ cao", avatar: "../images/dongsonz4.png" },
-                { name: "Mỹ Linh", score: "7,440 pts", tag: "Ổn định", avatar: "../images/TrongDong.png" },
+                { name: "Quang Minh", score: "8.220 điểm", tag: "Tốc độ cao", note: "Hoàn thành mảnh ghép với thời gian ngắn nhất.", avatar: "../images/dongsonz2.png" },
+                { name: "Đức Duy", score: "7.900 điểm", tag: "Bền bỉ", note: "Giữ chuỗi hoàn thành ổn định trong tuần.", avatar: "../images/dongsonz4.png" },
+                { name: "Mỹ Linh", score: "7.440 điểm", tag: "Khéo léo", note: "Sai số thấp ở các màn ghép hình lớn.", avatar: "../images/TrongDong.png" },
             ],
             rows: [
                 { rank: "#4", name: "Gia Hân", pattern: "4,100", puzzle: "7,000", total: "11,100", avatar: "../images/dongsonz1.jpg" },
@@ -43,9 +43,9 @@
         dungsai: {
             user: { score: "2,150", rank: "#33", best: "Đúng / Sai", top: "Top 12% người chơi" },
             top3: [
-                { name: "Gia Bảo", score: "5,910 pts", tag: "Phản xạ nhanh", avatar: "../images/dongsonz4.png" },
-                { name: "Hà Vy", score: "5,700 pts", tag: "Kiến thức vàng", avatar: "../images/dongsonz1.jpg" },
-                { name: "Hoàng Nam", score: "5,330 pts", tag: "Độ chính xác cao", avatar: "../images/TrongDongHV.jpg" },
+                { name: "Gia Bảo", score: "5.910 điểm", tag: "Phản xạ", note: "Bấm đáp án nhanh nhưng vẫn giữ độ chính xác.", avatar: "../images/dongsonz4.png" },
+                { name: "Hà Vy", score: "5.700 điểm", tag: "Kiến thức", note: "Nổi bật ở các câu hỏi văn hóa Đông Sơn.", avatar: "../images/dongsonz1.jpg" },
+                { name: "Hoàng Nam", score: "5.330 điểm", tag: "Chắc tay", note: "Ít mắc lỗi ở các lượt quyết định.", avatar: "../images/TrongDongHV.jpg" },
             ],
             rows: [
                 { rank: "#4", name: "Lê Anh", pattern: "3,900", puzzle: "4,900", total: "8,800", avatar: "../images/dongsonz2.png" },
@@ -70,16 +70,19 @@
         firstName: document.getElementById("firstName"),
         firstScore: document.getElementById("firstScore"),
         firstTag: document.getElementById("firstTag"),
+        firstNote: document.getElementById("firstNote"),
         firstAvatar: document.getElementById("firstAvatar"),
 
         secondName: document.getElementById("secondName"),
         secondScore: document.getElementById("secondScore"),
         secondTag: document.getElementById("secondTag"),
+        secondNote: document.getElementById("secondNote"),
         secondAvatar: document.getElementById("secondAvatar"),
 
         thirdName: document.getElementById("thirdName"),
         thirdScore: document.getElementById("thirdScore"),
         thirdTag: document.getElementById("thirdTag"),
+        thirdNote: document.getElementById("thirdNote"),
         thirdAvatar: document.getElementById("thirdAvatar"),
     };
 
@@ -101,6 +104,16 @@
 
     function formatScore(value) {
         return Number(value || 0).toLocaleString("vi-VN");
+    }
+
+    function getInitials(name) {
+        return name
+            .trim()
+            .split(/\s+/)
+            .slice(-2)
+            .map((word) => word.charAt(0))
+            .join("")
+            .toUpperCase();
     }
 
     async function fetchCurrentUser(token) {
@@ -172,17 +185,20 @@
         ids.firstName.textContent = data.top3[0].name;
         ids.firstScore.textContent = data.top3[0].score;
         ids.firstTag.textContent = data.top3[0].tag;
-        ids.firstAvatar.src = data.top3[0].avatar;
+        ids.firstNote.textContent = data.top3[0].note;
+        ids.firstAvatar.textContent = getInitials(data.top3[0].name);
 
         ids.secondName.textContent = data.top3[1].name;
         ids.secondScore.textContent = data.top3[1].score;
         ids.secondTag.textContent = data.top3[1].tag;
-        ids.secondAvatar.src = data.top3[1].avatar;
+        ids.secondNote.textContent = data.top3[1].note;
+        ids.secondAvatar.textContent = getInitials(data.top3[1].name);
 
         ids.thirdName.textContent = data.top3[2].name;
         ids.thirdScore.textContent = data.top3[2].score;
         ids.thirdTag.textContent = data.top3[2].tag;
-        ids.thirdAvatar.src = data.top3[2].avatar;
+        ids.thirdNote.textContent = data.top3[2].note;
+        ids.thirdAvatar.textContent = getInitials(data.top3[2].name);
 
         renderRows(data.rows);
 
@@ -199,5 +215,29 @@
         });
     });
 
+    function initLazyCardAnimation() {
+        const cards = Array.from(document.querySelectorAll(".lazy-card"));
+        if (!cards.length) return;
+
+        if (!("IntersectionObserver" in window)) {
+            cards.forEach((card) => card.classList.add("is-visible"));
+            return;
+        }
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (!entry.isIntersecting) return;
+                    entry.target.classList.add("is-visible");
+                    observer.unobserve(entry.target);
+                });
+            },
+            { threshold: 0.22, rootMargin: "0px 0px -40px" }
+        );
+
+        cards.forEach((card) => observer.observe(card));
+    }
+
     render("tong");
+    initLazyCardAnimation();
 })();

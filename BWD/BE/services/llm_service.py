@@ -40,6 +40,13 @@ def has_good_context(chunks):
         return True
 
     try:
+        keyword_score = float(chunks[0].get("keyword_score") or 0)
+        if keyword_score >= 0.55:
+            return True
+    except (TypeError, ValueError):
+        pass
+
+    try:
         max_distance = float(
             os.getenv("RAG_MAX_DISTANCE", "1.35")
         )
