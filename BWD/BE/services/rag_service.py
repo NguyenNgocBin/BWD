@@ -155,7 +155,18 @@ def get_rag_collection():
             "Thiếu package `chromadb`. Hãy chạy: pip install -r BWD/BE/requirements.txt"
         ) from exc
 
-    client = chromadb.PersistentClient(path=str(CHROMA_DIR))
+    import os
+    import shutil
+    
+    # Trên Vercel (Serverless), file system bị Read-Only ngoại trừ /tmp.
+    # ChromaDB cần ghi file lock nên phải copy sang /tmp.
+    if os.environ.get("VERCEL"):
+        tmp_chroma_dir = Path("/tmp/chroma")
+        if not tmp_chroma_dir.exists():
+            shutil.copytree(str(CHROMA_DIR), str(tmp_chroma_dir))
+        client = chromadb.PersistentClient(path=str(tmp_chroma_dir))
+    else:
+        client = chromadb.PersistentClient(path=str(CHROMA_DIR))
 
     try:
         return client.get_collection(
