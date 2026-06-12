@@ -62,7 +62,11 @@
         const totalScore = formatScore(user.total_score || 0);
         if (els.name) els.name.textContent = user.username || "Người dùng";
         if (els.subtitle) els.subtitle.textContent = user.email || "Người khám phá Đông Sơn";
-        if (els.avatar) els.avatar.src = user.avatar || DEFAULT_AVATAR;
+        let finalAvatar = user.avatar;
+        if (!finalAvatar || finalAvatar === "default-avatar.png") {
+            finalAvatar = DEFAULT_AVATAR;
+        }
+        if (els.avatar) els.avatar.src = finalAvatar;
         if (els.heroTotalScore) els.heroTotalScore.textContent = totalScore;
         if (els.kpiTotalScore) els.kpiTotalScore.textContent = totalScore;
     }
