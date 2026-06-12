@@ -1,5 +1,5 @@
 (function () {
-    const API_BASE_URL = "http://localhost:5000/api/v1/auth";
+    const API_BASE_URL = "https://bwd-d6e2.vercel.app/api/v1/auth";
     const track = document.getElementById("gamesTrack");
     const controls = document.querySelectorAll(".slide-btn");
     const heroName = document.getElementById("gameHeroName");
