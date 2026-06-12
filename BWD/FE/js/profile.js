@@ -1,5 +1,5 @@
 (function () {
-    const BACKEND_ORIGIN = `${window.location.protocol === "file:" ? "http:" : window.location.protocol}//${window.location.hostname || "localhost"}:5000`;
+    const BACKEND_ORIGIN = "https://bwd-d6e2.vercel.app";
     const API_BASE_URL = `${BACKEND_ORIGIN}/api/v1/auth`;
     const DEFAULT_AVATAR = "../images/dongsonz1.jpg";
 
