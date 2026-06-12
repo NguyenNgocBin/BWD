@@ -2,55 +2,55 @@
     const API_BASE_URL = "https://bwd-d6e2.vercel.app/api/v1/auth";
     const DATA = {
         tong: {
-            user: { score: "12,450", rank: "#42", best: "T�m h?a ti?t", top: "Top 5% ngu?i choi" },
+            user: { score: "12,450", rank: "#42", best: "Tìm họa tiết", top: "Top 5% người chơi" },
             top3: [
-                { name: "Huy?n My", score: "18.940 di?m", tag: "Gi? phong d?", note: "D?n d?u nh? t?c d? tr? l?i v� d? ch�nh x�c cao.", avatar: "../images/dongsonz3.jpg" },
-                { name: "Quang Minh", score: "17.520 di?m", tag: "B?t t?c", note: "Chu?i 9 lu?t ch�nh x�c li�n ti?p.", avatar: "../images/dongsonz2.png" },
-                { name: "Gia B?o", score: "16.880 di?m", tag: "?n d?nh", note: "�i?m s? d?u ? c? ba nh�m tr� choi.", avatar: "../images/dongsonz4.png" },
+                { name: "Huyền My", score: "18.940 điểm", tag: "Giữ phong độ", note: "Dẫn đầu nhờ tốc độ trả lời và độ chính xác cao.", avatar: "../images/dongsonz3.jpg" },
+                { name: "Quang Minh", score: "17.520 điểm", tag: "Bứt tốc", note: "Chuỗi 9 lượt chính xác liên tiếp.", avatar: "../images/dongsonz2.png" },
+                { name: "Gia Bảo", score: "16.880 điểm", tag: "Ổn định", note: "Điểm số đều ở cả ba nhóm trò chơi.", avatar: "../images/dongsonz4.png" },
             ],
             rows: [
-                { rank: "#4", name: "Ho�ng Nam", pattern: "4,200", puzzle: "5,100", total: "12,100", avatar: "../images/dongsonz1.jpg" },
-                { rank: "#5", name: "Thanh H�", pattern: "3,850", puzzle: "5,900", total: "11,950", avatar: "../images/dongsonz2.png" },
-                { rank: "#6", name: "�?c Duy", pattern: "4,500", puzzle: "4,200", total: "10,800", avatar: "../images/dongsonz4.png" },
+                { rank: "#4", name: "Hoàng Nam", pattern: "4,200", puzzle: "5,100", total: "12,100", avatar: "../images/dongsonz1.jpg" },
+                { rank: "#5", name: "Thanh Hà", pattern: "3,850", puzzle: "5,900", total: "11,950", avatar: "../images/dongsonz2.png" },
+                { rank: "#6", name: "Đức Duy", pattern: "4,500", puzzle: "4,200", total: "10,800", avatar: "../images/dongsonz4.png" },
             ],
         },
         hoatiet: {
-            user: { score: "5,320", rank: "#18", best: "T�m h?a ti?t", top: "Top 3% ngu?i choi" },
+            user: { score: "5,320", rank: "#18", best: "Tìm họa tiết", top: "Top 3% người chơi" },
             top3: [
-                { name: "B?o Tr�n", score: "7.180 di?m", tag: "Tinh m?t", note: "Nh?n di?n d�ng c�c h?a ti?t kh� nh?t.", avatar: "../images/dongsonz4.png" },
-                { name: "Huy?n My", score: "6.990 di?m", tag: "S?c n�t", note: "Gi? nh?p tr? l?i nhanh qua nhi?u v�ng.", avatar: "../images/dongsonz3.jpg" },
-                { name: "Qu?c An", score: "6.620 di?m", tag: "Quan s�t", note: "�i?m thu?ng cao t? c�c lu?t kh�ng sai.", avatar: "../images/TrongDongHV.jpg" },
+                { name: "Bảo Trân", score: "7.180 điểm", tag: "Tinh mắt", note: "Nhận diện đúng các họa tiết khó nhất.", avatar: "../images/dongsonz4.png" },
+                { name: "Huyền My", score: "6.990 điểm", tag: "Sắc nét", note: "Giữ nhịp trả lời nhanh qua nhiều vòng.", avatar: "../images/dongsonz3.jpg" },
+                { name: "Quốc An", score: "6.620 điểm", tag: "Quan sát", note: "Điểm thưởng cao từ các lượt không sai.", avatar: "../images/TrongDongHV.jpg" },
             ],
             rows: [
-                { rank: "#4", name: "Ng?c Nhi", pattern: "6,200", puzzle: "3,900", total: "10,100", avatar: "../images/dongsonz1.jpg" },
-                { rank: "#5", name: "H?i �ang", pattern: "5,980", puzzle: "3,800", total: "9,780", avatar: "../images/dongsonz2.png" },
-                { rank: "#6", name: "Minh Kh�i", pattern: "5,700", puzzle: "3,650", total: "9,350", avatar: "../images/dongsonz3.jpg" },
+                { rank: "#4", name: "Ngọc Nhi", pattern: "6,200", puzzle: "3,900", total: "10,100", avatar: "../images/dongsonz1.jpg" },
+                { rank: "#5", name: "Hải Đăng", pattern: "5,980", puzzle: "3,800", total: "9,780", avatar: "../images/dongsonz2.png" },
+                { rank: "#6", name: "Minh Khôi", pattern: "5,700", puzzle: "3,650", total: "9,350", avatar: "../images/dongsonz3.jpg" },
             ],
         },
         ghephinh: {
-            user: { score: "4,980", rank: "#25", best: "Gh�p h�nh", top: "Top 8% ngu?i choi" },
+            user: { score: "4,980", rank: "#25", best: "Ghép hình", top: "Top 8% người chơi" },
             top3: [
-                { name: "Quang Minh", score: "8.220 di?m", tag: "T?c d? cao", note: "Ho�n th�nh m?nh gh�p v?i th?i gian ng?n nh?t.", avatar: "../images/dongsonz2.png" },
-                { name: "�?c Duy", score: "7.900 di?m", tag: "B?n b?", note: "Gi? chu?i ho�n th�nh ?n d?nh trong tu?n.", avatar: "../images/dongsonz4.png" },
-                { name: "M? Linh", score: "7.440 di?m", tag: "Kh�o l�o", note: "Sai s? th?p ? c�c m�n gh�p h�nh l?n.", avatar: "../images/TrongDong.png" },
+                { name: "Quang Minh", score: "8.220 điểm", tag: "Tốc độ cao", note: "Hoàn thành mảnh ghép với thời gian ngắn nhất.", avatar: "../images/dongsonz2.png" },
+                { name: "Đức Duy", score: "7.900 điểm", tag: "Bền bỉ", note: "Giữ chuỗi hoàn thành ổn định trong tuần.", avatar: "../images/dongsonz4.png" },
+                { name: "Mỹ Linh", score: "7.440 điểm", tag: "Khéo léo", note: "Sai số thấp ở các màn ghép hình lớn.", avatar: "../images/TrongDong.png" },
             ],
             rows: [
-                { rank: "#4", name: "Gia H�n", pattern: "4,100", puzzle: "7,000", total: "11,100", avatar: "../images/dongsonz1.jpg" },
-                { rank: "#5", name: "Tr?ng Khang", pattern: "3,600", puzzle: "6,900", total: "10,500", avatar: "../images/dongsonz3.jpg" },
+                { rank: "#4", name: "Gia Hân", pattern: "4,100", puzzle: "7,000", total: "11,100", avatar: "../images/dongsonz1.jpg" },
+                { rank: "#5", name: "Trọng Khang", pattern: "3,600", puzzle: "6,900", total: "10,500", avatar: "../images/dongsonz3.jpg" },
                 { rank: "#6", name: "Kim Sa", pattern: "3,950", puzzle: "6,200", total: "10,150", avatar: "../images/TrongDongHV.jpg" },
             ],
         },
         dungsai: {
-            user: { score: "2,150", rank: "#33", best: "��ng / Sai", top: "Top 12% ngu?i choi" },
+            user: { score: "2,150", rank: "#33", best: "Đúng / Sai", top: "Top 12% người chơi" },
             top3: [
-                { name: "Gia B?o", score: "5.910 di?m", tag: "Ph?n x?", note: "B?m d�p �n nhanh nhung v?n gi? d? ch�nh x�c.", avatar: "../images/dongsonz4.png" },
-                { name: "H� Vy", score: "5.700 di?m", tag: "Ki?n th?c", note: "N?i b?t ? c�c c�u h?i van h�a ��ng Son.", avatar: "../images/dongsonz1.jpg" },
-                { name: "Ho�ng Nam", score: "5.330 di?m", tag: "Ch?c tay", note: "�t m?c l?i ? c�c lu?t quy?t d?nh.", avatar: "../images/TrongDongHV.jpg" },
+                { name: "Gia Bảo", score: "5.910 điểm", tag: "Phản xạ", note: "Bấm đáp án nhanh nhưng vẫn giữ độ chính xác.", avatar: "../images/dongsonz4.png" },
+                { name: "Hà Vy", score: "5.700 điểm", tag: "Kiến thức", note: "Nổi bật ở các câu hỏi văn hóa Đông Sơn.", avatar: "../images/dongsonz1.jpg" },
+                { name: "Hoàng Nam", score: "5.330 điểm", tag: "Chắc tay", note: "Ít mắc lỗi ở các lượt quyết định.", avatar: "../images/TrongDongHV.jpg" },
             ],
             rows: [
-                { rank: "#4", name: "L� Anh", pattern: "3,900", puzzle: "4,900", total: "8,800", avatar: "../images/dongsonz2.png" },
-                { rank: "#5", name: "Ng�n H�", pattern: "3,750", puzzle: "4,550", total: "8,300", avatar: "../images/dongsonz3.jpg" },
-                { rank: "#6", name: "T�ng L�m", pattern: "3,680", puzzle: "4,300", total: "7,980", avatar: "../images/TrongDong.png" },
+                { rank: "#4", name: "Lê Anh", pattern: "3,900", puzzle: "4,900", total: "8,800", avatar: "../images/dongsonz2.png" },
+                { rank: "#5", name: "Ngân Hà", pattern: "3,750", puzzle: "4,550", total: "8,300", avatar: "../images/dongsonz3.jpg" },
+                { rank: "#6", name: "Tùng Lâm", pattern: "3,680", puzzle: "4,300", total: "7,980", avatar: "../images/TrongDong.png" },
             ],
         },
     };
@@ -137,7 +137,7 @@
         if (user) {
             const score = formatScore(user.total_score || 0);
             ids.userScore.textContent = score;
-            ids.stripName.textContent = `B?n (${user.username})`;
+            ids.stripName.textContent = `Bạn (${user.username})`;
             ids.stripScore.textContent = score;
         }
 
@@ -147,10 +147,10 @@
             const freshUser = await fetchCurrentUser(token);
             const score = formatScore(freshUser.total_score || 0);
             ids.userScore.textContent = score;
-            ids.stripName.textContent = `B?n (${freshUser.username})`;
+            ids.stripName.textContent = `Bạn (${freshUser.username})`;
             ids.stripScore.textContent = score;
         } catch (error) {
-            // N?u backend chua ph?n h?i, gi? dataset gi? dang hi?n th?.
+            // Nếu backend chưa phản hồi, giữ dataset giả đang hiển thị.
         }
     }
 
