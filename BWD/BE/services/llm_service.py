@@ -137,10 +137,9 @@ def _generate_with_gemini(prompt):
     # Xáo trộn danh sách key để tải đều (load balancing)
     random.shuffle(api_keys)
 
-    model = os.getenv(
-        "GEMINI_MODEL",
-        "gemini-2.5-flash"
-    )
+    model = os.getenv("GEMINI_MODEL", "gemini-2.0-flash-lite-001")
+    if model in ["gemini-1.5-flash", "gemini-2.5-flash"]:
+        model = "gemini-2.0-flash-lite-001"
 
     payload = {
         "systemInstruction": {
