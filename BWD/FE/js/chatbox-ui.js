@@ -40,7 +40,7 @@
             <div class="ds-chat-suggest-list">
               <button class="ds-chat-chip" type="button">✦ Trống đồng Đông Sơn là gì?</button>
               <button class="ds-chat-chip" type="button">✦ Hoa văn chim Lạc có ý nghĩa gì?</button>
-              <button class="ds-chat-chip" type="button">✦ Vì sao trống đồng được coi là bảo vật?</button>
+              <button class="ds-chat-chip" type="button">✦ Vì sao trống đồng Đông Sơn được coi là bảo vật?</button>
             </div>
           </div>
 

@@ -9,6 +9,55 @@ BASE_DIR = Path(__file__).resolve().parents[1]
 CHROMA_DIR = BASE_DIR / "vector_store" / "chroma"
 COLLECTION_NAME = "dong_son_knowledge"
 
+VI_STOPWORDS = {
+    "ai",
+    "anh",
+    "ban",
+    "bang",
+    "bi",
+    "biet",
+    "cho",
+    "chua",
+    "cua",
+    "co",
+    "duoc",
+    "gi",
+    "hoi",
+    "la",
+    "lam",
+    "minh",
+    "mot",
+    "nao",
+    "nhu",
+    "ra",
+    "sao",
+    "the",
+    "thi",
+    "toi",
+    "trang",
+    "va",
+    "ve",
+    "website",
+    "được",
+    "chưa",
+    "của",
+    "có",
+    "gì",
+    "hỏi",
+    "là",
+    "làm",
+    "mình",
+    "một",
+    "nào",
+    "như",
+    "ở",
+    "thế",
+    "thì",
+    "tôi",
+    "và",
+    "về",
+}
+
 
 class RagSearchError(Exception):
     pass
@@ -60,6 +109,39 @@ def tokenize(text: str) -> List[str]:
     return re.findall(r"[\wÀ-ỹ]+", normalized, flags=re.UNICODE)
 
 
+def tokenize_for_rank(text: str) -> List[str]:
+    normalized = text.lower()
+    tokens = re.findall(r"\w+", normalized, flags=re.UNICODE)
+    return [
+        token
+        for token in tokens
+        if len(token) > 1 and token not in VI_STOPWORDS
+    ]
+
+
+def keyword_overlap_score(question: str, content: str, title: str = "") -> float:
+    query_tokens = set(tokenize_for_rank(question))
+    if not query_tokens:
+        return 0.0
+
+    content_tokens = set(tokenize_for_rank(content))
+    title_tokens = set(tokenize_for_rank(title))
+
+    content_overlap = len(query_tokens & content_tokens) / len(query_tokens)
+    title_overlap = len(query_tokens & title_tokens) / len(query_tokens)
+
+    return min(1.0, content_overlap + (title_overlap * 0.45))
+
+
+def hybrid_rank_score(distance, keyword_score: float) -> float:
+    try:
+        vector_score = 1 / (1 + float(distance))
+    except (TypeError, ValueError):
+        vector_score = 0.0
+
+    return vector_score + (keyword_score * 0.85)
+
+
 def get_rag_collection():
     if not CHROMA_DIR.exists():
         raise RagSearchError(
@@ -99,9 +181,14 @@ def search_relevant_chunks(question: str, top_k: int = 5) -> List[dict]:
             "Vector database đang rỗng. Hãy chạy lại: python BWD/BE/scripts/ingest_knowledge.py"
         )
 
+    candidate_count = min(
+        collection.count(),
+        max(safe_top_k * 4, 12),
+    )
+
     result = collection.query(
         query_texts=[question],
-        n_results=safe_top_k,
+        n_results=candidate_count,
         include=["documents", "metadatas", "distances"],
     )
 
@@ -113,21 +200,37 @@ def search_relevant_chunks(question: str, top_k: int = 5) -> List[dict]:
     for index, document in enumerate(documents):
         metadata = metadatas[index] if index < len(metadatas) else {}
         distance = distances[index] if index < len(distances) else None
+        title = metadata.get("heading", "Tài liệu Đông Sơn")
+        keyword_score = keyword_overlap_score(
+            question=question,
+            content=document,
+            title=title,
+        )
 
         chunks.append(
             {
                 "content": document,
                 "source": metadata.get("source", "unknown"),
-                "title": metadata.get("heading", "Tài liệu Đông Sơn"),
+                "title": title,
                 "filename": metadata.get("filename", ""),
                 "section_index": metadata.get("section_index"),
                 "chunk_index": metadata.get("chunk_index"),
                 "distance": distance,
+                "keyword_score": keyword_score,
+                "rank_score": hybrid_rank_score(distance, keyword_score),
                 "type": "rag_chunk",
             }
         )
 
-    return chunks
+    chunks.sort(
+        key=lambda chunk: (
+            chunk["rank_score"],
+            -float(chunk["distance"] or 0),
+        ),
+        reverse=True,
+    )
+
+    return chunks[:safe_top_k]
 
 
 def build_rag_context(chunks: List[dict]) -> str:

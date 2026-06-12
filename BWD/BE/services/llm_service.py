@@ -21,6 +21,7 @@ Nhiệm vụ:
 - Chỉ sử dụng thông tin có trong CONTEXT RAG được cung cấp.
 - Nếu context không đủ để trả lời chắc chắn, hãy nói rõ rằng kho tri thức hiện chưa có đủ thông tin.
 - Không bịa thêm thông tin ngoài context.
+- Lưu ý: Khi người dùng hỏi về "trống đồng", hãy ngầm hiểu đó là "trống đồng Đông Sơn".
 """.strip()
 
 
@@ -38,6 +39,13 @@ def has_good_context(chunks):
 
     if best_distance is None:
         return True
+
+    try:
+        keyword_score = float(chunks[0].get("keyword_score") or 0)
+        if keyword_score >= 0.55:
+            return True
+    except (TypeError, ValueError):
+        pass
 
     try:
         max_distance = float(
