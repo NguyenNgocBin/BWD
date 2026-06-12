@@ -120,23 +120,26 @@ def _post_json(url, payload, timeout=30):
         ) from exc
 
 
-def _generate_with_gemini(prompt):
-    api_key = os.getenv("GEMINI_API_KEY")
+import random
 
-    if not api_key:
+def _generate_with_gemini(prompt):
+    keys_str = os.getenv("GEMINI_API_KEYS") or os.getenv("GEMINI_API_KEY")
+
+    if not keys_str:
         raise LLMError(
-            "Thiếu GEMINI_API_KEY trong file .env"
+            "Thiếu GEMINI_API_KEYS hoặc GEMINI_API_KEY trong file .env"
         )
+        
+    api_keys = [k.strip() for k in keys_str.split(",") if k.strip()]
+    if not api_keys:
+        raise LLMError("Danh sách API Key rỗng")
+
+    # Xáo trộn danh sách key để tải đều (load balancing)
+    random.shuffle(api_keys)
 
     model = os.getenv(
         "GEMINI_MODEL",
         "gemini-2.5-flash"
-    )
-
-    url = (
-        "https://generativelanguage.googleapis.com/"
-        f"v1beta/models/{model}:generateContent"
-        f"?key={api_key}"
     )
 
     payload = {
@@ -164,35 +167,56 @@ def _generate_with_gemini(prompt):
         }
     }
 
-    data = _post_json(
-        url=url,
-        payload=payload
-    )
-
-    candidates = data.get("candidates", [])
-
-    if not candidates:
-        raise LLMError(
-            f"Gemini không trả về dữ liệu: {data}"
+    last_error = None
+    
+    for api_key in api_keys:
+        url = (
+            "https://generativelanguage.googleapis.com/"
+            f"v1beta/models/{model}:generateContent"
+            f"?key={api_key}"
         )
+        
+        try:
+            data = _post_json(
+                url=url,
+                payload=payload
+            )
+        
+            candidates = data.get("candidates", [])
+        
+            if not candidates:
+                raise LLMError(
+                    f"Gemini không trả về dữ liệu: {data}"
+                )
+        
+            parts = (
+                candidates[0]
+                .get("content", {})
+                .get("parts", [])
+            )
+        
+            answer = "\n".join(
+                part.get("text", "")
+                for part in parts
+            ).strip()
+        
+            if not answer:
+                raise LLMError(
+                    "Gemini trả về câu trả lời rỗng"
+                )
+        
+            return answer
+            
+        except LLMError as exc:
+            if "HTTP 429" in str(exc):
+                last_error = exc
+                continue # Thử key tiếp theo
+            raise # Lỗi khác (400, 500) thì văng lỗi luôn
 
-    parts = (
-        candidates[0]
-        .get("content", {})
-        .get("parts", [])
-    )
+    if last_error:
+        raise last_error
 
-    answer = "\n".join(
-        part.get("text", "")
-        for part in parts
-    ).strip()
 
-    if not answer:
-        raise LLMError(
-            "Gemini trả về câu trả lời rỗng"
-        )
-
-    return answer
 
 
 if __name__ == "__main__":
