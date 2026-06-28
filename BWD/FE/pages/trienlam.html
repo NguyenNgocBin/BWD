@@ -1,14 +1,24 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Triển lãm Đông Sơn - Bảo tàng số</title>
+    <meta name="description"
+        content="Khám phá triển lãm trực tuyến văn hóa Đông Sơn – mô hình trống đồng 3D tương tác và không gian trưng bày số.">
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/layout.css">
     <link rel="stylesheet" href="../css/trienlam.css">
     <link rel="stylesheet" href="../css/chatbox.css">
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
 </head>
 
 <body>
@@ -36,26 +46,32 @@
     </header>
 
     <main class="trienlam-main">
+
+        <!-- ── HERO ─────────────────────────────────────────────── -->
         <section class="trienlam-hero">
             <div class="container trienlam-hero-grid">
                 <div class="trienlam-hero-copy">
                     <span class="section-label">Triển lãm trực tuyến</span>
-                    <h1>Bước vào không gian Đông Sơn</h1>
+                    <h1>Bước vào không gian trống đồng Đông Sơn</h1>
                     <p class="hero-lead">
-                        Một không gian trưng bày 3D tập trung vào trống đồng, hoa văn và những lớp nghĩa văn hóa Việt cổ.
+                        Khám phá các mô hình 3D, quan sát từng dải hoa văn và tiếp tục hành trình trong không gian
+                        triển lãm trực tuyến.
                     </p>
 
                     <div class="trienlam-hero-actions">
-                        <a href="#viewer-stage" class="hero-enter-btn">Bắt đầu tham quan</a>
-                        <button class="hero-ghost-btn" type="button" onclick="toggleFullscreen()">
-                            <span>Toàn màn hình</span>
-                        </button>
+                        <a href="#model3d-section" class="hero-enter-btn">Xem mô hình 3D</a>
+                        <a href="#viewer-stage" class="hero-ghost-btn">Triển lãm ảo</a>
                     </div>
                 </div>
 
                 <aside class="trienlam-hero-preview" aria-label="Điểm nhấn triển lãm">
                     <div class="preview-orbit">
                         <img src="../images/TrongDongHV.jpg" alt="Trống đồng Đông Sơn">
+                        <div class="preview-badge">
+                            <span class="preview-badge-label">Hiện vật tiêu điểm</span>
+                            <strong>Trống đồng Đông Sơn</strong>
+                            <small>Biểu tượng văn hóa Việt cổ hơn 2.000 năm</small>
+                        </div>
                     </div>
 
                     <article class="preview-note">
@@ -66,14 +82,156 @@
             </div>
         </section>
 
+        <section class="trienlam-highlights" aria-label="Những gì có trong triển lãm">
+            <div class="container highlights-grid">
+                <article class="highlight-card">
+                    <span class="highlight-index">01</span>
+                    <strong>Mô hình 3D tương tác</strong>
+                    <p>Chọn hiện vật và mở viewer lớn để quan sát rõ từng lớp tạo hình.</p>
+                </article>
+                <article class="highlight-card">
+                    <span class="highlight-index">02</span>
+                    <strong>Quan sát hoa văn chi tiết</strong>
+                    <p>Tập trung vào mặt trống, thân trống và dáng khối ở từng phiên bản.</p>
+                </article>
+                <article class="highlight-card">
+                    <span class="highlight-index">03</span>
+                    <strong>Triển lãm trực tuyến</strong>
+                    <p>Tiếp tục khám phá không gian trưng bày với tour toàn màn hình.</p>
+                </article>
+                <article class="highlight-card">
+                    <span class="highlight-index">04</span>
+                    <strong>Ngữ cảnh học tập</strong>
+                    <p>Kết nối trải nghiệm thị giác với kiến thức về biểu tượng và hoa văn.</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- ── MÔ HÌNH 3D TƯƠNG TÁC ────────────────────────────── -->
+        <section class="museum3d-section" id="model3d-section">
+            <div class="container">
+                <div class="museum3d-header">
+                    <span class="panel-label">Mô hình tương tác</span>
+                    <h2>Thư viện hiện vật 3D</h2>
+                    <p class="museum3d-desc">
+                        Chọn một hiện vật để mở viewer lớn, xoay tự do và phóng to các chi tiết tạo hình.
+                    </p>
+                </div>
+
+                <div class="model-gallery-view" id="model-gallery-view">
+                    <button class="model-card active" type="button" data-model-id="dongsonbronze">
+                        <span class="model-card-preview">
+                            <span class="model-thumb" data-preview-model="dongsonbronze" aria-hidden="true"></span>
+                            <span class="model-card-action">Mở mô hình</span>
+                        </span>
+                        <span class="model-card-meta">
+                            <span class="model-card-tag">Mô Hình 3D</span>
+                            <strong>Trống đồng Đông Sơn </strong>
+                        </span>
+                    </button>
+
+                    <button class="model-card" type="button" data-model-id="trongdong2">
+                        <span class="model-card-preview">
+                            <span class="model-thumb" data-preview-model="trongdong2" aria-hidden="true"></span>
+                            <span class="model-card-action">Mở mô hình</span>
+                        </span>
+                        <span class="model-card-meta">
+                            <span class="model-card-tag">Mô Hình 3D</span>
+                            <strong>Trống đồng Đông Sơn </strong>
+                        </span>
+                    </button>
+
+                    <button class="model-card" type="button" data-model-id="trongdong1">
+                        <span class="model-card-preview">
+                            <span class="model-thumb" data-preview-model="trongdong1" aria-hidden="true"></span>
+                            <span class="model-card-action">Mở mô hình</span>
+                        </span>
+                        <span class="model-card-meta">
+                            <span class="model-card-tag">Mô Hình 3D</span>
+                            <strong>Trống đồng Đông Sơn</strong>
+                        </span>
+                    </button>
+
+                </div>
+
+                <div class="model-detail-view" id="model-detail-view" aria-live="polite">
+                    <div class="model-detail-main">
+                        <div class="model-detail-toolbar">
+                            <button class="ctrl-btn ctrl-btn-ghost" type="button" id="btn-back-gallery">
+                                ← Thư viện
+                            </button>
+                            <div class="model-detail-title">
+                                <span class="panel-label" id="model-active-kicker">Đang xem</span>
+                                <strong id="model-active-title">Trống đồng Đông Sơn 3</strong>
+                            </div>
+                            <div class="model-detail-actions">
+                                <button class="ctrl-btn" id="btn-autorotate" onclick="toggleAutoRotate()"
+                                    title="Bật/tắt tự xoay">
+                                    ⟳ Tự xoay
+                                </button>
+                                <button class="ctrl-btn" onclick="resetCamera()" title="Đặt lại góc nhìn">
+                                    ⊙ Góc mặc định
+                                </button>
+                                <button class="ctrl-btn" onclick="toggleFullscreen3D()" title="Toàn màn hình">
+                                    ⛶ Toàn màn hình
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="museum3d-frame" id="museum3d-frame">
+                            <div class="model-loading-overlay" id="model-loading-overlay">
+                                <div class="model-loading-inner">
+                                    <div class="model-loading-ring"></div>
+                                    <span class="model-loading-title">Đang tải mô hình 3D</span>
+                                    <span class="model-loading-pct" id="model-load-pct">0%</span>
+                                </div>
+                            </div>
+
+                            <div id="canvas-container"></div>
+
+                            <div class="museum3d-hint" id="museum3d-hint">
+                                <span>Kéo để xoay · Cuộn để zoom chậm</span>
+                                <button class="hint-close"
+                                    onclick="document.getElementById('museum3d-hint').style.display='none'"
+                                    aria-label="Đóng gợi ý">×</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <aside class="model-detail-side" aria-label="Danh sách mô hình 3D">
+                        <span class="panel-label">Trong bộ sưu tập</span>
+                        <button class="side-model active" type="button" data-model-id="dongsonbronze">
+                            <span class="side-model-preview" data-preview-model="dongsonbronze"
+                                aria-hidden="true"></span>
+                            <span>
+                                <strong>Trống đồng Đông Sơn 3</strong>
+                                <small>Model GLB nội bộ · 4.2 MB</small>
+                            </span>
+                        </button>
+                        <button class="side-model" type="button" data-model-id="trongdong2">
+                            <span class="side-model-preview" data-preview-model="trongdong2" aria-hidden="true"></span>
+                            <span>
+                                <strong>Trống đồng Đông Sơn 2</strong>
+                                <small>Mặt trống và dáng khối · 8.2 MB</small>
+                            </span>
+                        </button>
+                        <button class="side-model" type="button" data-model-id="trongdong1">
+                            <span class="side-model-preview" data-preview-model="trongdong1" aria-hidden="true"></span>
+                            <span>
+                                <strong>Trống đồng Đông Sơn</strong>
+                                <small>Hoa văn thân trống · 5.3 MB</small>
+                            </span>
+                        </button>
+
+                    </aside>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── TRIỂN LÃM ẢO (iframe) ───────────────────────────── -->
         <section class="trienlam-stage" id="viewer-stage">
             <div class="container stage-shell">
                 <div class="viewer-column">
-                    <div class="viewer-intro">
-                        <span class="panel-label">Không gian trưng bày</span>
-                        <h2>Triển lãm 3D Đông Sơn</h2>
-                        <p>Màn hình bên dưới là trải nghiệm chính. Mở toàn màn hình để quan sát rộng và rõ hơn.</p>
-                    </div>
 
                     <div class="viewer-shell">
                         <div class="viewer-toolbar">
@@ -86,7 +244,8 @@
                                 <button class="toolbar-btn" type="button" onclick="toggleFullscreen()">
                                     <span>Toàn màn hình</span>
                                 </button>
-                                <button class="toolbar-btn toolbar-btn-secondary" type="button" onclick="openExhibition()">
+                                <button class="toolbar-btn toolbar-btn-secondary" type="button"
+                                    onclick="openExhibition()">
                                     <span>Mở tab mới</span>
                                 </button>
                             </div>
@@ -113,6 +272,38 @@
                 </div>
             </div>
         </section>
+
+        <section class="trienlam-knowledge" aria-labelledby="knowledge-title">
+            <div class="container">
+                <div class="knowledge-header">
+                    <span class="panel-label">Đọc hiện vật</span>
+                    <h2 id="knowledge-title">Mỗi hoa văn là một lớp ký ức</h2>
+                    <p>Không chỉ là hiện vật nghi lễ, trống đồng còn lưu giữ dấu vết về tư duy, thẩm mỹ và đời sống cộng
+                        đồng Việt cổ.</p>
+                </div>
+
+                <div class="knowledge-grid">
+                    <article class="knowledge-card">
+                        <span class="knowledge-kicker">Biểu tượng</span>
+                        <h3>Ngôi sao mặt trời</h3>
+                        <p>Thường nằm ở trung tâm mặt trống, gợi nhắc đến nhịp thời gian, chu kỳ tự nhiên và vai trò
+                            nghi lễ của hiện vật.</p>
+                    </article>
+                    <article class="knowledge-card">
+                        <span class="knowledge-kicker">Hoa văn</span>
+                        <h3>Chim Lạc và chuyển động</h3>
+                        <p>Các vòng chim bay và mô típ lặp lại tạo nên cảm giác chuyển động liên tục, thể hiện nhịp sống
+                            và trí tưởng tượng biểu tượng.</p>
+                    </article>
+                    <article class="knowledge-card">
+                        <span class="knowledge-kicker">Tạo hình</span>
+                        <h3>Thân trống và các dải cảnh</h3>
+                        <p>Phần thân là nơi dễ đọc nhất để nhận ra kỹ thuật tạo hình, bố cục hoa văn và cách cư dân Đông
+                            Sơn kể chuyện bằng hình ảnh.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
     </main>
 
     <footer class="footer" id="footer">
@@ -131,7 +322,9 @@
 
             <div class="footer-right">
                 <h4>Kết nối</h4>
-                <a href="https://www.facebook.com/nguyen.ngoc.bin.908961" target="_blank" rel="noopener noreferrer"><span class="footer-icon footer-icon-facebook" aria-hidden="true">F</span>Facebook</a>
+                <a href="https://www.facebook.com/nguyen.ngoc.bin.908961" target="_blank"
+                    rel="noopener noreferrer"><span class="footer-icon footer-icon-facebook"
+                        aria-hidden="true">F</span>Facebook</a>
                 <a href="#"><span class="footer-icon footer-icon-tiktok" aria-hidden="true">&#9834;</span>TikTok</a>
                 <a href="#"><span class="footer-icon footer-icon-youtube" aria-hidden="true">&#9654;</span>YouTube</a>
             </div>
@@ -141,31 +334,63 @@
     <script>
         const exhibitionUrl = "https://vnmh.egal.vn/tours/dongson/";
 
+        /* ─── iframe helpers ─── */
         function toggleFullscreen() {
             const wrapper = document.querySelector(".iframe-wrapper");
             if (!document.fullscreenElement) {
-                wrapper.requestFullscreen().catch((err) => {
+                wrapper.requestFullscreen().catch(err => {
                     alert("Trình duyệt không hỗ trợ toàn màn hình: " + err.message);
                 });
             } else {
                 document.exitFullscreen();
             }
         }
-
         function openExhibition() {
             window.open(exhibitionUrl, "_blank", "noopener,noreferrer");
         }
-
         function handleExhibitionLoad() {
             const loading = document.getElementById("iframeLoading");
-            if (loading) {
-                loading.classList.add("hidden");
+            if (loading) loading.classList.add("hidden");
+        }
+
+        /* ─── 3D viewer controls ─── */
+        let _controls = null;   // filled by museum3d.js via window
+        let _camera = null;
+        let _defaultCamPos = null;
+
+        // museum3d.js sẽ export ra window sau khi init
+        window.__museum3dReady = function (controls, camera, defaultPos) {
+            _controls = controls;
+            _camera = camera;
+            _defaultCamPos = defaultPos ? defaultPos.clone() : null;
+        };
+
+        function toggleAutoRotate() {
+            if (!_controls) return;
+            _controls.autoRotate = !_controls.autoRotate;
+            const btn = document.getElementById("btn-autorotate");
+            btn.classList.toggle("active", _controls.autoRotate);
+        }
+        function resetCamera() {
+            if (!_camera || !_controls) return;
+            if (typeof window._m3dReset === "function") {
+                window._m3dReset();
+                return;
+            }
+            if (_defaultCamPos) _camera.position.copy(_defaultCamPos);
+            _controls.reset();
+        }
+        function toggleFullscreen3D() {
+            const frame = document.getElementById("museum3d-frame");
+            if (!document.fullscreenElement) {
+                frame.requestFullscreen && frame.requestFullscreen();
+            } else {
+                document.exitFullscreen();
             }
         }
     </script>
     <script src="../js/chatbox-ui.js"></script>
+    <script type="module" src="../js/museum3d.js"></script>
 </body>
 
 </html>
-
-
