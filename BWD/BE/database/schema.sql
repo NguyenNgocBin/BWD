@@ -31,6 +31,12 @@ create index if not exists idx_games_active_order on games (is_active, display_o
 insert into games (code, name, description, display_order)
 values
     (
+        'motifhunt',
+        'Lat the hoa tiet',
+        'Nguoi choi lat the va ghep cap hoa tiet Dong Son giong nhau.',
+        1
+    ),
+    (
         'puzzle',
         'Ghep hinh',
         'Nguoi choi keo tha cac manh ghep de hoan thanh buc tranh trong dong.',

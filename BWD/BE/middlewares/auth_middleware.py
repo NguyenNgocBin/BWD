@@ -7,6 +7,29 @@ import flask
 import repositories.user_repo as user_repo
 
 
+def _resolve_user_from_authorization_header():
+    auth_header = flask.request.headers.get("Authorization", "").strip()
+    if not auth_header:
+        return None
+
+    parts = auth_header.split()
+    if len(parts) != 2 or parts[0].lower() != "bearer":
+        return None
+
+    jwt_secret = os.getenv("JWT_SECRET")
+    if not jwt_secret:
+        return None
+
+    token = parts[1]
+
+    try:
+        payload = jwt.decode(token, jwt_secret, algorithms=["HS256"])
+    except jwt.InvalidTokenError:
+        return None
+
+    return user_repo.find_user_by_id(payload.get("user_id"))
+
+
 # Kiem tra Bearer token, giai ma JWT va gan user vao g.current_user.
 def require_auth(handler):
     # Bao lai ham goc sau khi da xu ly xac thuc nguoi dung.
@@ -39,6 +62,15 @@ def require_auth(handler):
             return flask.jsonify({"message": "Nguoi dung khong ton tai"}), 401
 
         flask.g.current_user = user
+        return handler(*args, **kwargs)
+
+    return wrapper
+
+
+def optional_auth(handler):
+    @functools.wraps(handler)
+    def wrapper(*args, **kwargs):
+        flask.g.current_user = _resolve_user_from_authorization_header()
         return handler(*args, **kwargs)
 
     return wrapper

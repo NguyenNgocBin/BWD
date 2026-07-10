@@ -8,6 +8,7 @@ import config.db as db
 import routes.auth_routes as auth_routes
 import routes.chat_routes as chat_routes
 import routes.game_session_routes as game_session_routes
+import routes.leaderboard_routes as leaderboard_routes
 
 
 dotenv.load_dotenv()
@@ -47,6 +48,10 @@ app.register_blueprint(chat_routes.chat_bp, url_prefix="/api/v1/chat")
 app.register_blueprint(
     game_session_routes.game_session_bp,
     url_prefix="/api/v1/game-sessions",
+)
+app.register_blueprint(
+    leaderboard_routes.leaderboard_bp,
+    url_prefix="/api/v1/leaderboard",
 )
 
 

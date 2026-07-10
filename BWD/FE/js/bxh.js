@@ -1,62 +1,23 @@
 (function () {
-    const API_BASE_URL = "https://bwd-d6e2.vercel.app/api/v1/auth";
-    const DATA = {
-        tong: {
-            user: { score: "12,450", rank: "#42", best: "Tìm họa tiết", top: "Top 5% người chơi" },
-            top3: [
-                { name: "Huyền My", score: "18.940 điểm", tag: "Giữ phong độ", note: "Dẫn đầu nhờ tốc độ trả lời và độ chính xác cao.", avatar: "../images/dongsonz3.jpg" },
-                { name: "Quang Minh", score: "17.520 điểm", tag: "Bứt tốc", note: "Chuỗi 9 lượt chính xác liên tiếp.", avatar: "../images/dongsonz2.png" },
-                { name: "Gia Bảo", score: "16.880 điểm", tag: "Ổn định", note: "Điểm số đều ở cả ba nhóm trò chơi.", avatar: "../images/dongsonz4.png" },
-            ],
-            rows: [
-                { rank: "#4", name: "Hoàng Nam", pattern: "4,200", puzzle: "5,100", total: "12,100", avatar: "../images/dongsonz1.jpg" },
-                { rank: "#5", name: "Thanh Hà", pattern: "3,850", puzzle: "5,900", total: "11,950", avatar: "../images/dongsonz2.png" },
-                { rank: "#6", name: "Đức Duy", pattern: "4,500", puzzle: "4,200", total: "10,800", avatar: "../images/dongsonz4.png" },
-            ],
-        },
-        hoatiet: {
-            user: { score: "5,320", rank: "#18", best: "Tìm họa tiết", top: "Top 3% người chơi" },
-            top3: [
-                { name: "Bảo Trân", score: "7.180 điểm", tag: "Tinh mắt", note: "Nhận diện đúng các họa tiết khó nhất.", avatar: "../images/dongsonz4.png" },
-                { name: "Huyền My", score: "6.990 điểm", tag: "Sắc nét", note: "Giữ nhịp trả lời nhanh qua nhiều vòng.", avatar: "../images/dongsonz3.jpg" },
-                { name: "Quốc An", score: "6.620 điểm", tag: "Quan sát", note: "Điểm thưởng cao từ các lượt không sai.", avatar: "../images/TrongDongHV.jpg" },
-            ],
-            rows: [
-                { rank: "#4", name: "Ngọc Nhi", pattern: "6,200", puzzle: "3,900", total: "10,100", avatar: "../images/dongsonz1.jpg" },
-                { rank: "#5", name: "Hải Đăng", pattern: "5,980", puzzle: "3,800", total: "9,780", avatar: "../images/dongsonz2.png" },
-                { rank: "#6", name: "Minh Khôi", pattern: "5,700", puzzle: "3,650", total: "9,350", avatar: "../images/dongsonz3.jpg" },
-            ],
-        },
-        ghephinh: {
-            user: { score: "4,980", rank: "#25", best: "Ghép hình", top: "Top 8% người chơi" },
-            top3: [
-                { name: "Quang Minh", score: "8.220 điểm", tag: "Tốc độ cao", note: "Hoàn thành mảnh ghép với thời gian ngắn nhất.", avatar: "../images/dongsonz2.png" },
-                { name: "Đức Duy", score: "7.900 điểm", tag: "Bền bỉ", note: "Giữ chuỗi hoàn thành ổn định trong tuần.", avatar: "../images/dongsonz4.png" },
-                { name: "Mỹ Linh", score: "7.440 điểm", tag: "Khéo léo", note: "Sai số thấp ở các màn ghép hình lớn.", avatar: "../images/TrongDong.png" },
-            ],
-            rows: [
-                { rank: "#4", name: "Gia Hân", pattern: "4,100", puzzle: "7,000", total: "11,100", avatar: "../images/dongsonz1.jpg" },
-                { rank: "#5", name: "Trọng Khang", pattern: "3,600", puzzle: "6,900", total: "10,500", avatar: "../images/dongsonz3.jpg" },
-                { rank: "#6", name: "Kim Sa", pattern: "3,950", puzzle: "6,200", total: "10,150", avatar: "../images/TrongDongHV.jpg" },
-            ],
-        },
-        dungsai: {
-            user: { score: "2,150", rank: "#33", best: "Đúng / Sai", top: "Top 12% người chơi" },
-            top3: [
-                { name: "Gia Bảo", score: "5.910 điểm", tag: "Phản xạ", note: "Bấm đáp án nhanh nhưng vẫn giữ độ chính xác.", avatar: "../images/dongsonz4.png" },
-                { name: "Hà Vy", score: "5.700 điểm", tag: "Kiến thức", note: "Nổi bật ở các câu hỏi văn hóa Đông Sơn.", avatar: "../images/dongsonz1.jpg" },
-                { name: "Hoàng Nam", score: "5.330 điểm", tag: "Chắc tay", note: "Ít mắc lỗi ở các lượt quyết định.", avatar: "../images/TrongDongHV.jpg" },
-            ],
-            rows: [
-                { rank: "#4", name: "Lê Anh", pattern: "3,900", puzzle: "4,900", total: "8,800", avatar: "../images/dongsonz2.png" },
-                { rank: "#5", name: "Ngân Hà", pattern: "3,750", puzzle: "4,550", total: "8,300", avatar: "../images/dongsonz3.jpg" },
-                { rank: "#6", name: "Tùng Lâm", pattern: "3,680", puzzle: "4,300", total: "7,980", avatar: "../images/TrongDong.png" },
-            ],
-        },
-    };
+    if (window.__BXH_PAGE_INITIALIZED__) {
+        return;
+    }
+    window.__BXH_PAGE_INITIALIZED__ = true;
+
+    const BACKEND_ORIGIN = "http://localhost:5000";
+    const AUTH_API_BASE_URL = `${BACKEND_ORIGIN}/api/v1/auth`;
+    const LEADERBOARD_API_URL = `${BACKEND_ORIGIN}/api/v1/leaderboard/`;
+    const DEFAULT_AVATAR = "../images/chim-lac-pattern.png";
+    const ACTIVE_SCOPE_STORAGE_KEY = "dongsonLeaderboardActiveScope";
+    const PODIUM_AVATARS = [
+        "../images/TrongDongHV.jpg",
+        "../images/chim-lac-pattern.png",
+        "../images/TrongDong.png",
+    ];
 
     const tabButtons = Array.from(document.querySelectorAll(".tab-btn"));
     const bodyEl = document.getElementById("leaderTableBody");
+    const tableHeadRowEl = document.querySelector(".leader-table thead tr");
 
     const ids = {
         userScore: document.getElementById("userScore"),
@@ -66,6 +27,7 @@
         stripName: document.getElementById("stripName"),
         stripTop: document.getElementById("stripTop"),
         stripScore: document.getElementById("stripScore"),
+        stripScoreLabel: document.querySelector(".my-rank-strip > div:last-child span"),
 
         firstName: document.getElementById("firstName"),
         firstScore: document.getElementById("firstScore"),
@@ -85,6 +47,85 @@
         thirdNote: document.getElementById("thirdNote"),
         thirdAvatar: document.getElementById("thirdAvatar"),
     };
+
+    const scopeLabels = {
+        tong: "Tổng điểm",
+        motifhunt: "Lật thẻ họa tiết",
+        puzzle: "Ghép hình",
+        codechayquiz: "Đúng / Sai",
+    };
+
+    const tableConfigs = {
+        tong: {
+            emptyColspan: 6,
+            headers: ["Hạng", "Người chơi", "Lật thẻ", "Quiz", "Ghép hình", "Tổng điểm"],
+            cells: (row) => [
+                formatScore(row.motif_score),
+                formatScore(row.quiz_score),
+                formatScore(row.puzzle_score),
+                formatScore(row.total_score),
+            ],
+        },
+        motifhunt: {
+            emptyColspan: 6,
+            headers: ["Hạng", "Người chơi", "Điểm lật thẻ", "Combo tốt nhất", "Số giây", "Đóng góp tổng"],
+            cells: (row) => [
+                formatScore(row.motif_score),
+                formatScore(row.motif_best_streak),
+                formatScore(row.motif_duration_seconds),
+                formatScore(row.motif_score),
+            ],
+        },
+        puzzle: {
+            emptyColspan: 6,
+            headers: ["Hạng", "Người chơi", "Điểm ghép hình", "Mốc hoàn thành", "Số giây", "Đóng góp tổng"],
+            cells: (row) => [
+                formatScore(row.puzzle_score),
+                formatScore(row.puzzle_best_streak),
+                formatScore(row.puzzle_duration_seconds),
+                formatScore(row.puzzle_score),
+            ],
+        },
+        codechayquiz: {
+            emptyColspan: 6,
+            headers: ["Hạng", "Người chơi", "Điểm đúng / sai", "Chuỗi đúng", "Số giây", "Đóng góp tổng"],
+            cells: (row) => [
+                formatScore(row.quiz_score),
+                formatScore(row.quiz_best_streak),
+                formatScore(row.quiz_duration_seconds),
+                formatScore(row.quiz_score),
+            ],
+        },
+    };
+
+    let activeScope = "tong";
+    const leaderboardCache = new Map();
+    const leaderboardRequestCache = new Map();
+    const currentUserCache = new Map();
+
+    function isValidScope(scope) {
+        return Object.prototype.hasOwnProperty.call(scopeLabels, scope);
+    }
+
+    function getInitialScope() {
+        const savedScope = sessionStorage.getItem(ACTIVE_SCOPE_STORAGE_KEY);
+        if (isValidScope(savedScope)) {
+            return savedScope;
+        }
+
+        const activeButton = document.querySelector(".tab-btn.active");
+        if (activeButton && isValidScope(activeButton.dataset.tab)) {
+            return activeButton.dataset.tab;
+        }
+
+        return "tong";
+    }
+
+    function setActiveButton(scope) {
+        tabButtons.forEach((button) => {
+            button.classList.toggle("active", button.dataset.tab === scope);
+        });
+    }
 
     function getStoredAuth() {
         const token = localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
@@ -106,18 +147,39 @@
         return Number(value || 0).toLocaleString("vi-VN");
     }
 
-    function getInitials(name) {
-        return name
-            .trim()
-            .split(/\s+/)
-            .slice(-2)
-            .map((word) => word.charAt(0))
-            .join("")
-            .toUpperCase();
+    function escapeHtml(value) {
+        return String(value || "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#39;");
+    }
+
+    function isLikelyImageUrl(value) {
+        const avatar = String(value || "").trim();
+        if (!avatar) return false;
+        if (/^data:image\//i.test(avatar)) return true;
+        if (/\.(png|jpe?g|gif|webp|svg)(\?.*)?$/i.test(avatar)) return true;
+        if (/^https?:\/\//i.test(avatar) && avatar.includes("/")) return true;
+        if (/^\.{0,2}\//.test(avatar)) return true;
+        return false;
+    }
+
+    function resolveAvatarUrl(avatar, fallbackAvatar = DEFAULT_AVATAR) {
+        return isLikelyImageUrl(avatar) ? avatar.trim() : fallbackAvatar;
+    }
+
+    function buildAvatarFallbackAttribute(fallbackAvatar) {
+        return `this.onerror=null;this.src='${fallbackAvatar}'`;
     }
 
     async function fetchCurrentUser(token) {
-        const response = await fetch(`${API_BASE_URL}/me`, {
+        if (currentUserCache.has(token)) {
+            return currentUserCache.get(token);
+        }
+
+        const response = await fetch(`${AUTH_API_BASE_URL}/me`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -125,92 +187,298 @@
 
         const data = await response.json().catch(() => ({}));
         if (!response.ok) {
-            throw new Error(data.message || "Khong lay duoc thong tin nguoi dung");
+            throw new Error(data.message || "Không lấy được thông tin người dùng");
         }
 
+        currentUserCache.set(token, data.user);
         return data.user;
     }
 
-    async function hydrateCurrentUserForTotalTab() {
-        const { token, user } = getStoredAuth();
-
-        if (user) {
-            const score = formatScore(user.total_score || 0);
-            ids.userScore.textContent = score;
-            ids.stripName.textContent = `Bạn (${user.username})`;
-            ids.stripScore.textContent = score;
-        }
-
-        if (!token) return;
-
-        try {
-            const freshUser = await fetchCurrentUser(token);
-            const score = formatScore(freshUser.total_score || 0);
-            ids.userScore.textContent = score;
-            ids.stripName.textContent = `Bạn (${freshUser.username})`;
-            ids.stripScore.textContent = score;
-        } catch (error) {
-            // Nếu backend chưa phản hồi, giữ dataset giả đang hiển thị.
-        }
+    function getLeaderboardCacheKey(scope, token) {
+        return `${scope}::${token || "guest"}`;
     }
 
-    function renderRows(rows) {
+    async function fetchLeaderboard(scope, options = {}) {
+        const { token } = getStoredAuth();
+        const cacheKey = getLeaderboardCacheKey(scope, token);
+
+        if (!options.forceRefresh && leaderboardCache.has(cacheKey)) {
+            return leaderboardCache.get(cacheKey);
+        }
+
+        if (leaderboardRequestCache.has(cacheKey)) {
+            return leaderboardRequestCache.get(cacheKey);
+        }
+
+        const headers = token ? { Authorization: `Bearer ${token}` } : {};
+        const request = fetch(`${LEADERBOARD_API_URL}?scope=${encodeURIComponent(scope)}&limit=20`, {
+            headers,
+        })
+            .then(async (response) => {
+                const data = await response.json().catch(() => ({}));
+
+                if (!response.ok) {
+                    throw new Error(data.message || "Không lấy được bảng xếp hạng");
+                }
+
+                leaderboardCache.set(cacheKey, data);
+                return data;
+            })
+            .finally(() => {
+                leaderboardRequestCache.delete(cacheKey);
+            });
+
+        leaderboardRequestCache.set(cacheKey, request);
+        return request;
+    }
+
+    function prefetchOtherScopes(currentScope) {
+        Object.keys(scopeLabels)
+            .filter((scope) => scope !== currentScope)
+            .forEach((scope) => {
+                fetchLeaderboard(scope).catch(() => {
+                    // Không chặn thao tác chính nếu prefetch thất bại.
+                });
+            });
+    }
+
+    function buildTopPercentText(rank) {
+        if (!rank) {
+            return "Chưa có hạng";
+        }
+        return "Đã có thứ hạng trên BXH";
+    }
+
+    function buildPodiumTag(scope, index) {
+        if (scope === "motifhunt") {
+            return index === 0 ? "Ghi nhớ" : index === 1 ? "Nhanh mắt" : "Ổn định";
+        }
+
+        if (scope === "puzzle") {
+            return index === 0 ? "Khéo léo" : index === 1 ? "Tăng tốc" : "Bền bỉ";
+        }
+
+        if (scope === "codechayquiz") {
+            return index === 0 ? "Kiến thức" : index === 1 ? "Phản xạ" : "Ổn định";
+        }
+
+        return index === 0 ? "Thủ lĩnh" : index === 1 ? "Bứt tốc" : "Ổn định";
+    }
+
+    function buildPodiumNote(entry, scope) {
+        if (scope === "motifhunt") {
+            return `Điểm lật thẻ cao nhất: ${formatScore(entry.motif_score)}.`;
+        }
+
+        if (scope === "puzzle") {
+            return `Điểm ghép hình cao nhất: ${formatScore(entry.puzzle_score)}.`;
+        }
+
+        if (scope === "codechayquiz") {
+            return `Điểm đúng / sai cao nhất: ${formatScore(entry.quiz_score)}.`;
+        }
+
+        return `Tổng điểm hiện tại: ${formatScore(entry.total_score)}.`;
+    }
+
+    function localizeBestGameLabel(label) {
+        const normalized = (label || "").trim().toLowerCase();
+
+        if (normalized === "ghep hinh") return "Ghép hình";
+        if (normalized === "dung / sai") return "Đúng / Sai";
+        if (normalized === "lat the hoa tiet") return "Lật thẻ họa tiết";
+        if (normalized === "tong diem") return "Tổng điểm";
+        if (normalized === "chua co") return "Chưa có";
+
+        return label || "Chưa có";
+    }
+
+    function renderTableHeaders(scope) {
+        const config = tableConfigs[scope] || tableConfigs.tong;
+        if (!tableHeadRowEl) return;
+
+        tableHeadRowEl.innerHTML = config.headers
+            .map((header) => `<th>${header}</th>`)
+            .join("");
+    }
+
+    function renderRows(rows, scope, emptyMessage = "Chưa có dữ liệu bảng xếp hạng cho mục này.") {
+        const config = tableConfigs[scope] || tableConfigs.tong;
+        renderTableHeaders(scope);
+
+        if (!rows.length) {
+            bodyEl.innerHTML = `
+                <tr>
+                    <td colspan="${config.emptyColspan}">${emptyMessage}</td>
+                </tr>
+            `;
+            return;
+        }
+
         bodyEl.innerHTML = rows
             .map(
                 (row) => `
                 <tr>
-                    <td>${row.rank}</td>
-                    <td class="player-cell"><img src="${row.avatar}" alt="${row.name}">${row.name}</td>
-                    <td>${row.pattern}</td>
-                    <td>${row.puzzle}</td>
-                    <td class="score-col">${row.total}</td>
+                    <td>#${row.rank}</td>
+                    <td class="player-cell"><img src="${resolveAvatarUrl(row.avatar)}" alt="${escapeHtml(row.username)}" onerror="${buildAvatarFallbackAttribute(DEFAULT_AVATAR)}">${escapeHtml(row.username)}</td>
+                    ${config.cells(row).map((cell, index, cells) => `<td class="${index === cells.length - 1 ? "score-col" : ""}">${cell}</td>`).join("")}
                 </tr>
             `
             )
             .join("");
     }
 
-    function render(tabKey) {
-        const data = DATA[tabKey];
-        if (!data) return;
+    function setPodiumAvatar(element, avatarUrl, fallbackAvatar) {
+        element.textContent = "";
+        element.style.backgroundImage = `url("${resolveAvatarUrl(avatarUrl, fallbackAvatar)}")`;
+    }
 
-        ids.userScore.textContent = data.user.score;
-        ids.userRank.textContent = data.user.rank;
-        ids.userBest.textContent = data.user.best;
+    function renderPodiumSlot(key, entry, scope, index) {
+        if (!entry) {
+            ids[`${key}Name`].textContent = "Chưa có người chơi";
+            ids[`${key}Score`].textContent = "0 điểm";
+            ids[`${key}Tag`].textContent = "Đang chờ";
+            ids[`${key}Note`].textContent = "Hãy chơi game để tạo điểm đầu tiên.";
+            setPodiumAvatar(ids[`${key}Avatar`], "", PODIUM_AVATARS[index] || DEFAULT_AVATAR);
+            return;
+        }
 
-        ids.stripRank.textContent = data.user.rank.replace("#", "");
-        ids.stripTop.textContent = data.user.top;
-        ids.stripScore.textContent = data.user.score;
+        const selectedScore = scope === "tong"
+            ? entry.total_score
+            : scope === "puzzle"
+                ? entry.puzzle_score
+                : scope === "motifhunt"
+                    ? entry.motif_score
+                    : entry.quiz_score;
 
-        ids.firstName.textContent = data.top3[0].name;
-        ids.firstScore.textContent = data.top3[0].score;
-        ids.firstTag.textContent = data.top3[0].tag;
-        ids.firstNote.textContent = data.top3[0].note;
-        ids.firstAvatar.textContent = getInitials(data.top3[0].name);
+        ids[`${key}Name`].textContent = entry.username;
+        ids[`${key}Score`].textContent = `${formatScore(selectedScore)} điểm`;
+        ids[`${key}Tag`].textContent = buildPodiumTag(scope, index);
+        ids[`${key}Note`].textContent = buildPodiumNote(entry, scope);
+        setPodiumAvatar(ids[`${key}Avatar`], entry.avatar, PODIUM_AVATARS[index] || DEFAULT_AVATAR);
+    }
 
-        ids.secondName.textContent = data.top3[1].name;
-        ids.secondScore.textContent = data.top3[1].score;
-        ids.secondTag.textContent = data.top3[1].tag;
-        ids.secondNote.textContent = data.top3[1].note;
-        ids.secondAvatar.textContent = getInitials(data.top3[1].name);
+    function renderUserSummary(data, fallbackUser) {
+        const currentUser = data.current_user;
+        if (currentUser) {
+            const selectedScore = data.scope === "tong"
+                ? currentUser.total_score
+                : currentUser.selected_score;
 
-        ids.thirdName.textContent = data.top3[2].name;
-        ids.thirdScore.textContent = data.top3[2].score;
-        ids.thirdTag.textContent = data.top3[2].tag;
-        ids.thirdNote.textContent = data.top3[2].note;
-        ids.thirdAvatar.textContent = getInitials(data.top3[2].name);
+            ids.userScore.textContent = formatScore(selectedScore);
+            ids.userRank.textContent = currentUser.rank ? `#${currentUser.rank}` : "Chưa có";
+            ids.userBest.textContent = localizeBestGameLabel(currentUser.best_game);
+            ids.stripRank.textContent = currentUser.rank || "-";
+            ids.stripName.textContent = `Bạn (${currentUser.username})`;
+            ids.stripTop.textContent = buildTopPercentText(currentUser.rank);
+            ids.stripScore.textContent = formatScore(selectedScore);
+            if (ids.stripScoreLabel) {
+                ids.stripScoreLabel.textContent = data.scope === "tong" ? "Tổng điểm" : "Điểm tab này";
+            }
+            return;
+        }
 
-        renderRows(data.rows);
+        if (fallbackUser) {
+            ids.userScore.textContent = formatScore(fallbackUser.total_score || 0);
+            ids.userRank.textContent = "Chưa có";
+            ids.userBest.textContent = "Chưa có";
+            ids.stripRank.textContent = "-";
+            ids.stripName.textContent = `Bạn (${fallbackUser.username})`;
+            ids.stripTop.textContent = "Chơi game để lên hạng";
+            ids.stripScore.textContent = formatScore(fallbackUser.total_score || 0);
+            if (ids.stripScoreLabel) {
+                ids.stripScoreLabel.textContent = "Tổng điểm";
+            }
+            return;
+        }
 
-        if (tabKey === "tong") {
-            hydrateCurrentUserForTotalTab();
+        ids.userScore.textContent = "0";
+        ids.userRank.textContent = "Chưa đăng nhập";
+        ids.userBest.textContent = "Chưa có";
+        ids.stripRank.textContent = "-";
+        ids.stripName.textContent = "Bạn";
+        ids.stripTop.textContent = "Đăng nhập để đồng bộ điểm";
+        ids.stripScore.textContent = "0";
+        if (ids.stripScoreLabel) {
+            ids.stripScoreLabel.textContent = "Tổng điểm";
+        }
+    }
+
+    function renderEmptyState(scope, fallbackUser) {
+        renderUserSummary({ current_user: null, entries: [], scope }, fallbackUser);
+        renderPodiumSlot("first", null, scope, 0);
+        renderPodiumSlot("second", null, scope, 1);
+        renderPodiumSlot("third", null, scope, 2);
+        renderRows([], scope, "Chưa có dữ liệu bảng xếp hạng cho mục này.");
+    }
+
+    function renderErrorPodiumSlot(key, fallbackAvatar, message) {
+        ids[`${key}Name`].textContent = "Không tải được BXH";
+        ids[`${key}Score`].textContent = "--";
+        ids[`${key}Tag`].textContent = "Lỗi kết nối";
+        ids[`${key}Note`].textContent = message;
+        setPodiumAvatar(ids[`${key}Avatar`], "", fallbackAvatar);
+    }
+
+    function renderErrorState(scope, fallbackUser, error) {
+        const message = error?.message || "Không kết nối được máy chủ bảng xếp hạng.";
+        renderUserSummary({ current_user: null, entries: [], scope }, fallbackUser);
+        ids.userRank.textContent = "Lỗi tải dữ liệu";
+        ids.userBest.textContent = "Tạm thời chưa có";
+        ids.stripTop.textContent = "Kiểm tra backend hoặc dữ liệu máy chủ";
+
+        renderErrorPodiumSlot("first", PODIUM_AVATARS[0] || DEFAULT_AVATAR, message);
+        renderErrorPodiumSlot("second", PODIUM_AVATARS[1] || DEFAULT_AVATAR, message);
+        renderErrorPodiumSlot("third", PODIUM_AVATARS[2] || DEFAULT_AVATAR, message);
+        renderRows([], scope, `Không tải được bảng xếp hạng: ${message}`);
+    }
+
+    async function render(scope) {
+        if (!isValidScope(scope)) {
+            scope = "tong";
+        }
+
+        activeScope = scope;
+        sessionStorage.setItem(ACTIVE_SCOPE_STORAGE_KEY, scope);
+        setActiveButton(scope);
+        const { token, user } = getStoredAuth();
+
+        try {
+            const data = await fetchLeaderboard(scope);
+            if (scope !== activeScope) return;
+
+            if (!data.entries.length) {
+                renderEmptyState(scope, user);
+                return;
+            }
+
+            renderUserSummary(data, user);
+            renderPodiumSlot("first", data.entries[0], scope, 0);
+            renderPodiumSlot("second", data.entries[1], scope, 1);
+            renderPodiumSlot("third", data.entries[2], scope, 2);
+            renderRows(data.entries.slice(3), scope);
+            prefetchOtherScopes(scope);
+        } catch (error) {
+            console.error(error);
+            renderErrorState(scope, user, error);
+        }
+
+        if (!token || scope !== "tong") {
+            return;
+        }
+
+        try {
+            const freshUser = await fetchCurrentUser(token);
+            if (scope === activeScope) {
+                ids.stripName.textContent = `Bạn (${freshUser.username})`;
+            }
+        } catch (error) {
+            // Giữ dữ liệu đã render từ leaderboard.
         }
     }
 
     tabButtons.forEach((btn) => {
         btn.addEventListener("click", () => {
-            tabButtons.forEach((b) => b.classList.remove("active"));
-            btn.classList.add("active");
             render(btn.dataset.tab);
         });
     });
@@ -238,6 +506,13 @@
         cards.forEach((card) => observer.observe(card));
     }
 
-    render("tong");
+    tabButtons.forEach((button) => {
+        const label = scopeLabels[button.dataset.tab];
+        if (label) {
+            button.title = label;
+        }
+    });
+
+    render(getInitialScope());
     initLazyCardAnimation();
 })();

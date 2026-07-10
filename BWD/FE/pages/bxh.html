@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 
 <head>
@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bảng xếp hạng Đông Sơn</title>
     <meta name="description"
-        content="Bảng xếp hạng người chơi khám phá di sản trống đồng Đông Sơn – So sánh thành tích và xem ai đang dẫn đầu.">
+        content="Bảng xếp hạng người chơi khám phá di sản trống đồng Đông Sơn - So sánh thành tích và xem ai đang dẫn đầu.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -14,7 +14,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/layout.css">
-    <link rel="stylesheet" href="../css/bxh.css?v=20260610-podium-home">
+    <link rel="stylesheet" href="../css/bxh.css?v=20260709-vietnamese">
     <link rel="stylesheet" href="../css/chatbox.css">
 </head>
 
@@ -43,11 +43,9 @@
     </header>
 
     <main class="bxh-main">
-
-        <!-- ── HERO ── -->
         <section class="bxh-hero container">
             <div class="hero-copy">
-                <p class="kicker">⊙ &nbsp; Nghi thức vinh danh · Di sản Đông Sơn</p>
+                <p class="kicker"> &nbsp; Nghi thức vinh danh · Di sản Đông Sơn</p>
                 <h1>Bảng xếp hạng <span>Đông Sơn</span></h1>
                 <p>
                     So sánh thành tích của bạn với những người chơi khác và xem
@@ -68,26 +66,21 @@
                     </div>
                     <div>
                         <span>Game mạnh nhất</span>
-                        <strong id="userBest" style="font-size:18px;padding-top:6px;display:block;">Tìm họa
-                            tiết</strong>
+                        <strong id="userBest" style="font-size:18px;padding-top:6px;display:block;">Lật thẻ họa tiết</strong>
                     </div>
                 </div>
             </article>
         </section>
 
-        <!-- ── TABS ── -->
         <section class="tab-wrap container" aria-label="Lọc bảng xếp hạng">
             <button class="tab-btn active" type="button" id="tab-tong" data-tab="tong">🏆 Tổng</button>
-            <button class="tab-btn" type="button" id="tab-hoatiet" data-tab="hoatiet">🔍 Tìm họa tiết</button>
-            <button class="tab-btn" type="button" id="tab-ghephinh" data-tab="ghephinh">🧩 Ghép hình</button>
-            <button class="tab-btn" type="button" id="tab-dungsai" data-tab="dungsai">⚡ Đúng / Sai</button>
+            <button class="tab-btn" type="button" id="tab-latthe" data-tab="motifhunt">🃏 Lật thẻ</button>
+            <button class="tab-btn" type="button" id="tab-ghephinh" data-tab="puzzle">🧩 Ghép hình</button>
+            <button class="tab-btn" type="button" id="tab-dungsai" data-tab="codechayquiz">⚡ Đúng / Sai</button>
         </section>
 
-        <!-- ── PODIUM ── -->
         <section class="podium-section container">
             <div class="podium-grid">
-
-                <!-- #2 – bạc -->
                 <article class="podium-card podium-side second lazy-card" id="cardSecond">
                     <span class="podium-rank">02</span>
                     <span class="podium-avatar" id="secondAvatar">QM</span>
@@ -97,7 +90,6 @@
                     <strong class="podium-score" id="secondScore">17.520 điểm</strong>
                 </article>
 
-                <!-- #1 – vàng đồng -->
                 <article class="podium-card podium-top first lazy-card" id="cardFirst">
                     <span class="podium-rank">01</span>
                     <span class="podium-spotlight">Thủ lĩnh tuần</span>
@@ -108,7 +100,6 @@
                     <strong class="podium-score" id="firstScore">18.940 điểm</strong>
                 </article>
 
-                <!-- #3 – đồng nâu -->
                 <article class="podium-card podium-side third lazy-card" id="cardThird">
                     <span class="podium-rank">03</span>
                     <span class="podium-avatar" id="thirdAvatar">GB</span>
@@ -135,14 +126,14 @@
             </div>
         </section>
 
-        <!-- ── TABLE ── -->
         <section class="table-section container">
             <table class="leader-table" aria-label="Bảng xếp hạng chi tiết">
                 <thead>
                     <tr>
                         <th>Hạng</th>
                         <th>Người chơi</th>
-                        <th>Họa tiết</th>
+                        <th>Lật thẻ</th>
+                        <th>Quiz</th>
                         <th>Ghép hình</th>
                         <th>Tổng điểm</th>
                     </tr>
@@ -151,35 +142,21 @@
                     <tr>
                         <td>#4</td>
                         <td class="player-cell"><img src="../images/dongsonz1.jpg" alt="Hoàng Nam">Hoàng Nam</td>
+                        <td>0</td>
                         <td>4,200</td>
                         <td>5,100</td>
                         <td class="score-col">12,100</td>
                     </tr>
-                    <tr>
-                        <td>#5</td>
-                        <td class="player-cell"><img src="../images/dongsonz2.png" alt="Thanh Hà">Thanh Hà</td>
-                        <td>3,850</td>
-                        <td>5,900</td>
-                        <td class="score-col">11,950</td>
-                    </tr>
-                    <tr>
-                        <td>#6</td>
-                        <td class="player-cell"><img src="../images/dongsonz4.png" alt="Đức Duy">Đức Duy</td>
-                        <td>4,500</td>
-                        <td>4,200</td>
-                        <td class="score-col">10,800</td>
-                    </tr>
                 </tbody>
             </table>
         </section>
-
     </main>
 
     <footer class="footer" id="footer">
         <div class="container footer-wrap">
             <div class="footer-left">
                 <h3>Đông Sơn</h3>
-                <p>Khám phá di sản trống đồng &amp; văn hoá Việt cổ.</p>
+                <p>Khám phá di sản trống đồng &amp; văn hóa Việt cổ.</p>
                 <p>© 2026 CỔ VẬT SỐ. All rights reserved.</p>
             </div>
 
@@ -191,17 +168,17 @@
 
             <div class="footer-right">
                 <h4>Kết nối</h4>
-                <a href="https://www.facebook.com/nguyen.ngoc.bin.908961" target="_blank" rel="noopener noreferrer"><span class="footer-icon footer-icon-facebook" aria-hidden="true">F</span>Facebook</a>
+                <a href="https://www.facebook.com/nguyen.ngoc.bin.908961" target="_blank"
+                    rel="noopener noreferrer"><span class="footer-icon footer-icon-facebook"
+                        aria-hidden="true">F</span>Facebook</a>
                 <a href="#"><span class="footer-icon footer-icon-tiktok" aria-hidden="true">&#9834;</span>TikTok</a>
                 <a href="#"><span class="footer-icon footer-icon-youtube" aria-hidden="true">&#9654;</span>YouTube</a>
             </div>
         </div>
     </footer>
 
-    <script src="../js/bxh.js"></script>
+    <script src="../js/bxh.js?v=20260709-vietnamese"></script>
     <script src="../js/chatbox-ui.js"></script>
 </body>
 
 </html>
-
-

@@ -1,7 +1,11 @@
-﻿import {
+import {
     FaceLandmarker,
     FilesetResolver,
 } from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/vision_bundle.mjs";
+
+const BACKEND_ORIGIN = "http://localhost:5000";
+const GAME_SESSION_API_URL = `${BACKEND_ORIGIN}/api/v1/game-sessions/`;
+const LEADERBOARD_API_URL = `${BACKEND_ORIGIN}/api/v1/leaderboard/?scope=codechayquiz&limit=10`;
 
 const CHAPTERS = [
     {
@@ -81,6 +85,7 @@ const streakValueEl = document.getElementById("streak-value");
 const accuracyValueEl = document.getElementById("accuracy-value");
 const bestScoreValueEl = document.getElementById("best-score-value");
 const chapterProgressItems = Array.from(document.querySelectorAll("#chapter-progress-list .progress-item"));
+const rankingBoardEl = document.querySelector(".ranking-list");
 
 let currentQuestionIndex = 0;
 let score = 0;
@@ -103,13 +108,142 @@ let waitingForCenter = false;
 let centerStreak = 0;
 
 let currentStreak = 0;
+let bestStreak = 0;
 let correctCount = 0;
 let answeredCount = 0;
+let sessionStartedAt = null;
+let sessionSaved = false;
 
 let faceLandmarker = null;
 let lastVideoTime = -1;
 
 totalQuestionEl.textContent = QUESTIONS.length;
+
+function getStoredAuth() {
+    const token = localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
+    const rawUser = localStorage.getItem("authUser") || sessionStorage.getItem("authUser");
+
+    let user = null;
+    if (rawUser) {
+        try {
+            user = JSON.parse(rawUser);
+        } catch (error) {
+            user = null;
+        }
+    }
+
+    return { token, user };
+}
+
+function persistUserTotalScore(nextTotalScore) {
+    ["localStorage", "sessionStorage"].forEach((storageName) => {
+        const storage = window[storageName];
+        const rawUser = storage.getItem("authUser");
+        if (!rawUser) return;
+
+        try {
+            const user = JSON.parse(rawUser);
+            user.total_score = nextTotalScore;
+            storage.setItem("authUser", JSON.stringify(user));
+        } catch (error) {
+            // Bo qua auth user loi dinh dang.
+        }
+    });
+}
+
+async function renderQuizLeaderboard() {
+    if (!rankingBoardEl) return;
+
+    try {
+        const response = await fetch(LEADERBOARD_API_URL);
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok || !Array.isArray(data.entries)) {
+            throw new Error(data.message || "Khong tai duoc leaderboard");
+        }
+
+        if (!data.entries.length) {
+            rankingBoardEl.innerHTML = `
+                <div class="ranking-item">
+                    <span class="rank-name">Chưa có điểm nào.</span>
+                    <span class="rank-score">0 điểm</span>
+                </div>
+            `;
+            return;
+        }
+
+        const medals = ["🥇", "🥈", "🥉"];
+        rankingBoardEl.innerHTML = data.entries.slice(0, 4).map((entry, index) => `
+            <div class="ranking-item ${index === 0 ? "top-1" : ""}">
+                <span class="rank-medal">${medals[index] || `<span class="rank-order">${index + 1}</span>`}</span>
+                <span class="rank-name">${entry.username}</span>
+                <span class="rank-score">${entry.quiz_score} điểm</span>
+            </div>
+        `).join("");
+    } catch (error) {
+        rankingBoardEl.innerHTML = `
+            <div class="ranking-item">
+                <span class="rank-name">Chưa tải được bảng xếp hạng.</span>
+                <span class="rank-score">--</span>
+            </div>
+        `;
+    }
+}
+
+function getSessionDurationSeconds() {
+    if (!sessionStartedAt) return 0;
+    return Math.max(1, Math.round((Date.now() - sessionStartedAt) / 1000));
+}
+
+async function submitQuizSession() {
+    if (sessionSaved) return false;
+
+    sessionSaved = true;
+    const { token } = getStoredAuth();
+    if (!token) {
+        return false;
+    }
+
+    const payload = {
+        game_code: "codechayquiz",
+        score,
+        correct_count: correctCount,
+        wrong_count: answeredCount - correctCount,
+        total_questions: answeredCount,
+        duration_seconds: getSessionDurationSeconds(),
+        best_streak: bestStreak,
+        level_reached: CHAPTERS.length,
+        metadata: {
+            chapters_completed: CHAPTERS.length,
+            input_mode: "camera_quiz",
+        },
+    };
+
+    try {
+        const response = await fetch(GAME_SESSION_API_URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(payload),
+        });
+        const data = await response.json().catch(() => ({}));
+
+        if (!response.ok) {
+            throw new Error(data.message || "Khong luu duoc ket qua quiz");
+        }
+
+        if (typeof data.user_total_score === "number") {
+            persistUserTotalScore(data.user_total_score);
+        }
+
+        return true;
+    } catch (error) {
+        console.error(error);
+        sessionSaved = false;
+        return false;
+    }
+}
 
 function setCameraIndicator(isOn) {
     if (!trackingDotEl) return;
@@ -208,6 +342,7 @@ function registerAnswer(isCorrect) {
 
     if (isCorrect) {
         currentStreak += 1;
+        bestStreak = Math.max(bestStreak, currentStreak);
         correctCount += 1;
 
         const streakBonus = currentStreak >= 2 ? Math.min(currentStreak - 1, 4) * 5 : 0;
@@ -299,7 +434,7 @@ function openChapterBreak() {
     updateChapterProgressUI();
 }
 
-function endGame() {
+async function endGame() {
     clearInterval(timer);
     isLocked = true;
     gameStarted = false;
@@ -311,7 +446,10 @@ function endGame() {
         questionSubtitleEl.textContent = "Bạn đã trả lời xong 25 câu hỏi.";
     }
 
-    feedbackEl.textContent = `Tổng điểm của bạn: ${score}`;
+    const synced = await submitQuizSession();
+    feedbackEl.textContent = synced
+        ? `Tổng điểm của bạn: ${score}. Kết quả đã được lưu vào lịch sử chơi.`
+        : `Tổng điểm của bạn: ${score}. Hãy đăng nhập để đồng bộ kết quả.`;
     headStatusEl.textContent = "Đã kết thúc";
 
     answerAEl.style.display = "none";
@@ -320,8 +458,10 @@ function endGame() {
 
     startBtn.disabled = false;
     startBtn.textContent = "▶ Bắt đầu chơi";
+    sessionStartedAt = null;
 
     updateChapterProgressUI();
+    await renderQuizLeaderboard();
 }
 
 function nextQuestion() {
@@ -602,8 +742,11 @@ async function startGame() {
         currentQuestionIndex = 0;
         score = 0;
         currentStreak = 0;
+        bestStreak = 0;
         correctCount = 0;
         answeredCount = 0;
+        sessionStartedAt = Date.now();
+        sessionSaved = false;
 
         scoreEl.textContent = "0";
         currentQuestionEl.textContent = "1";
@@ -637,6 +780,8 @@ async function restartGame() {
     centerStreak = 0;
     isWaitingForNextChapter = false;
     nextChapterBtn.classList.remove("show");
+    sessionStartedAt = null;
+    sessionSaved = false;
 
     setIdleUI();
     await startGame();
@@ -693,3 +838,5 @@ document.addEventListener("keydown", (e) => {
     if (e.key === "ArrowRight") detectDirection("right");
     if (e.key === "ArrowUp" || e.key === "ArrowDown") detectDirection("center");
 });
+
+renderQuizLeaderboard();

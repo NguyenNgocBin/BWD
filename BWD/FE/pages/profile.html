@@ -202,12 +202,34 @@
                 </section>
 
                 <div class="side-actions">
+                    <button type="button" id="changeAvatarBtn" class="btn-ghost">Đổi ảnh đại diện</button>
                     <button type="button" id="renameBtn" class="btn-ghost">Đổi tên</button>
                     <button type="button" id="logoutBtn" class="btn-danger">Đăng xuất</button>
                 </div>
             </aside>
         </section>
     </main>
+
+    <div id="avatarPickerPanel" class="avatar-picker-overlay" hidden>
+        <div class="avatar-picker-backdrop"></div>
+        <div class="avatar-picker-dialog" role="dialog" aria-modal="true" aria-labelledby="avatarPickerTitle">
+            <div class="avatar-picker">
+                <div class="avatar-picker-head">
+                    <div>
+                        <p class="avatar-picker-kicker">Tùy chọn hồ sơ</p>
+                        <h3 id="avatarPickerTitle">Chọn ảnh đại diện</h3>
+                    </div>
+                </div>
+
+                <div id="avatarOptionGrid" class="avatar-option-grid"></div>
+                <p id="avatarPickerStatus" class="avatar-picker-status" aria-live="polite"></p>
+                <div class="avatar-picker-actions">
+                    <button type="button" id="cancelAvatarBtn" class="btn-ghost">Hủy</button>
+                    <button type="button" id="saveAvatarBtn" class="btn-primary">Lưu</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <footer class="footer" id="footer">
         <div class="container footer-wrap">

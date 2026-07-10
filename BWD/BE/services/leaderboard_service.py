@@ -1,0 +1,194 @@
+import repositories.leaderboard_repo as leaderboard_repo
+import repositories.user_repo as user_repo
+
+
+GAME_LABELS = {
+    "codechayquiz": "Đúng / Sai",
+    "puzzle": "Ghép hình",
+    "motifhunt": "Lật thẻ họa tiết",
+}
+
+
+class LeaderboardError(Exception):
+    def __init__(self, message, status_code=400):
+        super().__init__(message)
+        self.message = message
+        self.status_code = status_code
+
+
+def parse_limit(limit_value):
+    if limit_value in (None, ""):
+        return 10
+
+    try:
+        limit = int(limit_value)
+    except (TypeError, ValueError) as error:
+        raise LeaderboardError("Limit phải là số nguyên") from error
+
+    if limit <= 0:
+        raise LeaderboardError("Limit phải lớn hơn 0")
+
+    return min(limit, 50)
+
+
+def normalize_scope(scope_value):
+    scope = (scope_value or "tong").strip().lower()
+    if scope not in {"tong", "puzzle", "codechayquiz", "motifhunt"}:
+        raise LeaderboardError("Scope không hợp lệ")
+    return scope
+
+
+def build_entry(row, scope):
+    selected_score = row["total_score"] if scope == "tong" else row["selected_game_score"]
+    return {
+        "rank": row["rank"],
+        "user_id": row["user_id"],
+        "username": row["username"],
+        "avatar": row["avatar"],
+        "total_score": row["total_score"],
+        "quiz_score": row["quiz_score"],
+        "puzzle_score": row["puzzle_score"],
+        "motif_score": row["motif_score"],
+        "quiz_best_streak": row["quiz_best_streak"],
+        "puzzle_best_streak": row["puzzle_best_streak"],
+        "motif_best_streak": row["motif_best_streak"],
+        "quiz_duration_seconds": row["quiz_duration_seconds"],
+        "puzzle_duration_seconds": row["puzzle_duration_seconds"],
+        "motif_duration_seconds": row["motif_duration_seconds"],
+        "quiz_play_count": row["quiz_play_count"],
+        "puzzle_play_count": row["puzzle_play_count"],
+        "motif_play_count": row["motif_play_count"],
+        "selected_score": selected_score,
+    }
+
+
+def get_best_game_label(entry):
+    scores = {
+        "codechayquiz": entry["quiz_score"],
+        "puzzle": entry["puzzle_score"],
+        "motifhunt": entry["motif_score"],
+    }
+
+    best_code = max(scores, key=scores.get)
+    if scores[best_code] <= 0:
+        return "Chưa có"
+
+    return GAME_LABELS[best_code]
+
+
+def build_current_user_payload(current_user, entries, scope):
+    if not current_user:
+        return None
+
+    base = {
+        "user_id": current_user.id,
+        "username": current_user.username,
+        "avatar": current_user.avatar,
+        "total_score": current_user.total_score,
+        "quiz_score": 0,
+        "puzzle_score": 0,
+        "motif_score": 0,
+        "quiz_best_streak": 0,
+        "puzzle_best_streak": 0,
+        "motif_best_streak": 0,
+        "quiz_duration_seconds": 0,
+        "puzzle_duration_seconds": 0,
+        "motif_duration_seconds": 0,
+        "quiz_play_count": 0,
+        "puzzle_play_count": 0,
+        "motif_play_count": 0,
+        "selected_score": current_user.total_score if scope == "tong" else 0,
+        "rank": None,
+        "best_game": "Chưa có",
+    }
+
+    for entry in entries:
+        if entry["user_id"] != current_user.id:
+            continue
+
+        base.update(
+            {
+                "total_score": entry["total_score"],
+                "quiz_score": entry["quiz_score"],
+                "puzzle_score": entry["puzzle_score"],
+                "motif_score": entry["motif_score"],
+                "quiz_best_streak": entry["quiz_best_streak"],
+                "puzzle_best_streak": entry["puzzle_best_streak"],
+                "motif_best_streak": entry["motif_best_streak"],
+                "quiz_duration_seconds": entry["quiz_duration_seconds"],
+                "puzzle_duration_seconds": entry["puzzle_duration_seconds"],
+                "motif_duration_seconds": entry["motif_duration_seconds"],
+                "quiz_play_count": entry["quiz_play_count"],
+                "puzzle_play_count": entry["puzzle_play_count"],
+                "motif_play_count": entry["motif_play_count"],
+                "selected_score": entry["selected_score"],
+                "rank": entry["rank"],
+                "best_game": get_best_game_label(entry),
+            }
+        )
+        break
+
+    if base["rank"] is None:
+        if scope == "tong":
+            user_row = leaderboard_repo.get_total_leaderboard_entry_by_user(current_user.id)
+        else:
+            user_row = leaderboard_repo.get_game_leaderboard_entry_by_user(scope, current_user.id)
+
+        if user_row:
+            hydrated_entry = build_entry(user_row, scope)
+            base.update(
+                {
+                    "total_score": hydrated_entry["total_score"],
+                    "quiz_score": hydrated_entry["quiz_score"],
+                    "puzzle_score": hydrated_entry["puzzle_score"],
+                    "motif_score": hydrated_entry["motif_score"],
+                    "quiz_best_streak": hydrated_entry["quiz_best_streak"],
+                    "puzzle_best_streak": hydrated_entry["puzzle_best_streak"],
+                    "motif_best_streak": hydrated_entry["motif_best_streak"],
+                    "quiz_duration_seconds": hydrated_entry["quiz_duration_seconds"],
+                    "puzzle_duration_seconds": hydrated_entry["puzzle_duration_seconds"],
+                    "motif_duration_seconds": hydrated_entry["motif_duration_seconds"],
+                    "quiz_play_count": hydrated_entry["quiz_play_count"],
+                    "puzzle_play_count": hydrated_entry["puzzle_play_count"],
+                    "motif_play_count": hydrated_entry["motif_play_count"],
+                    "selected_score": hydrated_entry["selected_score"],
+                    "rank": hydrated_entry["rank"],
+                    "best_game": get_best_game_label(hydrated_entry),
+                }
+            )
+
+    return base
+
+
+def get_leaderboard(scope_value, limit_value, current_user=None):
+    scope = normalize_scope(scope_value)
+    limit = parse_limit(limit_value)
+
+    if scope == "tong":
+        rows = leaderboard_repo.get_total_leaderboard(limit)
+        title = "Tổng điểm"
+    else:
+        rows = leaderboard_repo.get_game_leaderboard(scope, limit)
+        title = GAME_LABELS[scope]
+
+    entries = [build_entry(row, scope) for row in rows]
+
+    current_user_payload = build_current_user_payload(current_user, entries, scope)
+    if current_user_payload and current_user_payload["rank"] is None:
+        fresh_user = user_repo.find_user_by_id(current_user.id)
+        if fresh_user:
+            current_user_payload["total_score"] = fresh_user.total_score
+
+    return {
+        "message": "Lấy bảng xếp hạng thành công",
+        "scope": scope,
+        "title": title,
+        "entries": entries,
+        "current_user": current_user_payload,
+        "available_scopes": [
+            {"scope": "tong", "label": "Tổng"},
+            {"scope": "motifhunt", "label": GAME_LABELS["motifhunt"]},
+            {"scope": "puzzle", "label": GAME_LABELS["puzzle"]},
+            {"scope": "codechayquiz", "label": GAME_LABELS["codechayquiz"]},
+        ],
+    }

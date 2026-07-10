@@ -346,10 +346,19 @@
   height: 54px;
   border: 1px solid rgba(201, 146, 42, 0.42);
   border-radius: 50%;
-  background: rgba(201, 146, 42, 0.12);
-  color: #f8e6ba;
+  background:
+    radial-gradient(circle at center, rgba(255, 231, 154, 0.12), rgba(60, 48, 38, 0.86)),
+    rgba(201, 146, 42, 0.12);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: transparent;
   font-size: 15px;
   font-weight: 700;
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 236, 178, 0.08),
+    0 6px 16px rgba(0, 0, 0, 0.24);
+  overflow: hidden;
 }
 
 .podium-top .podium-avatar {
@@ -553,6 +562,7 @@
   border-radius: 50%;
   object-fit: cover;
   border: 1.5px solid rgba(201, 146, 42, 0.30);
+  background: radial-gradient(circle at center, rgba(255, 231, 154, 0.16), rgba(60, 48, 38, 0.9));
 }
 
 .score-col {

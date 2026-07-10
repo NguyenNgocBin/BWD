@@ -1,11 +1,13 @@
-﻿const LEVELS = {
+const LEVELS = {
     1: { rows: 2, cols: 2, pieces: 4 },
     2: { rows: 2, cols: 3, pieces: 6 },
     3: { rows: 3, cols: 3, pieces: 9 },
 };
 
 const MAX_TIME = 60;
-const RANKING_KEY = "dongson_puzzle_ranking_v1";
+const BACKEND_ORIGIN = "http://localhost:5000";
+const GAME_SESSION_API_URL = `${BACKEND_ORIGIN}/api/v1/game-sessions/`;
+const LEADERBOARD_API_URL = `${BACKEND_ORIGIN}/api/v1/leaderboard/?scope=puzzle&limit=10`;
 
 const scoreEl = document.getElementById("score-value");
 const comboEl = document.getElementById("combo-value");
@@ -39,10 +41,52 @@ const state = {
     totalPieces: 0,
     dragging: null,
     pointerId: null,
+    correctPlacements: 0,
+    wrongAttempts: 0,
+    runActive: false,
+    sessionSaved: false,
+    runHighestLevel: 1,
+    sessionStartedAt: null,
 };
+
+function getStoredAuth() {
+    const token = localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
+    const rawUser = localStorage.getItem("authUser") || sessionStorage.getItem("authUser");
+
+    let user = null;
+    if (rawUser) {
+        try {
+            user = JSON.parse(rawUser);
+        } catch (error) {
+            user = null;
+        }
+    }
+
+    return { token, user };
+}
+
+function persistUserTotalScore(nextTotalScore) {
+    ["localStorage", "sessionStorage"].forEach((storageName) => {
+        const storage = window[storageName];
+        const rawUser = storage.getItem("authUser");
+        if (!rawUser) return;
+
+        try {
+            const user = JSON.parse(rawUser);
+            user.total_score = nextTotalScore;
+            storage.setItem("authUser", JSON.stringify(user));
+        } catch (error) {
+            // Bo qua auth user loi dinh dang.
+        }
+    });
+}
 
 function setSwitchLevelBtnVisible(visible) {
     switchLevelBtn.classList.toggle("show", visible);
+}
+
+function hasCompletedAllLevels() {
+    return state.completedLevels.size >= Object.keys(LEVELS).length;
 }
 
 function updateHUD() {
@@ -62,8 +106,101 @@ function showCombo(text) {
     setTimeout(() => comboBanner.classList.remove("show"), 700);
 }
 
+function startRunIfNeeded() {
+    if (state.runActive) return;
+
+    state.runActive = true;
+    state.sessionSaved = false;
+    state.correctPlacements = 0;
+    state.wrongAttempts = 0;
+    state.runHighestLevel = state.currentLevel;
+    state.sessionStartedAt = Date.now();
+}
+
+function finishRun() {
+    state.runActive = false;
+}
+
+function getRunDurationSeconds() {
+    if (!state.sessionStartedAt) return 0;
+    return Math.max(1, Math.round((Date.now() - state.sessionStartedAt) / 1000));
+}
+
+async function submitPuzzleSession(success) {
+    if (!state.runActive || state.sessionSaved) return false;
+
+    state.sessionSaved = true;
+    const { token } = getStoredAuth();
+    if (!token) {
+        return false;
+    }
+
+    const payload = {
+        game_code: "puzzle",
+        score: state.score,
+        correct_count: state.correctPlacements,
+        wrong_count: state.wrongAttempts,
+        total_questions: state.correctPlacements + state.wrongAttempts,
+        duration_seconds: getRunDurationSeconds(),
+        best_streak: state.completedLevels.size,
+        level_reached: Math.max(state.runHighestLevel, state.currentLevel),
+        metadata: {
+            completed: success,
+            completed_levels: Array.from(state.completedLevels).sort((a, b) => a - b),
+        },
+    };
+
+    try {
+        const response = await fetch(GAME_SESSION_API_URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(payload),
+        });
+        const data = await response.json().catch(() => ({}));
+
+        if (!response.ok) {
+            throw new Error(data.message || "Khong luu duoc ket qua game");
+        }
+
+        if (typeof data.user_total_score === "number") {
+            persistUserTotalScore(data.user_total_score);
+        }
+
+        return true;
+    } catch (error) {
+        console.error(error);
+        state.sessionSaved = false;
+        return false;
+    }
+}
+
+async function renderRanking() {
+    try {
+        const response = await fetch(LEADERBOARD_API_URL);
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok || !Array.isArray(data.entries)) {
+            throw new Error(data.message || "Khong lay duoc leaderboard");
+        }
+
+        if (!data.entries.length) {
+            rankingList.innerHTML = "<li>Chưa có điểm nào. Chơi ngay để lên top.</li>";
+            return;
+        }
+
+        rankingList.innerHTML = data.entries
+            .map((item, idx) => `<li>${idx + 1}. ${item.username} - ${item.puzzle_score} điểm</li>`)
+            .join("");
+    } catch (error) {
+        rankingList.innerHTML = "<li>Chưa tải được bảng xếp hạng từ máy chủ.</li>";
+    }
+}
+
 function addCorrectScore() {
     state.combo += 1;
+    state.correctPlacements += 1;
     let bonus = 0;
 
     if (state.combo === 2) bonus = 5;
@@ -80,6 +217,7 @@ function addCorrectScore() {
 function addWrongPenalty() {
     state.score -= 5;
     state.combo = 0;
+    state.wrongAttempts += 1;
 }
 
 function getSpeedBonus() {
@@ -238,6 +376,7 @@ function setupLevel(level) {
     state.currentLevel = level;
     state.combo = 0;
     state.placedCount = 0;
+    state.runHighestLevel = Math.max(state.runHighestLevel, level);
 
     clearTimer();
     clearBoardAndTray();
@@ -384,36 +523,7 @@ function hidePopup() {
     popup.classList.add("hidden");
 }
 
-function saveToRanking() {
-    const stored = JSON.parse(localStorage.getItem(RANKING_KEY) || "[]");
-    const name = (window.prompt("Nhập tên để lưu bảng xếp hạng:", "Người chơi") || "Người chơi").trim() || "Người chơi";
-
-    stored.push({
-        name,
-        score: state.score,
-        date: new Date().toLocaleDateString("vi-VN"),
-    });
-
-    stored.sort((a, b) => b.score - a.score);
-    const top10 = stored.slice(0, 10);
-    localStorage.setItem(RANKING_KEY, JSON.stringify(top10));
-    renderRanking();
-}
-
-function renderRanking() {
-    const data = JSON.parse(localStorage.getItem(RANKING_KEY) || "[]");
-
-    if (!data.length) {
-        rankingList.innerHTML = "<li>Chưa có điểm nào. Chơi ngay để lên top.</li>";
-        return;
-    }
-
-    rankingList.innerHTML = data
-        .map((item, idx) => `<li>${idx + 1}. ${item.name} - ${item.score} điểm (${item.date})</li>`)
-        .join("");
-}
-
-function endLevel(success) {
+async function endLevel(success) {
     state.playing = false;
     clearTimer();
 
@@ -421,32 +531,49 @@ function endLevel(success) {
         state.combo = 0;
         setSwitchLevelBtnVisible(false);
         updateHUD();
-        setStatus("Hết giờ. Bạn có thể bấm Bắt đầu level để thử lại.");
+        const synced = await submitPuzzleSession(false);
+        finishRun();
+        state.sessionStartedAt = null;
+        setStatus(
+            synced
+                ? "Hết giờ. Kết quả đã được lưu vào lịch sử chơi."
+                : "Hết giờ. Bạn có thể bấm Bắt đầu level để thử lại."
+        );
+        await renderRanking();
         return;
     }
 
     const speedBonus = getSpeedBonus();
     const completeBonus = 50;
+    const totalLevels = Object.keys(LEVELS).length;
     state.score += speedBonus + completeBonus;
     board.classList.add("complete-glow");
     state.completedLevels.add(state.currentLevel);
     showPopup();
 
-    if (state.currentLevel < 3) {
+    if (!hasCompletedAllLevels()) {
         state.highestUnlocked = Math.max(state.highestUnlocked, state.currentLevel + 1);
         setStatus(`Hoàn thành Level ${state.currentLevel}! +${speedBonus} thưởng tốc độ, +50 thưởng hoàn thành.`);
     } else {
-        setStatus(`Bạn đã phá đảo! +${speedBonus} thưởng tốc độ, +50 thưởng hoàn thành. Điểm cuối: ${state.score}.`);
-        saveToRanking();
+        const synced = await submitPuzzleSession(true);
+        finishRun();
+        state.sessionStartedAt = null;
+        setStatus(
+            synced
+                ? `Bạn đã phá đảo! Điểm cuối: ${state.score}. Kết quả đã được đồng bộ lên bảng xếp hạng.`
+                : `Bạn đã phá đảo! Điểm cuối: ${state.score}. Hãy đăng nhập để đồng bộ kết quả.`
+        );
+        await renderRanking();
     }
 
     state.combo = 0;
-    setSwitchLevelBtnVisible(true);
+    setSwitchLevelBtnVisible(!hasCompletedAllLevels());
     updateHUD();
     updateLevelButtons();
 }
 
 function startLevel() {
+    startRunIfNeeded();
     setSwitchLevelBtnVisible(false);
     setupLevel(state.currentLevel);
     state.playing = true;
@@ -462,12 +589,24 @@ function resetGame() {
     state.combo = 0;
     state.playing = false;
     state.timeLeft = MAX_TIME;
+    state.correctPlacements = 0;
+    state.wrongAttempts = 0;
+    state.runActive = false;
+    state.sessionSaved = false;
+    state.runHighestLevel = 1;
+    state.sessionStartedAt = null;
     setSwitchLevelBtnVisible(false);
     hidePopup();
     setupLevel(1);
 }
 
 function switchToAnotherLevel() {
+    if (hasCompletedAllLevels()) {
+        setSwitchLevelBtnVisible(false);
+        setStatus("Báº¡n Ä‘Ã£ hoÃ n thÃ nh toÃ n bá»™ 3 level. HÃ£y báº¥m ChÆ¡i láº¡i tá»« Ä‘áº§u náº¿u muá»‘n thá»­ má»™t lÆ°á»£t má»›i.");
+        return;
+    }
+
     const unlockedLevels = Object.keys(LEVELS)
         .map(Number)
         .filter((level) => level <= state.highestUnlocked)

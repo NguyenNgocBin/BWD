@@ -1,0 +1,390 @@
+body {
+    font-family: "Manrope", sans-serif;
+    background:
+        radial-gradient(circle at top, rgba(210, 159, 55, 0.14), transparent 28%),
+        linear-gradient(180deg, #241914 0%, #1a120f 100%);
+    color: #f3eadf;
+    padding-top: 80px;
+}
+
+.motif-main {
+    max-width: 1380px;
+    margin: 0 auto;
+    padding: 24px 24px 48px;
+}
+
+.hero-copy,
+.hero-panel,
+.mission-card,
+.board-card,
+.info-card {
+    background: rgba(53, 38, 30, 0.94);
+    border: 1px solid rgba(214, 170, 70, 0.18);
+    border-radius: 24px;
+    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.18);
+}
+
+.hero-copy {
+    padding: 34px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-copy::after {
+    content: "";
+    position: absolute;
+    inset: auto -60px -60px auto;
+    width: 240px;
+    height: 240px;
+    background: radial-gradient(circle, rgba(213, 175, 74, 0.24), transparent 65%);
+    pointer-events: none;
+}
+
+.eyebrow {
+    color: #a6e8da;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.hero-copy h1 {
+    font-family: "Newsreader", serif;
+    font-size: clamp(42px, 5vw, 62px);
+    line-height: 1;
+    margin-bottom: 16px;
+}
+
+.hero-text {
+    max-width: 740px;
+    line-height: 1.7;
+    color: rgba(243, 234, 223, 0.82);
+    font-size: 17px;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+    flex-wrap: wrap;
+}
+
+.btn-primary,
+.btn-secondary {
+    border-radius: 14px;
+    padding: 14px 22px;
+    font-weight: 700;
+    border: 1px solid rgba(214, 170, 70, 0.28);
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #dcae42, #b98125);
+    color: #20150f;
+}
+
+.btn-secondary {
+    background: rgba(89, 64, 48, 0.78);
+    color: #f6eee2;
+}
+
+.btn-primary:hover,
+.btn-secondary:hover,
+.motif-card:hover {
+    transform: translateY(-2px);
+}
+
+.hero-panel {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    width: 100%;
+}
+
+.stat-chip {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01));
+    border: 1px solid rgba(214, 170, 70, 0.12);
+    border-radius: 18px;
+    padding: 16px;
+}
+
+.chip-label {
+    display: block;
+    font-size: 13px;
+    color: rgba(243, 234, 223, 0.7);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.3px;
+}
+
+.stat-chip strong {
+    font-size: 30px;
+    font-family: "Newsreader", serif;
+    color: #f7c75e;
+}
+
+.motif-stage {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 470px);
+    gap: 20px;
+}
+
+.stage-main,
+.stage-side {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.stage-side {
+    width: 100%;
+    max-width: 470px;
+    justify-self: end;
+}
+
+.mission-card,
+.board-card,
+.info-card {
+    padding: 24px;
+}
+
+.mission-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: rgba(166, 232, 218, 0.12);
+    color: #a6e8da;
+    font-size: 13px;
+    margin-bottom: 14px;
+}
+
+.mission-card h2 {
+    font-family: "Newsreader", serif;
+    font-size: 38px;
+    line-height: 1.1;
+    margin-bottom: 12px;
+}
+
+.mission-hint {
+    line-height: 1.7;
+    color: rgba(243, 234, 223, 0.82);
+}
+
+.mission-footer {
+    margin-top: 18px;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    color: #f1c96a;
+    font-weight: 600;
+    flex-wrap: wrap;
+}
+
+.motif-board {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.motif-card {
+    position: relative;
+    min-height: 170px;
+    border-radius: 22px;
+    border: 1px solid rgba(214, 170, 70, 0.18);
+    background: transparent;
+    color: #f5efe8;
+    padding: 0;
+    cursor: pointer;
+    transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+    overflow: hidden;
+    transform-style: preserve-3d;
+}
+
+.motif-card:hover {
+    border-color: rgba(214, 170, 70, 0.38);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
+}
+
+.card-face {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 18px;
+    text-align: center;
+    backface-visibility: hidden;
+    transition: transform 0.45s ease, opacity 0.45s ease;
+}
+
+.card-front {
+    background:
+        radial-gradient(circle at top, rgba(214, 170, 70, 0.12), transparent 42%),
+        linear-gradient(180deg, #453025 0%, #2f221c 100%);
+}
+
+.card-front::after {
+    content: "";
+    position: absolute;
+    inset: auto -26px -26px auto;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: rgba(214, 170, 70, 0.08);
+}
+
+.card-front strong {
+    position: relative;
+    z-index: 1;
+    font-family: "Newsreader", serif;
+    font-size: 28px;
+}
+
+.card-back-mark {
+    position: relative;
+    z-index: 1;
+    width: 76px;
+    height: 76px;
+    border-radius: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: #f1cd78;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.card-back {
+    background: #2c211c;
+    transform: rotateY(180deg);
+    opacity: 0;
+    padding: 0;
+    align-items: stretch;
+    justify-content: stretch;
+    text-align: left;
+}
+
+.motif-card.flipped .card-front,
+.motif-card.matched .card-front {
+    transform: rotateY(180deg);
+    opacity: 0;
+}
+
+.motif-card.flipped .card-back,
+.motif-card.matched .card-back {
+    transform: rotateY(0deg);
+    opacity: 1;
+}
+
+.motif-card.matched {
+    border-color: rgba(127, 230, 176, 0.45);
+    box-shadow: 0 14px 30px rgba(20, 92, 60, 0.28);
+}
+
+.motif-card.matched .card-back {
+    background: #233129;
+}
+
+.card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: saturate(1.05) contrast(1.02);
+}
+
+.tip-list {
+    padding-left: 18px;
+    display: grid;
+    gap: 10px;
+    color: rgba(243, 234, 223, 0.82);
+    line-height: 1.6;
+}
+
+.info-card h3 {
+    font-family: "Newsreader", serif;
+    font-size: 28px;
+    margin-bottom: 16px;
+}
+
+.stats-list {
+    display: grid;
+    gap: 14px;
+}
+
+.stats-list div {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.stats-list span {
+    color: rgba(243, 234, 223, 0.74);
+}
+
+.stats-list strong {
+    color: #f3c35f;
+}
+
+#fact-line {
+    color: rgba(243, 234, 223, 0.82);
+    line-height: 1.7;
+}
+
+@media (max-width: 1100px) {
+    .motif-stage {
+        grid-template-columns: 1fr;
+    }
+
+    .stage-side {
+        max-width: none;
+        justify-self: stretch;
+    }
+}
+
+@media (max-width: 760px) {
+    .motif-main {
+        padding: 16px 14px 34px;
+    }
+
+    .hero-copy,
+    .hero-panel,
+    .mission-card,
+    .board-card,
+    .info-card {
+        padding: 18px;
+        border-radius: 18px;
+    }
+
+    .mission-card h2 {
+        font-size: 28px;
+    }
+
+    .motif-board {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .motif-card {
+        min-height: 150px;
+    }
+
+    .tile-name,
+    .card-front strong {
+        font-size: 22px;
+    }
+
+    .hero-panel {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}

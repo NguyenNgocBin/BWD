@@ -1,5 +1,5 @@
 (function () {
-    const BACKEND_ORIGIN = "https://bwd-d6e2.vercel.app";
+    const BACKEND_ORIGIN = "http://localhost:5000";
     const API_BASE_URL = `${BACKEND_ORIGIN}/api/v1/auth`;
     const REQUEST_TIMEOUT_MS = 30000;
     const BACKEND_UNAVAILABLE_MESSAGE = `Không kết nối được backend. Hãy chạy Flask server ở ${BACKEND_ORIGIN} rồi thử lại.`;

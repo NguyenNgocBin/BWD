@@ -240,6 +240,165 @@
     margin-top: 24px;
 }
 
+.avatar-picker {
+    padding: 18px;
+    border: 1px solid rgba(201, 146, 42, 0.22);
+    border-radius: 16px;
+    background: linear-gradient(160deg, rgba(71, 56, 43, 0.92), rgba(47, 39, 31, 0.92));
+    box-shadow: inset 0 1px 0 rgba(255, 236, 178, 0.08);
+}
+
+.avatar-picker-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1200;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+}
+
+.avatar-picker-overlay[hidden] {
+    display: none !important;
+}
+
+.avatar-picker-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(18, 12, 8, 0.56);
+    backdrop-filter: blur(5px);
+}
+
+.avatar-picker-dialog {
+    position: relative;
+    z-index: 1;
+    width: min(760px, calc(100vw - 32px));
+    max-height: calc(100vh - 48px);
+    overflow-y: auto;
+    border-radius: 20px;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.48);
+}
+
+.avatar-picker-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.avatar-picker-kicker {
+    color: var(--moss-light);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.avatar-picker-head h3 {
+    margin-top: 6px;
+    color: #f5ead8;
+    font-family: "Newsreader", serif;
+    font-size: 30px;
+    line-height: 1;
+}
+
+.avatar-option-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 18px;
+}
+
+.avatar-option {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 12px;
+    border: 1px solid rgba(201, 146, 42, 0.2);
+    border-radius: 14px;
+    background: rgba(30, 25, 21, 0.56);
+    color: #f5ead8;
+    text-align: left;
+    transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+}
+
+.avatar-option:hover {
+    transform: translateY(-2px);
+    border-color: rgba(240, 207, 119, 0.54);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.26);
+}
+
+.avatar-option.is-active {
+    border-color: rgba(240, 207, 119, 0.72);
+    background: rgba(201, 146, 42, 0.14);
+    box-shadow: 0 0 0 1px rgba(240, 207, 119, 0.26);
+}
+
+.avatar-option img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 12px;
+    object-fit: cover;
+    background: rgba(30, 25, 21, 0.8);
+}
+
+.avatar-option span {
+    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+
+.avatar-picker-status {
+    min-height: 20px;
+    margin-top: 14px;
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+.avatar-picker-status[data-state="error"] {
+    color: #ffb3a7;
+}
+
+.avatar-picker-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 130px;
+    min-height: 44px;
+    padding: 11px 18px;
+    border: 1px solid rgba(240, 207, 119, 0.72);
+    border-radius: 12px;
+    background: linear-gradient(135deg, #c9922a, #ffd978);
+    color: #1a0e00;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    box-shadow: 0 10px 24px rgba(201, 146, 42, 0.24);
+}
+
+.btn-primary:hover {
+    filter: brightness(1.05);
+}
+
+.btn-primary:disabled,
+.btn-ghost:disabled,
+.btn-danger:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+body.avatar-picker-open {
+    overflow: hidden;
+}
+
 .panel h2,
 .side-card h2 {
     margin-bottom: 16px;
@@ -465,6 +624,7 @@
 
 .side-actions {
     display: flex;
+    flex-wrap: nowrap;
     gap: 10px;
     margin-top: 14px;
 }
@@ -485,6 +645,12 @@
     font-weight: 800;
     letter-spacing: 0.07em;
     text-transform: uppercase;
+}
+
+.side-actions > .btn-ghost,
+.side-actions > .btn-danger {
+    flex: 1 1 0;
+    min-width: 0;
 }
 
 .btn-ghost:hover {
@@ -544,8 +710,22 @@
     .hero-stats,
     .kpi-grid,
     .achievement-cards,
-    .badge-grid {
+    .badge-grid,
+    .avatar-option-grid {
         grid-template-columns: 1fr;
+    }
+
+    .avatar-picker-overlay {
+        padding: 16px;
+    }
+
+    .avatar-picker-dialog {
+        width: min(100%, 520px);
+        max-height: calc(100vh - 32px);
+    }
+
+    .avatar-picker-actions {
+        flex-direction: column;
     }
 
     .panel h2,
