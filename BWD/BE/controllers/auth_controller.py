@@ -21,7 +21,7 @@ def register():
     except auth_service.AuthError as error:
         return handle_auth_error(error)
     except Exception as error:
-        return flask.jsonify({"message": "Loi server", "error": str(error)}), 500
+        return flask.jsonify({"message": "Máy chủ gặp lỗi khi đăng ký. Vui lòng thử lại sau."}), 500
 
 
 # Nhan request dang nhap va tra ve token neu thong tin hop le.
@@ -33,7 +33,7 @@ def login():
     except auth_service.AuthError as error:
         return handle_auth_error(error)
     except Exception as error:
-        return flask.jsonify({"message": "Loi server", "error": str(error)}), 500
+        return flask.jsonify({"message": "Máy chủ gặp lỗi khi đăng nhập. Vui lòng thử lại sau."}), 500
 
 
 # Tra ve thong tin cua nguoi dung dang dang nhap.
@@ -41,7 +41,7 @@ def get_me():
     try:
         return flask.jsonify(auth_service.get_current_user(flask.g.current_user)), 200
     except Exception as error:
-        return flask.jsonify({"message": "Loi server", "error": str(error)}), 500
+        return flask.jsonify({"message": "Không thể lấy thông tin tài khoản lúc này."}), 500
 
 
 # Xac nhan dang xuat de frontend xoa token da luu.
@@ -49,7 +49,7 @@ def logout():
     try:
         return flask.jsonify(auth_service.logout_user()), 200
     except Exception as error:
-        return flask.jsonify({"message": "Loi server", "error": str(error)}), 500
+        return flask.jsonify({"message": "Không thể đăng xuất trên máy chủ lúc này."}), 500
 
 
 # Nhan request doi mat khau cho tai khoan hien tai.
@@ -65,7 +65,7 @@ def change_password():
     except auth_service.AuthError as error:
         return handle_auth_error(error)
     except Exception as error:
-        return flask.jsonify({"message": "Loi server", "error": str(error)}), 500
+        return flask.jsonify({"message": "Không thể đổi mật khẩu lúc này."}), 500
 
 
 # Nhan request cap nhat username, email va avatar cua user.
@@ -82,4 +82,4 @@ def update_profile():
     except auth_service.AuthError as error:
         return handle_auth_error(error)
     except Exception as error:
-        return flask.jsonify({"message": "Loi server", "error": str(error)}), 500
+        return flask.jsonify({"message": "Không thể cập nhật hồ sơ lúc này."}), 500

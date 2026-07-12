@@ -2,6 +2,8 @@ import config.db as db
 
 
 # Tao mot game session moi, dong bo bang thong ke va tinh lai tong diem user.
+# Tong diem nghiep vu la tong diem TOT NHAT cua moi game, khong phai tong
+# tat ca cac luot choi.
 def create_game_session(
     user_id,
     game_id,
@@ -103,7 +105,7 @@ def create_game_session(
                 update users
                 set total_score = coalesce(
                         (
-                            select sum(total_score)
+                            select sum(best_score)
                             from user_game_stats
                             where user_id = %s
                         ),

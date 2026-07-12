@@ -411,6 +411,10 @@ async function finishGame(completedAllPairs) {
     updateHud();
 
     const synced = await submitMotifSession(completedAllPairs);
+    const isLoggedIn = Boolean(getStoredAuth().token);
+    const unsyncedMessage = isLoggedIn
+        ? "Không thể đồng bộ điểm với máy chủ. Hãy kiểm tra kết nối rồi thử lại."
+        : "Điểm chưa được đồng bộ. Hãy đăng nhập để lưu điểm, lịch sử và thứ hạng.";
 
     if (completedAllPairs) {
         if (targetNameEl) {
@@ -424,7 +428,7 @@ async function finishGame(completedAllPairs) {
         setStatus(
             synced
                 ? "Hoàn thành bàn chơi. Điểm đã được đồng bộ lên bảng xếp hạng."
-                : "Hoàn thành bàn chơi. Nhấn 'Chơi lại' để bắt đầu ván mới."
+                : `Hoàn thành bàn chơi. ${unsyncedMessage}`
         );
 
         if (remainingTargetsEl) {
@@ -444,7 +448,7 @@ async function finishGame(completedAllPairs) {
     setStatus(
         synced
             ? "Kết quả đã được đồng bộ lên bảng xếp hạng."
-            : "Nhấn 'Chơi lại' để thử lại một ván mới."
+            : unsyncedMessage
     );
 }
 

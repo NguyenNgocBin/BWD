@@ -465,6 +465,44 @@
     text-transform: uppercase;
 }
 
+.game-status {
+    float: right;
+    display: inline-flex;
+    align-items: center;
+    min-height: 26px;
+    max-width: 72%;
+    margin: -2px 0 8px 10px;
+    padding: 5px 9px;
+    border: 1px solid rgba(118, 167, 157, 0.4);
+    border-radius: 999px;
+    background: rgba(47, 111, 100, 0.16);
+    color: #a9d9cf;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    line-height: 1.25;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.game-status[data-state="login-required"] {
+    border-color: rgba(215, 166, 61, 0.42);
+    background: rgba(201, 146, 42, 0.12);
+    color: #f1ce72;
+}
+
+.game-status[data-state="development"] {
+    border-color: rgba(160, 160, 160, 0.28);
+    background: rgba(120, 120, 120, 0.12);
+    color: #b9b3a9;
+}
+
+.game-card[data-game-status="development"] .game-media,
+.game-card[data-game-status="development"] .card-btn {
+    filter: grayscale(1);
+    opacity: 0.64;
+}
+
 .game-body h3 {
     margin-bottom: 10px;
     color: #f5ead8;

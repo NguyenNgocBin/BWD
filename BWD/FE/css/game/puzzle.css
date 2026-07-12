@@ -81,6 +81,11 @@ body {
     gap: 18px;
 }
 
+.stage-left,
+.stage-right {
+    min-width: 0;
+}
+
 .hud-grid {
     display: grid;
     grid-template-columns: repeat(4, minmax(90px, 1fr));
@@ -372,7 +377,13 @@ body {
     }
 
     .puzzle-board {
-        width: min(90vw, 420px);
+        width: min(100%, 420px);
+        max-width: calc(100vw - 70px);
+    }
+
+    .stage-left.card,
+    .stage-right.card {
+        width: 100%;
     }
 
     .actions button {

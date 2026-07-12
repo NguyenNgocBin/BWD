@@ -23,7 +23,7 @@
 Đây là các việc ảnh hưởng trực tiếp đến việc demo, chấm điểm, đăng nhập, lưu điểm hoặc khiến người dùng hiểu sai dữ liệu.
 
 1. Sửa toàn bộ lỗi mã hóa tiếng Việt trong các file `.md`, HTML và dữ liệu hiển thị.
-   - Hiện nhiều file mô tả bị mojibake như `ÄÃ´ng SÆ¡n`, `Báº£ng`, `TrÃ² chÆ¡i`.
+   - Hiện nhiều file mô tả từng bị mojibake ở các cụm `Đông Sơn`, `Bảng`, `Trò chơi`.
    - Nên chuẩn hóa toàn bộ file sang UTF-8.
    - Ưu tiên các file dùng cho chatbox/RAG vì dữ liệu lỗi mã hóa sẽ làm AI trả lời kém.
 

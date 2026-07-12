@@ -27,6 +27,36 @@ source:
 
 # Giải đáp về Trống đồng Đông Sơn
 
+## Q: Tôi có thể dùng website mà không đăng nhập không?
+
+**A:** Có. Bạn vẫn có thể đọc nội dung, xem bản đồ, triển lãm và chơi ba game. Tuy nhiên, cần đăng nhập để đồng bộ điểm, lịch sử chơi, hồ sơ và thứ hạng với backend.
+
+---
+
+## Q: Vì sao tôi đăng nhập không thành công?
+
+**A:** Hãy kiểm tra email, mật khẩu và kết nối tới backend. Nếu hệ thống báo phiên đăng nhập hết hạn hoặc token không hợp lệ, hãy đăng nhập lại. Nếu backend không chạy, frontend sẽ không thể xác thực tài khoản.
+
+---
+
+## Q: Vì sao chơi xong nhưng điểm chưa được lưu?
+
+**A:** Điểm chỉ được đồng bộ khi bạn đã đăng nhập và request lưu game tới backend thành công. Hãy kiểm tra trạng thái đăng nhập, mạng và backend. Game sẽ báo rõ “điểm chưa được đồng bộ” nếu bạn đang chơi với tư cách khách.
+
+---
+
+## Q: Tổng điểm trên bảng xếp hạng được tính thế nào?
+
+**A:** Tổng điểm là tổng điểm tốt nhất của ba game: Lật thẻ họa tiết, Ghép hình và Đúng/Sai. Chơi lại với điểm thấp hơn không làm giảm tổng điểm.
+
+---
+
+## Q: Tôi xem lịch sử chơi ở đâu?
+
+**A:** Sau khi đăng nhập, mở trang Cá nhân. Trang này hiển thị điểm từng game, biểu đồ tiến bộ và các lượt chơi gần đây đã đồng bộ.
+
+---
+
 
 ## Q: Trống đồng Đông Sơn là gì?
 

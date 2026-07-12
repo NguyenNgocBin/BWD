@@ -447,9 +447,12 @@ async function endGame() {
     }
 
     const synced = await submitQuizSession();
+    const unsyncedMessage = getStoredAuth().token
+        ? "Không thể đồng bộ điểm với máy chủ. Hãy kiểm tra kết nối rồi thử lại."
+        : "Điểm chưa được đồng bộ. Hãy đăng nhập để lưu điểm, lịch sử và thứ hạng.";
     feedbackEl.textContent = synced
         ? `Tổng điểm của bạn: ${score}. Kết quả đã được lưu vào lịch sử chơi.`
-        : `Tổng điểm của bạn: ${score}. Hãy đăng nhập để đồng bộ kết quả.`;
+        : `Tổng điểm của bạn: ${score}. ${unsyncedMessage}`;
     headStatusEl.textContent = "Đã kết thúc";
 
     answerAEl.style.display = "none";

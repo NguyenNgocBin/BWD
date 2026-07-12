@@ -67,33 +67,30 @@
             ],
         },
         motifhunt: {
-            emptyColspan: 6,
-            headers: ["Hạng", "Người chơi", "Điểm lật thẻ", "Combo tốt nhất", "Số giây", "Đóng góp tổng"],
+            emptyColspan: 5,
+            headers: ["Hạng", "Người chơi", "Điểm lật thẻ", "Combo tốt nhất", "Số giây"],
             cells: (row) => [
-                formatScore(row.motif_score),
-                formatScore(row.motif_best_streak),
-                formatScore(row.motif_duration_seconds),
-                formatScore(row.motif_score),
+                formatScore(row.score),
+                formatScore(row.best_streak),
+                formatScore(row.duration_seconds),
             ],
         },
         puzzle: {
-            emptyColspan: 6,
-            headers: ["Hạng", "Người chơi", "Điểm ghép hình", "Mốc hoàn thành", "Số giây", "Đóng góp tổng"],
+            emptyColspan: 5,
+            headers: ["Hạng", "Người chơi", "Điểm ghép hình", "Mốc hoàn thành", "Số giây"],
             cells: (row) => [
-                formatScore(row.puzzle_score),
-                formatScore(row.puzzle_best_streak),
-                formatScore(row.puzzle_duration_seconds),
-                formatScore(row.puzzle_score),
+                formatScore(row.score),
+                formatScore(row.best_streak),
+                formatScore(row.duration_seconds),
             ],
         },
         codechayquiz: {
-            emptyColspan: 6,
-            headers: ["Hạng", "Người chơi", "Điểm đúng / sai", "Chuỗi đúng", "Số giây", "Đóng góp tổng"],
+            emptyColspan: 5,
+            headers: ["Hạng", "Người chơi", "Điểm đúng / sai", "Chuỗi đúng", "Số giây"],
             cells: (row) => [
-                formatScore(row.quiz_score),
-                formatScore(row.quiz_best_streak),
-                formatScore(row.quiz_duration_seconds),
-                formatScore(row.quiz_score),
+                formatScore(row.score),
+                formatScore(row.best_streak),
+                formatScore(row.duration_seconds),
             ],
         },
     };
@@ -213,6 +210,7 @@
         const headers = token ? { Authorization: `Bearer ${token}` } : {};
         const request = fetch(`${LEADERBOARD_API_URL}?scope=${encodeURIComponent(scope)}&limit=20`, {
             headers,
+            cache: "no-store",
         })
             .then(async (response) => {
                 const data = await response.json().catch(() => ({}));
@@ -298,6 +296,7 @@
         if (!tableHeadRowEl) return;
 
         tableHeadRowEl.innerHTML = config.headers
+            .slice(0, config.emptyColspan)
             .map((header) => `<th>${header}</th>`)
             .join("");
     }

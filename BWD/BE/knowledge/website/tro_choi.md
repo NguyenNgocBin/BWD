@@ -1,6 +1,6 @@
 # Trang Trò chơi và luật chơi
 
-Trang Trò chơi là khu vực học tập tương tác của website Đông Sơn. Người dùng vừa chơi vừa ôn kiến thức về trống đồng, hoa văn, cấu tạo, lịch sử và bảo tồn di sản. Trang giới thiệu ba hướng chơi chính: Tìm đúng họa tiết, Ghép hình trống đồng và Đúng hay Sai.
+Trang Trò chơi là khu vực học tập tương tác của website Đông Sơn. Người dùng vừa chơi vừa ôn kiến thức về trống đồng, hoa văn, cấu tạo, lịch sử và bảo tồn di sản. Trang giới thiệu ba game đang hoạt động: Lật thẻ họa tiết, Ghép hình trống đồng và Đúng hay Sai.
 
 ## Trang chọn trò chơi
 
@@ -12,24 +12,22 @@ Trang `/pages/trochoi.html` có các phần:
 - Danh sách trò chơi dạng slider gồm 3 thẻ.
 - Thử thách hôm nay: nhiệm vụ ngắn như chơi 1 game, đúng 5 câu liên tiếp, hoàn thành 3 game.
 
-## Trò chơi Tìm đúng họa tiết
+## Trò chơi Lật thẻ họa tiết
 
-Trò này xuất hiện dưới dạng thẻ trong trang Trò chơi.
+Đường dẫn: `/pages/game/motif-hunt.html`.
 
 Cách chơi:
 
-- Người chơi quan sát hình ảnh hoặc gợi ý về các mô-típ Đông Sơn.
-- Chọn đúng họa tiết như chim Lạc, ngôi sao, thuyền hoặc hình người.
-- Mục tiêu là luyện mắt quan sát và phân biệt các chi tiết dễ nhầm trên trống đồng.
+- Người chơi lật hai thẻ trong mỗi lượt để tìm cặp hình giống nhau.
+- Ghép đúng được cộng điểm và tăng combo; ghép sai bị trừ điểm rồi hai thẻ tự úp lại.
+- Mục tiêu là ghép đủ các cặp trước khi hết 2 phút.
 
 Thông tin hiển thị trên thẻ:
 
-- Chủ đề: Quan sát.
+- Chủ đề: Ghi nhớ.
 - Thời lượng gợi ý: 2 phút.
 - Độ khó: Dễ.
-- Điểm gợi ý: mỗi lượt trả lời đúng cộng 15 điểm.
-
-Lưu ý: trong code hiện tại, thẻ Tìm đúng họa tiết có nút "Chơi ngay" dạng button, chưa trỏ sang một trang game riêng như Ghép hình hoặc Đúng/Sai.
+- Trạng thái: đã sẵn sàng; khách vẫn chơi được nhưng cần đăng nhập để lưu điểm, lịch sử và thứ hạng.
 
 ## Trò chơi Ghép hình trống đồng
 
@@ -79,7 +77,7 @@ Thời gian:
 Vừa chơi vừa học:
 
 - Khi hoàn thành level, popup học nhanh xuất hiện với thông tin như: ngôi sao giữa mặt trống tượng trưng cho mặt trời, chim Lạc là biểu tượng của người Việt cổ.
-- Sau khi phá đảo Level 3, người chơi có thể nhập tên để lưu bảng xếp hạng local của trò Ghép hình.
+- Khi đăng nhập, kết quả phá đảo hoặc hết giờ được đồng bộ với backend và bảng xếp hạng.
 
 ## Trò chơi Đúng hay Sai / Quiz camera
 
@@ -138,5 +136,5 @@ Theo dõi thành tựu trong quiz:
 
 ## Khi người dùng hỏi nên chơi trò nào trước
 
-Nếu người dùng mới bắt đầu, nên gợi ý chơi Ghép hình Level 1 hoặc đọc Học vui trước. Nếu muốn ôn kiến thức nhanh, gợi ý Đúng/Sai. Nếu muốn luyện quan sát hoa văn, gợi ý Tìm đúng họa tiết.
+Nếu người dùng mới bắt đầu, nên gợi ý Lật thẻ hoặc Ghép hình Level 1. Nếu muốn ôn kiến thức nhanh, gợi ý Đúng/Sai. Cả ba game đều chơi được khi chưa đăng nhập, nhưng cần đăng nhập để đồng bộ điểm và lịch sử.
 

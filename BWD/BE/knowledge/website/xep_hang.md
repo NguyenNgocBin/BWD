@@ -8,7 +8,7 @@ Trang Xếp hạng gồm các phần:
 
 - Hero "Bảng xếp hạng Đông Sơn": giới thiệu mục đích so sánh thành tích giữa người chơi.
 - Thông tin cá nhân: hiển thị điểm của bạn, hạng hiện tại và game mạnh nhất.
-- Bộ lọc tab: Tổng, Tìm họa tiết, Ghép hình, Đúng/Sai.
+- Bộ lọc tab: Tổng, Lật thẻ, Ghép hình, Đúng/Sai.
 - Podium top 3: ba thẻ người chơi nổi bật nhất.
 - Strip vị trí của bạn: vị trí, tên người dùng, phần trăm top và tổng điểm.
 - Bảng xếp hạng chi tiết: các vị trí sau top 3.
@@ -18,7 +18,7 @@ Trang Xếp hạng gồm các phần:
 Trang có 4 tab:
 
 - Tổng: xếp hạng tổng điểm của người chơi.
-- Tìm họa tiết: xếp hạng theo trò luyện quan sát họa tiết.
+- Lật thẻ: xếp hạng theo trò lật thẻ ghép cặp họa tiết.
 - Ghép hình: xếp hạng theo trò ghép hình trống đồng.
 - Đúng/Sai: xếp hạng theo quiz kiến thức.
 

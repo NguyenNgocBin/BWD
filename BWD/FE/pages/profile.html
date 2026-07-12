@@ -40,7 +40,7 @@
             <div class="identity-block">
                 <div class="avatar-box">
                     <img id="profileAvatar" src="../images/toi.jpg" alt="Ảnh đại diện">
-                    <span id="profileLevel" class="level-chip">LV. 12</span>
+                    <span id="profileLevel" class="level-chip">THÀNH VIÊN</span>
                 </div>
 
                 <div class="identity-copy">
@@ -53,15 +53,15 @@
             <div class="hero-stats">
                 <div>
                     <span>Tổng điểm</span>
-                    <strong id="heroTotalScore">320</strong>
+                    <strong id="heroTotalScore">0</strong>
                 </div>
                 <div>
                     <span>Xếp hạng</span>
-                    <strong id="heroRank">#12</strong>
+                    <strong id="heroRank">Chưa có</strong>
                 </div>
                 <div>
                     <span>Mạnh nhất</span>
-                    <strong id="heroBestGame">Ghép hình</strong>
+                    <strong id="heroBestGame">Chưa có</strong>
                 </div>
             </div>
         </section>
@@ -72,57 +72,45 @@
                     <article class="kpi-card">
                         <span class="kpi-icon">🏆</span>
                         <p>Tổng điểm</p>
-                        <strong id="kpiTotalScore">320</strong>
+                        <strong id="kpiTotalScore">0</strong>
                     </article>
                     <article class="kpi-card">
                         <span class="kpi-icon">🎮</span>
                         <p>Số lượt chơi</p>
-                        <strong id="kpiPlayCount">25</strong>
+                        <strong id="kpiPlayCount">0</strong>
                     </article>
                     <article class="kpi-card">
                         <span class="kpi-icon">◎</span>
                         <p>Độ chính xác</p>
-                        <strong id="kpiAccuracy">78%</strong>
+                        <strong id="kpiAccuracy">0%</strong>
                     </article>
                     <article class="kpi-card">
                         <span class="kpi-icon">⚡</span>
-                        <p>Chuỗi ngày</p>
-                        <strong id="kpiStreak">3 ngày</strong>
+                        <p>Chuỗi tốt nhất</p>
+                        <strong id="kpiStreak">0</strong>
                     </article>
                 </div>
 
                 <section class="panel">
-                    <h2>Thành tựu trò chơi</h2>
+                    <h2>Điểm theo từng game</h2>
                     <div class="achievement-cards" id="achievementCards">
-                        <article class="game-ach-card">
-                            <img src="../images/dongsonz3.jpg" alt="Tìm họa tiết">
-                            <h3>Tìm họa tiết</h3>
-                            <ul>
-                                <li><span>Điểm cao nhất</span><strong>135</strong></li>
-                                <li><span>Tỷ lệ đúng</span><strong>9/10</strong></li>
-                                <li><span>Số lần chơi</span><strong>10</strong></li>
-                            </ul>
-                        </article>
+                        <p>Đang tải điểm từng game...</p>
+                    </div>
+                </section>
 
-                        <article class="game-ach-card">
-                            <img src="../images/dongsonz2.png" alt="Ghép hình">
-                            <h3>Ghép hình</h3>
-                            <ul>
-                                <li><span>Điểm cao nhất</span><strong>120</strong></li>
-                                <li><span>Thời gian tốt nhất</span><strong>45s</strong></li>
-                                <li><span>Số lần chơi</span><strong>7</strong></li>
-                            </ul>
-                        </article>
-
-                        <article class="game-ach-card">
-                            <img src="../images/dongsonz4.png" alt="Đúng Sai">
-                            <h3>Đúng/Sai</h3>
-                            <ul>
-                                <li><span>Điểm cao nhất</span><strong>150</strong></li>
-                                <li><span>Chuỗi thắng tối đa</span><strong>8</strong></li>
-                                <li><span>Số lần chơi</span><strong>8</strong></li>
-                            </ul>
-                        </article>
+                <section class="panel progress-panel" aria-labelledby="progressChartTitle">
+                    <div class="panel-heading">
+                        <div>
+                            <h2 id="progressChartTitle">Tiến bộ 7 ngày gần nhất</h2>
+                            <p>Tổng điểm từ các lượt chơi đã đồng bộ theo ngày.</p>
+                        </div>
+                        <strong id="progressChartSummary">0 điểm</strong>
+                    </div>
+                    <div id="progressChart" class="progress-chart" role="img" aria-label="Biểu đồ điểm theo ngày">
+                        <p>Đang tải dữ liệu tiến bộ...</p>
+                    </div>
+                    <div class="chart-legend" aria-hidden="true">
+                        <span><i></i> Điểm đạt được</span>
                     </div>
                 </section>
 
@@ -173,37 +161,17 @@
                     </div>
                 </section>
 
-                <section class="side-card history-card">
+                <section class="side-card history-card" id="historyCard">
                     <h2>Lịch sử hoạt động</h2>
-
-                    <article class="history-item">
-                        <span class="dot">✓</span>
-                        <div>
-                            <h3>Hoàn thành Ghép hình</h3>
-                            <p>2 giờ trước • <b>+120 điểm</b></p>
-                        </div>
-                    </article>
-
-                    <article class="history-item">
-                        <span class="dot">✓</span>
-                        <div>
-                            <h3>Trả lời đúng 9/10 câu</h3>
-                            <p>Hôm qua • <b>+90 điểm</b></p>
-                        </div>
-                    </article>
-
-                    <article class="history-item">
-                        <span class="dot">✓</span>
-                        <div>
-                            <h3>Mở khóa huy hiệu Mới bắt đầu</h3>
-                            <p>3 ngày trước</p>
-                        </div>
-                    </article>
+                    <div id="historyList">
+                        <p>Đang tải lịch sử chơi...</p>
+                    </div>
                 </section>
 
                 <div class="side-actions">
                     <button type="button" id="changeAvatarBtn" class="btn-ghost">Đổi ảnh đại diện</button>
                     <button type="button" id="renameBtn" class="btn-ghost">Đổi tên</button>
+                    <button type="button" id="changePasswordBtn" class="btn-ghost">Đổi mật khẩu</button>
                     <button type="button" id="logoutBtn" class="btn-danger">Đăng xuất</button>
                 </div>
             </aside>
@@ -228,6 +196,37 @@
                     <button type="button" id="saveAvatarBtn" class="btn-primary">Lưu</button>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div id="passwordPanel" class="avatar-picker-overlay" hidden>
+        <div class="avatar-picker-backdrop"></div>
+        <div class="avatar-picker-dialog" role="dialog" aria-modal="true" aria-labelledby="passwordPanelTitle">
+            <form id="changePasswordForm" class="avatar-picker password-form">
+                <div class="avatar-picker-head">
+                    <div>
+                        <p class="avatar-picker-kicker">Bảo mật tài khoản</p>
+                        <h3 id="passwordPanelTitle">Đổi mật khẩu</h3>
+                    </div>
+                </div>
+                <label>
+                    <span>Mật khẩu hiện tại</span>
+                    <input type="password" id="currentPassword" autocomplete="current-password" required>
+                </label>
+                <label>
+                    <span>Mật khẩu mới</span>
+                    <input type="password" id="newPassword" autocomplete="new-password" minlength="6" required>
+                </label>
+                <label>
+                    <span>Nhập lại mật khẩu mới</span>
+                    <input type="password" id="confirmPassword" autocomplete="new-password" minlength="6" required>
+                </label>
+                <p id="passwordStatus" class="avatar-picker-status" aria-live="polite"></p>
+                <div class="avatar-picker-actions">
+                    <button type="button" id="cancelPasswordBtn" class="btn-ghost">Hủy</button>
+                    <button type="submit" id="savePasswordBtn" class="btn-primary">Đổi mật khẩu</button>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -256,6 +255,7 @@
         </div>
     </footer>
 
+    <script src="../js/auth-ui.js"></script>
     <script src="../js/profile.js"></script>
     <script src="../js/chatbox-ui.js"></script>
 </body>

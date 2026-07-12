@@ -8,7 +8,7 @@ const models = {
         title: "Trống đồng Đông Sơn",
         kicker: "Hiện vật 01",
         desc: "Phiên bản trống đồng có hoa văn rõ ở phần thân, thích hợp để quan sát các mảng trang trí quanh tang trống.",
-        fileLabel: "GLB · 5.3 MB",
+        fileLabel: "GLB tối ưu · 1.38 MB",
         group: "Trống đồng",
         focus: "Hoa văn thân trống",
         insights: [
@@ -33,7 +33,7 @@ const models = {
         title: "Trống đồng Đông Sơn ",
         kicker: "Hiện vật 02",
         desc: "Phiên bản thứ hai nhấn mạnh mặt trống và dáng khối, phù hợp để xem tổng thể tỷ lệ hiện vật.",
-        fileLabel: "GLB · 8.2 MB",
+        fileLabel: "GLB tối ưu · 5.21 MB",
         group: "Trống đồng",
         focus: "Mặt trống và dáng khối",
         insights: [
@@ -58,7 +58,7 @@ const models = {
         title: "Trống đồng Đông Sơn 3",
         kicker: "Hiện vật 03",
         desc: "Phiên bản trống đồng thứ ba dùng model GLB nội bộ, phù hợp để xoay, zoom và quan sát tổng thể hiện vật.",
-        fileLabel: "GLB nội bộ · 4.2 MB",
+        fileLabel: "GLB tối ưu · 1.68 MB",
         group: "Trống đồng",
         focus: "Quan sát tổng thể hiện vật",
         insights: [
@@ -96,10 +96,42 @@ const activeGroupEl = document.getElementById("model-active-group");
 const activeFocusEl = document.getElementById("model-active-focus");
 const activeInsightsEl = document.getElementById("model-active-insights");
 const backBtn = document.getElementById("btn-back-gallery");
+const progressBarEl = document.getElementById("model-load-bar");
+const fallbackEl = document.getElementById("model3d-fallback");
 
 if (!container) {
     throw new Error("[museum3d] Missing #canvas-container");
 }
+
+function supportsWebGL() {
+    try {
+        const canvas = document.createElement("canvas");
+        return Boolean(window.WebGLRenderingContext && (canvas.getContext("webgl2") || canvas.getContext("webgl")));
+    } catch (error) {
+        return false;
+    }
+}
+
+const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+const isWeakDevice = Boolean(
+    connection?.saveData
+    || (navigator.deviceMemory && navigator.deviceMemory <= 2)
+    || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2)
+);
+const canRender3D = supportsWebGL() && !isWeakDevice;
+
+if (!canRender3D) {
+    museumSection?.classList.add("is-fallback");
+    fallbackEl?.removeAttribute("hidden");
+    if (fallbackEl) {
+        const reason = fallbackEl.querySelector("[data-fallback-reason]");
+        if (reason) {
+            reason.textContent = isWeakDevice
+                ? "Thiết bị đang bật chế độ tiết kiệm dữ liệu hoặc có tài nguyên hạn chế."
+                : "Trình duyệt hoặc thiết bị không hỗ trợ WebGL ổn định.";
+        }
+    }
+} else {
 applyViewerBackdrop(container);
 
 const scene = new THREE.Scene();
@@ -109,6 +141,7 @@ const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
 camera.position.set(0, 1.5, 6);
 
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+let renderingAvailable = true;
 renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
@@ -116,6 +149,14 @@ renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.25;
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 container.appendChild(renderer.domElement);
+renderer.domElement.addEventListener("webglcontextlost", (event) => {
+    event.preventDefault();
+    renderingAvailable = false;
+    museumSection?.classList.add("is-fallback");
+    fallbackEl?.removeAttribute("hidden");
+    const reason = fallbackEl?.querySelector("[data-fallback-reason]");
+    if (reason) reason.textContent = "WebGL đã dừng hoạt động. Trang chuyển sang ảnh tĩnh để tiếp tục sử dụng.";
+}, { once: true });
 
 const pmremGenerator = new THREE.PMREMGenerator(renderer);
 const environmentMap = pmremGenerator.fromScene(new RoomEnvironment(renderer), 0.04).texture;
@@ -171,7 +212,9 @@ let activeModelId = null;
 let loadVersion = 0;
 
 function setProgress(value) {
-    if (pctEl) pctEl.textContent = `${Math.max(0, Math.min(100, Math.round(value)))}%`;
+    const normalized = Math.max(0, Math.min(100, Math.round(value)));
+    if (pctEl) pctEl.textContent = `${normalized}%`;
+    if (progressBarEl) progressBarEl.style.width = `${normalized}%`;
 }
 
 function showOverlay() {
@@ -388,10 +431,12 @@ function capturePreview(view) {
     view.el.classList.add("is-ready");
 }
 
-function initModelPreviews() {
-    document.querySelectorAll("[data-preview-model]").forEach((el) => {
+async function initModelPreviews() {
+    const previewElements = Array.from(document.querySelectorAll("[data-preview-model]"));
+
+    for (const el of previewElements) {
         const modelId = el.dataset.previewModel;
-        if (!models[modelId]) return;
+        if (!models[modelId]) continue;
 
         const previewScene = new THREE.Scene();
         previewScene.background = null;
@@ -428,20 +473,24 @@ function initModelPreviews() {
         resizePreview(view);
         applyViewerBackdrop(el);
 
-        getPreviewModel(modelId)
-            .then((sourceModel) => {
-                const previewModel = sourceModel.clone(true);
-                previewModel.rotation.y = modelId === "trongdong2" ? -0.45 : modelId === "dongsonbronze" ? 0.35 : -0.25;
-                fitPreviewModel(previewModel, previewCamera);
-                previewScene.add(previewModel);
-                view.model = previewModel;
-                capturePreview(view);
-            })
-            .catch((error) => {
-                console.error(`[museum3d] Failed to render preview ${modelId}`, error);
-                el.classList.add("is-error");
-            });
-    });
+        try {
+            const sourceModel = await getPreviewModel(modelId);
+            const previewModel = sourceModel.clone(true);
+            previewModel.rotation.y = modelId === "trongdong2" ? -0.45 : modelId === "dongsonbronze" ? 0.35 : -0.25;
+            fitPreviewModel(previewModel, previewCamera);
+            previewScene.add(previewModel);
+            view.model = previewModel;
+            capturePreview(view);
+        } catch (error) {
+            previewRenderer.dispose();
+            previewRenderer.domElement.remove();
+            console.error(`[museum3d] Failed to render preview ${modelId}`, error);
+            el.classList.add("is-error");
+        }
+
+        // Nhường một frame giữa các preview để giao diện không bị khựng.
+        await new Promise((resolve) => window.requestAnimationFrame(resolve));
+    }
 }
 
 function setActiveUi(modelId) {
@@ -552,6 +601,7 @@ window.addEventListener("resize", () => {
 });
 
 function animate() {
+    if (!renderingAvailable) return;
     requestAnimationFrame(animate);
     if (loadedModel) controls.update();
     renderer.render(scene, camera);
@@ -566,3 +616,4 @@ window._m3dReset = function resetMuseumCamera() {
     controls.target.copy(defaultTarget);
     controls.update();
 };
+}

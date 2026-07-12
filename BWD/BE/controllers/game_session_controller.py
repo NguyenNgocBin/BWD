@@ -18,7 +18,7 @@ def create_session():
     except auth_service.AuthError as error:
         return handle_game_session_error(error)
     except Exception as error:
-        return flask.jsonify({"message": "Loi server", "error": str(error)}), 500
+        return flask.jsonify({"message": "Không thể lưu kết quả chơi lúc này. Vui lòng thử lại."}), 500
 
 
 # Lay lich su game session gan day cua user dang dang nhap.
@@ -32,4 +32,4 @@ def get_my_sessions():
     except auth_service.AuthError as error:
         return handle_game_session_error(error)
     except Exception as error:
-        return flask.jsonify({"message": "Loi server", "error": str(error)}), 500
+        return flask.jsonify({"message": "Không thể tải lịch sử chơi lúc này. Vui lòng thử lại."}), 500

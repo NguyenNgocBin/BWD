@@ -2,6 +2,7 @@ import json
 
 import repositories.game_repo as game_repo
 import repositories.game_session_repo as game_session_repo
+import repositories.leaderboard_repo as leaderboard_repo
 import services.auth_service as auth_service
 
 
@@ -161,11 +162,25 @@ def create_user_game_session(user, payload):
         metadata=json.dumps(metadata),
     )
 
+    leaderboard_row = leaderboard_repo.get_game_leaderboard_entry_by_user(
+        game.code,
+        user.id,
+    )
+    leaderboard = None
+    if leaderboard_row:
+        leaderboard = {
+            "rank": leaderboard_row["rank"],
+            "score": leaderboard_row["selected_game_score"],
+            "best_streak": leaderboard_row["selected_best_streak"],
+            "duration_seconds": leaderboard_row["selected_duration_seconds"],
+        }
+
     return {
         "message": "Luu ket qua choi game thanh cong",
         "session": build_game_session_response(session_row, game),
         "game_stats": build_user_game_stats_response(stats_row, game),
         "user_total_score": user_row["total_score"],
+        "leaderboard": leaderboard,
     }
 
 

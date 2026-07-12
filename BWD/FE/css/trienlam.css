@@ -512,6 +512,45 @@ body {
     gap: 24px;
 }
 
+.model3d-fallback {
+    display: grid;
+    grid-template-columns: minmax(180px, 0.7fr) 1.3fr;
+    gap: 24px;
+    align-items: center;
+    padding: 24px;
+    border: 1px solid rgba(201, 146, 42, 0.3);
+    border-radius: 18px;
+    background: rgba(47, 39, 31, 0.72);
+}
+
+.model3d-fallback[hidden] {
+    display: none;
+}
+
+.model3d-fallback img {
+    width: 100%;
+    max-height: 300px;
+    object-fit: contain;
+}
+
+.model3d-fallback h3 {
+    margin: 8px 0 10px;
+    color: #f5ead8;
+    font-family: "Newsreader", serif;
+    font-size: clamp(30px, 4vw, 48px);
+}
+
+.model3d-fallback p {
+    margin-top: 6px;
+    color: var(--text-muted);
+    line-height: 1.65;
+}
+
+.museum3d-section.is-fallback .model-gallery-view,
+.museum3d-section.is-fallback .model-detail-view {
+    display: none;
+}
+
 .model-gallery-view.is-hidden {
     display: none;
 }
@@ -585,6 +624,11 @@ body {
         radial-gradient(circle at 50% 45%, rgba(255, 255, 255, 0.62), rgba(171, 171, 171, 0.42) 34%, rgba(83, 83, 83, 0.48) 78%),
         repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.035) 0 1px, rgba(0, 0, 0, 0.035) 1px 3px),
         linear-gradient(180deg, #8f8f8f 0%, #707070 52%, #5f5f5f 100%);
+}
+
+.model-thumb,
+.side-model-preview {
+    background: radial-gradient(circle, rgba(255,255,255,.18), transparent 68%), url("../images/TrongDong.png") center / contain no-repeat;
 }
 
 .model-thumb::before,
@@ -948,6 +992,38 @@ body {
     font-weight: 800;
     letter-spacing: 0.04em;
     min-width: 64px;
+}
+
+.model-loading-note {
+    max-width: 280px;
+    color: rgba(245, 234, 216, 0.74);
+    font-size: 12px;
+    text-align: center;
+}
+
+.model-loading-track {
+    display: block;
+    width: min(280px, 70vw);
+    height: 7px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.model-loading-track > span {
+    display: block;
+    width: 0;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #ba7b24, #f1ce72);
+    transition: width 0.2s ease;
+}
+
+@media (max-width: 640px) {
+    .model3d-fallback {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
 }
 
 /* ── Hint badge ─────────────────────────────────────────────────── */

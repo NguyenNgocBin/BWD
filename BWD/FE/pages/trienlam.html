@@ -118,6 +118,16 @@
                     </p>
                 </div>
 
+                <div class="model3d-fallback" id="model3d-fallback" hidden>
+                    <img src="../images/TrongDong.png" alt="Ảnh trống đồng Đông Sơn thay cho mô hình 3D">
+                    <div>
+                        <span class="panel-label">Chế độ tương thích</span>
+                        <h3>Đang hiển thị ảnh tĩnh</h3>
+                        <p data-fallback-reason>Thiết bị không phù hợp để dựng mô hình 3D.</p>
+                        <p>Bạn vẫn có thể xem nội dung hiện vật và triển lãm ảo bên dưới.</p>
+                    </div>
+                </div>
+
                 <div class="model-gallery-view" id="model-gallery-view">
                     <button class="model-card active" type="button" data-model-id="dongsonbronze">
                         <span class="model-card-preview">
@@ -184,6 +194,8 @@
                                     <div class="model-loading-ring"></div>
                                     <span class="model-loading-title">Đang tải mô hình 3D</span>
                                     <span class="model-loading-pct" id="model-load-pct">0%</span>
+                                    <span class="model-loading-note">Đang tải dữ liệu tối ưu, vui lòng giữ trang mở</span>
+                                    <span class="model-loading-track"><span id="model-load-bar"></span></span>
                                 </div>
                             </div>
 
@@ -389,8 +401,9 @@
             }
         }
     </script>
+    <script src="../js/auth-ui.js"></script>
     <script src="../js/chatbox-ui.js"></script>
-    <script type="module" src="../js/museum3d.js"></script>
+    <script type="module" src="../js/museum3d.js?v=20260712-preview-models"></script>
 </body>
 
 </html>

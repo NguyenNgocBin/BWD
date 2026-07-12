@@ -38,28 +38,28 @@ def require_auth(handler):
         auth_header = flask.request.headers.get("Authorization", "").strip()
 
         if not auth_header:
-            return flask.jsonify({"message": "Thieu token xac thuc"}), 401
+            return flask.jsonify({"message": "Bạn chưa đăng nhập hoặc thiếu token xác thực.", "code": "AUTH_REQUIRED"}), 401
 
         parts = auth_header.split()
         if len(parts) != 2 or parts[0].lower() != "bearer":
-            return flask.jsonify({"message": "Token khong dung dinh dang"}), 401
+            return flask.jsonify({"message": "Token xác thực không đúng định dạng Bearer.", "code": "TOKEN_MALFORMED"}), 401
 
         token = parts[1]
         jwt_secret = os.getenv("JWT_SECRET")
 
         if not jwt_secret:
-            return flask.jsonify({"message": "JWT_SECRET chua duoc cau hinh"}), 500
+            return flask.jsonify({"message": "Máy chủ chưa được cấu hình khóa xác thực."}), 500
 
         try:
             payload = jwt.decode(token, jwt_secret, algorithms=["HS256"])
         except jwt.ExpiredSignatureError:
-            return flask.jsonify({"message": "Token da het han"}), 401
+            return flask.jsonify({"message": "Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.", "code": "TOKEN_EXPIRED"}), 401
         except jwt.InvalidTokenError:
-            return flask.jsonify({"message": "Token khong hop le"}), 401
+            return flask.jsonify({"message": "Token xác thực không hợp lệ. Vui lòng đăng nhập lại.", "code": "TOKEN_INVALID"}), 401
 
         user = user_repo.find_user_by_id(payload.get("user_id"))
         if not user:
-            return flask.jsonify({"message": "Nguoi dung khong ton tai"}), 401
+            return flask.jsonify({"message": "Tài khoản của phiên đăng nhập không còn tồn tại.", "code": "USER_NOT_FOUND"}), 401
 
         flask.g.current_user = user
         return handler(*args, **kwargs)
@@ -70,7 +70,29 @@ def require_auth(handler):
 def optional_auth(handler):
     @functools.wraps(handler)
     def wrapper(*args, **kwargs):
-        flask.g.current_user = _resolve_user_from_authorization_header()
+        auth_header = flask.request.headers.get("Authorization", "").strip()
+        if not auth_header:
+            flask.g.current_user = None
+            return handler(*args, **kwargs)
+
+        parts = auth_header.split()
+        if len(parts) != 2 or parts[0].lower() != "bearer":
+            return flask.jsonify({"message": "Token xác thực không đúng định dạng Bearer.", "code": "TOKEN_MALFORMED"}), 401
+
+        jwt_secret = os.getenv("JWT_SECRET")
+        if not jwt_secret:
+            return flask.jsonify({"message": "Máy chủ chưa được cấu hình khóa xác thực."}), 500
+
+        try:
+            payload = jwt.decode(parts[1], jwt_secret, algorithms=["HS256"])
+        except jwt.ExpiredSignatureError:
+            return flask.jsonify({"message": "Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.", "code": "TOKEN_EXPIRED"}), 401
+        except jwt.InvalidTokenError:
+            return flask.jsonify({"message": "Token xác thực không hợp lệ. Vui lòng đăng nhập lại.", "code": "TOKEN_INVALID"}), 401
+
+        flask.g.current_user = user_repo.find_user_by_id(payload.get("user_id"))
+        if not flask.g.current_user:
+            return flask.jsonify({"message": "Tài khoản của phiên đăng nhập không còn tồn tại.", "code": "USER_NOT_FOUND"}), 401
         return handler(*args, **kwargs)
 
     return wrapper

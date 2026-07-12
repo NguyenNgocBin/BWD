@@ -128,6 +128,17 @@ create table if not exists user_game_stats (
 create index if not exists idx_user_game_stats_game_best on user_game_stats (game_id, best_score desc);
 create index if not exists idx_user_game_stats_user on user_game_stats (user_id);
 
+-- Dong bo du lieu cu: tong diem user la tong diem tot nhat cua 3 game.
+update users u
+set total_score = coalesce(
+    (
+        select sum(ugs.best_score)
+        from user_game_stats ugs
+        where ugs.user_id = u.id
+    ),
+    0
+);
+
 -- View lay bang xep hang theo tung game tu bang thong ke.
 create or replace view leaderboard_view as
 select

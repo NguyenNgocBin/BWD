@@ -62,9 +62,9 @@ Luật chơi:
 - Trả lời sai hoặc hết giờ thì không cộng điểm và chuỗi đúng bị reset.
 - Sau mỗi chương, game hiện màn hình hoàn thành chương và nút chuyển chương tiếp theo.
 
-## Trò Tìm đúng họa tiết chơi như thế nào?
+## Trò Lật thẻ họa tiết chơi như thế nào?
 
-Trò Tìm đúng họa tiết là trò luyện quan sát các mô-típ Đông Sơn như chim Lạc, ngôi sao, thuyền và hình người. Người chơi cần nhìn hình hoặc gợi ý rồi chọn đúng họa tiết. Trong code hiện tại, trò này mới xuất hiện dưới dạng thẻ trên trang Trò chơi và chưa có trang game riêng.
+Trò Lật thẻ họa tiết nằm ở `/pages/game/motif-hunt.html`. Người chơi lật hai thẻ để tìm cặp hình giống nhau, ghép đúng để cộng điểm và tăng combo, ghép sai thì hai thẻ tự úp lại. Game có thời gian 2 phút. Khách vẫn chơi được nhưng cần đăng nhập để đồng bộ điểm và lịch sử.
 
 ## Trang Bản đồ dùng để làm gì?
 
@@ -72,7 +72,7 @@ Trang Bản đồ dùng để xem các địa điểm phát hiện trống đồ
 
 ## Trang Xếp hạng dùng để làm gì?
 
-Trang Xếp hạng dùng để xem top người chơi, so sánh điểm theo từng nhóm trò chơi và xem vị trí cá nhân. Trang có các tab Tổng, Tìm họa tiết, Ghép hình và Đúng/Sai. Top 3 nổi bật hiện gồm Huyền My, Quang Minh và Gia Bảo trong tab Tổng.
+Trang Xếp hạng dùng để xem top người chơi, so sánh điểm theo từng nhóm trò chơi và xem vị trí cá nhân. Trang có các tab Tổng, Lật thẻ, Ghép hình và Đúng/Sai. Dữ liệu được lấy trực tiếp từ backend, không dùng danh sách top mẫu cố định.
 
 ## Trang Tài liệu khác gì trang Học vui?
 

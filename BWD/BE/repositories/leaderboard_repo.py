@@ -87,7 +87,7 @@ ranked as (
     select
         per_user.*,
         dense_rank() over (
-            order by per_user.total_score desc, per_user.updated_at asc, per_user.user_id asc
+            order by per_user.total_score desc
         ) as rank
     from per_user
     where per_user.total_score > 0
@@ -202,7 +202,7 @@ ranked as (
     select
         per_user.*,
         dense_rank() over (
-            order by per_user.total_score desc, per_user.updated_at asc, per_user.user_id asc
+            order by per_user.total_score desc
         ) as rank
     from per_user
     where per_user.total_score > 0
@@ -308,7 +308,19 @@ per_user as (
         coalesce(
             max(case when g.code = %s then ugs.best_score end),
             0
-        ) as selected_game_score
+        ) as selected_game_score,
+        coalesce(
+            max(case when g.code = %s then ugs.best_streak end),
+            0
+        ) as selected_best_streak,
+        coalesce(
+            max(case when bs.game_code = %s then bs.duration_seconds end),
+            0
+        ) as selected_duration_seconds,
+        coalesce(
+            sum(case when g.code = %s then ugs.play_count end),
+            0
+        ) as selected_play_count
     from users u
     left join user_game_stats ugs on ugs.user_id = u.id
     left join games g on g.id = ugs.game_id
@@ -319,7 +331,10 @@ ranked as (
     select
         per_user.*,
         dense_rank() over (
-            order by per_user.selected_game_score desc, per_user.total_score desc, per_user.user_id asc
+            order by
+                per_user.selected_game_score desc,
+                per_user.selected_duration_seconds asc,
+                per_user.selected_best_streak desc
         ) as rank
     from per_user
     where per_user.selected_game_score > 0
@@ -342,6 +357,9 @@ select
     ranked.puzzle_play_count,
     ranked.motif_play_count,
     ranked.selected_game_score,
+    ranked.selected_best_streak,
+    ranked.selected_duration_seconds,
+    ranked.selected_play_count,
     ranked.rank
 from ranked
 order by ranked.rank asc, ranked.user_id asc
@@ -427,7 +445,19 @@ per_user as (
         coalesce(
             max(case when g.code = %s then ugs.best_score end),
             0
-        ) as selected_game_score
+        ) as selected_game_score,
+        coalesce(
+            max(case when g.code = %s then ugs.best_streak end),
+            0
+        ) as selected_best_streak,
+        coalesce(
+            max(case when bs.game_code = %s then bs.duration_seconds end),
+            0
+        ) as selected_duration_seconds,
+        coalesce(
+            sum(case when g.code = %s then ugs.play_count end),
+            0
+        ) as selected_play_count
     from users u
     left join user_game_stats ugs on ugs.user_id = u.id
     left join games g on g.id = ugs.game_id
@@ -438,7 +468,10 @@ ranked as (
     select
         per_user.*,
         dense_rank() over (
-            order by per_user.selected_game_score desc, per_user.total_score desc, per_user.user_id asc
+            order by
+                per_user.selected_game_score desc,
+                per_user.selected_duration_seconds asc,
+                per_user.selected_best_streak desc
         ) as rank
     from per_user
     where per_user.selected_game_score > 0
@@ -461,6 +494,9 @@ select
     ranked.puzzle_play_count,
     ranked.motif_play_count,
     ranked.selected_game_score,
+    ranked.selected_best_streak,
+    ranked.selected_duration_seconds,
+    ranked.selected_play_count,
     ranked.rank
 from ranked
 where ranked.user_id = %s
@@ -476,8 +512,14 @@ def get_total_leaderboard_entry_by_user(user_id):
 
 
 def get_game_leaderboard(game_code, limit):
-    return db.fetch_all(GAME_LEADERBOARD_SQL, (game_code, limit))
+    return db.fetch_all(
+        GAME_LEADERBOARD_SQL,
+        (game_code, game_code, game_code, game_code, limit),
+    )
 
 
 def get_game_leaderboard_entry_by_user(game_code, user_id):
-    return db.fetch_one(GAME_LEADERBOARD_BY_USER_SQL, (game_code, user_id))
+    return db.fetch_one(
+        GAME_LEADERBOARD_BY_USER_SQL,
+        (game_code, game_code, game_code, game_code, user_id),
+    )

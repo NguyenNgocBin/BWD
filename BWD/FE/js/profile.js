@@ -1,6 +1,8 @@
 (function () {
     const BACKEND_ORIGIN = "http://localhost:5000";
     const API_BASE_URL = `${BACKEND_ORIGIN}/api/v1/auth`;
+    const LEADERBOARD_API_URL = `${BACKEND_ORIGIN}/api/v1/leaderboard/?scope=tong&limit=1`;
+    const GAME_SESSIONS_API_URL = `${BACKEND_ORIGIN}/api/v1/game-sessions/me?limit=20`;
     const DEFAULT_AVATAR = "../images/dongsonz1.jpg";
     const AVATAR_OPTIONS = [
         { value: "../images/chim-lac-pattern.png", label: "Chim Lạc" },
@@ -17,6 +19,15 @@
         subtitle: document.getElementById("profileSubtitle"),
         heroTotalScore: document.getElementById("heroTotalScore"),
         kpiTotalScore: document.getElementById("kpiTotalScore"),
+        heroRank: document.getElementById("heroRank"),
+        heroBestGame: document.getElementById("heroBestGame"),
+        kpiPlayCount: document.getElementById("kpiPlayCount"),
+        kpiAccuracy: document.getElementById("kpiAccuracy"),
+        kpiStreak: document.getElementById("kpiStreak"),
+        achievementCards: document.getElementById("achievementCards"),
+        historyList: document.getElementById("historyList"),
+        progressChart: document.getElementById("progressChart"),
+        progressChartSummary: document.getElementById("progressChartSummary"),
         changeAvatarBtn: document.getElementById("changeAvatarBtn"),
         avatarPickerPanel: document.getElementById("avatarPickerPanel"),
         avatarOptionGrid: document.getElementById("avatarOptionGrid"),
@@ -25,6 +36,15 @@
         saveAvatarBtn: document.getElementById("saveAvatarBtn"),
         renameBtn: document.getElementById("renameBtn"),
         logoutBtn: document.getElementById("logoutBtn"),
+        changePasswordBtn: document.getElementById("changePasswordBtn"),
+        passwordPanel: document.getElementById("passwordPanel"),
+        changePasswordForm: document.getElementById("changePasswordForm"),
+        currentPassword: document.getElementById("currentPassword"),
+        newPassword: document.getElementById("newPassword"),
+        confirmPassword: document.getElementById("confirmPassword"),
+        passwordStatus: document.getElementById("passwordStatus"),
+        cancelPasswordBtn: document.getElementById("cancelPasswordBtn"),
+        savePasswordBtn: document.getElementById("savePasswordBtn"),
     };
 
     let pendingAvatar = null;
@@ -170,6 +190,150 @@
         return data.user;
     }
 
+    async function fetchGameData(token) {
+        const headers = { Authorization: `Bearer ${token}` };
+        const [leaderboardResponse, sessionsResponse] = await Promise.all([
+            fetch(LEADERBOARD_API_URL, { headers, cache: "no-store" }),
+            fetch(GAME_SESSIONS_API_URL, { headers, cache: "no-store" }),
+        ]);
+        const leaderboardData = await leaderboardResponse.json().catch(() => ({}));
+        const sessionsData = await sessionsResponse.json().catch(() => ({}));
+
+        if (!leaderboardResponse.ok) {
+            throw new Error(leaderboardData.message || "Không lấy được thống kê xếp hạng");
+        }
+        if (!sessionsResponse.ok) {
+            throw new Error(sessionsData.message || "Không lấy được lịch sử chơi");
+        }
+
+        return {
+            stats: leaderboardData.current_user,
+            sessions: Array.isArray(sessionsData.sessions) ? sessionsData.sessions : [],
+        };
+    }
+
+    function renderProgressChart(sessions) {
+        if (!els.progressChart) return;
+
+        const days = [];
+        const scoreByDate = new Map();
+        sessions.forEach((session) => {
+            if (!session.played_at) return;
+            const date = new Date(session.played_at);
+            const key = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+            scoreByDate.set(key, (scoreByDate.get(key) || 0) + Number(session.score || 0));
+        });
+
+        for (let offset = 6; offset >= 0; offset -= 1) {
+            const date = new Date();
+            date.setHours(0, 0, 0, 0);
+            date.setDate(date.getDate() - offset);
+            const key = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+            days.push({
+                label: date.toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit" }),
+                score: scoreByDate.get(key) || 0,
+            });
+        }
+
+        const width = 700;
+        const height = 250;
+        const left = 42;
+        const right = 18;
+        const top = 24;
+        const bottom = 42;
+        const chartHeight = height - top - bottom;
+        const maxScore = Math.max(1, ...days.map((day) => day.score));
+        const points = days.map((day, index) => ({
+            ...day,
+            x: left + index * ((width - left - right) / (days.length - 1)),
+            y: top + chartHeight - (day.score / maxScore) * chartHeight,
+        }));
+        const pointString = points.map((point) => `${point.x},${point.y}`).join(" ");
+        const areaString = `${left},${top + chartHeight} ${pointString} ${width - right},${top + chartHeight}`;
+        const total = days.reduce((sum, day) => sum + day.score, 0);
+
+        if (els.progressChartSummary) {
+            els.progressChartSummary.textContent = `${formatScore(total)} điểm / 7 ngày`;
+        }
+        els.progressChart.setAttribute(
+            "aria-label",
+            `Biểu đồ tiến bộ 7 ngày, tổng cộng ${formatScore(total)} điểm.`
+        );
+        els.progressChart.innerHTML = `
+            <svg viewBox="0 0 ${width} ${height}" role="presentation" focusable="false">
+                <line class="chart-grid" x1="${left}" y1="${top}" x2="${width - right}" y2="${top}"></line>
+                <line class="chart-grid" x1="${left}" y1="${top + chartHeight / 2}" x2="${width - right}" y2="${top + chartHeight / 2}"></line>
+                <line class="chart-grid" x1="${left}" y1="${top + chartHeight}" x2="${width - right}" y2="${top + chartHeight}"></line>
+                <polygon class="chart-area" points="${areaString}"></polygon>
+                <polyline class="chart-line" points="${pointString}"></polyline>
+                ${points.map((point) => `
+                    <circle class="chart-point" cx="${point.x}" cy="${point.y}" r="5">
+                        <title>${point.label}: ${formatScore(point.score)} điểm</title>
+                    </circle>
+                    <text class="chart-value" x="${point.x}" y="${Math.max(14, point.y - 11)}">${formatScore(point.score)}</text>
+                    <text class="chart-label" x="${point.x}" y="${height - 13}">${point.label}</text>
+                `).join("")}
+            </svg>
+        `;
+    }
+
+    function renderGameData(stats, sessions) {
+        renderProgressChart(sessions);
+        const playCount = stats
+            ? Number(stats.motif_play_count || 0) + Number(stats.puzzle_play_count || 0) + Number(stats.quiz_play_count || 0)
+            : sessions.length;
+        const totalAnswers = sessions.reduce((sum, item) => sum + Number(item.total_questions || 0), 0);
+        const totalCorrect = sessions.reduce((sum, item) => sum + Number(item.correct_count || 0), 0);
+        const accuracy = totalAnswers ? Math.round((totalCorrect / totalAnswers) * 100) : 0;
+        const bestStreak = stats
+            ? Math.max(stats.motif_best_streak || 0, stats.puzzle_best_streak || 0, stats.quiz_best_streak || 0)
+            : Math.max(0, ...sessions.map((item) => Number(item.best_streak || 0)));
+
+        if (els.heroRank) els.heroRank.textContent = stats?.rank ? `#${stats.rank}` : "Chưa có";
+        if (els.heroBestGame) els.heroBestGame.textContent = stats?.best_game || "Chưa có";
+        if (els.kpiPlayCount) els.kpiPlayCount.textContent = formatScore(playCount);
+        if (els.kpiAccuracy) els.kpiAccuracy.textContent = `${accuracy}%`;
+        if (els.kpiStreak) els.kpiStreak.textContent = formatScore(bestStreak);
+
+        if (els.achievementCards) {
+            const cards = [
+                { title: "Lật thẻ", image: "../images/dongsonz3.jpg", score: stats?.motif_score, streak: stats?.motif_best_streak, plays: stats?.motif_play_count },
+                { title: "Ghép hình", image: "../images/dongsonz2.png", score: stats?.puzzle_score, streak: stats?.puzzle_best_streak, plays: stats?.puzzle_play_count },
+                { title: "Đúng/Sai", image: "../images/dongsonz4.png", score: stats?.quiz_score, streak: stats?.quiz_best_streak, plays: stats?.quiz_play_count },
+            ];
+            els.achievementCards.innerHTML = cards.map((card) => `
+                <article class="game-ach-card">
+                    <img src="${card.image}" alt="${card.title}">
+                    <h3>${card.title}</h3>
+                    <ul>
+                        <li><span>Điểm cao nhất</span><strong>${formatScore(card.score)}</strong></li>
+                        <li><span>Chuỗi tốt nhất</span><strong>${formatScore(card.streak)}</strong></li>
+                        <li><span>Số lần chơi</span><strong>${formatScore(card.plays)}</strong></li>
+                    </ul>
+                </article>
+            `).join("");
+        }
+
+        if (els.historyList) {
+            if (!sessions.length) {
+                els.historyList.innerHTML = "<p>Chưa có lượt chơi nào được đồng bộ.</p>";
+            } else {
+                els.historyList.innerHTML = sessions.map((session) => {
+                    const playedAt = session.played_at ? new Date(session.played_at).toLocaleString("vi-VN") : "Không rõ thời gian";
+                    return `
+                        <article class="history-item">
+                            <span class="dot">✓</span>
+                            <div>
+                                <h3>${session.game_name || session.game_code}</h3>
+                                <p>${playedAt} • <b>+${formatScore(session.score)} điểm</b></p>
+                            </div>
+                        </article>
+                    `;
+                }).join("");
+            }
+        }
+    }
+
     async function updateProfile(token, payload) {
         const response = await fetch(`${API_BASE_URL}/profile`, {
             method: "PUT",
@@ -186,6 +350,38 @@
         }
 
         return data.user;
+    }
+
+    async function changePassword(token, currentPassword, newPassword) {
+        const response = await fetch(`${API_BASE_URL}/change-password`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+                current_password: currentPassword,
+                new_password: newPassword,
+            }),
+        });
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok) {
+            throw new Error(data.message || "Không thể đổi mật khẩu");
+        }
+        return data;
+    }
+
+    function togglePasswordPanel(open) {
+        if (!els.passwordPanel) return;
+        els.passwordPanel.toggleAttribute("hidden", !open);
+        els.passwordPanel.style.display = open ? "" : "none";
+        document.body.classList.toggle("avatar-picker-open", open);
+        if (open) {
+            els.changePasswordForm?.reset();
+            els.passwordStatus.textContent = "Mật khẩu mới cần có ít nhất 6 ký tự.";
+            els.passwordStatus.dataset.state = "default";
+            window.setTimeout(() => els.currentPassword?.focus(), 0);
+        }
     }
 
     async function logout(token) {
@@ -220,6 +416,13 @@
             const freshUser = await fetchCurrentUser(token);
             persistUser(freshUser);
             renderUser(freshUser);
+            try {
+                const gameData = await fetchGameData(token);
+                renderGameData(gameData.stats, gameData.sessions);
+            } catch (gameDataError) {
+                console.error(gameDataError);
+                renderGameData(null, []);
+            }
         } catch (error) {
             clearAuth();
             window.location.href = "./login.html";
@@ -235,9 +438,9 @@
     });
 
     document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape" && els.avatarPickerPanel && !els.avatarPickerPanel.hasAttribute("hidden")) {
-            toggleAvatarPicker(false);
-        }
+        if (event.key !== "Escape") return;
+        if (els.avatarPickerPanel && !els.avatarPickerPanel.hasAttribute("hidden")) toggleAvatarPicker(false);
+        if (els.passwordPanel && !els.passwordPanel.hasAttribute("hidden")) togglePasswordPanel(false);
     });
 
     els.avatarOptionGrid?.addEventListener("click", (event) => {
@@ -300,6 +503,49 @@
             window.alert(error.message);
         } finally {
             els.renameBtn.disabled = false;
+        }
+    });
+
+    els.changePasswordBtn?.addEventListener("click", () => togglePasswordPanel(true));
+    els.cancelPasswordBtn?.addEventListener("click", () => togglePasswordPanel(false));
+    els.changePasswordForm?.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const { token } = getStoredAuth();
+        if (!token) {
+            window.location.href = "./login.html";
+            return;
+        }
+
+        const currentPassword = els.currentPassword.value;
+        const newPassword = els.newPassword.value;
+        const confirmPassword = els.confirmPassword.value;
+        if (newPassword.length < 6) {
+            els.passwordStatus.textContent = "Mật khẩu mới phải có ít nhất 6 ký tự.";
+            els.passwordStatus.dataset.state = "error";
+            return;
+        }
+        if (newPassword !== confirmPassword) {
+            els.passwordStatus.textContent = "Hai lần nhập mật khẩu mới chưa trùng khớp.";
+            els.passwordStatus.dataset.state = "error";
+            return;
+        }
+
+        els.savePasswordBtn.disabled = true;
+        els.cancelPasswordBtn.disabled = true;
+        els.passwordStatus.textContent = "Đang đổi mật khẩu...";
+        els.passwordStatus.dataset.state = "default";
+        try {
+            const result = await changePassword(token, currentPassword, newPassword);
+            els.passwordStatus.textContent = result.message || "Đổi mật khẩu thành công.";
+            els.passwordStatus.dataset.state = "success";
+            els.changePasswordForm.reset();
+            window.setTimeout(() => togglePasswordPanel(false), 1000);
+        } catch (error) {
+            els.passwordStatus.textContent = error.message || "Không thể đổi mật khẩu.";
+            els.passwordStatus.dataset.state = "error";
+        } finally {
+            els.savePasswordBtn.disabled = false;
+            els.cancelPasswordBtn.disabled = false;
         }
     });
 

@@ -18,4 +18,4 @@ def get_leaderboard():
     except leaderboard_service.LeaderboardError as error:
         return handle_leaderboard_error(error)
     except Exception as error:
-        return flask.jsonify({"message": "Lỗi server", "error": str(error)}), 500
+        return flask.jsonify({"message": "Không thể tải bảng xếp hạng lúc này. Vui lòng thử lại."}), 500

@@ -55,11 +55,11 @@
                     <div class="hero-card-top">
                         <div>
                             <p class="hero-label">Người kế thừa</p>
-                            <h2 id="gameHeroName">Nguyễn Văn A</h2>
+                            <h2 id="gameHeroName">Khách tham quan</h2>
                         </div>
                         <div class="hero-score">
                             <p>Điểm hiện tại</p>
-                            <strong id="gameHeroScore">12,450</strong>
+                            <strong id="gameHeroScore">0</strong>
                         </div>
                     </div>
 
@@ -68,9 +68,9 @@
                     </div>
 
                     <div class="hero-stats">
-                        <div><strong>24</strong><span>Kỷ lục</span></div>
-                        <div><strong>12</strong><span>Cấp độ</span></div>
-                        <div><strong>98%</strong><span>Giải mã</span></div>
+                        <div><strong>03</strong><span>Game sẵn sàng</span></div>
+                        <div><strong>03</strong><span>Cấp ghép hình</span></div>
+                        <div><strong>25</strong><span>Câu đúng/sai</span></div>
                     </div>
                 </article>
             </div>
@@ -118,12 +118,13 @@
                 </div>
 
                 <div class="games-track" id="gamesTrack">
-                    <article class="game-card">
+                    <article class="game-card" data-game-status="ready">
                         <div class="game-media">
                             <img src="../images/dongsonz3.jpg" alt="Trò chơi lật thẻ họa tiết">
                         </div>
                         <div class="game-body">
                             <span class="game-eyebrow">Ghi nhớ</span>
+                            <span class="game-status" data-status-label>Đã sẵn sàng</span>
                             <h3>Lật thẻ họa tiết</h3>
                             <p>
                                 Lật 2 thẻ để tìm cặp hình giống nhau. Nếu trùng ảnh bạn sẽ được cộng điểm, còn lật sai
@@ -137,32 +138,34 @@
                         </div>
                     </article>
 
-                    <article class="game-card">
+                    <article class="game-card" data-game-status="ready">
                         <div class="game-media">
                             <img src="../images/dongsonz2.png" alt="Trò chơi ghép hình trống đồng">
                         </div>
                         <div class="game-body">
-                            <span class="game-eyebrow">Ghi nhớ</span>
+                            <span class="game-eyebrow">Khéo léo</span>
+                            <span class="game-status" data-status-label>Đã sẵn sàng</span>
                             <h3>Ghép hình trống đồng</h3>
-                            <p>Thử tài trí nhớ bằng cách ghép các mảnh họa tiết thành mặt trống hoàn chỉnh.</p>
+                            <p>Kéo các mảnh vào đúng vị trí để hoàn thành 3 cấp độ ghép mặt trống, từ 4 đến 9 mảnh.</p>
                             <div class="game-meta">
-                                <span><b>24</b> mảnh</span>
+                                <span><b>3</b> cấp độ</span>
                                 <span><b>Trung bình</b></span>
                             </div>
                             <a href="./game/puzzle.html" class="card-btn">Chơi ngay</a>
                         </div>
                     </article>
 
-                    <article class="game-card">
+                    <article class="game-card" data-game-status="ready">
                         <div class="game-media">
                             <img src="../images/dongsonz4.png" alt="Trò chơi đúng hay sai">
                         </div>
                         <div class="game-body">
                             <span class="game-eyebrow">Kiến thức</span>
+                            <span class="game-status" data-status-label>Đã sẵn sàng</span>
                             <h3>Đúng hay Sai?</h3>
-                            <p>Kiểm tra kiến thức của em về cổ vật Đông Sơn qua các nhận định nhanh.</p>
+                            <p>Trả lời 25 câu Đúng/Sai qua 5 chương; có thể dùng nút bấm, bàn phím hoặc điều khiển camera.</p>
                             <div class="game-meta">
-                                <span><b>10</b> câu lượt</span>
+                                <span><b>25</b> câu</span>
                                 <span><b>Khó</b></span>
                             </div>
                             <a href="./game/codechayquiz.html" class="card-btn">Chơi ngay</a>
@@ -250,6 +253,7 @@
         </div>
     </footer>
 
+    <script src="../js/auth-ui.js"></script>
     <script src="../js/trochoi.js"></script>
     <script src="../js/chatbox-ui.js"></script>
 </body>

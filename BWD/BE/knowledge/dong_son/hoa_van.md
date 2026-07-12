@@ -201,3 +201,13 @@ Hoa văn thể hiện nhiều hoạt động như giã gạo, đánh trống, m�
 - giã gạo
 - thuyền
 - lễ hội
+
+## Lưu ý khi giải thích hoa văn
+
+Chatbot nên mô tả trước những gì quan sát được như số cánh sao, vành chim, thuyền, nhà sàn hoặc cảnh sinh hoạt. Ý nghĩa biểu tượng của nhiều mô-típ vẫn có các cách giải thích khác nhau, vì vậy không nên trình bày một giả thuyết như kết luận duy nhất.
+
+## Nguồn tham khảo
+
+- Bảo tàng Lịch sử Quốc gia, “Bảo vật quốc gia: Trống Ngọc Lũ”: https://baotanglichsu.vn/vi/Articles/1001/73637/bao-vat-quoc-gia-trong-ngoc-lu.html
+- Bảo tàng Lịch sử Quốc gia, trưng bày chuyên đề Văn hóa Đông Sơn: https://baotanglichsu.vn/VI/Articles/4002/68892/trung-bay-chuyen-dje-van-hoa-djong-son.html
+- Bảo tàng Lịch sử Quốc gia, nghiên cứu hoa văn Ngọc Lũ: https://baotanglichsu.vn/VI/Articles/3101/16534/mot-cach-giai-ma-hoa-van-trong-djong-ngoc-lu-cua-nen-van-hoa-djong-son-viet-nam.html

@@ -532,12 +532,15 @@ async function endLevel(success) {
         setSwitchLevelBtnVisible(false);
         updateHUD();
         const synced = await submitPuzzleSession(false);
+        const unsyncedMessage = getStoredAuth().token
+            ? "Không thể đồng bộ điểm với máy chủ. Hãy kiểm tra kết nối rồi thử lại."
+            : "Điểm chưa được đồng bộ. Hãy đăng nhập để lưu điểm, lịch sử và thứ hạng.";
         finishRun();
         state.sessionStartedAt = null;
         setStatus(
             synced
                 ? "Hết giờ. Kết quả đã được lưu vào lịch sử chơi."
-                : "Hết giờ. Bạn có thể bấm Bắt đầu level để thử lại."
+                : `Hết giờ. ${unsyncedMessage}`
         );
         await renderRanking();
         return;
@@ -556,12 +559,15 @@ async function endLevel(success) {
         setStatus(`Hoàn thành Level ${state.currentLevel}! +${speedBonus} thưởng tốc độ, +50 thưởng hoàn thành.`);
     } else {
         const synced = await submitPuzzleSession(true);
+        const unsyncedMessage = getStoredAuth().token
+            ? "Không thể đồng bộ điểm với máy chủ. Hãy kiểm tra kết nối rồi thử lại."
+            : "Điểm chưa được đồng bộ. Hãy đăng nhập để lưu điểm, lịch sử và thứ hạng.";
         finishRun();
         state.sessionStartedAt = null;
         setStatus(
             synced
                 ? `Bạn đã phá đảo! Điểm cuối: ${state.score}. Kết quả đã được đồng bộ lên bảng xếp hạng.`
-                : `Bạn đã phá đảo! Điểm cuối: ${state.score}. Hãy đăng nhập để đồng bộ kết quả.`
+                : `Bạn đã phá đảo! Điểm cuối: ${state.score}. ${unsyncedMessage}`
         );
         await renderRanking();
     }
@@ -603,7 +609,7 @@ function resetGame() {
 function switchToAnotherLevel() {
     if (hasCompletedAllLevels()) {
         setSwitchLevelBtnVisible(false);
-        setStatus("Báº¡n Ä‘Ã£ hoÃ n thÃ nh toÃ n bá»™ 3 level. HÃ£y báº¥m ChÆ¡i láº¡i tá»« Ä‘áº§u náº¿u muá»‘n thá»­ má»™t lÆ°á»£t má»›i.");
+        setStatus("Bạn đã hoàn thành toàn bộ 3 level. Hãy bấm Chơi lại từ đầu nếu muốn thử một lượt mới.");
         return;
     }
 

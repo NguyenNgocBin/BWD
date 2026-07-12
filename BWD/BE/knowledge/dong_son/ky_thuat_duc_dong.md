@@ -147,6 +147,17 @@ Vì nghệ nhân Đông Sơn có kỹ thuật tạo khuôn và khắc hoa văn c
 - kỹ thuật đúc
 - nghệ nhân Đông Sơn
 
+## Những điểm cần trả lời thận trọng
+
+- Thành phần hợp kim không hoàn toàn giống nhau ở mọi trống; kết quả còn phụ thuộc mẫu phân tích.
+- Quy trình khuôn nhiều mảnh và phương pháp tạo hoa văn được phục dựng từ dấu vết trên hiện vật, mảnh khuôn khảo cổ và thực nghiệm.
+- Không nên gọi toàn bộ kỹ thuật đúc trống là “bí mật đã thất truyền”; giới nghiên cứu đã phục dựng được nhiều công đoạn, dù chi tiết kỹ thuật vẫn còn được thảo luận.
+
+## Nguồn tham khảo
+
+- Bảo tàng Lịch sử Quốc gia, “Kỹ thuật đúc trống Đông Sơn – lược sử nghiên cứu”: https://baotanglichsu.vn/DataFiles/2023/01/News/Tieng%20Viet/4.1.2023/Thong%20bao%20KH%20so%201%20nam%202022/007.pdf
+- Bảo tàng Lịch sử Quốc gia, trưng bày chuyên đề Văn hóa Đông Sơn: https://baotanglichsu.vn/VI/Articles/4002/68892/trung-bay-chuyen-dje-van-hoa-djong-son.html
+
 
 ---
 

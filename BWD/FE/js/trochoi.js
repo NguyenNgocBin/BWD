@@ -4,6 +4,7 @@
     const controls = document.querySelectorAll(".slide-btn");
     const heroName = document.getElementById("gameHeroName");
     const heroScore = document.getElementById("gameHeroScore");
+    const gameCards = Array.from(document.querySelectorAll(".game-card[data-game-status]"));
 
     // Lấy token và user đang lưu sau khi đăng nhập.
     function getStoredAuth() {
@@ -29,9 +30,32 @@
 
     // Chỉ thay tên và điểm hiện tại vì BE đã có user và total_score.
     function renderHeroUser(user) {
-        if (!user) return;
-        if (heroName) heroName.textContent = user.username || "Người chơi";
-        if (heroScore) heroScore.textContent = formatScore(user.total_score || 0);
+        if (heroName) heroName.textContent = user?.username || "Khách tham quan";
+        if (heroScore) heroScore.textContent = formatScore(user?.total_score || 0);
+    }
+
+    function renderGameStatuses() {
+        const { token } = getStoredAuth();
+        gameCards.forEach((card) => {
+            const status = card.dataset.gameStatus;
+            const label = card.querySelector("[data-status-label]");
+            const button = card.querySelector(".card-btn");
+            if (!label) return;
+
+            if (status === "development") {
+                label.textContent = "Đang phát triển";
+                label.dataset.state = "development";
+                if (button) {
+                    button.textContent = "Sắp ra mắt";
+                    button.setAttribute("aria-disabled", "true");
+                    button.removeAttribute("href");
+                }
+                return;
+            }
+
+            label.textContent = token ? "Đã sẵn sàng" : "Cần đăng nhập để lưu điểm";
+            label.dataset.state = token ? "ready" : "login-required";
+        });
     }
 
     // Lấy user mới nhất từ backend nếu có token.
@@ -58,6 +82,12 @@
     }
 
     hydrateHeroUser();
+    renderGameStatuses();
+    window.addEventListener("dongson:auth-changed", () => {
+        const { user } = getStoredAuth();
+        renderHeroUser(user);
+        renderGameStatuses();
+    });
 
     if (!track || !controls.length) return;
 

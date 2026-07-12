@@ -499,6 +499,16 @@
 .table-section {
   padding-top: 52px;
   padding-bottom: 52px;
+  min-width: 0;
+}
+
+.table-scroll {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  border-radius: 16px;
+  overscroll-behavior-inline: contain;
+  -webkit-overflow-scrolling: touch;
 }
 
 .leader-table {
@@ -614,6 +624,10 @@
   .leader-table td {
     padding: 11px 12px;
     font-size: 13px;
+  }
+
+  .leader-table {
+    min-width: 640px;
   }
 
   .podium-card,

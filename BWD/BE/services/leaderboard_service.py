@@ -40,7 +40,7 @@ def normalize_scope(scope_value):
 
 def build_entry(row, scope):
     selected_score = row["total_score"] if scope == "tong" else row["selected_game_score"]
-    return {
+    entry = {
         "rank": row["rank"],
         "user_id": row["user_id"],
         "username": row["username"],
@@ -59,6 +59,47 @@ def build_entry(row, scope):
         "puzzle_play_count": row["puzzle_play_count"],
         "motif_play_count": row["motif_play_count"],
         "selected_score": selected_score,
+    }
+    if scope != "tong":
+        entry.update(
+            {
+                "best_streak": row["selected_best_streak"],
+                "duration_seconds": row["selected_duration_seconds"],
+                "play_count": row["selected_play_count"],
+            }
+        )
+    return entry
+
+
+def build_public_entry(entry, scope):
+    common = {
+        "rank": entry["rank"],
+        "user_id": entry["user_id"],
+        "username": entry["username"],
+        "avatar": entry["avatar"],
+        "selected_score": entry["selected_score"],
+    }
+    if scope == "tong":
+        return {
+            **common,
+            "total_score": entry["total_score"],
+            "quiz_score": entry["quiz_score"],
+            "puzzle_score": entry["puzzle_score"],
+            "motif_score": entry["motif_score"],
+        }
+
+    score_field = {
+        "codechayquiz": "quiz_score",
+        "puzzle": "puzzle_score",
+        "motifhunt": "motif_score",
+    }[scope]
+    return {
+        **common,
+        score_field: entry[score_field],
+        "score": entry["selected_score"],
+        "best_streak": entry["best_streak"],
+        "duration_seconds": entry["duration_seconds"],
+        "play_count": entry["play_count"],
     }
 
 
@@ -183,7 +224,7 @@ def get_leaderboard(scope_value, limit_value, current_user=None):
         "message": "Lấy bảng xếp hạng thành công",
         "scope": scope,
         "title": title,
-        "entries": entries,
+        "entries": [build_public_entry(entry, scope) for entry in entries],
         "current_user": current_user_payload,
         "available_scopes": [
             {"scope": "tong", "label": "Tổng"},
