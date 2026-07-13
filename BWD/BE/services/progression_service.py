@@ -1,10 +1,12 @@
 import time
+from datetime import timedelta, timezone
 
 import repositories.progression_repo as progression_repo
 
 
 _CACHE_TTL_SECONDS = 30
 _progression_cache = {}
+HANOI_TIME_ZONE = timezone(timedelta(hours=7), name="Asia/Ho_Chi_Minh")
 
 
 DAILY_MISSIONS = (
@@ -39,7 +41,11 @@ def _serialize_achievement(row):
         "description": row["description"],
         "icon": row["icon"],
         "unlocked": row["unlocked"],
-        "unlocked_at": row["unlocked_at"].isoformat() if row["unlocked_at"] else None,
+        "unlocked_at": (
+            row["unlocked_at"].astimezone(HANOI_TIME_ZONE).isoformat()
+            if row["unlocked_at"]
+            else None
+        ),
     }
 
 

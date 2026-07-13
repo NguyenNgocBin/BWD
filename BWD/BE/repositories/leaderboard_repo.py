@@ -17,8 +17,8 @@ with filtered_sessions as (
     where g.code in ('motifhunt', 'puzzle', 'codechayquiz')
       and (
           %s = 'all'
-          or (%s = 'today' and gs.played_at >= ((now() at time zone 'Asia/Bangkok')::date at time zone 'Asia/Bangkok'))
-          or (%s = 'week' and gs.played_at >= (date_trunc('week', now() at time zone 'Asia/Bangkok') at time zone 'Asia/Bangkok'))
+          or (%s = 'today' and gs.played_at >= ((now() at time zone 'Asia/Ho_Chi_Minh')::date at time zone 'Asia/Ho_Chi_Minh'))
+          or (%s = 'week' and gs.played_at >= (date_trunc('week', now() at time zone 'Asia/Ho_Chi_Minh') at time zone 'Asia/Ho_Chi_Minh'))
       )
       and (%s is null or filter_user.class_group = %s)
 ),

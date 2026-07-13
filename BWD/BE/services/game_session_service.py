@@ -1,10 +1,18 @@
 import json
+from datetime import timedelta, timezone
 
 import repositories.game_repo as game_repo
 import repositories.game_session_repo as game_session_repo
 import repositories.leaderboard_repo as leaderboard_repo
 import services.auth_service as auth_service
 import services.progression_service as progression_service
+
+
+HANOI_TIME_ZONE = timezone(timedelta(hours=7), name="Asia/Ho_Chi_Minh")
+
+
+def _hanoi_isoformat(value):
+    return value.astimezone(HANOI_TIME_ZONE).isoformat() if value else None
 
 
 # Chuan hoa du lieu game session gui ve frontend.
@@ -24,7 +32,7 @@ def build_game_session_response(session_row, game):
         "best_streak": session_row["best_streak"],
         "level_reached": session_row["level_reached"],
         "metadata": session_row["metadata"],
-        "played_at": session_row["played_at"].isoformat() if session_row["played_at"] else None,
+        "played_at": _hanoi_isoformat(session_row["played_at"]),
     }
 
 
@@ -40,7 +48,7 @@ def build_user_game_stats_response(stats_row, game):
         "play_count": stats_row["play_count"],
         "best_streak": stats_row["best_streak"],
         "last_played_at": (
-            stats_row["last_played_at"].isoformat()
+            _hanoi_isoformat(stats_row["last_played_at"])
             if stats_row["last_played_at"]
             else None
         ),
@@ -62,7 +70,7 @@ def build_recent_session_item(session_row):
         "best_streak": session_row["best_streak"],
         "level_reached": session_row["level_reached"],
         "metadata": session_row["metadata"],
-        "played_at": session_row["played_at"].isoformat() if session_row["played_at"] else None,
+        "played_at": _hanoi_isoformat(session_row["played_at"]),
     }
 
 

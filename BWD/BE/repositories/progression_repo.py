@@ -43,14 +43,14 @@ select
     exists (
         select 1 from game_sessions gs join games g on g.id = gs.game_id
         where gs.user_id = %s and g.code = 'motifhunt'
-          and gs.played_at >= ((now() at time zone 'Asia/Bangkok')::date at time zone 'Asia/Bangkok')
-          and gs.played_at < (((now() at time zone 'Asia/Bangkok')::date + 1) at time zone 'Asia/Bangkok')
+          and gs.played_at >= ((now() at time zone 'Asia/Ho_Chi_Minh')::date at time zone 'Asia/Ho_Chi_Minh')
+          and gs.played_at < (((now() at time zone 'Asia/Ho_Chi_Minh')::date + 1) at time zone 'Asia/Ho_Chi_Minh')
     ) as motif_played,
     exists (
         select 1 from game_sessions gs join games g on g.id = gs.game_id
         where gs.user_id = %s and g.code = 'puzzle'
-          and gs.played_at >= ((now() at time zone 'Asia/Bangkok')::date at time zone 'Asia/Bangkok')
-          and gs.played_at < (((now() at time zone 'Asia/Bangkok')::date + 1) at time zone 'Asia/Bangkok')
+          and gs.played_at >= ((now() at time zone 'Asia/Ho_Chi_Minh')::date at time zone 'Asia/Ho_Chi_Minh')
+          and gs.played_at < (((now() at time zone 'Asia/Ho_Chi_Minh')::date + 1) at time zone 'Asia/Ho_Chi_Minh')
           and (
               coalesce(jsonb_array_length(gs.metadata -> 'completed_levels'), 0) > 0
               or coalesce((gs.metadata ->> 'completed')::boolean, false)
@@ -59,8 +59,8 @@ select
     coalesce((
         select sum(gs.correct_count) from game_sessions gs join games g on g.id = gs.game_id
         where gs.user_id = %s and g.code = 'codechayquiz'
-          and gs.played_at >= ((now() at time zone 'Asia/Bangkok')::date at time zone 'Asia/Bangkok')
-          and gs.played_at < (((now() at time zone 'Asia/Bangkok')::date + 1) at time zone 'Asia/Bangkok')
+          and gs.played_at >= ((now() at time zone 'Asia/Ho_Chi_Minh')::date at time zone 'Asia/Ho_Chi_Minh')
+          and gs.played_at < (((now() at time zone 'Asia/Ho_Chi_Minh')::date + 1) at time zone 'Asia/Ho_Chi_Minh')
     ), 0) as quiz_correct_count
 """
 

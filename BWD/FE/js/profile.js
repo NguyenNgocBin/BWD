@@ -4,6 +4,7 @@
     const LEADERBOARD_API_URL = `${BACKEND_ORIGIN}/api/v1/leaderboard/?scope=tong&limit=1`;
     const GAME_SESSIONS_API_URL = `${BACKEND_ORIGIN}/api/v1/game-sessions/me?limit=20`;
     const PROGRESSION_API_URL = `${BACKEND_ORIGIN}/api/v1/progression/me`;
+    const HANOI_TIME_ZONE = "Asia/Ho_Chi_Minh";
     const DEFAULT_AVATAR = "../images/dongsonz1.jpg";
     const AVATAR_OPTIONS = [
         { value: "../images/chim-lac-pattern.png", label: "Chim Lạc" },
@@ -110,6 +111,21 @@
 
     function formatScore(value) {
         return Number(value || 0).toLocaleString("vi-VN");
+    }
+
+    function hanoiDateKey(date) {
+        const parts = new Intl.DateTimeFormat("en-US", {
+            timeZone: HANOI_TIME_ZONE,
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+        }).formatToParts(date);
+        const value = (type) => parts.find((part) => part.type === type)?.value;
+        return `${value("year")}-${value("month")}-${value("day")}`;
+    }
+
+    function formatHanoiDate(date, options) {
+        return date.toLocaleDateString("vi-VN", { ...options, timeZone: HANOI_TIME_ZONE });
     }
 
     function resolveAvatar(avatar) {
@@ -290,17 +306,16 @@
         sessions.forEach((session) => {
             if (!session.played_at) return;
             const date = new Date(session.played_at);
-            const key = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+            const key = hanoiDateKey(date);
             scoreByDate.set(key, (scoreByDate.get(key) || 0) + Number(session.score || 0));
         });
 
         for (let offset = 6; offset >= 0; offset -= 1) {
             const date = new Date();
-            date.setHours(0, 0, 0, 0);
             date.setDate(date.getDate() - offset);
-            const key = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+            const key = hanoiDateKey(date);
             days.push({
-                label: date.toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit" }),
+                label: formatHanoiDate(date, { day: "2-digit", month: "2-digit" }),
                 score: scoreByDate.get(key) || 0,
             });
         }
@@ -389,7 +404,9 @@
                 els.historyList.innerHTML = "<p>Chưa có lượt chơi nào được đồng bộ.</p>";
             } else {
                 els.historyList.innerHTML = sessions.map((session) => {
-                    const playedAt = session.played_at ? new Date(session.played_at).toLocaleString("vi-VN") : "Không rõ thời gian";
+                    const playedAt = session.played_at
+                        ? new Date(session.played_at).toLocaleString("vi-VN", { timeZone: HANOI_TIME_ZONE })
+                        : "Không rõ thời gian";
                     return `
                         <article class="history-item">
                             <span class="dot">✓</span>
