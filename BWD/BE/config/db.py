@@ -1,8 +1,15 @@
 import os
 import urllib.parse
+from contextlib import contextmanager
+from threading import Lock
 
 import psycopg2
 import psycopg2.extras
+import psycopg2.pool
+
+
+_connection_pool = None
+_pool_lock = Lock()
 
 
 # Lay chuoi ket noi database tu bien moi truong va kiem tra gia tri co hop le khong.
@@ -36,11 +43,32 @@ def get_database_url():
 
 
 # Tao ket noi moi toi Supabase Postgres de thuc thi truy van.
+def _get_connection_pool():
+    global _connection_pool
+    if _connection_pool is None:
+        with _pool_lock:
+            if _connection_pool is None:
+                _connection_pool = psycopg2.pool.ThreadedConnectionPool(
+                    1,
+                    10,
+                    get_database_url(),
+                    cursor_factory=psycopg2.extras.RealDictCursor,
+                )
+    return _connection_pool
+
+
+@contextmanager
 def get_connection():
-    return psycopg2.connect(
-        get_database_url(),
-        cursor_factory=psycopg2.extras.RealDictCursor,
-    )
+    pool = _get_connection_pool()
+    connection = pool.getconn()
+    try:
+        yield connection
+        connection.commit()
+    except Exception:
+        connection.rollback()
+        raise
+    finally:
+        pool.putconn(connection)
 
 
 # Chay truy van va lay ve duy nhat mot dong du lieu.

@@ -535,6 +535,14 @@
         }
     });
 
-    render(getInitialScope());
+    const initialScope = getInitialScope();
+    // Khởi động tải cả bốn tab ngay lập tức. render() sẽ dùng lại chính Promise
+    // đang chạy nên không tạo request trùng cho tab hiện tại.
+    Object.keys(scopeLabels).forEach((scope) => {
+        fetchLeaderboard(scope).catch(() => {
+            // Tab lỗi vẫn được render() xử lý khi người dùng mở tab đó.
+        });
+    });
+    render(initialScope);
     initLazyCardAnimation();
 })();
