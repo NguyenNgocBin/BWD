@@ -1,5 +1,6 @@
 import repositories.leaderboard_repo as leaderboard_repo
 import repositories.user_repo as user_repo
+import services.progression_service as progression_service
 
 
 GAME_LABELS = {
@@ -36,6 +37,20 @@ def normalize_scope(scope_value):
     if scope not in {"tong", "puzzle", "codechayquiz", "motifhunt"}:
         raise LeaderboardError("Scope không hợp lệ")
     return scope
+
+
+def normalize_period(period_value):
+    period = (period_value or "all").strip().lower()
+    if period not in {"all", "week", "today"}:
+        raise LeaderboardError("Khoảng thời gian không hợp lệ.")
+    return period
+
+
+def normalize_group(group_value):
+    group = (group_value or "").strip()
+    if len(group) > 120:
+        raise LeaderboardError("Tên lớp/nhóm quá dài.")
+    return group or None
 
 
 def build_entry(row, scope):
@@ -117,7 +132,7 @@ def get_best_game_label(entry):
     return GAME_LABELS[best_code]
 
 
-def build_current_user_payload(current_user, entries, scope):
+def build_current_user_payload(current_user, entries, scope, period="all", class_group=None):
     if not current_user:
         return None
 
@@ -125,7 +140,7 @@ def build_current_user_payload(current_user, entries, scope):
         "user_id": current_user.id,
         "username": current_user.username,
         "avatar": current_user.avatar,
-        "total_score": current_user.total_score,
+        "total_score": current_user.total_score if period == "all" and not class_group else 0,
         "quiz_score": 0,
         "puzzle_score": 0,
         "motif_score": 0,
@@ -138,7 +153,7 @@ def build_current_user_payload(current_user, entries, scope):
         "quiz_play_count": 0,
         "puzzle_play_count": 0,
         "motif_play_count": 0,
-        "selected_score": current_user.total_score if scope == "tong" else 0,
+        "selected_score": current_user.total_score if scope == "tong" and period == "all" and not class_group else 0,
         "rank": None,
         "best_game": "Chưa có",
     }
@@ -170,7 +185,12 @@ def build_current_user_payload(current_user, entries, scope):
         break
 
     if base["rank"] is None:
-        if scope == "tong":
+        if period != "all" or class_group:
+            user_rows = leaderboard_repo.get_filtered_leaderboard(
+                scope, period, class_group, 1, current_user.id
+            )
+            user_row = user_rows[0] if user_rows else None
+        elif scope == "tong":
             user_row = leaderboard_repo.get_total_leaderboard_entry_by_user(current_user.id)
         else:
             user_row = leaderboard_repo.get_game_leaderboard_entry_by_user(scope, current_user.id)
@@ -201,11 +221,24 @@ def build_current_user_payload(current_user, entries, scope):
     return base
 
 
-def get_leaderboard(scope_value, limit_value, current_user=None):
+def get_leaderboard(
+    scope_value,
+    limit_value,
+    current_user=None,
+    period_value=None,
+    group_value=None,
+):
     scope = normalize_scope(scope_value)
     limit = parse_limit(limit_value)
+    period = normalize_period(period_value)
+    class_group = normalize_group(group_value)
 
-    if scope == "tong":
+    if period != "all" or class_group:
+        rows = leaderboard_repo.get_filtered_leaderboard(
+            scope, period, class_group, limit
+        )
+        title = "Tổng điểm" if scope == "tong" else GAME_LABELS[scope]
+    elif scope == "tong":
         rows = leaderboard_repo.get_total_leaderboard(limit)
         title = "Tổng điểm"
     else:
@@ -213,9 +246,19 @@ def get_leaderboard(scope_value, limit_value, current_user=None):
         title = GAME_LABELS[scope]
 
     entries = [build_entry(row, scope) for row in rows]
+    public_entries = progression_service.attach_featured_achievements(
+        [build_public_entry(entry, scope) for entry in entries]
+    )
 
-    current_user_payload = build_current_user_payload(current_user, entries, scope)
-    if current_user_payload and current_user_payload["rank"] is None:
+    current_user_payload = build_current_user_payload(
+        current_user, entries, scope, period, class_group
+    )
+    if (
+        current_user_payload
+        and current_user_payload["rank"] is None
+        and period == "all"
+        and not class_group
+    ):
         fresh_user = user_repo.find_user_by_id(current_user.id)
         if fresh_user:
             current_user_payload["total_score"] = fresh_user.total_score
@@ -223,8 +266,10 @@ def get_leaderboard(scope_value, limit_value, current_user=None):
     return {
         "message": "Lấy bảng xếp hạng thành công",
         "scope": scope,
+        "period": period,
+        "group": class_group,
         "title": title,
-        "entries": [build_public_entry(entry, scope) for entry in entries],
+        "entries": public_entries,
         "current_user": current_user_payload,
         "available_scopes": [
             {"scope": "tong", "label": "Tổng"},

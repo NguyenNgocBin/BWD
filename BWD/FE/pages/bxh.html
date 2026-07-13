@@ -79,6 +79,22 @@
             <button class="tab-btn" type="button" id="tab-dungsai" data-tab="codechayquiz">⚡ Đúng / Sai</button>
         </section>
 
+        <section class="leaderboard-filters container" aria-label="Bộ lọc thời gian và lớp nhóm">
+            <label>
+                <span>Thời gian</span>
+                <select id="periodFilter">
+                    <option value="all">Tổng mọi thời gian</option>
+                    <option value="week">Tuần này</option>
+                    <option value="today">Hôm nay</option>
+                </select>
+            </label>
+            <label>
+                <span>Lớp / nhóm</span>
+                <input id="groupFilter" type="text" maxlength="120" placeholder="Tất cả lớp / nhóm">
+            </label>
+            <button type="button" id="applyLeaderboardFilter">Áp dụng</button>
+        </section>
+
         <section class="podium-section container">
             <div class="podium-grid">
                 <article class="podium-card podium-side second lazy-card" id="cardSecond">

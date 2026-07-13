@@ -24,6 +24,7 @@ def build_user_response(user):
         "email": user.email,
         "avatar": user.avatar,
         "total_score": user.total_score,
+        "class_group": user.class_group,
     }
 
 
@@ -124,7 +125,7 @@ def change_user_password(user, current_password, new_password):
 
 
 # Xu ly cap nhat thong tin ho so va kiem tra trung lap email, username.
-def update_current_user_profile(user, username=None, email=None, avatar=None):
+def update_current_user_profile(user, username=None, email=None, avatar=None, class_group=None):
     if username is not None:
         username = username.strip()
         if not username:
@@ -151,12 +152,19 @@ def update_current_user_profile(user, username=None, email=None, avatar=None):
         avatar = avatar.strip()
         user.avatar = avatar or "default-avatar.png"
 
+    if class_group is not None:
+        class_group = class_group.strip() or None
+        if class_group and len(class_group) > 120:
+            raise AuthError("Tên lớp/nhóm không được dài quá 120 ký tự.")
+        user.class_group = class_group
+
     try:
         updated_user = user_repo.update_user_profile(
             user.id,
             user.username,
             user.email,
             user.avatar,
+            user.class_group,
         )
     except psycopg2.errors.UniqueViolation as error:
         raise AuthError("Email hoặc tên người dùng đã tồn tại.") from error

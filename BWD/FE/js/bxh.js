@@ -18,6 +18,9 @@
     const tabButtons = Array.from(document.querySelectorAll(".tab-btn"));
     const bodyEl = document.getElementById("leaderTableBody");
     const tableHeadRowEl = document.querySelector(".leader-table thead tr");
+    const periodFilterEl = document.getElementById("periodFilter");
+    const groupFilterEl = document.getElementById("groupFilter");
+    const applyFilterBtn = document.getElementById("applyLeaderboardFilter");
 
     const ids = {
         userScore: document.getElementById("userScore"),
@@ -96,6 +99,8 @@
     };
 
     let activeScope = "tong";
+    let activePeriod = "all";
+    let activeGroup = "";
     const leaderboardCache = new Map();
     const leaderboardRequestCache = new Map();
     const currentUserCache = new Map();
@@ -192,7 +197,7 @@
     }
 
     function getLeaderboardCacheKey(scope, token) {
-        return `${scope}::${token || "guest"}`;
+        return `${scope}::${activePeriod}::${activeGroup}::${token || "guest"}`;
     }
 
     async function fetchLeaderboard(scope, options = {}) {
@@ -208,7 +213,9 @@
         }
 
         const headers = token ? { Authorization: `Bearer ${token}` } : {};
-        const request = fetch(`${LEADERBOARD_API_URL}?scope=${encodeURIComponent(scope)}&limit=20`, {
+        const params = new URLSearchParams({ scope, limit: "20", period: activePeriod });
+        if (activeGroup) params.set("group", activeGroup);
+        const request = fetch(`${LEADERBOARD_API_URL}?${params.toString()}`, {
             headers,
             cache: "no-store",
         })
@@ -319,12 +326,17 @@
                 (row) => `
                 <tr>
                     <td>#${row.rank}</td>
-                    <td class="player-cell"><img src="${resolveAvatarUrl(row.avatar)}" alt="${escapeHtml(row.username)}" onerror="${buildAvatarFallbackAttribute(DEFAULT_AVATAR)}">${escapeHtml(row.username)}</td>
+                    <td class="player-cell"><img src="${resolveAvatarUrl(row.avatar)}" alt="${escapeHtml(row.username)}" onerror="${buildAvatarFallbackAttribute(DEFAULT_AVATAR)}"><span>${escapeHtml(row.username)}${renderBadges(row.badges)}</span></td>
                     ${config.cells(row).map((cell, index, cells) => `<td class="${index === cells.length - 1 ? "score-col" : ""}">${cell}</td>`).join("")}
                 </tr>
             `
             )
             .join("");
+    }
+
+    function renderBadges(badges) {
+        if (!Array.isArray(badges) || !badges.length) return "";
+        return `<span class="leader-badges">${badges.map((badge) => `<span class="leader-badge" title="${escapeHtml(badge.title)}">${escapeHtml(badge.icon)} ${escapeHtml(badge.title)}</span>`).join("")}</span>`;
     }
 
     function setPodiumAvatar(element, avatarUrl, fallbackAvatar) {
@@ -353,6 +365,9 @@
         ids[`${key}Name`].textContent = entry.username;
         ids[`${key}Score`].textContent = `${formatScore(selectedScore)} điểm`;
         ids[`${key}Tag`].textContent = buildPodiumTag(scope, index);
+        if (entry.badges?.length) {
+            ids[`${key}Tag`].textContent = `${entry.badges[0].icon} ${entry.badges[0].title}`;
+        }
         ids[`${key}Note`].textContent = buildPodiumNote(entry, scope);
         setPodiumAvatar(ids[`${key}Avatar`], entry.avatar, PODIUM_AVATARS[index] || DEFAULT_AVATAR);
     }
@@ -480,6 +495,14 @@
         btn.addEventListener("click", () => {
             render(btn.dataset.tab);
         });
+    });
+
+    applyFilterBtn?.addEventListener("click", () => {
+        activePeriod = periodFilterEl?.value || "all";
+        activeGroup = groupFilterEl?.value.trim() || "";
+        leaderboardCache.clear();
+        leaderboardRequestCache.clear();
+        render(activeScope);
     });
 
     function initLazyCardAnimation() {

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lộ trình học Đông Sơn</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/learning-path.css">
+    <link rel="stylesheet" href="../css/chatbox.css">
+</head>
+<body>
+    <header class="site-header">
+        <a class="brand" href="../index.html">Đông Sơn</a>
+        <nav class="main-nav" aria-label="Menu chính">
+            <a class="menu-link" href="../index.html">Trang chủ</a>
+            <a class="menu-link" href="./hocvui.html">Học vui</a>
+            <a class="menu-link" href="./tailieu.html">Tài liệu</a>
+            <a class="menu-link" href="./trochoi.html">Trò chơi</a>
+        </nav>
+        <a class="btn-login" href="./login.html">Đăng nhập</a>
+    </header>
+
+    <main class="path-main container">
+        <section class="path-hero">
+            <p>Lộ trình nhập môn · 5 bài</p>
+            <h1>Học từng bước,<br>kiểm tra bằng game</h1>
+            <div class="path-progress"><span id="pathProgressBar"></span></div>
+            <strong id="pathProgressText">0/5 bài hoàn thành</strong>
+        </section>
+
+        <div class="path-layout">
+            <nav class="lesson-nav" id="lessonNav" aria-label="Các bài học">
+                <button data-lesson="1"><span>01</span>Trống đồng là gì</button>
+                <button data-lesson="2"><span>02</span>Hoa văn và biểu tượng</button>
+                <button data-lesson="3"><span>03</span>Kỹ thuật đúc đồng</button>
+                <button data-lesson="4"><span>04</span>Hiện vật tiêu biểu</button>
+                <button data-lesson="5"><span>05</span>Kiểm tra bằng game</button>
+            </nav>
+
+            <section class="lesson-stage">
+                <article class="lesson-panel" data-lesson-panel="1">
+                    <p class="lesson-kicker">Bài 1 · Nền tảng</p><h2>Trống đồng là gì?</h2>
+                    <p>Trống đồng Đông Sơn là nhạc khí và hiện vật nghi lễ tiêu biểu của cư dân Việt cổ. Hình dáng gồm mặt, tang, thân và chân; bề mặt lưu giữ nhiều lớp thông tin về đời sống và tín ngưỡng.</p>
+                    <ul><li>Nhận biết cấu tạo cơ bản.</li><li>Hiểu vai trò nhạc khí, nghi lễ và biểu tượng quyền lực.</li><li>Phân biệt văn hóa Đông Sơn với tên gọi một hiện vật riêng.</li></ul>
+                    <a href="./tailieu.html#overview">Đọc tài liệu mở rộng →</a>
+                </article>
+                <article class="lesson-panel" data-lesson-panel="2" hidden>
+                    <p class="lesson-kicker">Bài 2 · Quan sát</p><h2>Hoa văn và biểu tượng</h2>
+                    <p>Mặt trống thường có ngôi sao nhiều cánh ở trung tâm, bao quanh bởi vành hình học, chim bay, thuyền, nhà sàn và cảnh sinh hoạt. Cần phân biệt mô tả quan sát với các giả thuyết diễn giải biểu tượng.</p>
+                    <ul><li>Ngôi sao/mặt trời tạo tâm bố cục.</li><li>Chim Lạc và các dải chuyển động.</li><li>Cảnh người, thuyền và sinh hoạt cộng đồng.</li></ul>
+                    <a href="./tailieu.html#motifs">Xem thư viện hoa văn →</a>
+                </article>
+                <article class="lesson-panel" data-lesson-panel="3" hidden>
+                    <p class="lesson-kicker">Bài 3 · Công nghệ</p><h2>Kỹ thuật đúc đồng</h2>
+                    <p>Nghệ nhân Đông Sơn kiểm soát hợp kim, khuôn đúc nhiều phần và nhiệt độ để tạo vật thể lớn, thành tương đối mỏng nhưng hoa văn rõ. Nhiều công đoạn đã được phục dựng qua khảo cổ và thực nghiệm.</p>
+                    <ul><li>Tạo mẫu và khuôn.</li><li>Nấu, rót hợp kim đồng.</li><li>Tháo khuôn, hoàn thiện và xử lý bề mặt.</li></ul>
+                    <a href="./tailieu.html#anatomy">Tìm hiểu cấu tạo →</a>
+                </article>
+                <article class="lesson-panel" data-lesson-panel="4" hidden>
+                    <p class="lesson-kicker">Bài 4 · So sánh</p><h2>Hiện vật tiêu biểu</h2>
+                    <p>Ngọc Lũ, Hoàng Hạ và Cổ Loa là ba điểm neo quan trọng để so sánh bố cục, bối cảnh phát hiện và giá trị lịch sử.</p>
+                    <div class="lesson-artifacts"><a href="./hien-vat.html?id=ngoc-lu">Ngọc Lũ</a><a href="./hien-vat.html?id=hoang-ha">Hoàng Hạ</a><a href="./hien-vat.html?id=co-loa">Cổ Loa</a></div>
+                </article>
+                <article class="lesson-panel" data-lesson-panel="5" hidden>
+                    <p class="lesson-kicker">Bài 5 · Kiểm tra</p><h2>Kiểm tra bằng game</h2>
+                    <p>Hoàn thành game Đúng/Sai để kiểm tra kiến thức của bốn bài trước. Nếu đăng nhập, kết quả được dùng để tự động xác nhận bài học này.</p>
+                    <a class="lesson-game-button" href="./game/codechayquiz.html">Bắt đầu kiểm tra 25 câu</a>
+                    <p id="quizLessonStatus">Chưa tìm thấy kết quả quiz đã đồng bộ.</p>
+                </article>
+                <div class="lesson-actions">
+                    <button type="button" id="previousLesson">← Bài trước</button>
+                    <button type="button" id="completeLesson">Đánh dấu hoàn thành</button>
+                    <button type="button" id="nextLesson">Bài tiếp →</button>
+                </div>
+            </section>
+        </div>
+    </main>
+    <script src="../js/auth-ui.js"></script>
+    <script src="../js/learning-path.js"></script>
+    <script src="../js/chatbox-ui.js"></script>
+</body>
+</html>

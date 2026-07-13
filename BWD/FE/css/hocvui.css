@@ -738,3 +738,12 @@ body > main :is(
 body > main :is(.leader-table thead th, .leaderboard-rest-head, .tab-btn.active) {
     color: var(--ds-patina-soft);
 }
+.learning-path-link {
+    display: inline-flex;
+    margin-top: 20px;
+    padding: 12px 18px;
+    border-radius: 10px;
+    background: #c9922a;
+    color: #21150c;
+    font-weight: 900;
+}

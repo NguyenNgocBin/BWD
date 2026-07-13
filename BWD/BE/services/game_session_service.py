@@ -4,6 +4,7 @@ import repositories.game_repo as game_repo
 import repositories.game_session_repo as game_session_repo
 import repositories.leaderboard_repo as leaderboard_repo
 import services.auth_service as auth_service
+import services.progression_service as progression_service
 
 
 # Chuan hoa du lieu game session gui ve frontend.
@@ -175,12 +176,15 @@ def create_user_game_session(user, payload):
             "duration_seconds": leaderboard_row["selected_duration_seconds"],
         }
 
+    progression = progression_service.evaluate_user_progress(user.id)
+
     return {
         "message": "Luu ket qua choi game thanh cong",
         "session": build_game_session_response(session_row, game),
         "game_stats": build_user_game_stats_response(stats_row, game),
         "user_total_score": user_row["total_score"],
         "leaderboard": leaderboard,
+        "progression": progression,
     }
 
 

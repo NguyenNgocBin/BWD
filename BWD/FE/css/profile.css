@@ -754,6 +754,31 @@ body.avatar-picker-open {
     margin-top: 14px;
 }
 
+.badge-item small {
+    display: block;
+    margin-top: 8px;
+    color: #9ed5ad;
+    font-size: 10px;
+}
+
+.badge-item.locked small {
+    color: #8d8176;
+}
+
+.daily-reward-note {
+    margin-top: 16px;
+    padding: 12px;
+    border: 1px solid rgba(201, 146, 42, 0.28);
+    border-radius: 10px;
+    color: #f1ce72;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.task-row.is-complete .progress span {
+    background: #70b890;
+}
+
 .btn-ghost,
 .btn-danger {
     display: inline-flex;

@@ -27,3 +27,6 @@ Trang Học vui có hiệu ứng scroll reveal. Khi người dùng cuộn trang,
 
 Nên gợi ý bắt đầu ở trang Học vui nếu người dùng chưa biết trống đồng là gì. Sau khi đọc Học vui, người dùng có thể vào Tài liệu để học sâu hơn hoặc vào Trò chơi để ôn lại kiến thức.
 
+# Lộ trình học 5 bài
+
+Từ trang Học vui, người dùng có thể mở `/pages/lo-trinh.html` để học theo thứ tự: Trống đồng là gì; Hoa văn và biểu tượng; Kỹ thuật đúc đồng; Hiện vật tiêu biểu; Kiểm tra bằng game. Tiến độ bốn bài đầu được lưu trên trình duyệt. Bài 5 tự xác nhận khi tài khoản có kết quả game Đúng/Sai đã đồng bộ.

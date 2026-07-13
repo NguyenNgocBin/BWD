@@ -11,6 +11,7 @@ class User:
     password_hash: str
     avatar: str
     total_score: int
+    class_group: str | None
 
 
 # Chuyen du lieu dang dict tu database thanh doi tuong User de de su dung.
@@ -25,6 +26,7 @@ def row_to_user(row):
         password_hash=row["password_hash"],
         avatar=row["avatar"],
         total_score=row["total_score"],
+        class_group=row.get("class_group"),
     )
 
 
@@ -32,7 +34,7 @@ def row_to_user(row):
 def find_user_by_id(user_id):
     row = db.fetch_one(
         """
-        select id, username, email, password_hash, avatar, total_score
+        select id, username, email, password_hash, avatar, total_score, class_group
         from users
         where id = %s
         """,
@@ -45,7 +47,7 @@ def find_user_by_id(user_id):
 def find_user_by_email(email):
     row = db.fetch_one(
         """
-        select id, username, email, password_hash, avatar, total_score
+        select id, username, email, password_hash, avatar, total_score, class_group
         from users
         where email = %s
         """,
@@ -58,7 +60,7 @@ def find_user_by_email(email):
 def find_user_by_username(username):
     row = db.fetch_one(
         """
-        select id, username, email, password_hash, avatar, total_score
+        select id, username, email, password_hash, avatar, total_score, class_group
         from users
         where username = %s
         """,
@@ -73,7 +75,7 @@ def create_user(username, email, password_hash):
         """
         insert into users (username, email, password_hash)
         values (%s, %s, %s)
-        returning id, username, email, password_hash, avatar, total_score
+        returning id, username, email, password_hash, avatar, total_score, class_group
         """,
         (username, email, password_hash),
         fetch_one_result=True,
@@ -95,18 +97,19 @@ def update_user_password(user_id, password_hash):
 
 
 # Cap nhat thong tin ho so va tra ve user sau khi luu.
-def update_user_profile(user_id, username, email, avatar):
+def update_user_profile(user_id, username, email, avatar, class_group=None):
     row = db.execute(
         """
         update users
         set username = %s,
             email = %s,
             avatar = %s,
+            class_group = %s,
             updated_at = now()
         where id = %s
-        returning id, username, email, password_hash, avatar, total_score
+        returning id, username, email, password_hash, avatar, total_score, class_group
         """,
-        (username, email, avatar, user_id),
+        (username, email, avatar, class_group, user_id),
         fetch_one_result=True,
     )
     return row_to_user(row)

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết hiện vật Đông Sơn</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/artifact-detail.css">
+    <link rel="stylesheet" href="../css/chatbox.css">
+</head>
+<body>
+    <header class="site-header">
+        <a class="brand" href="../index.html">Đông Sơn</a>
+        <nav class="main-nav" aria-label="Menu chính">
+            <a class="menu-link" href="../index.html">Trang chủ</a>
+            <a class="menu-link" href="./hocvui.html">Học vui</a>
+            <a class="menu-link" href="./tailieu.html">Tài liệu</a>
+            <a class="menu-link" href="./Map.html">Bản đồ</a>
+        </nav>
+        <a class="btn-login" href="./login.html">Đăng nhập</a>
+    </header>
+
+    <main class="artifact-detail-main">
+        <section class="artifact-hero container">
+            <div class="artifact-image"><img id="artifactImage" src="../images/TrongDong.png" alt="Hiện vật Đông Sơn"></div>
+            <div class="artifact-intro">
+                <p class="artifact-kicker" id="artifactType">Hiện vật Đông Sơn</p>
+                <h1 id="artifactTitle">Đang tải hiện vật...</h1>
+                <p id="artifactSummary"></p>
+                <dl class="artifact-facts">
+                    <div><dt>Niên đại</dt><dd id="artifactEra">—</dd></div>
+                    <div><dt>Nơi phát hiện</dt><dd id="artifactFound">—</dd></div>
+                    <div><dt>Nơi lưu giữ</dt><dd id="artifactMuseum">—</dd></div>
+                </dl>
+                <a class="artifact-map-link" id="artifactMapLink" href="./Map.html">Xem trên bản đồ →</a>
+            </div>
+        </section>
+
+        <section class="artifact-content container">
+            <article><h2>Mô tả</h2><p id="artifactDescription"></p></article>
+            <article><h2>Hoa văn nổi bật</h2><ul id="artifactMotifs"></ul></article>
+            <article class="artifact-map-panel"><h2>Bản đồ nơi phát hiện</h2><iframe id="artifactMap" title="Bản đồ nơi phát hiện hiện vật" loading="lazy"></iframe></article>
+            <article class="artifact-questions"><h2>Câu hỏi liên quan</h2><div id="artifactQuestions"></div></article>
+        </section>
+
+        <section class="artifact-more container">
+            <h2>Khám phá hiện vật khác</h2>
+            <nav id="artifactNavigation" aria-label="Danh sách hiện vật"></nav>
+        </section>
+    </main>
+    <script src="../js/auth-ui.js"></script>
+    <script src="../js/artifact-detail.js"></script>
+    <script src="../js/chatbox-ui.js"></script>
+</body>
+</html>

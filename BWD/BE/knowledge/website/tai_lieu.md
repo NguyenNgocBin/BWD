@@ -82,3 +82,6 @@ Trang giới thiệu:
 
 Trang có các liên kết nguồn từ Bảo tàng Lịch sử Quốc gia và tài liệu liên quan đến trống đồng Việt Nam, trống Ngọc Lũ, trống Hoàng Hạ, trống Tân Long.
 
+# Trang chi tiết hiện vật
+
+Các thẻ Ngọc Lũ, Hoàng Hạ, Cổ Loa và Tân Long dẫn tới `/pages/hien-vat.html?id=...`. Trang chi tiết có ảnh, niên đại, nơi phát hiện, nơi lưu giữ, mô tả, hoa văn nổi bật, câu hỏi liên quan và bản đồ nơi phát hiện.

@@ -77,6 +77,7 @@ def update_profile():
             data.get("username"),
             data.get("email"),
             data.get("avatar"),
+            data.get("class_group"),
         )
         return flask.jsonify(result), 200
     except auth_service.AuthError as error:

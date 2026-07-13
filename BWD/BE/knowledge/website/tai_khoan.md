@@ -76,6 +76,9 @@ Dữ liệu thật từ backend hiện được dùng cho:
 - Email.
 - Avatar nếu có.
 - Total score.
+- Điểm tốt nhất theo từng game, lịch sử chơi và biểu đồ tiến bộ.
+- Huy hiệu đã mở khóa và ba nhiệm vụ hằng ngày.
+- Người dùng có thể khai báo lớp/nhóm để dùng bộ lọc bảng xếp hạng trường học.
 
 Các thống kê khác như số lượt chơi, độ chính xác, chuỗi ngày, huy hiệu và lịch sử hoạt động hiện chủ yếu là dữ liệu giao diện mẫu.
 

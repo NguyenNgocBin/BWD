@@ -583,3 +583,16 @@ function renderPlaceList() {
 }
 
 renderPlaceList();
+
+const detailParams = new URLSearchParams(window.location.search);
+const detailLat = Number(detailParams.get("lat"));
+const detailLon = Number(detailParams.get("lon"));
+if (Number.isFinite(detailLat) && Number.isFinite(detailLon)) {
+    const artifactName = detailParams.get("artifact") || "Nơi phát hiện hiện vật";
+    const target = [detailLat, detailLon];
+    map.setView(target, 11);
+    L.marker(target, { title: artifactName })
+        .addTo(map)
+        .bindPopup(`<strong>${artifactName}</strong><br>Nơi phát hiện được ghi nhận`)
+        .openPopup();
+}

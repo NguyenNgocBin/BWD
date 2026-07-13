@@ -128,6 +128,68 @@ create table if not exists user_game_stats (
 create index if not exists idx_user_game_stats_game_best on user_game_stats (game_id, best_score desc);
 create index if not exists idx_user_game_stats_user on user_game_stats (user_id);
 
+-- Huy hieu/thanh tuu duoc mo khoa tu ket qua choi that.
+create table if not exists achievements (
+    id serial primary key,
+    code varchar(60) not null unique,
+    title varchar(160) not null,
+    description text not null,
+    icon varchar(20) not null default '🏅',
+    display_order integer not null default 0,
+    is_active boolean not null default true
+);
+
+alter table users add column if not exists class_group varchar(120);
+
+create table if not exists user_achievements (
+    user_id integer not null references users(id) on delete cascade,
+    achievement_id integer not null references achievements(id) on delete cascade,
+    unlocked_at timestamptz not null default now(),
+    primary key (user_id, achievement_id)
+);
+
+create index if not exists idx_user_achievements_user on user_achievements (user_id, unlocked_at desc);
+
+insert into achievements (code, title, description, icon, display_order)
+values
+    ('drum_decoder', 'Người giải mã trống đồng', 'Hoàn thành ít nhất một lượt Đúng/Sai.', '◉', 1),
+    ('puzzle_master', 'Bậc thầy ghép hình', 'Hoàn thành đủ ba level Ghép hình.', '✦', 2),
+    ('quiz_streak_10', 'Chuỗi đúng 10 câu', 'Đạt chuỗi đúng ít nhất 10 câu trong game Đúng/Sai.', '⚡', 3),
+    ('all_games', 'Hoàn thành 3 game', 'Có kết quả được đồng bộ ở cả ba game.', '★', 4),
+    ('daily_hero', 'Sứ giả mỗi ngày', 'Hoàn thành cả ba nhiệm vụ hằng ngày.', '☀', 5)
+on conflict (code) do update set
+    title = excluded.title,
+    description = excluded.description,
+    icon = excluded.icon,
+    display_order = excluded.display_order,
+    is_active = true;
+
+-- Backfill thanh tuu cho du lieu choi da co truoc khi tinh nang duoc them.
+insert into user_achievements (user_id, achievement_id)
+select earned.user_id, a.id
+from (
+    select distinct gs.user_id, 'drum_decoder' as code
+    from game_sessions gs join games g on g.id = gs.game_id
+    where g.code = 'codechayquiz'
+    union
+    select distinct gs.user_id, 'puzzle_master'
+    from game_sessions gs join games g on g.id = gs.game_id
+    where g.code = 'puzzle' and coalesce(gs.level_reached, 0) >= 3
+      and coalesce((gs.metadata ->> 'completed')::boolean, false)
+    union
+    select distinct gs.user_id, 'quiz_streak_10'
+    from game_sessions gs join games g on g.id = gs.game_id
+    where g.code = 'codechayquiz' and gs.best_streak >= 10
+    union
+    select ugs.user_id, 'all_games'
+    from user_game_stats ugs join games g on g.id = ugs.game_id
+    where ugs.play_count > 0 and g.code in ('motifhunt', 'puzzle', 'codechayquiz')
+    group by ugs.user_id
+    having count(distinct g.code) = 3
+) earned
+join achievements a on a.code = earned.code
+on conflict (user_id, achievement_id) do nothing;
+
 -- Dong bo du lieu cu: tong diem user la tong diem tot nhat cua 3 game.
 update users u
 set total_score = coalesce(

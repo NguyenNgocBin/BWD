@@ -3,6 +3,7 @@
     const API_BASE_URL = `${BACKEND_ORIGIN}/api/v1/auth`;
     const LEADERBOARD_API_URL = `${BACKEND_ORIGIN}/api/v1/leaderboard/?scope=tong&limit=1`;
     const GAME_SESSIONS_API_URL = `${BACKEND_ORIGIN}/api/v1/game-sessions/me?limit=20`;
+    const PROGRESSION_API_URL = `${BACKEND_ORIGIN}/api/v1/progression/me`;
     const DEFAULT_AVATAR = "../images/dongsonz1.jpg";
     const AVATAR_OPTIONS = [
         { value: "../images/chim-lac-pattern.png", label: "Chim Lạc" },
@@ -26,6 +27,9 @@
         kpiStreak: document.getElementById("kpiStreak"),
         achievementCards: document.getElementById("achievementCards"),
         historyList: document.getElementById("historyList"),
+        badgeGrid: document.getElementById("badgeGrid"),
+        dailyMissionList: document.getElementById("dailyMissionList"),
+        dailyRewardNote: document.getElementById("dailyRewardNote"),
         progressChart: document.getElementById("progressChart"),
         progressChartSummary: document.getElementById("progressChartSummary"),
         changeAvatarBtn: document.getElementById("changeAvatarBtn"),
@@ -35,6 +39,7 @@
         cancelAvatarBtn: document.getElementById("cancelAvatarBtn"),
         saveAvatarBtn: document.getElementById("saveAvatarBtn"),
         renameBtn: document.getElementById("renameBtn"),
+        classGroupBtn: document.getElementById("classGroupBtn"),
         logoutBtn: document.getElementById("logoutBtn"),
         changePasswordBtn: document.getElementById("changePasswordBtn"),
         passwordPanel: document.getElementById("passwordPanel"),
@@ -161,7 +166,11 @@
         const finalAvatar = resolveAvatar(user.avatar);
 
         if (els.name) els.name.textContent = user.username || "Người dùng";
-        if (els.subtitle) els.subtitle.textContent = user.email || "Người khám phá Đông Sơn";
+        if (els.subtitle) {
+            els.subtitle.textContent = user.class_group
+                ? `${user.email || "Người khám phá Đông Sơn"} · ${user.class_group}`
+                : user.email || "Người khám phá Đông Sơn";
+        }
         if (els.avatar) {
             els.avatar.src = finalAvatar;
             els.avatar.onerror = () => {
@@ -192,12 +201,14 @@
 
     async function fetchGameData(token) {
         const headers = { Authorization: `Bearer ${token}` };
-        const [leaderboardResponse, sessionsResponse] = await Promise.all([
+        const [leaderboardResponse, sessionsResponse, progressionResponse] = await Promise.all([
             fetch(LEADERBOARD_API_URL, { headers, cache: "no-store" }),
             fetch(GAME_SESSIONS_API_URL, { headers, cache: "no-store" }),
+            fetch(PROGRESSION_API_URL, { headers, cache: "no-store" }),
         ]);
         const leaderboardData = await leaderboardResponse.json().catch(() => ({}));
         const sessionsData = await sessionsResponse.json().catch(() => ({}));
+        const progressionData = await progressionResponse.json().catch(() => ({}));
 
         if (!leaderboardResponse.ok) {
             throw new Error(leaderboardData.message || "Không lấy được thống kê xếp hạng");
@@ -205,11 +216,50 @@
         if (!sessionsResponse.ok) {
             throw new Error(sessionsData.message || "Không lấy được lịch sử chơi");
         }
+        if (!progressionResponse.ok) {
+            throw new Error(progressionData.message || "Không lấy được thành tựu và nhiệm vụ");
+        }
 
         return {
             stats: leaderboardData.current_user,
             sessions: Array.isArray(sessionsData.sessions) ? sessionsData.sessions : [],
+            progression: progressionData,
         };
+    }
+
+    function renderProgression(progression) {
+        const achievements = progression?.achievements || [];
+        const missions = progression?.daily_missions || [];
+
+        if (els.badgeGrid) {
+            els.badgeGrid.innerHTML = achievements.length
+                ? achievements.map((item) => `
+                    <article class="badge-item ${item.unlocked ? "unlocked" : "locked"}" title="${item.description}">
+                        <span>${item.unlocked ? item.icon : "🔒"}</span>
+                        <p>${item.title}</p>
+                        <small>${item.unlocked ? "Đã mở khóa" : "Chưa đạt"}</small>
+                    </article>
+                `).join("")
+                : "<p>Chưa có dữ liệu huy hiệu.</p>";
+        }
+
+        if (els.dailyMissionList) {
+            els.dailyMissionList.innerHTML = missions.map((mission) => {
+                const percent = Math.min(100, Math.round((mission.progress / mission.target) * 100));
+                return `
+                    <div class="task-row ${mission.completed ? "is-complete" : ""}">
+                        <div class="task-head"><span>${mission.title}</span><strong>${mission.progress}/${mission.target}</strong></div>
+                        <div class="progress"><span style="width:${percent}%"></span></div>
+                        <small>${mission.completed ? "Hoàn thành" : mission.reward}</small>
+                    </div>
+                `;
+            }).join("");
+        }
+        if (els.dailyRewardNote) {
+            els.dailyRewardNote.textContent = progression?.daily_completed === progression?.daily_total
+                ? "Đã hoàn thành hôm nay — huy hiệu Sứ giả mỗi ngày đã được mở khóa."
+                : `Hoàn thành ${progression?.daily_completed || 0}/${progression?.daily_total || 3} nhiệm vụ để nhận huy hiệu.`;
+        }
     }
 
     function renderProgressChart(sessions) {
@@ -419,6 +469,7 @@
             try {
                 const gameData = await fetchGameData(token);
                 renderGameData(gameData.stats, gameData.sessions);
+                renderProgression(gameData.progression);
             } catch (gameDataError) {
                 console.error(gameDataError);
                 renderGameData(null, []);
@@ -503,6 +554,23 @@
             window.alert(error.message);
         } finally {
             els.renameBtn.disabled = false;
+        }
+    });
+
+    els.classGroupBtn?.addEventListener("click", async () => {
+        const { token, user } = getStoredAuth();
+        if (!token || !user) return;
+        const next = window.prompt("Nhập tên lớp hoặc nhóm (để trống nếu không dùng):", user.class_group || "");
+        if (next === null) return;
+        els.classGroupBtn.disabled = true;
+        try {
+            const updatedUser = await updateProfile(token, { class_group: next.trim() });
+            persistUser(updatedUser);
+            renderUser(updatedUser);
+        } catch (error) {
+            window.alert(error.message);
+        } finally {
+            els.classGroupBtn.disabled = false;
         }
     });
 

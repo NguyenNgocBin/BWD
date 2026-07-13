@@ -9,6 +9,9 @@ Trang Xếp hạng gồm các phần:
 - Hero "Bảng xếp hạng Đông Sơn": giới thiệu mục đích so sánh thành tích giữa người chơi.
 - Thông tin cá nhân: hiển thị điểm của bạn, hạng hiện tại và game mạnh nhất.
 - Bộ lọc tab: Tổng, Lật thẻ, Ghép hình, Đúng/Sai.
+- Bộ lọc thời gian: Tổng mọi thời gian, Tuần này và Hôm nay.
+- Có thể lọc theo tên lớp/nhóm nếu người dùng đã khai báo trong hồ sơ.
+- Huy hiệu nổi bật của người chơi được hiển thị ở bục xếp hạng và bảng chi tiết.
 - Podium top 3: ba thẻ người chơi nổi bật nhất.
 - Strip vị trí của bạn: vị trí, tên người dùng, phần trăm top và tổng điểm.
 - Bảng xếp hạng chi tiết: các vị trí sau top 3.

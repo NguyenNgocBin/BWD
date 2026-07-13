@@ -116,49 +116,17 @@
 
                 <section class="panel">
                     <h2>Bộ sưu tập Huy hiệu</h2>
-                    <div class="badge-grid">
-                        <article class="badge-item unlocked"><span>★</span>
-                            <p>Người mới bắt đầu</p>
-                        </article>
-                        <article class="badge-item unlocked"><span>◉</span>
-                            <p>5 ngày liên tiếp</p>
-                        </article>
-                        <article class="badge-item unlocked"><span>✧</span>
-                            <p>Nhà sử học nhí</p>
-                        </article>
-                        <article class="badge-item locked"><span>🔒</span>
-                            <p>Bậc thầy trống đồng</p>
-                        </article>
-                        <article class="badge-item locked"><span>🔒</span>
-                            <p>Vua giải đố</p>
-                        </article>
-                        <article class="badge-item locked"><span>🔒</span>
-                            <p>Đại sứ di sản</p>
-                        </article>
+                    <div class="badge-grid" id="badgeGrid">
+                        <p>Đang tải huy hiệu...</p>
                     </div>
                 </section>
             </div>
 
             <aside class="overview-right">
-                <section class="side-card challenge-card">
+                <section class="side-card challenge-card" id="dailyMissionCard">
                     <h2>Thử thách hằng ngày</h2>
-
-                    <div class="task-row">
-                        <div class="task-head"><span>Chơi 1 game bất kỳ</span><strong>+30 điểm</strong></div>
-                        <div class="progress"><span style="width:100%"></span></div>
-                        <small>Hoàn thành</small>
-                    </div>
-
-                    <div class="task-row">
-                        <div class="task-head"><span>Đúng 5 câu liên tiếp</span><strong>+50 điểm</strong></div>
-                        <div class="progress"><span style="width:40%"></span></div>
-                        <small>1/3 nhiệm vụ</small>
-                    </div>
-
-                    <div class="task-row">
-                        <div class="task-head"><span>Tìm 3 họa tiết hiếm</span><strong>+100 điểm</strong></div>
-                        <div class="progress"><span style="width:0%"></span></div>
-                    </div>
+                    <div id="dailyMissionList"><p>Đang tải nhiệm vụ...</p></div>
+                    <p class="daily-reward-note" id="dailyRewardNote"></p>
                 </section>
 
                 <section class="side-card history-card" id="historyCard">
@@ -171,6 +139,7 @@
                 <div class="side-actions">
                     <button type="button" id="changeAvatarBtn" class="btn-ghost">Đổi ảnh đại diện</button>
                     <button type="button" id="renameBtn" class="btn-ghost">Đổi tên</button>
+                    <button type="button" id="classGroupBtn" class="btn-ghost">Lớp / nhóm</button>
                     <button type="button" id="changePasswordBtn" class="btn-ghost">Đổi mật khẩu</button>
                     <button type="button" id="logoutBtn" class="btn-danger">Đăng xuất</button>
                 </div>
