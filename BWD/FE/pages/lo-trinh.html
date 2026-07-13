@@ -10,15 +10,21 @@
     <link rel="stylesheet" href="../css/chatbox.css">
 </head>
 <body>
-    <header class="site-header">
-        <a class="brand" href="../index.html">Đông Sơn</a>
-        <nav class="main-nav" aria-label="Menu chính">
-            <a class="menu-link" href="../index.html">Trang chủ</a>
-            <a class="menu-link" href="./hocvui.html">Học vui</a>
-            <a class="menu-link" href="./tailieu.html">Tài liệu</a>
-            <a class="menu-link" href="./trochoi.html">Trò chơi</a>
-        </nav>
-        <a class="btn-login" href="./login.html">Đăng nhập</a>
+    <header class="header">
+        <div class="nav container">
+            <a class="logo" href="../index.html" aria-label="Về trang chủ Đông Sơn"><span class="logo-text">Đông Sơn</span></a>
+            <nav class="menu" id="menu" aria-label="Menu chính">
+                <a class="menu-link" href="../index.html">Trang chủ</a>
+                <a class="menu-link active" href="./hocvui.html">Học vui</a>
+                <a class="menu-link" href="./trienlam.html">Triển lãm</a>
+                <a class="menu-link" href="./trochoi.html">Trò chơi</a>
+                <a class="menu-link" href="./bxh.html">Xếp hạng</a>
+                <a class="menu-link" href="./profile.html">Cá nhân</a>
+                <a class="menu-link" href="./tailieu.html">Tài liệu</a>
+                <a class="menu-link" href="./Map.html">Bản đồ</a>
+            </nav>
+            <div class="nav-action"><a class="btn-login" href="./login.html">Đăng nhập</a></div>
+        </div>
     </header>
 
     <main class="path-main container">
@@ -41,32 +47,77 @@
             <section class="lesson-stage">
                 <article class="lesson-panel" data-lesson-panel="1">
                     <p class="lesson-kicker">Bài 1 · Nền tảng</p><h2>Trống đồng là gì?</h2>
-                    <p>Trống đồng Đông Sơn là nhạc khí và hiện vật nghi lễ tiêu biểu của cư dân Việt cổ. Hình dáng gồm mặt, tang, thân và chân; bề mặt lưu giữ nhiều lớp thông tin về đời sống và tín ngưỡng.</p>
-                    <ul><li>Nhận biết cấu tạo cơ bản.</li><li>Hiểu vai trò nhạc khí, nghi lễ và biểu tượng quyền lực.</li><li>Phân biệt văn hóa Đông Sơn với tên gọi một hiện vật riêng.</li></ul>
-                    <a href="./tailieu.html#overview">Đọc tài liệu mở rộng →</a>
+                    <div class="lesson-goal"><strong>Sau bài này, bạn có thể</strong><span>Nhận biết cấu tạo, công dụng và bối cảnh văn hóa của trống đồng Đông Sơn.</span></div>
+                    <p class="lesson-lead">Trống đồng Đông Sơn là một loại nhạc khí bằng hợp kim đồng, đồng thời là hiện vật nghi lễ và biểu trưng địa vị của cộng đồng Việt cổ. Giá trị của trống không chỉ nằm ở âm thanh mà còn ở những hình ảnh được đúc trực tiếp trên bề mặt.</p>
+                    <div class="knowledge-grid">
+                        <section><span class="knowledge-index">01</span><h3>Bối cảnh văn hóa</h3><p>Văn hóa Đông Sơn phát triển ở miền Bắc và Bắc Trung Bộ Việt Nam, nổi bật trong khoảng thiên niên kỷ I trước Công nguyên đến những thế kỷ đầu Công nguyên.</p></section>
+                        <section><span class="knowledge-index">02</span><h3>Bốn bộ phận</h3><p><b>Mặt trống</b> là phần gõ; <b>tang</b> phình ở phía trên; <b>thân</b> thường có quai; <b>chân</b> loe giúp trống đứng vững.</p></section>
+                        <section><span class="knowledge-index">03</span><h3>Nhiều vai trò</h3><p>Trống được liên hệ với nghi lễ, hội họp, truyền tín hiệu và quyền lực. Công dụng cụ thể cần được hiểu dựa trên bối cảnh khảo cổ của từng hiện vật.</p></section>
+                    </div>
+                    <div class="remember-box"><strong>Ghi nhớ</strong><p>“Đông Sơn” là tên một nền văn hóa khảo cổ; “trống đồng Đông Sơn” là nhóm hiện vật tiêu biểu thuộc nền văn hóa đó.</p></div>
+                    <details class="self-check"><summary>Tự kiểm tra: Vì sao không nên chỉ gọi trống đồng là một nhạc cụ?</summary><p>Vì ngoài chức năng tạo âm thanh, trống còn mang hoa văn, thông tin về đời sống, nghi lễ và có thể biểu thị vị thế của người sở hữu.</p></details>
+                    <a class="lesson-source" href="./tailieu.html#overview">Đọc bài tổng quan và cấu tạo →</a>
                 </article>
                 <article class="lesson-panel" data-lesson-panel="2" hidden>
                     <p class="lesson-kicker">Bài 2 · Quan sát</p><h2>Hoa văn và biểu tượng</h2>
-                    <p>Mặt trống thường có ngôi sao nhiều cánh ở trung tâm, bao quanh bởi vành hình học, chim bay, thuyền, nhà sàn và cảnh sinh hoạt. Cần phân biệt mô tả quan sát với các giả thuyết diễn giải biểu tượng.</p>
-                    <ul><li>Ngôi sao/mặt trời tạo tâm bố cục.</li><li>Chim Lạc và các dải chuyển động.</li><li>Cảnh người, thuyền và sinh hoạt cộng đồng.</li></ul>
-                    <a href="./tailieu.html#motifs">Xem thư viện hoa văn →</a>
+                    <div class="lesson-goal"><strong>Sau bài này, bạn có thể</strong><span>Đọc hoa văn từ tâm ra ngoài và phân biệt điều quan sát được với cách diễn giải.</span></div>
+                    <p class="lesson-lead">Mặt trống được tổ chức thành nhiều vành đồng tâm. Cách đọc dễ nhất là bắt đầu từ hình trung tâm, lần lượt đi qua các dải hình học rồi đến những cảnh người, động vật và thuyền bè.</p>
+                    <div class="observation-steps">
+                        <section><b>Bước 1 · Nhìn bố cục</b><p>Xác định số cánh của ngôi sao giữa mặt trống, số vành hoa văn và hướng chuyển động chung.</p></section>
+                        <section><b>Bước 2 · Gọi đúng hình</b><p>Mô tả “chim mỏ dài đang bay”, “đoàn thuyền”, “người đội mũ lông” trước khi gán ý nghĩa biểu tượng.</p></section>
+                        <section><b>Bước 3 · Đặt giả thuyết</b><p>So sánh hình lặp lại giữa nhiều trống và đối chiếu bối cảnh khảo cổ. Một mô-típ có thể có nhiều cách giải thích.</p></section>
+                    </div>
+                    <div class="motif-cards">
+                        <article><strong>Ngôi sao nhiều cánh</strong><p>Tạo tâm thị giác; thường được liên hệ với mặt trời, nhưng đây vẫn là một cách diễn giải.</p></article>
+                        <article><strong>Chim và động vật</strong><p>Tạo nhịp chuyển động quanh mặt trống, phản ánh sự quan sát phong phú về tự nhiên.</p></article>
+                        <article><strong>Người và nhà sàn</strong><p>Gợi mở về trang phục, lễ hội, kiến trúc và sinh hoạt cộng đồng.</p></article>
+                        <article><strong>Thuyền</strong><p>Cho thấy vai trò của sông nước, di chuyển và hoạt động tập thể.</p></article>
+                    </div>
+                    <div class="remember-box"><strong>Nguyên tắc đọc hiện vật</strong><p>Mô tả trước — so sánh sau — diễn giải cuối cùng. Không biến một giả thuyết thành kết luận chắc chắn.</p></div>
+                    <details class="self-check"><summary>Tự kiểm tra: Hình ngôi sao chắc chắn có nghĩa là mặt trời đúng không?</summary><p>Không thể khẳng định tuyệt đối. Đây là cách giải thích phổ biến, nhưng người học cần phân biệt hình nhìn thấy với ý nghĩa do nhà nghiên cứu đề xuất.</p></details>
+                    <a class="lesson-source" href="./tailieu.html#motifs">Xem thư viện và cách đọc hoa văn →</a>
                 </article>
                 <article class="lesson-panel" data-lesson-panel="3" hidden>
                     <p class="lesson-kicker">Bài 3 · Công nghệ</p><h2>Kỹ thuật đúc đồng</h2>
-                    <p>Nghệ nhân Đông Sơn kiểm soát hợp kim, khuôn đúc nhiều phần và nhiệt độ để tạo vật thể lớn, thành tương đối mỏng nhưng hoa văn rõ. Nhiều công đoạn đã được phục dựng qua khảo cổ và thực nghiệm.</p>
-                    <ul><li>Tạo mẫu và khuôn.</li><li>Nấu, rót hợp kim đồng.</li><li>Tháo khuôn, hoàn thiện và xử lý bề mặt.</li></ul>
-                    <a href="./tailieu.html#anatomy">Tìm hiểu cấu tạo →</a>
+                    <div class="lesson-goal"><strong>Sau bài này, bạn có thể</strong><span>Trình bày chuỗi công đoạn cơ bản và lý giải vì sao việc đúc một chiếc trống lớn rất khó.</span></div>
+                    <p class="lesson-lead">Để tạo ra một vật thể lớn, thành tương đối mỏng và phủ hoa văn dày đặc, nghệ nhân phải làm chủ từ khâu chuẩn bị nguyên liệu đến khuôn, nhiệt độ và tốc độ rót kim loại.</p>
+                    <ol class="casting-timeline">
+                        <li><span>01</span><div><strong>Thiết kế và tạo mẫu</strong><p>Xác định hình dáng, kích thước, vị trí quai và bố cục hoa văn của toàn bộ trống.</p></div></li>
+                        <li><span>02</span><div><strong>Tạo khuôn nhiều phần</strong><p>Khuôn phải ghép kín, giữ đúng khoảng cách giữa lõi và vỏ để thành trống đều, hoa văn không bị mất nét.</p></div></li>
+                        <li><span>03</span><div><strong>Chuẩn bị hợp kim</strong><p>Đồng được phối hợp với thiếc, chì hoặc thành phần khác theo tỷ lệ phù hợp nhằm điều chỉnh độ chảy và tính chất sản phẩm.</p></div></li>
+                        <li><span>04</span><div><strong>Nấu và rót</strong><p>Kim loại lỏng phải điền đầy khuôn trước khi đông đặc; sai lệch nhiệt độ có thể gây rỗ, nứt hoặc thiếu hoa văn.</p></div></li>
+                        <li><span>05</span><div><strong>Tháo khuôn và hoàn thiện</strong><p>Loại bỏ phần thừa, xử lý đường ghép và kiểm tra bề mặt. Dấu kỹ thuật còn lại giúp nhà khảo cổ phục dựng quy trình.</p></div></li>
+                    </ol>
+                    <div class="remember-box"><strong>Điểm đáng kinh ngạc</strong><p>Hoa văn không đơn thuần được vẽ lên sau khi đúc; phần lớn đã được tạo trong khuôn và hiện ra cùng thân trống.</p></div>
+                    <details class="self-check"><summary>Tự kiểm tra: Ba rủi ro lớn khi rót đồng là gì?</summary><p>Kim loại nguội quá sớm, khuôn ghép không kín và dòng kim loại không điền đầy các chi tiết hoa văn.</p></details>
+                    <a class="lesson-source" href="./tailieu.html#anatomy">Quan sát cấu tạo và dấu vết kỹ thuật →</a>
                 </article>
                 <article class="lesson-panel" data-lesson-panel="4" hidden>
                     <p class="lesson-kicker">Bài 4 · So sánh</p><h2>Hiện vật tiêu biểu</h2>
-                    <p>Ngọc Lũ, Hoàng Hạ và Cổ Loa là ba điểm neo quan trọng để so sánh bố cục, bối cảnh phát hiện và giá trị lịch sử.</p>
-                    <div class="lesson-artifacts"><a href="./hien-vat.html?id=ngoc-lu">Ngọc Lũ</a><a href="./hien-vat.html?id=hoang-ha">Hoàng Hạ</a><a href="./hien-vat.html?id=co-loa">Cổ Loa</a></div>
+                    <div class="lesson-goal"><strong>Sau bài này, bạn có thể</strong><span>So sánh hiện vật theo bối cảnh phát hiện, bố cục hoa văn và giá trị nghiên cứu.</span></div>
+                    <p class="lesson-lead">Không nên chỉ học thuộc tên trống. Mỗi hiện vật là một “hồ sơ” gồm nơi phát hiện, tình trạng bảo tồn, đặc điểm tạo hình và câu chuyện nghiên cứu riêng.</p>
+                    <div class="artifact-study-grid">
+                        <article><img src="../images/ngocLu.gif" alt="Trống đồng Ngọc Lũ"><div><span>Mốc chuẩn về mỹ thuật</span><h3>Ngọc Lũ</h3><p>Nổi tiếng với bố cục cân đối và cảnh người, nhà sàn, chim, thuyền phong phú. Đây là hiện vật thường được dùng khi giới thiệu nghệ thuật Đông Sơn.</p><a href="./hien-vat.html?id=ngoc-lu">Mở hồ sơ hiện vật →</a></div></article>
+                        <article><img src="../images/hoangha.png" alt="Trống đồng Hoàng Hạ"><div><span>Tư liệu so sánh quan trọng</span><h3>Hoàng Hạ</h3><p>Có nhiều nét gần gũi với Ngọc Lũ nhưng vẫn mang chi tiết và nhịp bố cục riêng, hữu ích khi nhận diện đặc trưng chung và biến thể.</p><a href="./hien-vat.html?id=hoang-ha">Mở hồ sơ hiện vật →</a></div></article>
+                        <article><img src="../images/coloa.png" alt="Trống đồng Cổ Loa"><div><span>Gắn với trung tâm Cổ Loa</span><h3>Cổ Loa</h3><p>Đặt trống đồng trong không gian lịch sử đặc biệt của khu vực Cổ Loa, mở rộng câu hỏi về quyền lực, cộng đồng và mạng lưới giao lưu.</p><a href="./hien-vat.html?id=co-loa">Mở hồ sơ hiện vật →</a></div></article>
+                    </div>
+                    <div class="comparison-table" role="region" aria-label="Gợi ý so sánh hiện vật"><table><thead><tr><th>Tiêu chí</th><th>Cần quan sát</th><th>Câu hỏi gợi mở</th></tr></thead><tbody><tr><td>Bối cảnh</td><td>Nơi và cách phát hiện</td><td>Hiện vật nằm trong không gian khảo cổ nào?</td></tr><tr><td>Tạo hình</td><td>Dáng trống, kích thước, quai</td><td>Điểm nào giống và khác các trống khác?</td></tr><tr><td>Hoa văn</td><td>Ngôi sao, chim, người, thuyền</td><td>Mô-típ nào nổi bật hoặc vắng mặt?</td></tr></tbody></table></div>
+                    <details class="self-check"><summary>Tự kiểm tra: Khi so sánh hai trống, nên dựa vào những nhóm tiêu chí nào?</summary><p>Bối cảnh phát hiện, hình dáng và kỹ thuật, bố cục hoa văn, tình trạng bảo tồn và lịch sử nghiên cứu.</p></details>
                 </article>
                 <article class="lesson-panel" data-lesson-panel="5" hidden>
-                    <p class="lesson-kicker">Bài 5 · Kiểm tra</p><h2>Kiểm tra bằng game</h2>
-                    <p>Hoàn thành game Đúng/Sai để kiểm tra kiến thức của bốn bài trước. Nếu đăng nhập, kết quả được dùng để tự động xác nhận bài học này.</p>
-                    <a class="lesson-game-button" href="./game/codechayquiz.html">Bắt đầu kiểm tra 25 câu</a>
-                    <p id="quizLessonStatus">Chưa tìm thấy kết quả quiz đã đồng bộ.</p>
+                    <p class="lesson-kicker">Bài 5 · Vận dụng</p><h2>Kiểm tra bằng game</h2>
+                    <div class="lesson-goal"><strong>Mục tiêu cuối lộ trình</strong><span>Vận dụng kiến thức của bốn bài trước, nhận phản hồi và xác định nội dung cần ôn lại.</span></div>
+                    <div class="quiz-preparation">
+                        <h3>Trước khi bắt đầu, hãy chắc rằng bạn có thể:</h3>
+                        <label><input type="checkbox"> Nêu bốn bộ phận chính của trống đồng.</label>
+                        <label><input type="checkbox"> Phân biệt mô tả hoa văn và diễn giải biểu tượng.</label>
+                        <label><input type="checkbox"> Sắp xếp đúng các bước cơ bản của quy trình đúc.</label>
+                        <label><input type="checkbox"> Nêu điểm đáng chú ý của Ngọc Lũ, Hoàng Hạ và Cổ Loa.</label>
+                    </div>
+                    <div class="test-format"><article><strong>25 câu</strong><span>Đúng/Sai về bốn chủ đề</span></article><article><strong>Có phản hồi</strong><span>Biết ngay phần cần ôn lại</span></article><article><strong>Tự động lưu</strong><span>Khi bạn đã đăng nhập</span></article></div>
+                    <a class="lesson-game-button" href="./game/codechayquiz.html">Bắt đầu bài kiểm tra 25 câu →</a>
+                    <div class="quiz-status-card"><strong>Trạng thái đồng bộ</strong><p id="quizLessonStatus">Chưa tìm thấy kết quả quiz đã đồng bộ.</p></div>
+                    <p class="lesson-note">Nếu kết quả chưa tốt, bạn có thể quay lại từng bài, mở câu hỏi tự kiểm tra và thử lại. Mục tiêu là hiểu chắc nội dung, không chỉ hoàn thành tiến độ.</p>
                 </article>
                 <div class="lesson-actions">
                     <button type="button" id="previousLesson">← Bài trước</button>
