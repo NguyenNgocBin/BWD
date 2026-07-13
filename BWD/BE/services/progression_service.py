@@ -1,4 +1,10 @@
+import time
+
 import repositories.progression_repo as progression_repo
+
+
+_CACHE_TTL_SECONDS = 30
+_progression_cache = {}
 
 
 DAILY_MISSIONS = (
@@ -60,13 +66,26 @@ def evaluate_user_progress(user_id):
     if all(mission["completed"] for mission in missions):
         earned_codes.append("daily_hero")
     progression_repo.unlock_achievements(user_id, earned_codes)
-    return get_user_progression(user_id)
+    achievements = progression_repo.get_all_achievements_for_user(user_id)
+    result = _build_progression_payload(missions, achievements)
+    _progression_cache[user_id] = (time.monotonic(), result)
+    return result
 
 
 def get_user_progression(user_id):
+    cached = _progression_cache.get(user_id)
+    if cached and time.monotonic() - cached[0] < _CACHE_TTL_SECONDS:
+        return cached[1]
+
     progress = progression_repo.get_daily_progress(user_id)
     missions = build_daily_missions(progress)
     achievements = progression_repo.get_all_achievements_for_user(user_id)
+    result = _build_progression_payload(missions, achievements)
+    _progression_cache[user_id] = (time.monotonic(), result)
+    return result
+
+
+def _build_progression_payload(missions, achievements):
     return {
         "achievements": [_serialize_achievement(row) for row in achievements],
         "daily_missions": missions,

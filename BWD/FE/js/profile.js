@@ -54,6 +54,26 @@
 
     let pendingAvatar = null;
 
+    function dashboardCacheKey(user) {
+        return user?.id ? `dongsonProfileDashboardV1:${user.id}` : null;
+    }
+
+    function readDashboardCache(user) {
+        const key = dashboardCacheKey(user);
+        if (!key) return null;
+        try {
+            return JSON.parse(localStorage.getItem(key));
+        } catch (error) {
+            return null;
+        }
+    }
+
+    function writeDashboardCache(user, data) {
+        const key = dashboardCacheKey(user);
+        if (!key) return;
+        localStorage.setItem(key, JSON.stringify({ ...data, cachedAt: Date.now() }));
+    }
+
     function getStoredAuth() {
         const token = localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
         const rawUser = localStorage.getItem("authUser") || sessionStorage.getItem("authUser");
@@ -462,17 +482,34 @@
 
         renderUser(user);
 
+        // Hiển thị dữ liệu lần gần nhất ngay lập tức, sau đó âm thầm làm mới.
+        const cached = readDashboardCache(user);
+        let dashboardData = {
+            stats: cached?.stats || null,
+            sessions: cached?.sessions || [],
+            progression: cached?.progression || null,
+        };
+        if (cached) {
+            renderGameData(dashboardData.stats, dashboardData.sessions);
+            renderProgression(dashboardData.progression);
+        }
+
+        const currentUserRequest = fetchCurrentUser(token);
+        const gameDataRequest = fetchGameData(token);
+
         try {
-            const freshUser = await fetchCurrentUser(token);
+            const freshUser = await currentUserRequest;
             persistUser(freshUser);
             renderUser(freshUser);
             try {
-                const gameData = await fetchGameData(token);
+                const gameData = await gameDataRequest;
+                dashboardData = gameData;
                 renderGameData(gameData.stats, gameData.sessions);
                 renderProgression(gameData.progression);
+                writeDashboardCache(freshUser, gameData);
             } catch (gameDataError) {
                 console.error(gameDataError);
-                renderGameData(null, []);
+                if (!cached) renderGameData(null, []);
             }
         } catch (error) {
             clearAuth();
