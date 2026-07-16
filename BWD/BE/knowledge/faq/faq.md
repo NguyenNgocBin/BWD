@@ -1,6 +1,10 @@
 ---
+schema_version: 1
+document_id: heritage.faq.trong_dong
 title: FAQ - Câu hỏi thường gặp về Trống đồng Đông Sơn
+corpus: heritage
 topic: Trống đồng Đông Sơn
+entities: ["Trống đồng Đông Sơn", "Văn hóa Đông Sơn", "Chim Lạc", "hoa văn Đông Sơn"]
 tags:
   - hỏi đáp
   - RAG
@@ -15,48 +19,19 @@ keywords:
   - bảo vật
   - ý nghĩa trống đồng
 description: Tổng hợp các câu hỏi và câu trả lời phổ biến giúp chatbot giải thích nhanh về lịch sử, ý nghĩa và giá trị của trống đồng Đông Sơn.
-source:
-  - 15
-  - 18
-  - 30
-  - 34
-  - 40
-  - 41
-  - 42
+references:
+  - "internal:knowledge/dong_son/trong_dong.md"
+  - "internal:knowledge/dong_son/hoa_van.md"
+  - "internal:knowledge/dong_son/cau_tao.md"
+updated_at: '2026-07-14'
+reviewed_by: 'Nhóm dự án — rà soát kỹ thuật'
+review_status: pending_expert_review
+confidence: medium
+retrieval_enabled: true
+document_type: heritage_faq
 ---
 
 # Giải đáp về Trống đồng Đông Sơn
-
-## Q: Tôi có thể dùng website mà không đăng nhập không?
-
-**A:** Có. Bạn vẫn có thể đọc nội dung, xem bản đồ, triển lãm và chơi ba game. Tuy nhiên, cần đăng nhập để đồng bộ điểm, lịch sử chơi, hồ sơ và thứ hạng với backend.
-
----
-
-## Q: Vì sao tôi đăng nhập không thành công?
-
-**A:** Hãy kiểm tra email, mật khẩu và kết nối tới backend. Nếu hệ thống báo phiên đăng nhập hết hạn hoặc token không hợp lệ, hãy đăng nhập lại. Nếu backend không chạy, frontend sẽ không thể xác thực tài khoản.
-
----
-
-## Q: Vì sao chơi xong nhưng điểm chưa được lưu?
-
-**A:** Điểm chỉ được đồng bộ khi bạn đã đăng nhập và request lưu game tới backend thành công. Hãy kiểm tra trạng thái đăng nhập, mạng và backend. Game sẽ báo rõ “điểm chưa được đồng bộ” nếu bạn đang chơi với tư cách khách.
-
----
-
-## Q: Tổng điểm trên bảng xếp hạng được tính thế nào?
-
-**A:** Tổng điểm là tổng điểm tốt nhất của ba game: Lật thẻ họa tiết, Ghép hình và Đúng/Sai. Chơi lại với điểm thấp hơn không làm giảm tổng điểm.
-
----
-
-## Q: Tôi xem lịch sử chơi ở đâu?
-
-**A:** Sau khi đăng nhập, mở trang Cá nhân. Trang này hiển thị điểm từng game, biểu đồ tiến bộ và các lượt chơi gần đây đã đồng bộ.
-
----
-
 
 ## Q: Trống đồng Đông Sơn là gì?
 
@@ -107,17 +82,15 @@ Kích thước, hoa văn và sự tinh xảo của trống thể hiện địa v
 
 ---
 
-## Q: Một chiếc trống đồng cổ có giá trị tương đương bao nhiêu con trâu?
+## Q: Có thể quy đổi giá trị một chiếc trống đồng cổ thành số lượng trâu không?
 
 **A:**
 
-Theo một số ghi chép và cách đánh giá truyền thống, một chiếc trống đồng lớn có thể có giá trị tương đương khoảng 2.000 đến 3.000 con trâu.
-
-Điều này cho thấy trống đồng từng là một tài sản rất quý trong xã hội cổ.
+Chưa có nguồn học thuật hoặc bảo tàng đủ tin cậy trong kho hiện tại để xác nhận một con số quy đổi cụ thể. Có thể nói trống đồng là hiện vật quý, gắn với nghi lễ và địa vị xã hội, nhưng không nên trả lời bằng mức “2.000–3.000 con trâu” khi chưa truy được nguồn gốc của con số này.
 
 **Từ khóa:**
 - giá trị trống đồng
-- 2000 con trâu
+- chưa đủ dữ liệu định lượng
 - tài sản cổ
 
 
@@ -153,17 +126,11 @@ Vì lớp bề mặt cổ có thể chứa các dấu tích và hoa văn nguyên
 
 ---
 
-## Q: Ý nghĩa của việc đánh 3 tiếng trống theo quan niệm xưa là gì?
+## Q: Ba tiếng trống có chắc chắn tượng trưng cho Thiên–Địa–Nhân không?
 
 **A:**
 
-Theo một số quan niệm truyền thống, 3 tiếng trống tượng trưng cho:
-
-- Thiên (Trời).
-- Địa (Đất).
-- Nhân (Con người).
-
-Thể hiện sự kết nối giữa con người với trời đất.
+Cách giải thích ba tiếng trống là **Thiên–Địa–Nhân** có xuất hiện trong diễn giải văn hóa phổ biến, nhưng kho hiện tại chưa có nguồn khảo cổ hoặc bảo tàng đủ tin cậy để gắn chắc cách hiểu này với nghi thức sử dụng trống Đông Sơn. Chatbot nên nêu rõ đây là một diễn giải chưa được kiểm chứng, không trình bày như dữ kiện lịch sử.
 
 **Từ khóa:**
 - ba tiếng trống
@@ -218,11 +185,11 @@ Chim Lạc là một hình tượng phổ biến trên trống đồng Đông S�
 
 ---
 
-## Q: Trống đồng Đông Sơn được phát hiện đầu tiên ở đâu?
+## Q: Tên gọi văn hóa Đông Sơn bắt nguồn từ đâu?
 
 **A:**
 
-Những phát hiện quan trọng đầu tiên liên quan đến văn hóa Đông Sơn được ghi nhận tại khu vực làng Đông Sơn, Thanh Hóa vào năm 1924, từ đó nền văn hóa này được đặt tên.
+Tên gọi bắt nguồn từ địa điểm khảo cổ Đông Sơn ở Thanh Hóa, nơi các phát hiện khảo cổ được ghi nhận từ năm 1924. Dữ kiện này nói về việc xác lập tên của **văn hóa Đông Sơn**, không có nghĩa chiếc trống đồng đầu tiên từng được biết đến được tìm thấy tại đó.
 
 **Từ khóa:**
 - Đông Sơn Thanh Hóa

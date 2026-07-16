@@ -1,6 +1,10 @@
 ---
+schema_version: 1
+document_id: heritage.dong_son.hoa_van
 title: Giải mã Hệ thống Hoa văn trên Trống đồng Đông Sơn
+corpus: heritage
 topic: Trống đồng Đông Sơn
+entities: ["Hoa văn Đông Sơn", "Trống đồng Đông Sơn", "Chim Lạc", "Ngọc Lũ"]
 tags:
   - hoa văn Đông Sơn
   - nghệ thuật tạo hình
@@ -15,14 +19,15 @@ keywords:
   - thuyền Đông Sơn
   - người hóa trang
 description: Phân tích hệ thống hoa văn trên trống đồng Đông Sơn và ý nghĩa phản ánh đời sống, tư duy của cư dân Việt cổ.
-source:
-  - 25
-  - 26
-  - 27
-  - 28
-  - 29
-  - 30
-  - 31
+references:
+  - "https://baotanglichsu.vn/VI/Articles/3101/16534/mot-cach-giai-ma-hoa-van-trong-djong-ngoc-lu-cua-nen-van-hoa-djong-son-viet-nam.html"
+  - "internal:knowledge/artifacts/ngoc_lu.md"
+updated_at: '2026-07-14'
+reviewed_by: 'Nhóm dự án — rà soát kỹ thuật'
+review_status: pending_expert_review
+confidence: medium
+retrieval_enabled: true
+document_type: heritage_article
 ---
 
 # "Cuốn sử bằng hình" trên Trống đồng Đông Sơn

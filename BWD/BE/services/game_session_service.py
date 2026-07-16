@@ -4,11 +4,17 @@ from datetime import timedelta, timezone
 import repositories.game_repo as game_repo
 import repositories.game_session_repo as game_session_repo
 import repositories.leaderboard_repo as leaderboard_repo
-import services.auth_service as auth_service
 import services.progression_service as progression_service
 
 
 HANOI_TIME_ZONE = timezone(timedelta(hours=7), name="Asia/Ho_Chi_Minh")
+
+
+class GameSessionError(Exception):
+    def __init__(self, message, status_code=400):
+        super().__init__(message)
+        self.message = message
+        self.status_code = status_code
 
 
 def _hanoi_isoformat(value):
@@ -82,10 +88,10 @@ def parse_non_negative_int(value, field_name, default_value=0):
     try:
         parsed_value = int(value)
     except (TypeError, ValueError) as error:
-        raise auth_service.AuthError(f"{field_name} phai la so nguyen") from error
+        raise GameSessionError(f"{field_name} phai la so nguyen") from error
 
     if parsed_value < 0:
-        raise auth_service.AuthError(f"{field_name} khong duoc am")
+        raise GameSessionError(f"{field_name} khong duoc am")
 
     return parsed_value
 
@@ -98,10 +104,10 @@ def parse_non_negative_float(value, field_name, default_value=0):
     try:
         parsed_value = float(value)
     except (TypeError, ValueError) as error:
-        raise auth_service.AuthError(f"{field_name} phai la so") from error
+        raise GameSessionError(f"{field_name} phai la so") from error
 
     if parsed_value < 0:
-        raise auth_service.AuthError(f"{field_name} khong duoc am")
+        raise GameSessionError(f"{field_name} khong duoc am")
 
     return parsed_value
 
@@ -110,14 +116,14 @@ def parse_non_negative_float(value, field_name, default_value=0):
 def create_user_game_session(user, payload):
     game_code = (payload.get("game_code") or "").strip()
     if not game_code:
-        raise auth_service.AuthError("game_code khong duoc de trong")
+        raise GameSessionError("game_code khong duoc de trong")
 
     game = game_repo.find_game_by_code(game_code)
     if not game:
-        raise auth_service.AuthError("Game khong ton tai")
+        raise GameSessionError("Game khong ton tai")
 
     if not game.is_active:
-        raise auth_service.AuthError("Game hien dang tam dung")
+        raise GameSessionError("Game hien dang tam dung")
 
     score = parse_non_negative_int(payload.get("score"), "score")
     correct_count = parse_non_negative_int(payload.get("correct_count"), "correct_count")
@@ -134,19 +140,19 @@ def create_user_game_session(user, payload):
     metadata = payload.get("metadata") or {}
 
     if duration_seconds is not None and duration_seconds < 0:
-        raise auth_service.AuthError("duration_seconds khong duoc am")
+        raise GameSessionError("duration_seconds khong duoc am")
 
     if level_reached is not None and level_reached <= 0:
-        raise auth_service.AuthError("level_reached phai lon hon 0")
+        raise GameSessionError("level_reached phai lon hon 0")
 
     if not isinstance(metadata, dict):
-        raise auth_service.AuthError("metadata phai la object")
+        raise GameSessionError("metadata phai la object")
 
     if total_questions == 0:
         total_questions = correct_count + wrong_count
 
     if total_questions < correct_count + wrong_count:
-        raise auth_service.AuthError(
+        raise GameSessionError(
             "total_questions khong duoc nho hon correct_count + wrong_count"
         )
 
@@ -155,7 +161,7 @@ def create_user_game_session(user, payload):
     else:
         accuracy_value = parse_non_negative_float(accuracy, "accuracy")
         if accuracy_value > 100:
-            raise auth_service.AuthError("accuracy khong duoc lon hon 100")
+            raise GameSessionError("accuracy khong duoc lon hon 100")
 
     session_row, stats_row, user_row = game_session_repo.create_game_session(
         user_id=user.id,

@@ -1,3 +1,22 @@
+---
+schema_version: 1
+document_id: website.guide.xep_hang
+title: Trang Xếp hạng
+corpus: website
+topic: Bảng xếp hạng và bộ lọc điểm
+entities: ["Trang Xếp hạng", "Lật thẻ", "Ghép hình", "Đúng/Sai"]
+references:
+  - "repo:BWD/FE/pages/bxh.html"
+  - "repo:BWD/FE/js/bxh.js"
+  - "repo:BWD/BE/services/leaderboard_service.py"
+updated_at: '2026-07-14'
+reviewed_by: 'Nhóm dự án — rà soát kỹ thuật'
+review_status: code_verified
+confidence: high
+retrieval_enabled: true
+document_type: website_guide
+---
+
 # Trang Xếp hạng
 
 Trang Xếp hạng hiển thị thành tích của người chơi trong hệ thống Đông Sơn. Trang này giúp so sánh điểm, xem top 3 nổi bật và lọc bảng điểm theo từng nhóm trò chơi.
@@ -27,15 +46,15 @@ Trang có 4 tab:
 
 Khi bấm tab, top 3, thông tin cá nhân và bảng chi tiết sẽ đổi theo dữ liệu của tab đó.
 
-## Top 3 hiện tại trong tab Tổng
+## Dữ liệu bảng xếp hạng
 
-- Hạng 1: Huyền My, 18.940 điểm, nhãn "Giữ phong độ", mô tả dẫn đầu nhờ tốc độ trả lời và độ chính xác cao.
-- Hạng 2: Quang Minh, 17.520 điểm, nhãn "Bứt tốc", mô tả chuỗi 9 lượt chính xác liên tiếp.
-- Hạng 3: Gia Bảo, 16.880 điểm, nhãn "Ổn định", mô tả điểm số đều ở cả ba nhóm trò chơi.
+Mỗi tab gọi `GET /api/v1/leaderboard/` với các tham số `scope`, `period`, `group` và `limit`. Top 3, bảng chi tiết và thông tin cá nhân đều được render lại từ phản hồi backend; các tên và điểm có sẵn trong HTML chỉ là nội dung chờ trước khi JavaScript tải dữ liệu, không phải bảng xếp hạng hiện tại.
 
-## Dữ liệu người dùng thật
-
-Nếu người dùng đã đăng nhập, tab Tổng sẽ lấy thông tin user từ local/session storage và gọi API `/api/v1/auth/me` để cập nhật điểm tổng mới nhất. Nếu backend không phản hồi, trang vẫn giữ dữ liệu mẫu đang hiển thị.
+- Khách vẫn xem được danh sách xếp hạng công khai.
+- Nếu đã đăng nhập, frontend gửi Bearer token để backend trả thêm vị trí và thành tích của chính người dùng.
+- Tab Tổng cộng **điểm tốt nhất** của ba game; mỗi tab game xếp theo thành tích tốt nhất của game tương ứng.
+- Bộ lọc thời gian hỗ trợ toàn bộ, tuần hiện tại và ngày hiện tại; bộ lọc lớp/nhóm gửi chuỗi `group` tới backend.
+- Nếu backend không phản hồi, trang chuyển các vùng dữ liệu sang trạng thái lỗi; không dùng các số mẫu ban đầu làm kết quả thật.
 
 ## Animation top 3
 

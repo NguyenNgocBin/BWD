@@ -1,2 +1,9 @@
 backend_stdout.log
 backend_stderr.log
+__pycache__/
+*.py[cod]
+BWD/BE/vector_store/embedding_cache.sqlite3*
+BWD/BE/vector_store/chroma_v3/builds/.*
+models.json
+out_ans.json
+test_chat.txt

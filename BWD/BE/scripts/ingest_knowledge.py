@@ -1,69 +1,21 @@
 import hashlib
-import math
 import re
 import shutil
 import sys
 from pathlib import Path
-from typing import Dict, List, Sequence
+from typing import Dict, List
 
 
 BASE_DIR = Path(__file__).resolve().parents[1]
+if str(BASE_DIR) not in sys.path:
+    sys.path.insert(0, str(BASE_DIR))
+
+from services.legacy_embedding_service import LocalHashEmbeddingFunction
+
+
 KNOWLEDGE_DIR = BASE_DIR / "knowledge"
 CHROMA_DIR = BASE_DIR / "vector_store" / "chroma"
 COLLECTION_NAME = "dong_son_knowledge"
-
-
-class LocalHashEmbeddingFunction:
-    """
-    Embedding function chạy local, không cần API key.
-
-    Cách hoạt động:
-    - Tách văn bản thành token tiếng Việt/ASCII.
-    - Hash token vào vector có số chiều cố định.
-    - Chuẩn hóa L2 để có thể tìm kiếm semantic/keyword cơ bản trong ChromaDB.
-
-    Giai đoạn sau có thể thay class này bằng OpenAIEmbedding, GeminiEmbedding
-    hoặc SentenceTransformer nếu muốn chất lượng semantic tốt hơn.
-    """
-
-    def __init__(self, dimensions: int = 384):
-        self.dimensions = dimensions
-
-    def name(self) -> str:
-        return "local_hash_embedding"
-
-    def __call__(self, input: Sequence[str]) -> List[List[float]]:
-        return [self._embed_text(text) for text in input]
-
-    def embed_query(self, input: Sequence[str]) -> List[List[float]]:
-        return self(input)
-
-    def embed_documents(self, input: Sequence[str]) -> List[List[float]]:
-        return self(input)
-
-    def _embed_text(self, text: str) -> List[float]:
-        tokens = tokenize(text)
-        vector = [0.0] * self.dimensions
-
-        if not tokens:
-            return vector
-
-        for token in tokens:
-            digest = hashlib.md5(token.encode("utf-8")).hexdigest()
-            index = int(digest[:8], 16) % self.dimensions
-            sign = 1.0 if int(digest[8:10], 16) % 2 == 0 else -1.0
-            vector[index] += sign
-
-        norm = math.sqrt(sum(value * value for value in vector))
-        if norm == 0:
-            return vector
-
-        return [value / norm for value in vector]
-
-
-def tokenize(text: str) -> List[str]:
-    normalized = text.lower()
-    return re.findall(r"[\wÀ-ỹ]+", normalized, flags=re.UNICODE)
 
 
 def load_markdown_documents(knowledge_dir: Path) -> List[Dict[str, str]]:

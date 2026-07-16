@@ -1,6 +1,10 @@
 ---
+schema_version: 1
+document_id: heritage.dong_son.trong_dong
 title: Tổng quan về Trống đồng Đông Sơn
+corpus: heritage
 topic: Trống đồng Đông Sơn
+entities: ["Trống đồng Đông Sơn", "Văn hóa Đông Sơn", "Văn Lang", "Âu Lạc"]
 tags:
   - văn hóa Đông Sơn
   - trống đồng
@@ -15,16 +19,15 @@ keywords:
   - Hùng Vương
   - bảo vật quốc gia
 description: Giới thiệu nguồn gốc, đặc điểm, giá trị lịch sử và vai trò văn hóa của trống đồng Đông Sơn trong lịch sử Việt Nam cổ đại.
-source:
-  - 1
-  - 2
-  - 3
-  - 4
-  - 5
-  - 6
-  - 7
-  - 8
-  - 9
+references:
+  - "https://baotanglichsu.vn/VI/Articles/3101/16689/trong-djong-djong-son-hien-vat-tieu-bieu-cua-nen-van-minh-viet-nam-thuo-dung-nuoc-phan-ii-va-het.html"
+  - "https://baotanglichsu.vn/VI/Articles/4002/68892/trung-bay-chuyen-dje-van-hoa-djong-son.html"
+updated_at: '2026-07-14'
+reviewed_by: 'Nhóm dự án — rà soát kỹ thuật'
+review_status: pending_expert_review
+confidence: medium
+retrieval_enabled: true
+document_type: heritage_article
 ---
 
 # Trống đồng Đông Sơn: Biểu tượng của văn hóa Việt cổ

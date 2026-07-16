@@ -1,3 +1,22 @@
+---
+schema_version: 1
+document_id: website.guide.tai_khoan
+title: Tài khoản, đăng nhập, đăng ký và hồ sơ cá nhân
+corpus: website
+topic: Tài khoản và hồ sơ người dùng
+entities: ["Tài khoản Đông Sơn", "Đăng nhập", "Đăng ký", "Trang Cá nhân"]
+references:
+  - "repo:BWD/FE/js/login.js"
+  - "repo:BWD/FE/js/profile.js"
+  - "repo:BWD/BE/services/auth_service.py"
+updated_at: '2026-07-14'
+reviewed_by: 'Nhóm dự án — rà soát kỹ thuật'
+review_status: code_verified
+confidence: high
+retrieval_enabled: true
+document_type: website_guide
+---
+
 # Tài khoản, đăng nhập, đăng ký và hồ sơ cá nhân
 
 Website Đông Sơn có hệ thống tài khoản để lưu thông tin người dùng, điểm tổng và hồ sơ cá nhân. Các trang liên quan gồm Đăng ký, Đăng nhập và Cá nhân.
@@ -58,17 +77,17 @@ Thông tin hiển thị:
 
 - Ảnh đại diện.
 - Tên người dùng.
-- Email hoặc mô tả người khám phá Đông Sơn.
+- Email và lớp/nhóm nếu đã khai báo.
 - Tổng điểm.
-- Xếp hạng mẫu.
+- Xếp hạng hiện tại.
 - Game mạnh nhất.
-- Số lượt chơi mẫu.
-- Độ chính xác mẫu.
-- Chuỗi ngày mẫu.
+- Tổng số lượt chơi.
+- Độ chính xác tính từ các lượt quiz đã đồng bộ.
+- Chuỗi trả lời/hoàn thành tốt nhất.
 - Thành tựu theo từng trò chơi.
 - Bộ sưu tập huy hiệu.
 - Thử thách hằng ngày.
-- Lịch sử hoạt động.
+- Lịch sử các lượt chơi đã đồng bộ.
 
 Dữ liệu thật từ backend hiện được dùng cho:
 
@@ -80,7 +99,12 @@ Dữ liệu thật từ backend hiện được dùng cho:
 - Huy hiệu đã mở khóa và ba nhiệm vụ hằng ngày.
 - Người dùng có thể khai báo lớp/nhóm để dùng bộ lọc bảng xếp hạng trường học.
 
-Các thống kê khác như số lượt chơi, độ chính xác, chuỗi ngày, huy hiệu và lịch sử hoạt động hiện chủ yếu là dữ liệu giao diện mẫu.
+Các khối này được lấy từ API tài khoản, bảng xếp hạng, lịch sử game và progression. Nội dung tĩnh ban đầu trong HTML chỉ là trạng thái chờ trước khi JavaScript tải dữ liệu; nếu API lỗi, trang hiển thị trạng thái lỗi hoặc dữ liệu cache gần nhất chứ không coi số mẫu ban đầu là thành tích thật.
+
+## Đổi mật khẩu và lớp/nhóm
+
+- Nút đổi mật khẩu gọi `PUT /api/v1/auth/change-password`; mật khẩu mới phải có ít nhất 6 ký tự và hai lần nhập phải khớp.
+- Người dùng có thể cập nhật lớp/nhóm qua `PUT /api/v1/auth/profile`. Giá trị này được dùng khi lọc bảng xếp hạng theo lớp/nhóm.
 
 ## Đổi tên
 

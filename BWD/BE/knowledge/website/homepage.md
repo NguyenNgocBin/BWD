@@ -1,3 +1,20 @@
+---
+schema_version: 1
+document_id: website.guide.homepage
+title: Website Đông Sơn - tổng quan chức năng
+corpus: website
+topic: Tổng quan chức năng website
+entities: ["Website Đông Sơn", "Trang chủ", "Bảo tàng số Đông Sơn"]
+references:
+  - "repo:BWD/FE/index.html"
+updated_at: '2026-07-14'
+reviewed_by: 'Nhóm dự án — rà soát kỹ thuật'
+review_status: code_verified
+confidence: high
+retrieval_enabled: true
+document_type: website_guide
+---
+
 # Website Đông Sơn - tổng quan chức năng
 
 Website Đông Sơn là một bảo tàng số kiêm không gian học tập tương tác về trống đồng Đông Sơn, văn hóa Đông Sơn và di sản Việt cổ. Website giúp người dùng đọc kiến thức, xem hình ảnh/triển lãm, chơi trò chơi, xem bản đồ phân bố trống đồng, theo dõi điểm số và hỏi AI Đông Sơn qua chatbox.

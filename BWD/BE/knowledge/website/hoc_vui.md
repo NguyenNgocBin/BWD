@@ -1,3 +1,21 @@
+---
+schema_version: 1
+document_id: website.guide.hoc_vui
+title: Trang Học vui
+corpus: website
+topic: Hướng dẫn học nhanh và lộ trình
+entities: ["Trang Học vui", "Lộ trình học", "Đúng/Sai"]
+references:
+  - "repo:BWD/FE/pages/hocvui.html"
+  - "repo:BWD/FE/pages/lo-trinh.html"
+updated_at: '2026-07-14'
+reviewed_by: 'Nhóm dự án — rà soát kỹ thuật'
+review_status: code_verified
+confidence: high
+retrieval_enabled: true
+document_type: website_guide
+---
+
 # Trang Học vui
 
 Trang Học vui là phần nhập môn của website Đông Sơn. Mục tiêu là giúp người dùng mới, đặc biệt là học sinh hoặc người chưa biết nhiều về trống đồng, hiểu nhanh các ý chính bằng ngôn ngữ đơn giản, hình ảnh lớn và các khối nội dung ngắn.

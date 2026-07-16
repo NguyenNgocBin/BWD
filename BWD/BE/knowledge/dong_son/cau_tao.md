@@ -1,6 +1,10 @@
 ---
+schema_version: 1
+document_id: heritage.dong_son.cau_tao
 title: Cấu tạo và Diễn biến Kiểu dáng Trống đồng Đông Sơn
+corpus: heritage
 topic: Trống đồng Đông Sơn
+entities: ["Trống đồng Đông Sơn", "Heger I", "mặt trống", "tang trống", "thân trống", "chân trống"]
 tags:
   - hình dáng
   - cấu trúc trống đồng
@@ -17,16 +21,20 @@ keywords:
   - Hoàng Hạ
   - Cổ Loa
 description: Phân tích cấu tạo vật lý và sự thay đổi hình dáng của trống đồng Đông Sơn qua các giai đoạn phát triển.
-source:
-  - 16
-  - 17
-  - 18
-  - 19
+references:
+  - "internal:knowledge/dong_son/trong_dong.md"
+  - "https://baotanglichsu.vn/VI/Articles/3101/16689/trong-djong-djong-son-hien-vat-tieu-bieu-cua-nen-van-minh-viet-nam-thuo-dung-nuoc-phan-ii-va-het.html"
+updated_at: '2026-07-14'
+reviewed_by: 'Nhóm dự án — rà soát kỹ thuật'
+review_status: pending_expert_review
+confidence: medium
+retrieval_enabled: true
+document_type: heritage_article
 ---
 
 # Cấu tạo vật lý của Trống đồng Đông Sơn
 
-Trống đồng Đông Sơn thuộc nhóm Heger I là loại trống tiêu biểu nhất của văn hóa Đông Sơn. Trống có cấu tạo cân đối, gồm ba bộ phận chính: **mặt trống, thân trống và chân trống**.
+Trống đồng Đông Sơn thuộc nhóm Heger I là loại trống tiêu biểu nhất của văn hóa Đông Sơn. Khi mô tả từ trên xuống dưới, trống gồm bốn phần chính: **mặt trống, tang trống, thân trống và chân trống**; ngoài ra nhiều hiện vật còn có quai ở thân.
 
 ## 1. Mặt trống
 

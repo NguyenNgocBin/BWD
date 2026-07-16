@@ -1,0 +1,64 @@
+name: Backend quality (offline)
+
+on:
+  pull_request:
+    paths:
+      - "BWD/BE/**"
+      - "BWD/README.md"
+      - "idel.md"
+      - ".github/workflows/backend-quality.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "BWD/BE/**"
+      - "BWD/README.md"
+      - "idel.md"
+      - ".github/workflows/backend-quality.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  offline-quality:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: BWD/BE
+    env:
+      PYTHONUTF8: "1"
+      APP_ENV: test
+      RAG_RETRIEVAL_VERSION: v3
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: BWD/BE/requirements.txt
+
+      - name: Install backend dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Run backend tests
+        run: python -m unittest discover -s tests -v
+
+      - name: Compile Python modules
+        run: >-
+          python -m compileall -q app.py config controllers database evaluation
+          middlewares repositories routes scripts services tests utils
+
+      - name: Validate knowledge metadata
+        run: python scripts/ingest_knowledge_v3.py --validate-only
+
+      - name: Validate RAG evaluation dataset
+        run: python evaluation/run_rag_eval.py --validate-only
+
+      - name: Benchmark chunking without provider calls
+        run: >-
+          python evaluation/benchmark_chunking.py --top-k 5
+          --output "${{ runner.temp }}/chunking-benchmark-v3.json"

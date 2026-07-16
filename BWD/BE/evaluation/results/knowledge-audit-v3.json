@@ -1,0 +1,33 @@
+{
+  "generated_at": "2026-07-14T09:55:40.570401+00:00",
+  "metadata_required_fields": [
+    "schema_version",
+    "document_id",
+    "title",
+    "corpus",
+    "topic",
+    "entities",
+    "references",
+    "updated_at",
+    "reviewed_by",
+    "review_status",
+    "confidence",
+    "retrieval_enabled",
+    "document_type"
+  ],
+  "corpus_checksum": "966437aca17c20b7891501ddedbdd453c702678273e305e7af18d255ed95e470",
+  "counts_by_corpus": {
+    "heritage": 15,
+    "website": 10
+  },
+  "retrieval_documents": {
+    "disabled": 2,
+    "enabled": 23
+  },
+  "document_count": 25,
+  "empty_documents": [],
+  "metadata_errors": [],
+  "exact_duplicates": [],
+  "near_duplicates": [],
+  "is_clean": true
+}

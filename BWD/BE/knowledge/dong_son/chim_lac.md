@@ -1,6 +1,10 @@
 ---
+schema_version: 1
+document_id: heritage.dong_son.chim_lac
 title: Biểu tượng Chim Lạc trên Trống đồng Đông Sơn
+corpus: heritage
 topic: Trống đồng Đông Sơn
+entities: ["Chim Lạc", "Trống đồng Đông Sơn", "Văn hóa Đông Sơn"]
 tags:
   - chim Lạc
   - hoa văn Đông Sơn
@@ -14,10 +18,15 @@ keywords:
   - vật tổ
   - hoa văn trống đồng
 description: Phân tích hình tượng Chim Lạc và ý nghĩa văn hóa trên trống đồng Đông Sơn.
-source:
-  - 29
-  - 32
-  - 33
+references:
+  - "internal:knowledge/dong_son/hoa_van.md"
+  - "https://baotanglichsu.vn/VI/Articles/3101/16534/mot-cach-giai-ma-hoa-van-trong-djong-ngoc-lu-cua-nen-van-hoa-djong-son-viet-nam.html"
+updated_at: '2026-07-14'
+reviewed_by: 'Nhóm dự án — rà soát kỹ thuật'
+review_status: pending_expert_review
+confidence: low
+retrieval_enabled: true
+document_type: heritage_article
 ---
 
 # Chim Lạc: Biểu tượng văn hóa trên Trống đồng Đông Sơn

@@ -1,5 +1,20 @@
 ---
+schema_version: 1
+document_id: heritage.artifact.ngoc_lu
 title: Trống đồng Ngọc Lũ
+corpus: heritage
+topic: Trống đồng Ngọc Lũ
+entities: ["Trống Ngọc Lũ", "Ngọc Lũ", "Văn hóa Đông Sơn", "Bảo tàng Lịch sử Quốc gia"]
+references:
+  - "https://baotanglichsu.vn/vi/Articles/1001/73637/bao-vat-quoc-gia-trong-ngoc-lu.html"
+  - "https://dsvh.gov.vn/bao-vat-quoc-gia-1758"
+  - "https://baotanglichsu.vn/VI/Articles/3101/16534/mot-cach-giai-ma-hoa-van-trong-djong-ngoc-lu-cua-nen-van-hoa-djong-son-viet-nam.html"
+updated_at: '2026-07-14'
+reviewed_by: 'Nhóm dự án — rà soát kỹ thuật'
+review_status: pending_expert_review
+confidence: medium
+retrieval_enabled: true
+document_type: artifact
 tags: [Ngọc Lũ, Bảo vật quốc gia, Hà Nam, hoa văn Đông Sơn]
 description: Hiện vật tiêu biểu hàng đầu của nghệ thuật và kỹ thuật đúc đồng Đông Sơn.
 ---

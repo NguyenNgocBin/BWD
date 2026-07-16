@@ -112,6 +112,32 @@ create index if not exists idx_game_sessions_game_id on game_sessions (game_id);
 create index if not exists idx_game_sessions_score on game_sessions (game_id, score desc);
 create index if not exists idx_game_sessions_played_at on game_sessions (played_at desc);
 
+-- Log danh gia chat RAG khong gan voi tai khoan, IP hay thiet bi nguoi dung.
+-- Cau hoi duoc khu nhan dang tai service truoc khi ghi vao bang nay.
+create table if not exists rag_interaction_logs (
+    interaction_id varchar(36) primary key,
+    question_redacted text not null,
+    question_hash char(64) not null,
+    retrieval_chunks jsonb not null default '[]'::jsonb,
+    best_score numeric(12, 6),
+    latency_ms integer not null default 0,
+    fallback boolean not null default false,
+    fallback_reason varchar(100),
+    helpful boolean,
+    feedback_reason varchar(500),
+    created_at timestamptz not null default now(),
+    feedback_at timestamptz
+);
+
+create index if not exists idx_rag_logs_created_at
+on rag_interaction_logs (created_at desc);
+
+create index if not exists idx_rag_logs_fallback
+on rag_interaction_logs (fallback, created_at desc);
+
+create index if not exists idx_rag_logs_helpful
+on rag_interaction_logs (helpful, created_at desc);
+
 -- Bang tong hop diem cua moi user theo tung game.
 create table if not exists user_game_stats (
     user_id integer not null references users(id) on delete cascade,

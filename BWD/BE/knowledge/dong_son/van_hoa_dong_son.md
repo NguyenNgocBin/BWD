@@ -1,6 +1,10 @@
 ---
+schema_version: 1
+document_id: heritage.dong_son.van_hoa_dong_son
 title: Nền Văn hóa Đông Sơn và Cư dân Việt cổ
+corpus: heritage
 topic: Văn hóa Đông Sơn
+entities: ["Văn hóa Đông Sơn", "Cư dân Việt cổ", "Văn Lang", "Âu Lạc", "sông Hồng"]
 tags:
   - Lạc Việt
   - Hùng Vương
@@ -15,13 +19,15 @@ keywords:
   - nghề luyện kim
   - trồng lúa nước
 description: Giới thiệu nguồn gốc, chủ nhân, đời sống và trình độ phát triển của cư dân thuộc nền văn hóa Đông Sơn.
-source:
-  - 10
-  - 11
-  - 12
-  - 13
-  - 14
-  - 15
+references:
+  - "https://baotanglichsu.vn/VI/Articles/4002/68892/trung-bay-chuyen-dje-van-hoa-djong-son.html"
+  - "internal:knowledge/dong_son/trong_dong.md"
+updated_at: '2026-07-14'
+reviewed_by: 'Nhóm dự án — rà soát kỹ thuật'
+review_status: pending_expert_review
+confidence: medium
+retrieval_enabled: true
+document_type: heritage_article
 ---
 
 # Văn hóa Đông Sơn và Cư dân Lạc Việt

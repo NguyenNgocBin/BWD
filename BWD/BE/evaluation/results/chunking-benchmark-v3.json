@@ -1,0 +1,54 @@
+{
+  "generated_at": "2026-07-14T09:44:24.132700+00:00",
+  "benchmark_mode": "deterministic_bm25_over_semantic_units",
+  "note": "Cấu hình được chọn offline; collection active được đánh giá lại end-to-end bằng Gemini semantic embedding.",
+  "dataset_version": "1.2.0",
+  "questions": 120,
+  "top_k": 5,
+  "selection_tolerance": 0.015,
+  "selected_config": "balanced",
+  "configs": {
+    "compact": {
+      "chunk_count": 211,
+      "avg_chunk_chars": 323.66,
+      "median_chunk_chars": 295,
+      "p95_chunk_chars": 577,
+      "avg_top_k_context_chars": 1262.02,
+      "hit_at_k": 0.9121,
+      "source_recall_at_k": 0.8407,
+      "mrr": 0.7943,
+      "answerability_accuracy": 1.0,
+      "false_reject_rate": 0.0,
+      "false_accept_rate": 0.0,
+      "selection_score": 0.863263
+    },
+    "balanced": {
+      "chunk_count": 204,
+      "avg_chunk_chars": 335.37,
+      "median_chunk_chars": 296.0,
+      "p95_chunk_chars": 672,
+      "avg_top_k_context_chars": 1312.46,
+      "hit_at_k": 0.9121,
+      "source_recall_at_k": 0.8407,
+      "mrr": 0.798,
+      "answerability_accuracy": 1.0,
+      "false_reject_rate": 0.0,
+      "false_accept_rate": 0.0,
+      "selection_score": 0.864188
+    },
+    "broad": {
+      "chunk_count": 202,
+      "avg_chunk_chars": 337.03,
+      "median_chunk_chars": 295.0,
+      "p95_chunk_chars": 658,
+      "avg_top_k_context_chars": 1363.34,
+      "hit_at_k": 0.9121,
+      "source_recall_at_k": 0.8462,
+      "mrr": 0.7962,
+      "answerability_accuracy": 1.0,
+      "false_reject_rate": 0.0,
+      "false_accept_rate": 0.0,
+      "selection_score": 0.863735
+    }
+  }
+}

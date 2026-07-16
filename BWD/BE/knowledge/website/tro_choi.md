@@ -1,3 +1,23 @@
+---
+schema_version: 1
+document_id: website.guide.tro_choi
+title: Trang Trò chơi và luật chơi
+corpus: website
+topic: Trò chơi, luật chơi và tính điểm
+entities: ["Lật thẻ họa tiết", "Ghép hình trống đồng", "Đúng hay Sai", "Quiz camera"]
+references:
+  - "repo:BWD/FE/pages/trochoi.html"
+  - "repo:BWD/FE/js/game/motif-hunt.js"
+  - "repo:BWD/FE/js/game/puzzle.js"
+  - "repo:BWD/FE/js/game/codechayquiz.js"
+updated_at: '2026-07-14'
+reviewed_by: 'Nhóm dự án — rà soát kỹ thuật'
+review_status: code_verified
+confidence: high
+retrieval_enabled: true
+document_type: website_guide
+---
+
 # Trang Trò chơi và luật chơi
 
 Trang Trò chơi là khu vực học tập tương tác của website Đông Sơn. Người dùng vừa chơi vừa ôn kiến thức về trống đồng, hoa văn, cấu tạo, lịch sử và bảo tồn di sản. Trang giới thiệu ba game đang hoạt động: Lật thẻ họa tiết, Ghép hình trống đồng và Đúng hay Sai.

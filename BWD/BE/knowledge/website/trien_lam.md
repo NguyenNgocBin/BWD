@@ -1,3 +1,20 @@
+---
+schema_version: 1
+document_id: website.guide.trien_lam
+title: Trang Triển lãm
+corpus: website
+topic: Hướng dẫn triển lãm 3D
+entities: ["Trang Triển lãm", "Tour 3D Đông Sơn"]
+references:
+  - "repo:BWD/FE/pages/trienlam.html"
+updated_at: '2026-07-14'
+reviewed_by: 'Nhóm dự án — rà soát kỹ thuật'
+review_status: code_verified
+confidence: high
+retrieval_enabled: true
+document_type: website_guide
+---
+
 # Trang Triển lãm
 
 Trang Triển lãm là không gian tham quan trực tuyến của website Đông Sơn. Trang này tập trung vào trải nghiệm xem triển lãm 3D về trống đồng, hoa văn và văn hóa Việt cổ.

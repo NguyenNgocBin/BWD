@@ -1,6 +1,10 @@
 ---
+schema_version: 1
+document_id: heritage.dong_son.ky_thuat_duc_dong
 title: Kỹ thuật Luyện kim và Đúc Trống đồng Đông Sơn
+corpus: heritage
 topic: Trống đồng Đông Sơn
+entities: ["Kỹ thuật đúc đồng", "Luyện kim Đông Sơn", "Trống đồng Đông Sơn", "Luy Lâu"]
 tags:
   - đúc đồng
   - luyện kim cổ
@@ -14,12 +18,15 @@ keywords:
   - luyện kim Việt cổ
   - mảnh khuôn đúc Luy Lâu
 description: Phân tích kỹ thuật luyện kim, chế tác khuôn và trình độ đúc trống đồng của cư dân Đông Sơn.
-source:
-  - 33
-  - 35
-  - 36
-  - 37
-  - 38
+references:
+  - "internal:knowledge/dong_son/trong_dong.md"
+  - "https://baotanglichsu.vn/VI/Articles/3101/16689/trong-djong-djong-son-hien-vat-tieu-bieu-cua-nen-van-minh-viet-nam-thuo-dung-nuoc-phan-ii-va-het.html"
+updated_at: '2026-07-14'
+reviewed_by: 'Nhóm dự án — rà soát kỹ thuật'
+review_status: pending_expert_review
+confidence: medium
+retrieval_enabled: true
+document_type: heritage_article
 ---
 
 # Kỹ thuật Đúc trống: Đỉnh cao kỹ thuật luyện kim Đông Sơn

@@ -1,7 +1,20 @@
 ---
-id: dongson_faq_001
+schema_version: 1
+document_id: heritage.quiz.advanced
 title: Câu hỏi thường gặp về Trống đồng Đông Sơn
+corpus: heritage
 topic: Trống đồng Đông Sơn
+entities: ["Trống đồng Đông Sơn", "Văn hóa Đông Sơn", "hoa văn Đông Sơn", "bảo tồn hiện vật"]
+references:
+  - "internal:knowledge/faq/faq.md"
+  - "internal:knowledge/dong_son/trong_dong.md"
+  - "internal:knowledge/dong_son/hoa_van.md"
+updated_at: '2026-07-14'
+reviewed_by: 'Nhóm dự án — rà soát kỹ thuật'
+review_status: pending_expert_review
+confidence: low
+retrieval_enabled: false
+document_type: quiz
 category: FAQ
 tags:
   - trống đồng Đông Sơn
@@ -9,7 +22,7 @@ tags:
   - văn hóa Đông Sơn
   - lịch sử
 keywords:
-  - lớp bột hóa thạch
+  - lớp patina
   - giá trị trống đồng
   - Thiên Địa Nhân
   - bảo vật quốc gia
@@ -21,37 +34,36 @@ keywords:
 
 **Câu trả lời:**
 
-Không nên lau sạch lớp bột trên bề mặt trống đồng cổ vì hoa văn của trống nằm trực tiếp trên lớp bột hóa thạch đó. Nếu làm sạch lớp bột này có thể làm mất đi hoa văn nguyên bản và làm giảm giá trị lịch sử, nghệ thuật của hiện vật.
+Không nên tự ý chà rửa bề mặt trống đồng cổ. Hoa văn được tạo trên bề mặt kim loại, không nằm trong một “lớp bột hóa thạch”. Tuy nhiên, lớp patina, sản phẩm ăn mòn và các dấu tích bề mặt có thể chứa thông tin về lịch sử hiện vật; làm sạch sai phương pháp có thể gây mất vật chất gốc hoặc phá hủy chứng cứ. Việc bảo quản phải do chuyên gia thực hiện sau khi đánh giá tình trạng hiện vật.
 
 **Từ khóa:**
 - bảo quản trống đồng
-- lớp bột hóa thạch
+- lớp patina
 - hoa văn cổ
 - giá trị hiện vật
 
 
 ---
 
-## 2. Một chiếc trống đồng thời cổ có giá trị tương đương bao nhiêu con trâu?
+## 2. Có thể quy đổi một chiếc trống đồng thời cổ thành bao nhiêu con trâu?
 
 **Câu trả lời:**
 
-Theo quan niệm về giá trị thời xưa, một chiếc trống đồng cổ có giá trị tương đương khoảng **2.000 đến 3.000 con trâu**. Điều này cho thấy trống đồng từng là một tài sản rất quý giá và thể hiện địa vị quan trọng trong xã hội cổ.
+Chưa đủ dữ liệu đáng tin cậy để quy đổi một chiếc trống đồng cổ thành số lượng trâu cụ thể. Con số “2.000–3.000 con trâu” trong bản nội dung cũ chưa truy được nguồn và không nên dùng làm đáp án. Có thể khẳng định thận trọng rằng trống đồng là hiện vật quý, có vai trò nghi lễ và biểu thị địa vị trong một số bối cảnh.
 
 **Từ khóa:**
 - giá trị trống đồng
-- 2000 con trâu
-- 3000 con trâu
+- chưa đủ dữ liệu định lượng
 - tài sản thời cổ
 
 
 ---
 
-## 3. Ý nghĩa của việc đánh 3 tiếng trống theo quan niệm xưa?
+## 3. Ba tiếng trống có chắc chắn mang nghĩa Thiên–Địa–Nhân không?
 
 **Câu trả lời:**
 
-Việc đánh 3 tiếng trống theo quan niệm xưa tượng trưng cho **Thiên - Địa - Nhân**, thể hiện sự kết nối giữa trời, đất và con người trong đời sống tinh thần của cư dân cổ.
+Cách giải thích ba tiếng trống tượng trưng cho **Thiên–Địa–Nhân** là một diễn giải phổ biến nhưng chưa có nguồn khảo cổ hoặc bảo tàng đủ tin cậy trong kho hiện tại để gắn chắc với nghi thức trống Đông Sơn. Vì vậy chỉ nên nêu như giả thuyết chưa kiểm chứng.
 
 **Từ khóa:**
 - 3 tiếng trống

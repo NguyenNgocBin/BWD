@@ -1,3 +1,21 @@
+---
+schema_version: 1
+document_id: website.guide.ban_do
+title: Trang Bản đồ
+corpus: website
+topic: Hướng dẫn sử dụng bản đồ
+entities: ["Trang Bản đồ", "Leaflet", "OpenStreetMap", "Hoàng Sa", "Trường Sa"]
+references:
+  - "repo:BWD/FE/pages/Map.html"
+  - "repo:BWD/FE/js/map.js"
+updated_at: '2026-07-14'
+reviewed_by: 'Nhóm dự án — rà soát kỹ thuật'
+review_status: code_verified
+confidence: high
+retrieval_enabled: true
+document_type: website_guide
+---
+
 # Trang Bản đồ
 
 Trang Bản đồ là bản đồ tương tác của website Đông Sơn. Trang sử dụng Leaflet và OpenStreetMap để hiển thị các điểm phát hiện trống đồng, bảo tàng liên quan đến Đông Sơn và hai quần đảo Hoàng Sa, Trường Sa.
@@ -16,7 +34,7 @@ Mục tiêu:
 ## Các loại điểm trên bản đồ
 
 1. Điểm trống đồng:
-   - Nhóm Bắc Bộ/Tây Bắc: Ngọc Lũ, Sông Đà, Hoàng Hạ, Cổ Loa, Khai Hóa, Hữu Chung.
+   - Nhóm Bắc Bộ/Tây Bắc: Ngọc Lũ, Sông Đà, Hoàng Hạ, Cổ Loa, Cẩm Giang, Hữu Chung.
    - Nhóm Bắc Trung Bộ: Sao Vàng, Sông Mã, Quỳ Chử, Cẩm Giang.
    - Nhóm Trung Bộ: Duy Xuyên, Hòa Vang, Gò Quê, Nha Trang.
    - Nhóm Tây Nguyên: An Khê, Kon Tum.

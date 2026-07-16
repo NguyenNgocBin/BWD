@@ -1,5 +1,20 @@
 ---
+schema_version: 1
+document_id: heritage.artifact.hoang_ha
 title: Trống đồng Hoàng Hạ
+corpus: heritage
+topic: Trống đồng Hoàng Hạ
+entities: ["Trống Hoàng Hạ", "Hoàng Hạ", "Văn hóa Đông Sơn", "Bảo tàng Lịch sử Quốc gia"]
+references:
+  - "https://baotanglichsu.vn/vi/Articles/2001/65902/hoang-ha-a-hau-trong-djong-djong-son.html"
+  - "https://baotanglichsu.vn/vi/Articles/1001/28539/kham-pha-trong-djong-hoang-ha.html"
+  - "https://dsvh.gov.vn/bao-vat-quoc-gia-1758"
+updated_at: '2026-07-14'
+reviewed_by: 'Nhóm dự án — rà soát kỹ thuật'
+review_status: pending_expert_review
+confidence: medium
+retrieval_enabled: true
+document_type: artifact
 tags: [Hoàng Hạ, Bảo vật quốc gia, Hà Nội, Đông Sơn]
 description: Trống Đông Sơn nổi tiếng với bố cục gần Ngọc Lũ và nhiều cảnh sinh hoạt tả thực.
 ---

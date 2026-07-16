@@ -1,3 +1,21 @@
+---
+schema_version: 1
+document_id: website.guide.tai_lieu
+title: Trang Tài liệu
+corpus: website
+topic: Hướng dẫn trang tài liệu
+entities: ["Trang Tài liệu", "Heger", "Hiện vật Đông Sơn"]
+references:
+  - "repo:BWD/FE/pages/tailieu.html"
+  - "repo:BWD/FE/js/artifact-detail.js"
+updated_at: '2026-07-14'
+reviewed_by: 'Nhóm dự án — rà soát kỹ thuật'
+review_status: code_verified
+confidence: high
+retrieval_enabled: true
+document_type: website_guide
+---
+
 # Trang Tài liệu
 
 Trang Tài liệu là phần học sâu của website Đông Sơn. Trang này phù hợp với người muốn tra cứu có hệ thống về trống đồng Đông Sơn, không chỉ xem giới thiệu ngắn.

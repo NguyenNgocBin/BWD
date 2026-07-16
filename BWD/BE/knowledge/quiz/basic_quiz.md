@@ -1,10 +1,29 @@
 ---
+schema_version: 1
+document_id: heritage.quiz.basic
+title: Ngân hàng câu hỏi cơ bản về Trống đồng Đông Sơn
+corpus: heritage
+topic: Trống đồng Đông Sơn
+entities: ["Trống đồng Đông Sơn", "Văn hóa Đông Sơn", "Franz Heger", "hoa văn Đông Sơn"]
+references:
+  - "internal:knowledge/dong_son/trong_dong.md"
+  - "internal:knowledge/dong_son/heger.md"
+  - "internal:knowledge/dong_son/hoa_van.md"
+updated_at: '2026-07-14'
+reviewed_by: 'Nhóm dự án — rà soát kỹ thuật'
+review_status: pending_expert_review
+confidence: medium
+retrieval_enabled: false
+document_type: quiz
+---
 
-## 15. Trống đồng Đông Sơn lần đầu được tìm thấy ở đâu?
+# Ngân hàng câu hỏi cơ bản về Trống đồng Đông Sơn
+
+## 15. Tên gọi văn hóa Đông Sơn bắt nguồn từ đâu?
 
 **Câu trả lời:**
 
-Trống đồng Đông Sơn lần đầu được phát hiện tại làng Đông Sơn, Thanh Hóa vào năm 1924. Từ địa điểm này, tên gọi "văn hóa Đông Sơn" được sử dụng để chỉ nền văn hóa khảo cổ nổi tiếng của Việt Nam thời kỳ cổ đại.
+Tên gọi bắt nguồn từ địa điểm khảo cổ Đông Sơn ở Thanh Hóa, nơi các phát hiện được ghi nhận từ năm 1924. Điều này giải thích tên của nền văn hóa khảo cổ, không khẳng định chiếc trống đồng đầu tiên từng được biết đến được tìm thấy tại đây.
 
 **Từ khóa:**
 - làng Đông Sơn

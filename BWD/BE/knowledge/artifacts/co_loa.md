@@ -1,5 +1,19 @@
 ---
+schema_version: 1
+document_id: heritage.artifact.co_loa
 title: Trống đồng Cổ Loa
+corpus: heritage
+topic: Trống đồng Cổ Loa
+entities: ["Trống Cổ Loa", "Cổ Loa", "Âu Lạc", "Văn hóa Đông Sơn"]
+references:
+  - "https://baotanglichsu.vn/VI/Articles/4002/68892/trung-bay-chuyen-dje-van-hoa-djong-son.html"
+  - "https://baotanglichsu.vn/VI/Articles/3101/16689/trong-djong-djong-son-hien-vat-tieu-bieu-cua-nen-van-minh-viet-nam-thuo-dung-nuoc-phan-ii-va-het.html"
+updated_at: '2026-07-14'
+reviewed_by: 'Nhóm dự án — rà soát kỹ thuật'
+review_status: pending_expert_review
+confidence: medium
+retrieval_enabled: true
+document_type: artifact
 tags: [Cổ Loa, Âu Lạc, Đông Sơn, Hà Nội]
 description: Trống Đông Sơn tiêu biểu được phát hiện tại khu vực thành Cổ Loa.
 ---

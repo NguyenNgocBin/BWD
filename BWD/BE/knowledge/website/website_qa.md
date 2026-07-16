@@ -1,3 +1,23 @@
+---
+schema_version: 1
+document_id: website.faq.quick_answers
+title: Hỏi đáp nhanh về website Đông Sơn
+corpus: website
+topic: Hỏi đáp sử dụng website
+entities: ["Website Đông Sơn", "Chatbox AI Đông Sơn", "Trò chơi Đông Sơn", "Trang Xếp hạng"]
+references:
+  - "internal:knowledge/website/homepage.md"
+  - "internal:knowledge/website/tro_choi.md"
+  - "internal:knowledge/website/tai_khoan.md"
+  - "internal:knowledge/website/xep_hang.md"
+updated_at: '2026-07-14'
+reviewed_by: 'Nhóm dự án — rà soát kỹ thuật'
+review_status: code_verified
+confidence: high
+retrieval_enabled: true
+document_type: website_faq
+---
+
 # Hỏi đáp nhanh về website Đông Sơn
 
 File này giúp chatbox trả lời các câu hỏi ngắn, trực tiếp về cách dùng website Đông Sơn.
