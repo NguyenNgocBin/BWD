@@ -62,7 +62,7 @@ Dự án **chưa có WebAR đặt trống đồng vào không gian thật**. Cam
 
 ### 3.3. Bản đồ Đông Sơn
 
-- Sử dụng Leaflet và OpenStreetMap.
+- Sử dụng Google Maps (hỗ trợ các chế độ Đường sá, Vệ tinh, Địa hình).
 - Có marker, ảnh, mô tả và thông tin cho nhiều địa điểm liên quan đến di sản Đông Sơn.
 - Có danh sách địa điểm, popup và chế độ bản đồ toàn màn hình.
 - Dữ liệu bản đồ hiện nằm trong JavaScript, chưa dùng chung với dữ liệu hiện vật hoặc kho tri thức.

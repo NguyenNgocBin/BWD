@@ -42,7 +42,7 @@ Thanh menu chính gồm:
 - Xếp hạng: bảng điểm theo các nhóm trò chơi.
 - Cá nhân: hồ sơ người dùng, điểm, thành tựu, huy hiệu, lịch sử hoạt động.
 - Tài liệu: trang đọc sâu, có các mục tổng quan, phân loại, cấu tạo, hoa văn, thời gian, hiện vật, nguồn.
-- Bản đồ: bản đồ Leaflet/OpenStreetMap hiển thị các địa điểm Đông Sơn và bảo tàng.
+- Bản đồ: bản đồ Google Maps hiển thị các địa điểm Đông Sơn và bảo tàng.
 
 ## Trang chủ có gì?
 

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 
 <head>
@@ -51,9 +51,7 @@
                     <span class="section-label">Bản đồ bảo tàng số</span>
                     <h1>Khám phá dấu ấn Đông Sơn trên bản đồ Việt Nam</h1>
                     <p>
-                        Bản đồ hiển thị các nơi phát hiện trống đồng, bảo tàng, không gian văn hóa Đông Sơn và hai quần
-                        đảo
-                        Hoàng Sa, Trường Sa của Việt Nam. Hãy kéo, phóng to và bấm vào từng biểu tượng để xem thông tin.
+                        Bản đồ hiển thị các nơi phát hiện trống đồng, bảo tàng và không gian văn hóa Đông Sơn trên lãnh thổ Việt Nam. Hãy kéo, phóng to và bấm vào từng biểu tượng để xem thông tin.
                     </p>
                 </div>
 
@@ -73,8 +71,6 @@
                         <li><span class="legend-icon"
                                 style="background:linear-gradient(145deg,#f4dfbb,#a36a2a);">🏛</span><span>Bảo tàng
                                 trưng bày, lưu giữ hiện vật Đông Sơn</span></li>
-                        <li><span class="legend-icon">🏝</span><span>Quần đảo Hoàng Sa, Trường Sa của Việt Nam</span>
-                        </li>
                     </ul>
                 </aside>
             </div>
@@ -85,11 +81,16 @@
                 <div class="map-panel">
                     <div class="map-toolbar">
                         <div>
-                            <span class="panel-label">Leaflet + OpenStreetMap</span>
+                            <span class="panel-label">Google Maps</span>
                             <strong>Bản đồ Việt Nam và di sản Đông Sơn</strong>
                         </div>
 
                         <div class="map-toolbar-actions">
+                            <div class="map-type-group" role="group" aria-label="Chế độ hiển thị bản đồ">
+                                <button class="map-type-btn active" id="mapTypeRoadmap" type="button" title="Bản đồ đường sá Google Maps">Đường sá</button>
+                                <button class="map-type-btn" id="mapTypeSatellite" type="button" title="Ảnh vệ tinh Google Maps">Vệ tinh</button>
+                                <button class="map-type-btn" id="mapTypeTerrain" type="button" title="Bản đồ địa hình Google Maps">Địa hình</button>
+                            </div>
                             <button class="map-view-btn" id="mapOverviewBtn" type="button">Toàn cảnh</button>
                         </div>
                     </div>

@@ -9,8 +9,308 @@
         content="Khám phá triển lãm trực tuyến văn hóa Đông Sơn – mô hình trống đồng 3D tương tác và không gian trưng bày số.">
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/layout.css">
-    <link rel="stylesheet" href="../css/trienlam.css">
+    <link rel="stylesheet" href="../css/trienlam.css?v=20260909-details-corner">
     <link rel="stylesheet" href="../css/chatbox.css">
+    <style>
+        /* Đảm bảo hiển thị chuẩn xác không bị ảnh hưởng bởi cache trình duyệt */
+        .frame-details-panel {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            z-index: 7;
+            width: 215px;
+            max-height: calc(100% - 32px);
+            overflow-y: auto;
+            background: rgba(22, 17, 13, 0.92);
+            border: 1px solid rgba(240, 207, 119, 0.45);
+            backdrop-filter: blur(14px);
+            border-radius: 16px;
+            padding: 12px;
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6), 0 0 20px rgba(217, 155, 40, 0.15);
+        }
+        .frame-details-title {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(240, 207, 119, 0.22);
+        }
+        .f-title-badge {
+            font-size: 11px;
+            font-weight: 800;
+            color: #ffd978;
+            background: rgba(217, 155, 40, 0.25);
+            border: 1px solid rgba(240, 207, 119, 0.45);
+            padding: 2px 7px;
+            border-radius: 999px;
+            text-transform: uppercase;
+        }
+        .f-title-text {
+            font-size: 12px;
+            font-weight: 700;
+            color: #f5ead8;
+        }
+        .frame-details-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .frame-detail-btn {
+            display: flex !important;
+            align-items: center !important;
+            gap: 10px !important;
+            width: 100% !important;
+            padding: 7px 10px !important;
+            border-radius: 10px !important;
+            border: 1px solid rgba(240, 207, 119, 0.25) !important;
+            background: rgba(45, 36, 28, 0.78) !important;
+            color: #f5ead8 !important;
+            font-size: 13px !important;
+            font-weight: 700 !important;
+            cursor: pointer !important;
+            text-align: left !important;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        }
+        .frame-detail-btn:hover {
+            background: rgba(70, 56, 44, 0.98) !important;
+            border-color: rgba(255, 217, 120, 0.75) !important;
+            color: #ffffff !important;
+            transform: translateX(4px) !important;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35) !important;
+        }
+        .frame-detail-btn .f-num {
+            width: 25px !important;
+            height: 25px !important;
+            border-radius: 50% !important;
+            background: rgba(217, 155, 40, 0.25) !important;
+            border: 1px solid rgba(240, 207, 119, 0.65) !important;
+            color: #ffd978 !important;
+            display: inline-grid !important;
+            place-items: center !important;
+            font-size: 12px !important;
+            font-weight: 800 !important;
+            flex-shrink: 0 !important;
+        }
+        .frame-detail-btn:hover .f-num {
+            background: rgba(217, 155, 40, 0.5) !important;
+            color: #fff !important;
+            border-color: #ffd978 !important;
+        }
+        .frame-detail-btn.active {
+            background: linear-gradient(135deg, rgba(217, 155, 40, 0.45), rgba(255, 217, 120, 0.25)) !important;
+            border-color: #ffd978 !important;
+            color: #ffffff !important;
+            box-shadow: 0 0 18px rgba(255, 217, 120, 0.4) !important;
+            transform: translateX(4px) !important;
+        }
+        .frame-detail-btn.active .f-num {
+            background: #ffd978 !important;
+            color: #1a0f04 !important;
+            font-weight: 900 !important;
+            box-shadow: 0 0 10px rgba(255, 217, 120, 0.7) !important;
+        }
+        .frame-detail-btn .f-text {
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+            white-space: nowrap !important;
+        }
+        .frame-btn-reset {
+            border-style: dashed !important;
+            border-color: rgba(240, 207, 119, 0.45) !important;
+            margin-top: 3px !important;
+        }
+        .frame-coords-tool {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            z-index: 7;
+        }
+        .btn-get-coords {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 14px;
+            border-radius: 999px;
+            border: 1px solid rgba(240, 207, 119, 0.45);
+            background: rgba(22, 17, 13, 0.9);
+            backdrop-filter: blur(8px);
+            color: #ffd978;
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+            transition: all 0.2s ease;
+        }
+        .btn-get-coords:hover {
+            background: rgba(217, 155, 40, 0.35);
+            border-color: #ffd978;
+            color: #fff;
+            box-shadow: 0 0 16px rgba(255, 217, 120, 0.4);
+            transform: translateY(-1px);
+        }
+        .coords-modal {
+            position: absolute;
+            top: 60px;
+            right: 16px;
+            z-index: 10;
+            width: min(360px, calc(100% - 32px));
+            padding: 16px 18px;
+            border-radius: 16px;
+            border: 1px solid rgba(240, 207, 119, 0.55);
+            background: rgba(18, 14, 11, 0.97);
+            backdrop-filter: blur(14px);
+            box-shadow: 0 18px 46px rgba(0, 0, 0, 0.7), 0 0 24px rgba(217, 155, 40, 0.2);
+            animation: fadeInSlideUp 0.25s ease both;
+        }
+        .coords-modal[hidden] {
+            display: none !important;
+        }
+        .coords-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            color: #ffd978;
+            font-size: 14px;
+        }
+        .coords-modal-close {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            border: 1px solid rgba(240, 207, 119, 0.3);
+            background: rgba(45, 36, 28, 0.6);
+            color: #d4c49a;
+            font-size: 16px;
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            line-height: 1;
+        }
+        .coords-modal-close:hover {
+            color: #fff;
+            border-color: #ffd978;
+        }
+        .coords-desc {
+            color: #cbb89a;
+            font-size: 12px;
+            line-height: 1.5;
+            margin: 0 0 10px;
+        }
+        .coords-desc code {
+            background: rgba(217, 155, 40, 0.18);
+            color: #ffd978;
+            padding: 2px 5px;
+            border-radius: 4px;
+        }
+        .coords-code {
+            background: rgba(10, 8, 6, 0.88);
+            border: 1px solid rgba(240, 207, 119, 0.28);
+            border-radius: 8px;
+            padding: 10px 12px;
+            color: #86efac;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 12px;
+            line-height: 1.5;
+            margin: 0 0 12px;
+            white-space: pre-wrap;
+            word-break: break-all;
+            max-height: 170px;
+            overflow-y: auto;
+        }
+        .coords-modal-footer {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .coords-copy-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 7px 14px;
+            border-radius: 999px;
+            border: 1px solid rgba(240, 207, 119, 0.5);
+            background: linear-gradient(135deg, #d99b28, #ffd978);
+            color: #1a0f04;
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.18s ease;
+        }
+        .coords-copy-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 14px rgba(217, 155, 40, 0.45);
+        }
+        .coords-copy-toast {
+            color: #4ade80;
+            font-size: 12px;
+            font-weight: 700;
+            display: none;
+        }
+        .coords-copy-toast.is-shown {
+            display: inline-block;
+        }
+        /* Chi tiết chip dưới frame */
+        .detail-chip {
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 8px !important;
+            padding: 7px 14px 7px 8px !important;
+            border-radius: 999px !important;
+            border: 1px solid rgba(240, 207, 119, 0.35) !important;
+            background: rgba(47, 39, 31, 0.9) !important;
+            color: #f5ead8 !important;
+            font-size: 13px !important;
+            font-weight: 700 !important;
+            cursor: pointer !important;
+        }
+        .detail-chip .detail-num {
+            width: 26px !important;
+            height: 26px !important;
+            border-radius: 50% !important;
+            background: rgba(217, 155, 40, 0.25) !important;
+            border: 1px solid rgba(240, 207, 119, 0.6) !important;
+            color: #ffd978 !important;
+            display: inline-grid !important;
+            place-items: center !important;
+            font-size: 12px !important;
+            font-weight: 800 !important;
+        }
+        .detail-chip:hover {
+            background: rgba(65, 52, 41, 0.98) !important;
+            border-color: #ffd978 !important;
+            color: #fff !important;
+        }
+        .detail-chip.active {
+            background: linear-gradient(135deg, rgba(217, 155, 40, 0.4), rgba(255, 217, 120, 0.2)) !important;
+            border-color: #ffd978 !important;
+            color: #fff !important;
+            box-shadow: 0 0 16px rgba(217, 155, 40, 0.4) !important;
+        }
+        .detail-chip.active .detail-num {
+            background: #ffd978 !important;
+            color: #1a0f04 !important;
+        }
+        @media (max-width: 768px) {
+            .frame-details-panel {
+                top: 10px;
+                left: 10px;
+                width: 170px;
+                padding: 8px;
+            }
+            .frame-detail-btn {
+                font-size: 11px !important;
+                padding: 5px 8px !important;
+            }
+            .btn-get-coords {
+                top: 10px;
+                right: 10px;
+                font-size: 11px;
+                padding: 5px 10px;
+            }
+        }
+    </style>
     <script type="importmap">
         {
             "imports": {
@@ -175,20 +475,84 @@
                                 <strong id="model-active-title">Trống đồng Đông Sơn 3</strong>
                             </div>
                             <div class="model-detail-actions">
-                                <button class="ctrl-btn" id="btn-autorotate" onclick="toggleAutoRotate()"
+                                <button class="ctrl-btn" id="btn-zoom-in" type="button" title="Phóng to gần hơn (Zoom In)">
+                                    ＋ Phóng to
+                                </button>
+                                <button class="ctrl-btn" id="btn-zoom-out" type="button" title="Thu nhỏ xa hơn (Zoom Out)">
+                                    － Thu nhỏ
+                                </button>
+                                <button class="ctrl-btn" id="btn-autorotate" type="button" onclick="toggleAutoRotate()"
                                     title="Bật/tắt tự xoay">
                                     ⟳ Tự xoay
                                 </button>
-                                <button class="ctrl-btn" onclick="resetCamera()" title="Đặt lại góc nhìn">
-                                    ⊙ Góc mặc định
+                                <button class="ctrl-btn" type="button" onclick="resetCamera()" title="Đặt lại góc nhìn toàn cảnh">
+                                    ⊙ Toàn cảnh
                                 </button>
-                                <button class="ctrl-btn" onclick="toggleFullscreen3D()" title="Toàn màn hình">
+                                <button class="ctrl-btn" type="button" onclick="toggleFullscreen3D()" title="Toàn màn hình">
                                     ⛶ Toàn màn hình
                                 </button>
                             </div>
                         </div>
 
                         <div class="museum3d-frame" id="museum3d-frame">
+                            <!-- Bảng nút bấm chi tiết trực tiếp trong góc khung 3D -->
+                            <div class="frame-details-panel" id="frame-details-panel">
+                                <div class="frame-details-title">
+                                    <span class="f-title-badge">Chi tiết</span>
+                                    <span class="f-title-text">Góc nhìn hoa văn</span>
+                                </div>
+                                <div class="frame-details-list">
+                                    <button class="frame-detail-btn" type="button" data-detail-num="1" title="Mặt trời trung tâm">
+                                        <span class="f-num">1</span>
+                                        <span class="f-text">Mặt trời trung tâm</span>
+                                    </button>
+                                    <button class="frame-detail-btn" type="button" data-detail-num="2" title="Vành chim Lạc">
+                                        <span class="f-num">2</span>
+                                        <span class="f-text">Vành chim Lạc</span>
+                                    </button>
+                                    <button class="frame-detail-btn" type="button" data-detail-num="3" title="Giã gạo & Nhà sàn">
+                                        <span class="f-num">3</span>
+                                        <span class="f-text">Giã gạo & Nhà sàn</span>
+                                    </button>
+                                    <button class="frame-detail-btn" type="button" data-detail-num="4" title="Thuyền chiến tang trống">
+                                        <span class="f-num">4</span>
+                                        <span class="f-text">Thuyền chiến</span>
+                                    </button>
+                                    <button class="frame-detail-btn" type="button" data-detail-num="5" title="Quai trống chữ U">
+                                        <span class="f-num">5</span>
+                                        <span class="f-text">Quai trống chữ U</span>
+                                    </button>
+                                    <button class="frame-detail-btn" type="button" data-detail-num="6" title="Chân đế vững chãi">
+                                        <span class="f-num">6</span>
+                                        <span class="f-text">Chân đế trống</span>
+                                    </button>
+                                    <button class="frame-detail-btn frame-btn-reset" type="button" id="btn-frame-reset" title="Xem lại toàn cảnh">
+                                        <span class="f-num">⊙</span>
+                                        <span class="f-text">Toàn cảnh</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Công cụ lấy tọa độ góc nhìn trực tiếp -->
+                            <div class="frame-coords-tool">
+                                <button class="btn-get-coords" id="btn-get-coords" type="button" title="Lấy tọa độ camera và tâm nhìn hiện tại">
+                                    <span>📍</span>
+                                    <span>Lấy tọa độ góc nhìn</span>
+                                </button>
+                                <div class="coords-modal" id="coords-modal" hidden>
+                                    <div class="coords-modal-header">
+                                        <strong>📐 Tọa độ góc nhìn hiện tại</strong>
+                                        <button class="coords-modal-close" id="btn-close-coords-modal" type="button" aria-label="Đóng">×</button>
+                                    </div>
+                                    <p class="coords-desc">Xoay và zoom đến góc bạn ưng ý, sau đó copy mã dưới đây dán vào <code>drumDetailsData</code> trong <code>museum3d.js</code>:</p>
+                                    <pre class="coords-code" id="coords-output">Đang đọc tọa độ...</pre>
+                                    <div class="coords-modal-footer">
+                                        <button class="coords-copy-btn" id="btn-copy-coords" type="button">📋 Sao chép mã tọa độ</button>
+                                        <span class="coords-copy-toast" id="coords-copy-toast">✓ Đã sao chép!</span>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="model-loading-overlay" id="model-loading-overlay">
                                 <div class="model-loading-inner">
                                     <div class="model-loading-ring"></div>
@@ -199,13 +563,77 @@
                                 </div>
                             </div>
 
+                            <div class="frame-floating-controls" aria-label="Điều khiển phóng thu">
+                                <button class="floating-btn" id="float-zoom-in" type="button" aria-label="Phóng to" title="Phóng to gần hơn">＋</button>
+                                <button class="floating-btn" id="float-zoom-out" type="button" aria-label="Thu nhỏ" title="Thu nhỏ xa hơn">－</button>
+                                <button class="floating-btn" id="float-reset" type="button" aria-label="Toàn cảnh" title="Góc toàn cảnh">⊙</button>
+                            </div>
+
                             <div id="canvas-container"></div>
 
                             <div class="museum3d-hint" id="museum3d-hint">
-                                <span>Kéo để xoay · Cuộn để zoom chậm</span>
+                                <span>Kéo để xoay 360° · Cuộn chuột hoặc nút ＋/－ để zoom · Bấm số ①–⑥ để soi chi tiết</span>
                                 <button class="hint-close"
                                     onclick="document.getElementById('museum3d-hint').style.display='none'"
                                     aria-label="Đóng gợi ý">×</button>
+                            </div>
+                        </div>
+
+                        <!-- ── CHI TIẾT HOA VĂN ĐƯỢC ĐÁNH SỐ (INTERACTIVE DETAILS) ── -->
+                        <div class="drum-details-container" id="drum-details-container">
+                            <div class="drum-details-header">
+                                <div class="drum-details-title-wrap">
+                                    <span class="panel-label">Khám phá hoa văn chi tiết</span>
+                                    <h3>Chi tiết đặc sắc trên trống đồng</h3>
+                                </div>
+                                <p class="drum-details-hint">Bấm vào từng số để camera tự động zoom mượt mà tới chi tiết quan sát:</p>
+                            </div>
+
+                            <div class="drum-details-chips" id="drum-details-chips" role="tablist" aria-label="Danh sách chi tiết hoa văn">
+                                <button class="detail-chip" type="button" data-detail-num="1" role="tab" aria-selected="false">
+                                    <span class="detail-num">1</span>
+                                    <span class="detail-name">Mặt trời trung tâm</span>
+                                </button>
+                                <button class="detail-chip" type="button" data-detail-num="2" role="tab" aria-selected="false">
+                                    <span class="detail-num">2</span>
+                                    <span class="detail-name">Vành chim Lạc</span>
+                                </button>
+                                <button class="detail-chip" type="button" data-detail-num="3" role="tab" aria-selected="false">
+                                    <span class="detail-num">3</span>
+                                    <span class="detail-name">Cảnh giã gạo & nhà sàn</span>
+                                </button>
+                                <button class="detail-chip" type="button" data-detail-num="4" role="tab" aria-selected="false">
+                                    <span class="detail-num">4</span>
+                                    <span class="detail-name">Thuyền chiến tang trống</span>
+                                </button>
+                                <button class="detail-chip" type="button" data-detail-num="5" role="tab" aria-selected="false">
+                                    <span class="detail-num">5</span>
+                                    <span class="detail-name">Quai trống chữ U</span>
+                                </button>
+                                <button class="detail-chip" type="button" data-detail-num="6" role="tab" aria-selected="false">
+                                    <span class="detail-num">6</span>
+                                    <span class="detail-name">Chân đế vững chãi</span>
+                                </button>
+                                <button class="detail-chip detail-chip-reset" type="button" id="btn-chip-reset" title="Xem toàn cảnh hiện vật">
+                                    <span class="detail-num">⊙</span>
+                                    <span class="detail-name">Toàn cảnh</span>
+                                </button>
+                            </div>
+
+                            <div class="drum-detail-card" id="drum-detail-card" hidden>
+                                <div class="detail-card-header">
+                                    <span class="detail-card-badge" id="detail-card-badge">Chi tiết 01</span>
+                                    <button class="detail-card-close" id="btn-close-detail-card" type="button" aria-label="Đóng chi tiết">×</button>
+                                </div>
+                                <h4 id="detail-card-title">Ngôi sao mặt trời trung tâm (14 tia)</h4>
+                                <p id="detail-card-desc">Trung tâm mặt trống là hình ngôi sao nhiều cánh đúc nổi tượng trưng cho Mặt Trời...</p>
+                                <div class="detail-card-meta">
+                                    <span class="detail-card-loc" id="detail-card-loc">📍 Vị trí: Chính giữa mặt trống</span>
+                                    <span class="detail-card-sign" id="detail-card-sign">✨ Ý nghĩa: Nguồn cội của ánh sáng và sự sống</span>
+                                </div>
+                                <div class="detail-card-actions">
+                                    <button class="detail-card-btn" type="button" id="btn-detail-back-overview">⊙ Xem toàn cảnh hiện vật</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -403,7 +831,7 @@
     </script>
     <script src="../js/auth-ui.js"></script>
     <script src="../js/chatbox-ui.js"></script>
-    <script type="module" src="../js/museum3d.js?v=20260712-preview-models"></script>
+    <script type="module" src="../js/museum3d.js?v=20260909-coords-updated"></script>
 </body>
 
 </html>

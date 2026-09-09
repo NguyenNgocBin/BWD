@@ -20,8 +20,7 @@
     document.getElementById("artifactMotifs").innerHTML=item.motifs.map(x=>`<li>${x}</li>`).join("");
     document.getElementById("artifactQuestions").innerHTML=item.questions.map(([q,a])=>`<details><summary>${q}</summary><p>${a}</p></details>`).join("");
     const [lat, lon] = coordinates[id] || coordinates["ngoc-lu"];
-    const delta = 0.12;
-    document.getElementById("artifactMap").src = `https://www.openstreetmap.org/export/embed.html?bbox=${lon-delta}%2C${lat-delta}%2C${lon+delta}%2C${lat+delta}&layer=mapnik&marker=${lat}%2C${lon}`;
+    document.getElementById("artifactMap").src = `https://maps.google.com/maps?q=${lat},${lon}&hl=vi&z=14&output=embed`;
     document.getElementById("artifactMapLink").href = `./Map.html?lat=${lat}&lon=${lon}&artifact=${encodeURIComponent(item.title)}`;
     document.getElementById("artifactNavigation").innerHTML=Object.entries(artifacts).map(([key,value])=>`<a href="?id=${key}" ${key===id?'aria-current="page"':''}>${value.title}</a>`).join("");
 })();

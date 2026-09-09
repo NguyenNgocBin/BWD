@@ -1,4 +1,4 @@
-﻿let places = [];
+let places = [];
 
 const DRUM_ICON_SRC = "../images/map-drum-icon.png";
 
@@ -281,33 +281,6 @@ const drumPlaces = [
     link: "./tailieu.html"
 }));
 
-const islandPlaces = [
-    {
-        id: "truong-sa",
-        name: "Quần đảo Trường Sa",
-        province: "Khánh Hòa, Việt Nam",
-        coords: [10.0, 114.0],
-        icon: "🏝",
-        type: "Biển đảo",
-        image: "../images/TruongSa.png",
-        detail: "Quần đảo Trường Sa của Việt Nam được đánh dấu để bản đồ thể hiện đầy đủ không gian biển đảo trong phần khám phá lãnh thổ Việt Nam.",
-        link: "#dongSonMap",
-        island: true
-    },
-    {
-        id: "hoang-sa",
-        name: "Quần đảo Hoàng Sa",
-        province: "Đà Nẵng, Việt Nam",
-        coords: [16.5, 112.0],
-        icon: "🏝",
-        type: "Biển đảo",
-        image: "../images/HoangSa.jpg",
-        detail: "Quần đảo Hoàng Sa của Việt Nam được đánh dấu bằng marker riêng trên Biển Đông, không dùng vòng tròn phủ vùng để bản đồ gọn và rõ hơn.",
-        link: "#dongSonMap",
-        island: true
-    }
-];
-
 const museumPlaces = [
     {
         id: "museum-lich-su-quoc-gia",
@@ -416,7 +389,7 @@ const museumPlaces = [
     }
 ];
 
-places = [...drumPlaces, ...museumPlaces, ...islandPlaces];
+places = [...drumPlaces, ...museumPlaces];
 
 const markers = {};
 
@@ -427,10 +400,48 @@ const map = L.map("dongSonMap", {
 
 L.control.zoom({ position: "bottomright" }).addTo(map);
 
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    maxZoom: 19,
-    attribution: "&copy; OpenStreetMap contributors"
-}).addTo(map);
+const googleMapLayers = {
+    roadmap: L.tileLayer("https://mt{s}.google.com/vt/lyrs=m&hl=vi&x={x}&y={y}&z={z}", {
+        maxZoom: 20,
+        subdomains: ["0", "1", "2", "3"],
+        attribution: "&copy; Google Maps"
+    }),
+    satellite: L.tileLayer("https://mt{s}.google.com/vt/lyrs=y&hl=vi&x={x}&y={y}&z={z}", {
+        maxZoom: 20,
+        subdomains: ["0", "1", "2", "3"],
+        attribution: "&copy; Google Maps"
+    }),
+    terrain: L.tileLayer("https://mt{s}.google.com/vt/lyrs=p&hl=vi&x={x}&y={y}&z={z}", {
+        maxZoom: 20,
+        subdomains: ["0", "1", "2", "3"],
+        attribution: "&copy; Google Maps"
+    })
+};
+
+let currentMapLayer = googleMapLayers.roadmap;
+currentMapLayer.addTo(map);
+
+function setMapType(type) {
+    if (!googleMapLayers[type] || currentMapLayer === googleMapLayers[type]) return;
+    map.removeLayer(currentMapLayer);
+    currentMapLayer = googleMapLayers[type];
+    map.addLayer(currentMapLayer);
+
+    const typeBtns = {
+        roadmap: document.getElementById("mapTypeRoadmap"),
+        satellite: document.getElementById("mapTypeSatellite"),
+        terrain: document.getElementById("mapTypeTerrain")
+    };
+    Object.keys(typeBtns).forEach((k) => {
+        if (typeBtns[k]) {
+            typeBtns[k].classList.toggle("active", k === type);
+        }
+    });
+}
+
+document.getElementById("mapTypeRoadmap")?.addEventListener("click", () => setMapType("roadmap"));
+document.getElementById("mapTypeSatellite")?.addEventListener("click", () => setMapType("satellite"));
+document.getElementById("mapTypeTerrain")?.addEventListener("click", () => setMapType("terrain"));
 
 const vietnamBounds = L.latLngBounds([6.0, 102.0], [23.8, 117.5]);
 map.fitBounds(vietnamBounds, { padding: [24, 24] });
