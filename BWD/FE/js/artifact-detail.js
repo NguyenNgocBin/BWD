@@ -17,6 +17,46 @@
     const set = (key,value) => { const el=document.getElementById(key); if(el) el.textContent=value; };
     set("artifactTitle",item.title); set("artifactType",item.type); set("artifactSummary",item.summary); set("artifactEra",item.era); set("artifactFound",item.found); set("artifactMuseum",item.museum); set("artifactDescription",item.description);
     const image=document.getElementById("artifactImage"); image.src=item.image; image.alt=item.title;
+    const exploredHotspots = new Set();
+    const hotspotState = () => ({ artifactId: id, hotspots: Array.from(exploredHotspots) });
+    window._artifactTourSnapshot = hotspotState;
+
+    if (id === "ngoc-lu") {
+        const imageStage = image.closest(".artifact-image");
+        const hotspotLayer = document.createElement("div");
+        hotspotLayer.className = "artifact-hotspots";
+        hotspotLayer.setAttribute("aria-label", "Các điểm khám phá trên trống Ngọc Lũ");
+
+        const observation = document.createElement("p");
+        observation.className = "artifact-observation-note";
+        observation.setAttribute("role", "status");
+        observation.textContent = "Chọn một điểm sáng để quan sát chi tiết.";
+
+        [
+            { id: "center", label: "Trung tâm mặt trống", note: "Trung tâm là ngôi sao 14 cánh — mốc giúp đọc các vành hoa văn từ trong ra ngoài.", x: 50, y: 23 },
+            { id: "rings", label: "Các vành hoa văn", note: "Các mô-típ được tổ chức thành nhiều vành đồng tâm, không phân bố ngẫu nhiên.", x: 34, y: 32 },
+            { id: "body", label: "Thân trống", note: "Phần thân nằm dưới tang trống; đây là một phần của cấu tạo hình khối chung.", x: 52, y: 66 },
+        ].forEach((hotspot, index) => {
+            const button = document.createElement("button");
+            button.type = "button";
+            button.className = "artifact-hotspot";
+            button.dataset.hotspotId = hotspot.id;
+            button.style.setProperty("--hotspot-x", `${hotspot.x}%`);
+            button.style.setProperty("--hotspot-y", `${hotspot.y}%`);
+            button.setAttribute("aria-label", `Điểm khám phá: ${hotspot.label}`);
+            button.innerHTML = `<span>${index + 1}</span><small>${hotspot.label}</small>`;
+            button.addEventListener("click", () => {
+                exploredHotspots.add(hotspot.id);
+                button.classList.add("is-explored");
+                button.setAttribute("aria-pressed", "true");
+                observation.textContent = hotspot.note;
+                window.dispatchEvent(new CustomEvent("artifact:tour-state", { detail: hotspotState() }));
+            });
+            hotspotLayer.appendChild(button);
+        });
+
+        imageStage?.append(hotspotLayer, observation);
+    }
     document.getElementById("artifactMotifs").innerHTML=item.motifs.map(x=>`<li>${x}</li>`).join("");
     document.getElementById("artifactQuestions").innerHTML=item.questions.map(([q,a])=>`<details><summary>${q}</summary><p>${a}</p></details>`).join("");
     const [lat, lon] = coordinates[id] || coordinates["ngoc-lu"];

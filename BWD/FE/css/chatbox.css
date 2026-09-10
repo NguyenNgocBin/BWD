@@ -213,6 +213,116 @@
     line-height: 1.45;
 }
 
+.ds-chat-intro-copy {
+    min-width: 0;
+}
+
+.ds-chat-tour-entry {
+    width: 100%;
+    margin-top: 8px;
+    border: 1px solid rgba(246, 190, 88, 0.48);
+    border-radius: 10px;
+    background: linear-gradient(180deg, rgba(216, 165, 72, 0.2), rgba(121, 75, 24, 0.2));
+    color: #ffe3a2;
+    padding: 7px 9px;
+    font: inherit;
+    font-size: 11.5px;
+    font-weight: 800;
+    text-align: left;
+    cursor: pointer;
+}
+
+.ds-chat-tour-entry:hover {
+    border-color: rgba(246, 213, 139, 0.72);
+    background: rgba(216, 165, 72, 0.25);
+}
+
+.ds-chat-tour-status {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 10px;
+    border: 1px solid rgba(90, 183, 164, 0.36);
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(31, 86, 76, 0.3), rgba(26, 18, 11, 0.76));
+    padding: 8px 10px;
+}
+
+.ds-chat-tour-status[hidden],
+.ds-chat-tour-entry[hidden],
+.ds-chat-suggest-label[hidden],
+.ds-chat-suggest-list[hidden] {
+    display: none;
+}
+
+.ds-chat-tour-status__main {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.ds-chat-tour-status__meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.ds-chat-tour-status span,
+.ds-chat-tour-status strong {
+    display: block;
+}
+
+.ds-chat-tour-status span {
+    color: #8ad3c4;
+    font-size: 9.5px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+}
+
+.ds-chat-tour-status b {
+    color: #ffe3a2;
+    font-size: 9.5px;
+    font-weight: 800;
+}
+
+.ds-chat-tour-status strong {
+    overflow: hidden;
+    color: var(--ds-text);
+    font-size: 11.5px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.ds-chat-tour-progress {
+    height: 4px;
+    margin-top: 6px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.ds-chat-tour-progress i {
+    display: block;
+    width: 0;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #5ab7a4, #f6be58);
+    transition: width 0.35s ease;
+}
+
+.ds-chat-tour-status button {
+    flex: 0 0 auto;
+    border: 1px solid rgba(255, 151, 123, 0.32);
+    border-radius: 999px;
+    background: rgba(105, 38, 26, 0.32);
+    color: #ffd0c4;
+    padding: 5px 9px;
+    font: inherit;
+    font-size: 10px;
+    cursor: pointer;
+}
+
 /* Quick menu cards */
 .ds-chat-menu {
     display: grid;
@@ -551,6 +661,65 @@
     }
 }
 
+.ds-chat-message.is-tour .ds-chat-bubble {
+    border-color: rgba(90, 183, 164, 0.38);
+    background: linear-gradient(145deg, rgba(22, 57, 51, 0.48), rgba(24, 16, 10, 0.84));
+}
+
+.ds-chat-tour-actions {
+    display: grid;
+    width: 100%;
+    gap: 6px;
+    margin-top: 7px;
+}
+
+.ds-chat-tour-action {
+    width: 100%;
+    border: 1px solid rgba(90, 183, 164, 0.34);
+    border-radius: 10px;
+    background: rgba(36, 94, 82, 0.18);
+    color: #d9fff6;
+    padding: 7px 9px;
+    font: inherit;
+    font-size: 11px;
+    line-height: 1.3;
+    text-align: left;
+    cursor: pointer;
+}
+
+.ds-chat-tour-action:hover:not(:disabled) {
+    border-color: rgba(138, 211, 196, 0.7);
+    background: rgba(48, 126, 109, 0.3);
+}
+
+.ds-chat-tour-action.is-primary {
+    border-color: rgba(246, 190, 88, 0.48);
+    background: linear-gradient(180deg, rgba(216, 165, 72, 0.26), rgba(139, 86, 28, 0.24));
+    color: #ffe6ad;
+    font-weight: 800;
+}
+
+.ds-chat-tour-action.is-danger {
+    border-color: rgba(255, 151, 123, 0.34);
+    background: rgba(105, 38, 26, 0.2);
+    color: #ffd0c4;
+}
+
+.ds-chat-tour-action[data-tour-requirement]:disabled::after {
+    content: "  · đang chờ thao tác";
+    color: #9fbaae;
+    font-size: 9px;
+}
+
+.ds-chat-tour-action.is-unlocked {
+    box-shadow: 0 0 0 2px rgba(90, 183, 164, 0.14);
+}
+
+.ds-chat-tour-action:disabled {
+    opacity: 0.48;
+    cursor: not-allowed;
+}
+
 .ds-chat-feedback {
     display: flex;
     align-items: center;
@@ -578,6 +747,21 @@
 .ds-chat-feedback-btn:disabled {
     opacity: 0.55;
     cursor: wait;
+}
+
+.is-tour-focus {
+    outline: 3px solid rgba(138, 211, 196, 0.72);
+    outline-offset: 5px;
+    animation: ds-tour-focus-pulse 1.8s ease-in-out 2;
+}
+
+@keyframes ds-tour-focus-pulse {
+    50% { outline-color: rgba(246, 190, 88, 0.88); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ds-chat-tour-progress i { transition: none; }
+    .is-tour-focus { animation: none; }
 }
 
 .ds-chat-feedback.is-saved {
@@ -677,6 +861,9 @@
 .ds-chat-iconbtn:focus-visible,
 .ds-chat-fab:focus-visible,
 .ds-chat-send:focus-visible,
+.ds-chat-tour-entry:focus-visible,
+.ds-chat-tour-status button:focus-visible,
+.ds-chat-tour-action:focus-visible,
 .ds-chat-chip:focus-visible,
 .ds-chat-source-toggle:focus-visible,
 .ds-chat-source-link:focus-visible,

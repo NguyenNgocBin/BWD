@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-14T09:55:40.570401+00:00",
+  "generated_at": "2026-07-16T17:13:58.202031+00:00",
   "metadata_required_fields": [
     "schema_version",
     "document_id",
@@ -15,7 +15,7 @@
     "retrieval_enabled",
     "document_type"
   ],
-  "corpus_checksum": "966437aca17c20b7891501ddedbdd453c702678273e305e7af18d255ed95e470",
+  "corpus_checksum": "ec203665760367c6311462c144c31f9a33d94ff2cfa47bf72a63d3aa11e80ebf",
   "counts_by_corpus": {
     "heritage": 15,
     "website": 10

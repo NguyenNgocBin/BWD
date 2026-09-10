@@ -5,16 +5,16 @@ import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 
 const models = {
     trongdong1: {
-        title: "Trống đồng Đông Sơn",
-        kicker: "Hiện vật 01",
-        desc: "Phiên bản trống đồng có hoa văn rõ ở phần thân, thích hợp để quan sát các mảng trang trí quanh tang trống.",
-        fileLabel: "GLB tối ưu · 1.38 MB",
-        group: "Trống đồng",
-        focus: "Hoa văn thân trống",
+        title: "Mô hình tham khảo 03",
+        kicker: "Chưa định danh",
+        desc: "Model GLB nội bộ chưa được xác định là hiện vật cụ thể, dùng để luyện thao tác xoay, zoom và quan sát cấu tạo chung.",
+        fileLabel: "Model GLB · 1.38 MB",
+        group: "Mô hình tham khảo",
+        focus: "Quan sát bề mặt và cấu tạo chung",
         insights: [
-            "Tập trung vào các dải hoa văn chạy quanh thân và tang trống.",
-            "Quan sát cách các mảng trang trí lặp lại để tạo nhịp thị giác.",
-            "Phù hợp khi muốn đọc kỹ cấu trúc bề mặt của hiện vật."
+            "Nhận biết vị trí tương đối của mặt, tang, thân và chân trống.",
+            "Quan sát những chi tiết nhìn thấy được mà không suy đoán tên hiện vật.",
+            "Không dùng model này để khẳng định đặc điểm của Ngọc Lũ hoặc hiện vật cụ thể khác."
         ],
         src: "../models/TrongDong1.glb",
         render: {
@@ -30,16 +30,16 @@ const models = {
         }
     },
     trongdong2: {
-        title: "Trống đồng Đông Sơn ",
-        kicker: "Hiện vật 02",
-        desc: "Phiên bản thứ hai nhấn mạnh mặt trống và dáng khối, phù hợp để xem tổng thể tỷ lệ hiện vật.",
-        fileLabel: "GLB tối ưu · 5.21 MB",
-        group: "Trống đồng",
-        focus: "Mặt trống và dáng khối",
+        title: "Mô hình tham khảo 02",
+        kicker: "Chưa định danh",
+        desc: "Model GLB nội bộ chưa được xác định là hiện vật cụ thể, phù hợp để quan sát tổng thể dáng khối.",
+        fileLabel: "Model GLB · 5.21 MB",
+        group: "Mô hình tham khảo",
+        focus: "Dáng khối và tỷ lệ quan sát được",
         insights: [
-            "Ưu tiên quan sát bố cục mặt trống và tương quan tỷ lệ tổng thể.",
-            "Dễ nhận ra cách hiện vật mở rộng từ mặt trống xuống thân và chân.",
-            "Phù hợp cho góc nhìn toàn cảnh trước khi đi sâu vào chi tiết."
+            "Quan sát phần mặt ở trên cùng và cách dáng khối chuyển xuống thân, chân.",
+            "So sánh hình dáng với các model khác ở mức trực quan.",
+            "Không suy đoán niên đại, nguồn gốc hoặc tên hiện vật từ model."
         ],
         src: "../models/TrongDong2.glb",
         render: {
@@ -55,16 +55,16 @@ const models = {
         }
     },
     dongsonbronze: {
-        title: "Trống đồng Đông Sơn 3",
-        kicker: "Hiện vật 03",
-        desc: "Phiên bản trống đồng thứ ba dùng model GLB nội bộ, phù hợp để xoay, zoom và quan sát tổng thể hiện vật.",
-        fileLabel: "GLB tối ưu · 1.68 MB",
-        group: "Trống đồng",
-        focus: "Quan sát tổng thể hiện vật",
+        title: "Mô hình tham khảo 01",
+        kicker: "Chưa định danh",
+        desc: "Model GLB nội bộ chưa được xác định là hiện vật cụ thể, dùng để làm quen với viewer và cấu tạo chung của trống đồng.",
+        fileLabel: "Model GLB · 1.68 MB",
+        group: "Mô hình tham khảo",
+        focus: "Làm quen với hình khối tổng thể",
         insights: [
-            "Quan sát dáng khối tổng thể và tỷ lệ của hiện vật.",
-            "So sánh cách xử lý bề mặt giữa các phiên bản mô hình.",
-            "Chú ý nhịp chuyển giữa mặt trống, thân trống và chân trống."
+            "Xoay model để nhận biết mặt, tang, thân và chân trống.",
+            "Dùng thao tác zoom để luyện quan sát bề mặt.",
+            "Model không đại diện cho trống Ngọc Lũ hoặc một hiện vật đã xác minh."
         ],
         src: "../models/trong_dong 4.glb",
         render: {
@@ -119,6 +119,13 @@ const isWeakDevice = Boolean(
     || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2)
 );
 const canRender3D = supportsWebGL() && !isWeakDevice;
+window._m3dTourSnapshot = () => ({
+    available: false,
+    activeModelId: null,
+    loaded: false,
+    rotated: false,
+    zoomed: false
+});
 
 if (!canRender3D) {
     museumSection?.classList.add("is-fallback");
@@ -210,6 +217,44 @@ let defaultTarget = controls.target.clone();
 let loadedModel = null;
 let activeModelId = null;
 let loadVersion = 0;
+const tourInteractionState = {
+    available: true,
+    activeModelId: null,
+    loaded: false,
+    rotated: false,
+    zoomed: false
+};
+let tourPointerStart = null;
+
+function getTourInteractionState() {
+    return { ...tourInteractionState };
+}
+
+function emitTourInteractionState() {
+    window.dispatchEvent(new CustomEvent("museum3d:tour-state", {
+        detail: getTourInteractionState()
+    }));
+}
+
+renderer.domElement.addEventListener("pointerdown", (event) => {
+    tourPointerStart = { x: event.clientX, y: event.clientY };
+});
+renderer.domElement.addEventListener("pointerup", (event) => {
+    if (!tourPointerStart || !tourInteractionState.loaded) return;
+    const distance = Math.hypot(event.clientX - tourPointerStart.x, event.clientY - tourPointerStart.y);
+    tourPointerStart = null;
+    if (distance < 12 || tourInteractionState.rotated) return;
+    tourInteractionState.rotated = true;
+    emitTourInteractionState();
+});
+renderer.domElement.addEventListener("pointercancel", () => {
+    tourPointerStart = null;
+});
+renderer.domElement.addEventListener("wheel", () => {
+    if (!tourInteractionState.loaded || tourInteractionState.zoomed) return;
+    tourInteractionState.zoomed = true;
+    emitTourInteractionState();
+}, { passive: true });
 
 function setProgress(value) {
     const normalized = Math.max(0, Math.min(100, Math.round(value)));
@@ -533,6 +578,13 @@ function loadModel(modelId) {
     if (!model) return;
 
     activeModelId = modelId;
+    Object.assign(tourInteractionState, {
+        activeModelId: modelId,
+        loaded: false,
+        rotated: false,
+        zoomed: false
+    });
+    emitTourInteractionState();
     loadVersion += 1;
     const currentLoad = loadVersion;
 
@@ -557,6 +609,8 @@ function loadModel(modelId) {
             resizeRenderer();
             setProgress(100);
             hideOverlay();
+            tourInteractionState.loaded = true;
+            emitTourInteractionState();
 
             if (typeof window.__museum3dReady === "function") {
                 window.__museum3dReady(controls, camera, defaultCameraPosition.clone());
@@ -572,6 +626,8 @@ function loadModel(modelId) {
         },
         (error) => {
             if (currentLoad !== loadVersion) return;
+            tourInteractionState.loaded = false;
+            emitTourInteractionState();
             console.error(`[museum3d] Failed to load ${model.src}`, error);
             showError(`Kiểm tra lại file ${model.src.replace("../", "")} hoặc chạy trang qua local server.`);
         }
@@ -611,6 +667,7 @@ animate();
 window._m3dControls = controls;
 window._m3dCamera = camera;
 window._m3dLoadModel = loadModel;
+window._m3dTourSnapshot = getTourInteractionState;
 window._m3dReset = function resetMuseumCamera() {
     camera.position.copy(defaultCameraPosition);
     controls.target.copy(defaultTarget);

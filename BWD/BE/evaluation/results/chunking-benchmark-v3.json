@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-14T09:44:24.132700+00:00",
+  "generated_at": "2026-07-16T17:14:00.843011+00:00",
   "benchmark_mode": "deterministic_bm25_over_semantic_units",
   "note": "Cấu hình được chọn offline; collection active được đánh giá lại end-to-end bằng Gemini semantic embedding.",
   "dataset_version": "1.2.0",
@@ -9,46 +9,46 @@
   "selected_config": "balanced",
   "configs": {
     "compact": {
-      "chunk_count": 211,
-      "avg_chunk_chars": 323.66,
-      "median_chunk_chars": 295,
+      "chunk_count": 215,
+      "avg_chunk_chars": 327.17,
+      "median_chunk_chars": 297,
       "p95_chunk_chars": 577,
-      "avg_top_k_context_chars": 1262.02,
-      "hit_at_k": 0.9121,
-      "source_recall_at_k": 0.8407,
-      "mrr": 0.7943,
+      "avg_top_k_context_chars": 1271.02,
+      "hit_at_k": 0.9231,
+      "source_recall_at_k": 0.8516,
+      "mrr": 0.8099,
       "answerability_accuracy": 1.0,
       "false_reject_rate": 0.0,
       "false_accept_rate": 0.0,
-      "selection_score": 0.863263
+      "selection_score": 0.874714
     },
     "balanced": {
-      "chunk_count": 204,
-      "avg_chunk_chars": 335.37,
-      "median_chunk_chars": 296.0,
-      "p95_chunk_chars": 672,
-      "avg_top_k_context_chars": 1312.46,
+      "chunk_count": 207,
+      "avg_chunk_chars": 340.29,
+      "median_chunk_chars": 301,
+      "p95_chunk_chars": 691,
+      "avg_top_k_context_chars": 1318.28,
       "hit_at_k": 0.9121,
       "source_recall_at_k": 0.8407,
-      "mrr": 0.798,
+      "mrr": 0.8022,
       "answerability_accuracy": 1.0,
       "false_reject_rate": 0.0,
       "false_accept_rate": 0.0,
-      "selection_score": 0.864188
+      "selection_score": 0.865633
     },
     "broad": {
-      "chunk_count": 202,
-      "avg_chunk_chars": 337.03,
-      "median_chunk_chars": 295.0,
-      "p95_chunk_chars": 658,
-      "avg_top_k_context_chars": 1363.34,
+      "chunk_count": 205,
+      "avg_chunk_chars": 341.98,
+      "median_chunk_chars": 297,
+      "p95_chunk_chars": 672,
+      "avg_top_k_context_chars": 1365.85,
       "hit_at_k": 0.9121,
-      "source_recall_at_k": 0.8462,
-      "mrr": 0.7962,
+      "source_recall_at_k": 0.8407,
+      "mrr": 0.8068,
       "answerability_accuracy": 1.0,
       "false_reject_rate": 0.0,
       "false_accept_rate": 0.0,
-      "selection_score": 0.863735
+      "selection_score": 0.866895
     }
   }
 }

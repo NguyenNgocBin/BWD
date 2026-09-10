@@ -1,0 +1,176 @@
+{
+  "manifest_schema_version": 1,
+  "pipeline_version": "knowledge-v3",
+  "metadata_schema_version": 1,
+  "chunker_version": "semantic-units-v2",
+  "fingerprint": "c6efd803185351260a1fd04d0419c5dd8625262b18bb90c1084dcf38247a1ff3",
+  "knowledge_version": "knowledge-v3-ec2036657603",
+  "collection_version": "rag-v3-c6efd8031853",
+  "collection_name": "dong_son_knowledge_v3",
+  "build_path": "builds/c6efd803185351260a1fd04d0419c5dd8625262b18bb90c1084dcf38247a1ff3",
+  "corpus_checksum": "ec203665760367c6311462c144c31f9a33d94ff2cfa47bf72a63d3aa11e80ebf",
+  "collection_checksum": "2d5d7efde71719ae495d105ac84bd28a32a1a46a7b915fc7820f861443322019",
+  "embedding_checksum": "34814f5f784032d11f9be90576b73d24fae105f7263539fd5812dbc7b76ca17b",
+  "created_at": "2026-07-16T17:14:19.090918+00:00",
+  "document_count": 25,
+  "indexed_document_count": 23,
+  "chunk_count": 207,
+  "files": {
+    "knowledge/artifacts/co_loa.md": {
+      "sha256": "4512f571f79701b59858bd4f927d8007d9117f541605a286eb83ad745f185a57",
+      "chunks": 4,
+      "retrieval_enabled": true
+    },
+    "knowledge/artifacts/hoang_ha.md": {
+      "sha256": "7eaf08f996c081ae06fed2bf632443f2bf29532d7e6cc847f3c4a2655a4b11eb",
+      "chunks": 4,
+      "retrieval_enabled": true
+    },
+    "knowledge/artifacts/ngoc_lu.md": {
+      "sha256": "2d756485a78767165226f60fd8a35c55a169c5f30653a2f26fb195b61d56dabe",
+      "chunks": 4,
+      "retrieval_enabled": true
+    },
+    "knowledge/artifacts/tan_long.md": {
+      "sha256": "588086cf4b4b72f24fb60e4c15bdf4209e1767ea3f62b39f02252c90e6b3bbe5",
+      "chunks": 4,
+      "retrieval_enabled": true
+    },
+    "knowledge/dong_son/cau_tao.md": {
+      "sha256": "bf1ce703aaa769622a1918f1c93c1d2e66d02b4f858c5cd9ae69ccc7ca6d485d",
+      "chunks": 10,
+      "retrieval_enabled": true
+    },
+    "knowledge/dong_son/chim_lac.md": {
+      "sha256": "77c308572bd77f2bad38f3670fefc78dd2815dde1fd7d562daf155397f3bcd48",
+      "chunks": 7,
+      "retrieval_enabled": true
+    },
+    "knowledge/dong_son/heger.md": {
+      "sha256": "96557c127e4b05ff58e4d6400d18b59a2f054e22e719bc18bbe8bcb2d8879531",
+      "chunks": 12,
+      "retrieval_enabled": true
+    },
+    "knowledge/dong_son/hoa_van.md": {
+      "sha256": "16ce07a9850b22c3d98c89d07153b0adec31d5eac14157af0c137ce212f60617",
+      "chunks": 19,
+      "retrieval_enabled": true
+    },
+    "knowledge/dong_son/ky_thuat_duc_dong.md": {
+      "sha256": "5aa264e42ec315ae25fa991dbcd2f38a64a717e7cbd0214e2a2040721ddd4fc3",
+      "chunks": 13,
+      "retrieval_enabled": true
+    },
+    "knowledge/dong_son/mat_troi.md": {
+      "sha256": "e85f10883108dbefee15c6ea5f79242f1efd05c52e468c3a2cad5d62cd15c8d6",
+      "chunks": 14,
+      "retrieval_enabled": true
+    },
+    "knowledge/dong_son/trong_dong.md": {
+      "sha256": "ef9a654189384315ba29f645a81cd40143fbb089df923c234df277d7e4a13ef4",
+      "chunks": 14,
+      "retrieval_enabled": true
+    },
+    "knowledge/dong_son/van_hoa_dong_son.md": {
+      "sha256": "d4c7f1f25cb38c8f387e9e7992bd3ea1cc231e42890b5d6b6d03d86e7aaac52e",
+      "chunks": 13,
+      "retrieval_enabled": true
+    },
+    "knowledge/faq/faq.md": {
+      "sha256": "ef652e5289f64dd8c0006dc6ed4f4ec80eb5b3e74322560e044630c82b66778d",
+      "chunks": 12,
+      "retrieval_enabled": true
+    },
+    "knowledge/quiz/advanced_quiz.md": {
+      "sha256": "caa2d196a2d4fff50fb5b218f35c3dfbf5ad2ee2850ddcc635adda84c8a992e1",
+      "chunks": 0,
+      "retrieval_enabled": false
+    },
+    "knowledge/quiz/basic_quiz.md": {
+      "sha256": "59bdee4ab798e5c8b3e3729774810d3abf4e82b2c338e323fcbd8f825a2c2ba8",
+      "chunks": 0,
+      "retrieval_enabled": false
+    },
+    "knowledge/website/ban_do.md": {
+      "sha256": "2a2d7200d1dd1f732aa8619d6b8dc001241f2f94a532c3be7afcf6e515595311",
+      "chunks": 7,
+      "retrieval_enabled": true
+    },
+    "knowledge/website/chatbox.md": {
+      "sha256": "08fa6efd6d8acd9cc781e8a7a14a6e41b68e6ba722dbc4b0fbea3e609655599b",
+      "chunks": 5,
+      "retrieval_enabled": true
+    },
+    "knowledge/website/hoc_vui.md": {
+      "sha256": "af3ca4a1a18209cdccfd9dc372129d222ce8d102cb696dfdb1b7a6279fdb5421",
+      "chunks": 6,
+      "retrieval_enabled": true
+    },
+    "knowledge/website/homepage.md": {
+      "sha256": "bc298d9d998defea5d18d9ae05d9a38f92424f337ddb9769f1325d06624cc524",
+      "chunks": 6,
+      "retrieval_enabled": true
+    },
+    "knowledge/website/tai_khoan.md": {
+      "sha256": "a21b78a56fe689b3331ada5f32be8321eed2000f602fbd538ca742ae94c501c7",
+      "chunks": 8,
+      "retrieval_enabled": true
+    },
+    "knowledge/website/tai_lieu.md": {
+      "sha256": "fa48b569b85e79128f7657b10711970426fa8bf5de091a5634051d0da5e8886b",
+      "chunks": 11,
+      "retrieval_enabled": true
+    },
+    "knowledge/website/trien_lam.md": {
+      "sha256": "fef0060a70314b6494b95409626dd6cc2d878ca078b2646081cff9d65587cc11",
+      "chunks": 7,
+      "retrieval_enabled": true
+    },
+    "knowledge/website/tro_choi.md": {
+      "sha256": "393db7a35ebffb276af8e469c4eb67a1f04f23d000c00a91e320aa6b03599618",
+      "chunks": 9,
+      "retrieval_enabled": true
+    },
+    "knowledge/website/website_qa.md": {
+      "sha256": "33686098d4124b6a25cecad9ed34a8a488131ee570504dbb7ffcf6b42dac3464",
+      "chunks": 12,
+      "retrieval_enabled": true
+    },
+    "knowledge/website/xep_hang.md": {
+      "sha256": "bea72dcec5c52846f7dc2a9c196baaca9da3fcf3186e73e85af8a029a4aa3dfa",
+      "chunks": 6,
+      "retrieval_enabled": true
+    }
+  },
+  "chunk_config_name": "balanced",
+  "chunk_config": {
+    "max_chars": 1000,
+    "overlap_units": 1
+  },
+  "embedding_model": "gemini-embedding-001",
+  "embedding_dimensions": 768,
+  "embedding_cache": {
+    "hits": 197,
+    "misses": 10,
+    "unique_inputs": 207
+  },
+  "benchmark": {
+    "report": "evaluation/results/chunking-benchmark-v3.json",
+    "selected_config": "balanced",
+    "active_config_metrics": {
+      "chunk_count": 207,
+      "avg_chunk_chars": 340.29,
+      "median_chunk_chars": 301,
+      "p95_chunk_chars": 691,
+      "avg_top_k_context_chars": 1318.28,
+      "hit_at_k": 0.9121,
+      "source_recall_at_k": 0.8407,
+      "mrr": 0.8022,
+      "answerability_accuracy": 1.0,
+      "false_reject_rate": 0.0,
+      "false_accept_rate": 0.0,
+      "selection_score": 0.865633
+    },
+    "dataset_version": "1.2.0"
+  }
+}

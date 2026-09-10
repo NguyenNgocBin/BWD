@@ -302,7 +302,7 @@ Workflow `.github/workflows/backend-quality.yml` đang tồn tại trong workspa
 | Giải mã mặt trống tương tác | Rất cao | Trung bình | Dữ liệu hiện vật đã dùng chung. |
 | Bản đồ dòng thời gian | Cao | Trung bình | Địa điểm và niên đại đã được chuẩn hóa. |
 | Xưởng phục chế hiện vật | Cao | Trung bình | Hệ thống game session đã chống gian lận. |
-| Tour AI theo chủ đề | Cao | Trung bình | RAG V3 đã nghiệm thu. |
+| Tour AI có hướng dẫn | Cao | Trung bình | MVP đã triển khai; tiếp tục mở rộng sau khi RAG V3 nghiệm thu. |
 | Chế độ lớp học | Rất cao | Cao | Auth và báo cáo tiến trình ổn định. |
 | Audio guide song ngữ | Cao | Trung bình | Nội dung đã được chuyên gia duyệt. |
 | WebAR đặt hiện vật trong phòng | Rất cao | Cao | 3D đã tối ưu tốt trên di động. |
@@ -354,17 +354,19 @@ Một minigame mới theo phong cách bảo tồn bảo tàng:
 
 Game không chỉ cho điểm mà còn giải thích vì sao một lựa chọn đúng hoặc sai. Nội dung cần được thiết kế thận trọng để không biến quy trình bảo tồn thật thành hướng dẫn đơn giản hóa quá mức.
 
-### 8.6. Tour AI theo vai trò
+### 8.6. Tour AI có hướng dẫn
 
-Thay vì chat tự do hoàn toàn, người dùng chọn một tour 5–10 phút:
+MVP Tour AI đã được tích hợp trực tiếp vào chatbox. Tiến độ được lưu trên trình duyệt để tour tiếp tục đúng bước khi người dùng chuyển giữa trang hiện vật và trang Triển lãm.
 
-- “Khám phá trống Ngọc Lũ”.
-- “Hoa văn kể chuyện gì?”.
-- “Kỹ thuật đúc đồng của người xưa”.
-- “Dành cho học sinh tiểu học”.
-- “Ôn tập trước bài kiểm tra”.
+Ba tour hiện có:
 
-AI dẫn từng bước, đặt câu hỏi ngắn, mở đúng trang/hiện vật và tổng kết cuối tour. Cách này dễ kiểm soát chất lượng hơn chatbot mở và tận dụng tốt RAG hiện có.
+- **Khám phá trống Ngọc Lũ:** mở đúng hồ sơ và hình ảnh Ngọc Lũ, đặt câu hỏi ngắn, cung cấp bước thực hành 3D tùy chọn và dẫn tới triển lãm ảo.
+- **Làm quen với cấu tạo trống đồng 3D:** dùng ba model GLB chưa định danh để luyện xoay, zoom và nhận biết mặt, tang, thân, chân trống.
+- **Dạo quanh không gian Đông Sơn:** hướng dẫn người dùng tự tham quan iframe triển lãm, chọn một điểm dừng và ghi lại nội dung gây chú ý.
+
+Tour Ngọc Lũ không gắn một trong ba model GLB với hiện vật Ngọc Lũ. Các model đã được đổi tên thành “Mô hình tham khảo 01–03” và luôn đi kèm cảnh báo chưa xác định danh tính.
+
+Chatbox cũng không giả định có thể theo dõi thao tác bên trong triển lãm nhúng. Do iframe đến từ tên miền khác, tour sử dụng các nút xác nhận như “Tôi đã tham quan” hoặc “Tôi đã chọn một điểm dừng”. Đây là cách giữ trải nghiệm liền mạch mà không tạo thông tin hoặc trạng thái quan sát giả.
 
 ### 8.7. Chế độ lớp học
 
@@ -480,6 +482,6 @@ Hướng đi tốt nhất lúc này không phải thêm thật nhiều hiệu �
 
 1. **Hộ chiếu nhà khảo cổ** — tận dụng hạ tầng thành tựu hiện có và tạo động lực quay lại.
 2. **Giải mã mặt trống tương tác** — làm nổi bật lợi thế 3D và giá trị giáo dục của dự án.
-3. **Tour AI theo chủ đề** — tận dụng RAG nhưng kiểm soát chất lượng tốt hơn chat tự do.
+3. **Mở rộng Tour AI theo vai trò** — phát triển MVP hiện tại thành nội dung riêng cho học sinh, khách tham quan và giáo viên sau khi RAG được nghiệm thu.
 
 Sau khi ba phần này ổn định, chế độ lớp học, audio guide, bản đồ dòng thời gian và WebAR sẽ là các bước mở rộng hợp lý để đưa sản phẩm từ demo học kỳ thành một nền tảng bảo tàng số có thể sử dụng thực tế.

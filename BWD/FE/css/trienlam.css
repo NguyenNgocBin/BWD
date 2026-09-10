@@ -506,6 +506,31 @@ body {
     letter-spacing: 0.03em;
 }
 
+.model-identity-note {
+    max-width: 820px;
+    margin: 20px auto 0;
+    border: 1px solid rgba(240, 207, 119, 0.34);
+    border-left: 4px solid #e3b34d;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(96, 66, 25, 0.28), rgba(35, 29, 24, 0.72));
+    padding: 14px 18px;
+    text-align: left;
+}
+
+.model-identity-note strong {
+    display: block;
+    margin-bottom: 5px;
+    color: #ffe099;
+    font-size: 14px;
+}
+
+.model-identity-note p {
+    margin: 0;
+    color: #d4c4ac;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
 .model-gallery-view {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));

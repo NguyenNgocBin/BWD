@@ -4,13 +4,13 @@ document_id: website.guide.chatbox
 title: Chatbox AI Đông Sơn
 corpus: website
 topic: Hướng dẫn sử dụng chatbox RAG
-entities: ["Chatbox AI Đông Sơn", "RAG V3", "ChromaDB", "Gemini embedding"]
+entities: ["Chatbox AI Đông Sơn", "Tour AI", "RAG V3", "ChromaDB", "Gemini embedding"]
 references:
   - "repo:BWD/FE/js/chatbox-ui.js"
   - "repo:BWD/BE/services/rag_v3_service.py"
   - "repo:BWD/BE/services/collection_manifest_service.py"
   - "repo:BWD/BE/services/chat_service.py"
-updated_at: '2026-07-14'
+updated_at: '2026-07-17'
 reviewed_by: 'Nhóm dự án — rà soát kỹ thuật'
 review_status: code_verified
 confidence: high
@@ -44,6 +44,20 @@ Người dùng có thể hỏi:
 - Trang Xếp hạng dùng để làm gì.
 - Đăng ký/đăng nhập ra sao.
 - Hồ sơ cá nhân có chức năng gì.
+
+Ngoài chế độ hỏi tự do, người dùng có thể bấm "Khám phá bằng Tour AI" để chọn một hành trình có hướng dẫn.
+
+## Các Tour AI hiện có
+
+- "Khám phá trống Ngọc Lũ": mở đúng hồ sơ Ngọc Lũ, đặt câu hỏi ngắn, cho phép thực hành 3D tùy chọn và dẫn tới triển lãm ảo.
+- "Làm quen với cấu tạo trống đồng 3D": dùng ba model chưa định danh để luyện nhận biết mặt, tang, thân và chân trống.
+- "Dạo quanh không gian Đông Sơn": hướng dẫn tham quan tự do triển lãm được nhúng từ website bên ngoài.
+
+Tiến độ tour được lưu trên trình duyệt để chatbox tiếp tục đúng bước khi chuyển trang. Người dùng có thể thoát tour bất kỳ lúc nào.
+
+Ba model GLB trong trang Triển lãm chỉ là mô hình tham khảo chưa xác định danh tính. Tour AI không giới thiệu chúng là Ngọc Lũ hoặc một hiện vật cụ thể.
+
+Trong triển lãm iframe, AI không thể theo dõi vị trí hoặc biết người dùng đã chọn nội dung nào. Tour sử dụng nút xác nhận như "Tôi đã tham quan" hoặc "Tôi đã chọn một điểm dừng".
 
 ## Cách hoạt động kỹ thuật
 
@@ -80,7 +94,7 @@ Khi người dùng hỏi về chức năng website, hãy trả lời dựa trên
 
 - Học vui: học nhanh, dễ hiểu.
 - Tài liệu: đọc sâu, có phân loại/cấu tạo/hoa văn/timeline/hiện vật.
-- Triển lãm: xem tour 3D Đông Sơn.
+- Triển lãm: thực hành với ba model 3D chưa định danh hoặc tham quan không gian Đông Sơn được nhúng.
 - Trò chơi: chọn trò, ghép hình, quiz đúng/sai, thử thách hằng ngày.
 - Bản đồ: xem điểm trống đồng, bảo tàng và biển đảo.
 - Xếp hạng: xem top và điểm.

@@ -3,18 +3,18 @@
   "pipeline_version": "knowledge-v3",
   "metadata_schema_version": 1,
   "chunker_version": "semantic-units-v2",
-  "fingerprint": "b59c44aa3345133c38b632d4d18cd6d0c9a301a1f0a172666e127f4423f42ca6",
-  "knowledge_version": "knowledge-v3-966437aca17c",
-  "collection_version": "rag-v3-b59c44aa3345",
+  "fingerprint": "c6efd803185351260a1fd04d0419c5dd8625262b18bb90c1084dcf38247a1ff3",
+  "knowledge_version": "knowledge-v3-ec2036657603",
+  "collection_version": "rag-v3-c6efd8031853",
   "collection_name": "dong_son_knowledge_v3",
-  "build_path": "builds/b59c44aa3345133c38b632d4d18cd6d0c9a301a1f0a172666e127f4423f42ca6",
-  "corpus_checksum": "966437aca17c20b7891501ddedbdd453c702678273e305e7af18d255ed95e470",
-  "collection_checksum": "d5a50a1bb2899e47d8828868a0c7a4e73e4a784bc0643a0eb1ff18e4fd3ee004",
-  "embedding_checksum": "7d2a7bfa2ce71029b912fbfb596fb6a00d3c180363710708e806f6b37a7d2398",
-  "created_at": "2026-07-14T09:48:11.876925+00:00",
+  "build_path": "builds/c6efd803185351260a1fd04d0419c5dd8625262b18bb90c1084dcf38247a1ff3",
+  "corpus_checksum": "ec203665760367c6311462c144c31f9a33d94ff2cfa47bf72a63d3aa11e80ebf",
+  "collection_checksum": "2d5d7efde71719ae495d105ac84bd28a32a1a46a7b915fc7820f861443322019",
+  "embedding_checksum": "34814f5f784032d11f9be90576b73d24fae105f7263539fd5812dbc7b76ca17b",
+  "created_at": "2026-07-16T17:14:19.090918+00:00",
   "document_count": 25,
   "indexed_document_count": 23,
-  "chunk_count": 204,
+  "chunk_count": 207,
   "files": {
     "knowledge/artifacts/co_loa.md": {
       "sha256": "4512f571f79701b59858bd4f927d8007d9117f541605a286eb83ad745f185a57",
@@ -97,8 +97,8 @@
       "retrieval_enabled": true
     },
     "knowledge/website/chatbox.md": {
-      "sha256": "f59f985aa3e19b7d269201c7e69754f5eaae459c8f59be59eaadc51b5035b77c",
-      "chunks": 4,
+      "sha256": "08fa6efd6d8acd9cc781e8a7a14a6e41b68e6ba722dbc4b0fbea3e609655599b",
+      "chunks": 5,
       "retrieval_enabled": true
     },
     "knowledge/website/hoc_vui.md": {
@@ -122,8 +122,8 @@
       "retrieval_enabled": true
     },
     "knowledge/website/trien_lam.md": {
-      "sha256": "8ba6b32180dfea57a427b7708ac56d33bf64fb0130802655893343bfdd9950a3",
-      "chunks": 5,
+      "sha256": "fef0060a70314b6494b95409626dd6cc2d878ca078b2646081cff9d65587cc11",
+      "chunks": 7,
       "retrieval_enabled": true
     },
     "knowledge/website/tro_choi.md": {
@@ -150,26 +150,26 @@
   "embedding_model": "gemini-embedding-001",
   "embedding_dimensions": 768,
   "embedding_cache": {
-    "hits": 204,
-    "misses": 0,
-    "unique_inputs": 204
+    "hits": 197,
+    "misses": 10,
+    "unique_inputs": 207
   },
   "benchmark": {
     "report": "evaluation/results/chunking-benchmark-v3.json",
     "selected_config": "balanced",
     "active_config_metrics": {
-      "chunk_count": 204,
-      "avg_chunk_chars": 335.37,
-      "median_chunk_chars": 296.0,
-      "p95_chunk_chars": 672,
-      "avg_top_k_context_chars": 1312.46,
+      "chunk_count": 207,
+      "avg_chunk_chars": 340.29,
+      "median_chunk_chars": 301,
+      "p95_chunk_chars": 691,
+      "avg_top_k_context_chars": 1318.28,
       "hit_at_k": 0.9121,
       "source_recall_at_k": 0.8407,
-      "mrr": 0.798,
+      "mrr": 0.8022,
       "answerability_accuracy": 1.0,
       "false_reject_rate": 0.0,
       "false_accept_rate": 0.0,
-      "selection_score": 0.864188
+      "selection_score": 0.865633
     },
     "dataset_version": "1.2.0"
   }

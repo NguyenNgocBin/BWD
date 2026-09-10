@@ -10,7 +10,8 @@ Dự án gồm frontend tĩnh viết bằng HTML/CSS/JavaScript và backend Flas
 - Hệ thống đăng ký, đăng nhập, đăng xuất bằng JWT.
 - Trang hồ sơ người dùng, hỗ trợ đồng bộ thông tin từ backend.
 - Bảng xếp hạng và thống kê điểm người chơi.
-- Chatbox RAG có hội thoại ngắn, trích dẫn nguồn mở được, câu hỏi gợi ý và phản hồi hữu ích/chưa đúng.
+- Chatbox RAG có hội thoại ngắn, trích dẫn nguồn mở được, câu hỏi gợi ý, phản hồi hữu ích/chưa đúng và ba Tour AI có hướng dẫn.
+- Trang Triển lãm có phòng thực hành với ba model 3D chưa định danh và iframe tham quan không gian Đông Sơn.
 - Cụm trò chơi học tập:
   - Quiz đúng/sai về văn hóa Đông Sơn.
   - Tìm họa tiết trên trống đồng.
@@ -518,11 +519,12 @@ Frontend có thể hiển thị giao diện tĩnh mà không cần backend, như
 
 ## Trạng thái hiện tại
 
-- Frontend đã có giao diện cho các trang chính, các game và chatbox RAG có nguồn, lịch sử ngắn, gợi ý cùng phản hồi.
+- Frontend đã có giao diện cho các trang chính, các game và chatbox RAG có nguồn, lịch sử ngắn, gợi ý, phản hồi cùng Tour AI liên trang.
+- Ba model GLB được ghi rõ là Mô hình tham khảo 01–03 chưa xác định danh tính; tour Ngọc Lũ chỉ dùng chúng để minh họa cấu tạo chung, không xem là mô hình của hiện vật.
 - Backend đã có API xác thực, hồ sơ người dùng, lưu phiên chơi game và chat RAG V3.
 - Database schema đã có bảng tài khoản, game, level, câu hỏi, lịch sử chơi, thống kê và bảng xếp hạng.
 - Bốn giai đoạn RAG đã được triển khai: bộ đánh giá/log ẩn danh, semantic hybrid retrieval, kho tri thức V3 có manifest và trải nghiệm trả lời có trích dẫn.
 - Backend đã được clean theo application factory, database bootstrap chủ động, shared hybrid retrieval và legacy RAG tách riêng; query embedding fail-fast thay vì sleep qua quota.
-- Toàn bộ 67 test backend hiện đạt; các kiểm tra mặc định chạy offline bằng mock và không gọi Gemini thật.
+- Toàn bộ 70 test backend hiện đạt; các kiểm tra mặc định chạy offline bằng mock và không gọi Gemini thật.
 - GitHub Actions tự chạy test, compile, validate knowledge/dataset và benchmark chunking offline khi backend hoặc tài liệu liên quan thay đổi.
 - Phần còn lại cần ưu tiên là chuyên gia duyệt nội dung di sản, đánh giá end-to-end chất lượng câu trả lời/citation, timeout-hủy request ở frontend và cấu hình API origin theo môi trường thay cho localhost.
