@@ -687,7 +687,7 @@ const drumDetailsData = [
         title: "Dáng chân đế choãi rộng",
         location: "Phần dưới cùng của trống",
         significance: "Thế đứng tôn nghiêm và các vành hoa văn hình học",
-        desc: "Chân trống hình nón cụt choãi rộng tạo bệ đỡ uy nghiêm cho toàn bộ khối trống đồng. Bề mặt trang trí các dải hoa văn răng cưa, vòng tròn đồng tâm tiếp tuyến – chuẩn mực tạo hình kinh điển khẳng định sự cân đối hoàn mỹ của đồ đồng Đông Sơn.",
+        desc: "Chân trống hình nón cụt choãi rộng tạo bệ đỡ uy nghiêm cho toàn bộ khối trống đồng. Bề mặt trang trí các dải hoa văn răng cưa, vòng tròn đồng tâm tiếp tuyến, chuẩn mực tạo hình kinh điển khẳng định sự cân đối hoàn mỹ của đồ đồng Đông Sơn.",
         getCoords: (h, r) => ({
             target: new THREE.Vector3(0, -h * 0.34, r * 0.78),
             cam: new THREE.Vector3(0, -h * 0.34 + 0.22, r * 0.78 + 1.25)
@@ -791,8 +791,8 @@ function focusDetail(num) {
     if (badgeEl) badgeEl.textContent = `Chi tiết 0${num}`;
     if (titleEl) titleEl.textContent = detail.title;
     if (descEl) descEl.textContent = detail.desc;
-    if (locEl) locEl.textContent = `📍 Vị trí: ${detail.location}`;
-    if (signEl) signEl.textContent = `✨ Ý nghĩa: ${detail.significance}`;
+    if (locEl) locEl.innerHTML = `<span class="meta-label">Vị trí:</span> ${detail.location}`;
+    if (signEl) signEl.innerHTML = `<span class="meta-label">Ý nghĩa:</span> ${detail.significance}`;
 
     if (card) {
         card.removeAttribute("hidden");
@@ -836,7 +836,7 @@ function getCurrentCoords() {
 
     const snippet = `customCoords: {\n    target: [${coordsObj.target.join(", ")}],\n    cam: [${coordsObj.cam.join(", ")}]\n}`;
 
-    console.log("%c📐 TỌA ĐỘ GÓC NHÌN HIỆN TẠI (Copy mã bên dưới):", "color: #ffd978; font-size: 14px; font-weight: bold;");
+    console.log("%cTỌA ĐỘ GÓC NHÌN HIỆN TẠI (Copy mã bên dưới):", "color: #ffd978; font-size: 14px; font-weight: bold;");
     console.log(snippet);
     console.log(`camera.position: x=${coordsObj.cam[0]}, y=${coordsObj.cam[1]}, z=${coordsObj.cam[2]}`);
     console.log(`controls.target:  x=${coordsObj.target[0]}, y=${coordsObj.target[1]}, z=${coordsObj.target[2]}`);

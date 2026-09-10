@@ -5,7 +5,7 @@ const LEVELS = {
 };
 
 const MAX_TIME = 60;
-const BACKEND_ORIGIN = "http://localhost:5000";
+const BACKEND_ORIGIN = "http://localhost:5001";
 const GAME_SESSION_API_URL = `${BACKEND_ORIGIN}/api/v1/game-sessions/`;
 const LEADERBOARD_API_URL = `${BACKEND_ORIGIN}/api/v1/leaderboard/?scope=puzzle&limit=10`;
 
@@ -50,6 +50,9 @@ const state = {
 };
 
 function getStoredAuth() {
+    if (window.DongSonAuth?.getStoredAuth) {
+        return window.DongSonAuth.getStoredAuth();
+    }
     const token = localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
     const rawUser = localStorage.getItem("authUser") || sessionStorage.getItem("authUser");
 

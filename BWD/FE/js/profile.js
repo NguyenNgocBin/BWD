@@ -1,5 +1,5 @@
 (function () {
-    const BACKEND_ORIGIN = "http://localhost:5000";
+    const BACKEND_ORIGIN = "http://localhost:5001";
     const API_BASE_URL = `${BACKEND_ORIGIN}/api/v1/auth`;
     const LEADERBOARD_API_URL = `${BACKEND_ORIGIN}/api/v1/leaderboard/?scope=tong&limit=1`;
     const GAME_SESSIONS_API_URL = `${BACKEND_ORIGIN}/api/v1/game-sessions/me?limit=20`;
@@ -75,27 +75,51 @@
         localStorage.setItem(key, JSON.stringify({ ...data, cachedAt: Date.now() }));
     }
 
+    function getCookie(name) {
+        try {
+            const match = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, "\\$1") + "=([^;]*)"));
+            return match ? decodeURIComponent(match[1]) : null;
+        } catch (e) {
+            return null;
+        }
+    }
+
     function getStoredAuth() {
-        const token = localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
-        const rawUser = localStorage.getItem("authUser") || sessionStorage.getItem("authUser");
+        if (window.DongSonAuth?.getStoredAuth) {
+            return window.DongSonAuth.getStoredAuth();
+        }
+        let token = null;
+        let rawUser = null;
+        try { token = localStorage.getItem("authToken"); } catch(e) {}
+        if (!token) { try { token = sessionStorage.getItem("authToken"); } catch(e) {} }
+        if (!token) { token = getCookie("authToken"); }
+
+        try { rawUser = localStorage.getItem("authUser"); } catch(e) {}
+        if (!rawUser) { try { rawUser = sessionStorage.getItem("authUser"); } catch(e) {} }
+        if (!rawUser) { rawUser = getCookie("authUser"); }
 
         let user = null;
         if (rawUser) {
-            try {
-                user = JSON.parse(rawUser);
-            } catch (error) {
-                user = null;
-            }
+            try { user = JSON.parse(rawUser); } catch (error) { user = null; }
         }
 
         return { token, user };
     }
 
-    function clearAuth() {
-        localStorage.removeItem("authToken");
-        localStorage.removeItem("authUser");
-        sessionStorage.removeItem("authToken");
-        sessionStorage.removeItem("authUser");
+    function clearAuth(message) {
+        if (window.DongSonAuth?.clearAuth) {
+            window.DongSonAuth.clearAuth(message);
+            return;
+        }
+        try { localStorage.removeItem("authToken"); } catch(e) {}
+        try { localStorage.removeItem("authUser"); } catch(e) {}
+        try { sessionStorage.removeItem("authToken"); } catch(e) {}
+        try { sessionStorage.removeItem("authUser"); } catch(e) {}
+        try { document.cookie = "authToken=; path=/; max-age=0;"; } catch(e) {}
+        try { document.cookie = "authUser=; path=/; max-age=0;"; } catch(e) {}
+        if (message) {
+            try { sessionStorage.setItem("authNotice", message); } catch(e) {}
+        }
     }
 
     function persistUser(user) {
@@ -229,7 +253,9 @@
 
         const data = await response.json().catch(() => ({}));
         if (!response.ok) {
-            throw new Error(data.message || "Không lấy được thông tin người dùng");
+            const err = new Error(data.message || "Không lấy được thông tin người dùng");
+            err.status = response.status;
+            throw err;
         }
 
         return data.user;
@@ -490,14 +516,61 @@
     }
 
     async function hydrateProfile() {
-        const { token, user } = getStoredAuth();
+        const lsToken = localStorage.getItem("authToken");
+        const ssToken = sessionStorage.getItem("authToken");
+        const lsUser = localStorage.getItem("authUser");
+        const ssUser = sessionStorage.getItem("authUser");
+        const token = lsToken || ssToken;
+        const rawUser = lsUser || ssUser;
+        let user = null;
+        try { user = rawUser ? JSON.parse(rawUser) : null; } catch (_) {}
+
+        // --- DEBUG: visible panel ---
+        const dbg = document.createElement("div");
+        dbg.id = "authDebugPanel";
+        Object.assign(dbg.style, {
+            position: "fixed", top: "0", left: "0", right: "0", zIndex: "99999",
+            padding: "14px 20px", background: "#111", color: "#0f0",
+            fontFamily: "monospace", fontSize: "13px", lineHeight: "1.6",
+            borderBottom: "2px solid #0f0", whiteSpace: "pre-wrap"
+        });
+        const closeBtn = document.createElement("button");
+        closeBtn.textContent = "✕ Đóng thông báo";
+        Object.assign(closeBtn.style, {
+            position: "absolute", top: "10px", right: "16px",
+            background: "#333", color: "#fff", border: "1px solid #666",
+            padding: "4px 10px", cursor: "pointer", borderRadius: "4px"
+        });
+        closeBtn.onclick = () => dbg.remove();
+        dbg.appendChild(closeBtn);
+
+        const textSpan = document.createElement("div");
+        textSpan.textContent =
+            "[AUTH DEBUG TRẠNG THÁI ĐĂNG NHẬP]\n" +
+            "localStorage.authToken : " + (lsToken ? "CÓ (" + lsToken.substring(0, 30) + "...)" : "NULL") + "\n" +
+            "sessionStorage.authToken: " + (ssToken ? "CÓ (" + ssToken.substring(0, 30) + "...)" : "NULL") + "\n" +
+            "localStorage.authUser  : " + (lsUser ? "CÓ (" + lsUser.substring(0, 50) + "...)" : "NULL") + "\n" +
+            "sessionStorage.authUser : " + (ssUser ? "CÓ (" + ssUser.substring(0, 50) + "...)" : "NULL") + "\n" +
+            "Token sử dụng          : " + (token ? "CÓ" : "KHÔNG") + "\n" +
+            "User giải mã           : " + (user ? user.username + " / " + user.email : "KHÔNG");
+        dbg.appendChild(textSpan);
+        document.body?.prepend(dbg);
 
         if (!token) {
-            window.location.href = "./login.html";
+            textSpan.textContent += "\n\n>>> BẠN CHƯA ĐĂNG NHẬP: Chưa tìm thấy token trong trình duyệt.\nVui lòng bấm vào nút 'Đăng nhập ngay' trên giao diện để đăng nhập.";
+            dbg.style.color = "#ffb84d";
+            if (els.name) els.name.textContent = "Chưa đăng nhập";
+            if (els.subtitle) {
+                els.subtitle.innerHTML = 'Vui lòng <a href="./login.html" style="color:#d99b28;text-decoration:underline;font-weight:700;">Đăng nhập tại đây</a> để xem hồ sơ và điểm số của bạn.';
+            }
             return;
         }
+        textSpan.textContent += "\n\n>>> Đã tìm thấy token! Đang đồng bộ hồ sơ từ máy chủ...";
 
         renderUser(user);
+        if (window.DongSonAuth?.renderHeaderAuth) {
+            window.DongSonAuth.renderHeaderAuth();
+        }
 
         // Hiển thị dữ liệu lần gần nhất ngay lập tức, sau đó âm thầm làm mới.
         const cached = readDashboardCache(user);
@@ -518,6 +591,9 @@
             const freshUser = await currentUserRequest;
             persistUser(freshUser);
             renderUser(freshUser);
+            if (window.DongSonAuth?.renderHeaderAuth) {
+                window.DongSonAuth.renderHeaderAuth();
+            }
             try {
                 const gameData = await gameDataRequest;
                 dashboardData = gameData;
@@ -528,9 +604,33 @@
                 console.error(gameDataError);
                 if (!cached) renderGameData(null, []);
             }
+
+            const dbg = document.getElementById("authDebugPanel");
+            if (dbg) {
+                const textSpan = dbg.querySelector("div");
+                if (textSpan) textSpan.textContent += "\n>>> ĐỒNG BỘ DỮ LIỆU THÀNH CÔNG 100%! Bạn đã đăng nhập đầy đủ.";
+                window.setTimeout(() => {
+                    dbg.style.transition = "opacity 0.8s ease";
+                    dbg.style.opacity = "0";
+                    window.setTimeout(() => dbg.remove(), 800);
+                }, 3500);
+            }
         } catch (error) {
-            clearAuth();
-            window.location.href = "./login.html";
+            console.error("fetchCurrentUser failed:", error);
+            const dbg = document.getElementById("authDebugPanel");
+            if (dbg) {
+                dbg.textContent += "\n\n>>> fetchCurrentUser ERROR: " + (error.message || error) + " (status: " + (error.status || "N/A") + ")";
+            }
+            if (error.status === 401) {
+                if (dbg) {
+                    dbg.textContent += "\n>>> 401 - Phiên đăng nhập đã hết hạn.";
+                    dbg.style.color = "#f44";
+                }
+                clearAuth("Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.");
+                if (els.subtitle) {
+                    els.subtitle.innerHTML = 'Phiên đăng nhập đã hết hạn. Vui lòng <a href="./login.html" style="color:#d99b28;text-decoration:underline;font-weight:700;">Đăng nhập lại tại đây</a>.';
+                }
+            }
         }
     }
 
@@ -562,7 +662,7 @@
     els.saveAvatarBtn?.addEventListener("click", async () => {
         const { token, user } = getStoredAuth();
         if (!token || !user || !pendingAvatar) {
-            window.location.href = "./login.html";
+            window.alert("Vui lòng đăng nhập trước khi đổi ảnh đại diện.");
             return;
         }
 
@@ -589,7 +689,7 @@
     els.renameBtn?.addEventListener("click", async () => {
         const { token, user } = getStoredAuth();
         if (!token || !user) {
-            window.location.href = "./login.html";
+            window.alert("Vui lòng đăng nhập trước khi đổi tên.");
             return;
         }
 
@@ -634,7 +734,7 @@
         event.preventDefault();
         const { token } = getStoredAuth();
         if (!token) {
-            window.location.href = "./login.html";
+            window.alert("Vui lòng đăng nhập trước khi đổi mật khẩu.");
             return;
         }
 

@@ -4,7 +4,7 @@
     }
     window.__BXH_PAGE_INITIALIZED__ = true;
 
-    const BACKEND_ORIGIN = "http://localhost:5000";
+    const BACKEND_ORIGIN = "http://localhost:5001";
     const AUTH_API_BASE_URL = `${BACKEND_ORIGIN}/api/v1/auth`;
     const LEADERBOARD_API_URL = `${BACKEND_ORIGIN}/api/v1/leaderboard/`;
     const DEFAULT_AVATAR = "../images/chim-lac-pattern.png";
@@ -130,6 +130,9 @@
     }
 
     function getStoredAuth() {
+        if (window.DongSonAuth?.getStoredAuth) {
+            return window.DongSonAuth.getStoredAuth();
+        }
         const token = localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
         const rawUser = localStorage.getItem("authUser") || sessionStorage.getItem("authUser");
 
@@ -545,4 +548,9 @@
     });
     render(initialScope);
     initLazyCardAnimation();
+    window.addEventListener("dongson:auth-changed", () => {
+        leaderboardCache.clear();
+        leaderboardRequestCache.clear();
+        render(activeScope);
+    });
 })();

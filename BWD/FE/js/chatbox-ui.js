@@ -1,6 +1,6 @@
 (() => {
-  const CHAT_API_ENDPOINT = "http://localhost:5000/api/v1/chat/ask";
-  const CHAT_FEEDBACK_ENDPOINT = "http://localhost:5000/api/v1/chat/feedback";
+  const CHAT_API_ENDPOINT = "http://localhost:5001/api/v1/chat/ask";
+  const CHAT_FEEDBACK_ENDPOINT = "http://localhost:5001/api/v1/chat/feedback";
   const FALLBACK_MESSAGE =
     "Hiện tại AI Đông Sơn chưa kết nối được máy chủ. Bạn vui lòng thử lại sau.";
   const INITIAL_SUGGESTIONS = [

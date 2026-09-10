@@ -1,5 +1,5 @@
 (function () {
-    const API_BASE_URL = "http://localhost:5000/api/v1/auth";
+    const API_BASE_URL = "http://localhost:5001/api/v1/auth";
     const track = document.getElementById("gamesTrack");
     const controls = document.querySelectorAll(".slide-btn");
     const heroName = document.getElementById("gameHeroName");
@@ -8,6 +8,9 @@
 
     // Lấy token và user đang lưu sau khi đăng nhập.
     function getStoredAuth() {
+        if (window.DongSonAuth?.getStoredAuth) {
+            return window.DongSonAuth.getStoredAuth();
+        }
         const token = localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
         const rawUser = localStorage.getItem("authUser") || sessionStorage.getItem("authUser");
 

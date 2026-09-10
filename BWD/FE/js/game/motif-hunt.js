@@ -1,7 +1,7 @@
 const TOTAL_TIME = 120;
 const STORAGE_KEY = "dongson_motif_hunt_v2";
 const FLIP_BACK_DELAY = 900;
-const BACKEND_ORIGIN = "http://localhost:5000";
+const BACKEND_ORIGIN = "http://localhost:5001";
 const GAME_SESSION_API_URL = `${BACKEND_ORIGIN}/api/v1/game-sessions/`;
 
 const motifs = [
@@ -88,6 +88,9 @@ const state = {
 };
 
 function getStoredAuth() {
+    if (window.DongSonAuth?.getStoredAuth) {
+        return window.DongSonAuth.getStoredAuth();
+    }
     const token = localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
     const rawUser = localStorage.getItem("authUser") || sessionStorage.getItem("authUser");
 

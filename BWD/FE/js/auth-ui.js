@@ -7,54 +7,88 @@
     const originalFetch = window.fetch.bind(window);
     let hasShownExpiryNotice = false;
 
-    function getStoredAuth() {
-        const storage = localStorage.getItem(TOKEN_KEY) ? localStorage : sessionStorage;
-        const token = storage.getItem(TOKEN_KEY);
-        const rawUser = storage.getItem(USER_KEY);
-        let user = null;
+    function getCookie(name) {
         try {
-            user = rawUser ? JSON.parse(rawUser) : null;
-        } catch (error) {
-            user = null;
-        }
-        return { token, user, storage };
-    }
-
-    function clearAuth(message) {
-        localStorage.removeItem(TOKEN_KEY);
-        localStorage.removeItem(USER_KEY);
-        sessionStorage.removeItem(TOKEN_KEY);
-        sessionStorage.removeItem(USER_KEY);
-        if (message) sessionStorage.setItem(NOTICE_KEY, message);
-        window.dispatchEvent(new CustomEvent("dongson:auth-changed", { detail: { token: null, user: null } }));
-    }
-
-    function decodeTokenPayload(token) {
-        try {
-            const part = token.split(".")[1];
-            if (!part) return null;
-            const normalized = part.replace(/-/g, "+").replace(/_/g, "/");
-            const padded = normalized.padEnd(Math.ceil(normalized.length / 4) * 4, "=");
-            return JSON.parse(decodeURIComponent(Array.from(atob(padded), (char) =>
-                `%${char.charCodeAt(0).toString(16).padStart(2, "0")}`
-            ).join("")));
-        } catch (error) {
+            const match = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, "\\$1") + "=([^;]*)"));
+            return match ? decodeURIComponent(match[1]) : null;
+        } catch (e) {
             return null;
         }
     }
 
-    function isExpired(token) {
-        const payload = decodeTokenPayload(token);
-        return !payload || !payload.exp || payload.exp * 1000 <= Date.now();
+    function setCookie(name, value, days = 7) {
+        try {
+            const maxAge = days * 86400;
+            const secure = window.location.protocol === "https:" ? "; Secure" : "";
+            document.cookie = `${name}=${encodeURIComponent(value)}; path=/; max-age=${maxAge}; SameSite=Lax${secure}`;
+        } catch (e) {}
     }
 
-    function profileHrefFor(loginButton) {
-        const loginHref = loginButton?.getAttribute("href") || "";
-        return loginHref.replace(/login\.html(?:\?.*)?$/, "profile.html") || "./pages/profile.html";
+    function removeCookie(name) {
+        try {
+            document.cookie = `${name}=; path=/; max-age=0; SameSite=Lax`;
+        } catch (e) {}
+    }
+
+    function getStoredAuth() {
+        let token = null;
+        let rawUser = null;
+        try { token = localStorage.getItem(TOKEN_KEY); } catch (e) {}
+        if (!token) { try { token = sessionStorage.getItem(TOKEN_KEY); } catch (e) {} }
+        if (!token) { token = getCookie(TOKEN_KEY); }
+
+        try { rawUser = localStorage.getItem(USER_KEY); } catch (e) {}
+        if (!rawUser) { try { rawUser = sessionStorage.getItem(USER_KEY); } catch (e) {} }
+        if (!rawUser) { rawUser = getCookie(USER_KEY); }
+
+        let user = null;
+        if (rawUser) {
+            try { user = JSON.parse(rawUser); } catch (error) { user = null; }
+        }
+        return { token, user };
+    }
+
+    function saveAuth(token, user) {
+        if (!token) return;
+        const userStr = typeof user === "string" ? user : JSON.stringify(user || {});
+        try { localStorage.setItem(TOKEN_KEY, token); } catch (e) {}
+        try { localStorage.setItem(USER_KEY, userStr); } catch (e) {}
+        try { sessionStorage.setItem(TOKEN_KEY, token); } catch (e) {}
+        try { sessionStorage.setItem(USER_KEY, userStr); } catch (e) {}
+        setCookie(TOKEN_KEY, token);
+        setCookie(USER_KEY, userStr);
+        renderHeaderAuth();
+        window.dispatchEvent(new CustomEvent("dongson:auth-changed", { detail: { token, user } }));
+    }
+
+    function clearAuth(message) {
+        try { localStorage.removeItem(TOKEN_KEY); } catch (e) {}
+        try { localStorage.removeItem(USER_KEY); } catch (e) {}
+        try { sessionStorage.removeItem(TOKEN_KEY); } catch (e) {}
+        try { sessionStorage.removeItem(USER_KEY); } catch (e) {}
+        removeCookie(TOKEN_KEY);
+        removeCookie(USER_KEY);
+        if (message) {
+            try { sessionStorage.setItem(NOTICE_KEY, message); } catch (e) {}
+        }
+        renderHeaderAuth();
+        window.dispatchEvent(new CustomEvent("dongson:auth-changed", { detail: { token: null, user: null } }));
+    }
+
+    function profileHrefFor(button) {
+        const href = button?.dataset.loginHref || button?.getAttribute("href") || "";
+        if (href.includes("../login.html")) {
+            return "../profile.html";
+        }
+        if (href.includes("./pages/login.html") || href.includes("pages/login.html")) {
+            return "./pages/profile.html";
+        }
+        return "./profile.html";
     }
 
     function renderHeaderAuth() {
         const { token, user } = getStoredAuth();
+        const isLoginPage = document.body?.dataset?.authPage === "login" || window.location.pathname.endsWith("/login.html");
         const buttons = document.querySelectorAll(".btn-login");
         buttons.forEach((button) => {
             if (!button.dataset.loginHref) {
@@ -63,13 +97,18 @@
             if (token && user) {
                 button.textContent = user.username || "Tài khoản";
                 button.href = profileHrefFor(button);
-                button.title = "Mở hồ sơ cá nhân";
+                button.title = "Mở hồ sơ cá nhân (" + (user.username || "") + ")";
                 button.classList.add("is-authenticated");
             } else {
-                button.textContent = "Đăng nhập";
-                button.href = button.dataset.loginHref;
+                if (isLoginPage) {
+                    button.textContent = "Đăng ký";
+                    button.href = "./register.html";
+                } else {
+                    button.textContent = "Đăng nhập";
+                    button.href = button.dataset.loginHref;
+                }
                 button.classList.remove("is-authenticated");
-                button.title = "Đăng nhập";
+                button.title = isLoginPage ? "Đăng ký tài khoản mới" : "Đăng nhập";
             }
         });
     }
@@ -89,37 +128,25 @@
         window.setTimeout(() => notice.remove(), 5000);
     }
 
-    function expireSession(message = "Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.") {
-        clearAuth(message);
+    window.DongSonAuth = { getStoredAuth, saveAuth, clearAuth, renderHeaderAuth };
+
+    function initAuth() {
         renderHeaderAuth();
-        showNotice(message);
+        try {
+            const notice = sessionStorage.getItem(NOTICE_KEY);
+            if (notice) {
+                sessionStorage.removeItem(NOTICE_KEY);
+                showNotice(notice);
+            }
+        } catch (e) {}
     }
 
-    function validateSession() {
-        const { token } = getStoredAuth();
-        if (token && isExpired(token)) expireSession();
-        renderHeaderAuth();
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initAuth);
+    } else {
+        initAuth();
     }
 
-    window.fetch = async function (...args) {
-        const response = await originalFetch(...args);
-        if (response.status === 401 && getStoredAuth().token) {
-            const data = await response.clone().json().catch(() => ({}));
-            expireSession(data.message || "Phiên đăng nhập không còn hợp lệ. Vui lòng đăng nhập lại.");
-        }
-        return response;
-    };
-
-    window.DongSonAuth = { getStoredAuth, clearAuth, validateSession, renderHeaderAuth };
-    document.addEventListener("DOMContentLoaded", () => {
-        validateSession();
-        const notice = sessionStorage.getItem(NOTICE_KEY);
-        if (notice) {
-            sessionStorage.removeItem(NOTICE_KEY);
-            showNotice(notice);
-        }
-    });
-    window.addEventListener("storage", validateSession);
+    window.addEventListener("storage", renderHeaderAuth);
     window.addEventListener("dongson:auth-changed", renderHeaderAuth);
-    window.setInterval(validateSession, 60000);
 })();

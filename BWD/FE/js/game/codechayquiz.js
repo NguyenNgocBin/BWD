@@ -3,7 +3,7 @@ import {
     FilesetResolver,
 } from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/vision_bundle.mjs";
 
-const BACKEND_ORIGIN = "http://localhost:5000";
+const BACKEND_ORIGIN = "http://localhost:5001";
 const GAME_SESSION_API_URL = `${BACKEND_ORIGIN}/api/v1/game-sessions/`;
 const LEADERBOARD_API_URL = `${BACKEND_ORIGIN}/api/v1/leaderboard/?scope=codechayquiz&limit=10`;
 
@@ -120,6 +120,9 @@ let lastVideoTime = -1;
 totalQuestionEl.textContent = QUESTIONS.length;
 
 function getStoredAuth() {
+    if (window.DongSonAuth?.getStoredAuth) {
+        return window.DongSonAuth.getStoredAuth();
+    }
     const token = localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
     const rawUser = localStorage.getItem("authUser") || sessionStorage.getItem("authUser");
 
