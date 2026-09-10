@@ -17,6 +17,7 @@ const models = {
             "Phù hợp khi muốn đọc kỹ cấu trúc bề mặt của hiện vật."
         ],
         src: "../models/TrongDong1.glb",
+        previewSrc: "../models/TrongDong11.glb",
         render: {
             exposure: 1.5,
             previewExposure: 20,
@@ -204,6 +205,7 @@ const defaultRender = {
 
 const loader = new GLTFLoader();
 const previewModelCache = new Map();
+const mainModelCache = new Map();
 const thumbnailViews = [];
 let defaultCameraPosition = camera.position.clone();
 let defaultTarget = controls.target.clone();
@@ -298,7 +300,6 @@ function disposeObject(object) {
 function clearModel() {
     if (!loadedModel) return;
     scene.remove(loadedModel);
-    disposeObject(loadedModel);
     loadedModel = null;
 }
 
@@ -355,9 +356,10 @@ function getPreviewModel(modelId) {
     if (previewModelCache.has(modelId)) return previewModelCache.get(modelId);
 
     const model = models[modelId];
+    const src = model.previewSrc || model.src;
     const promise = new Promise((resolve, reject) => {
         loader.load(
-            model.src,
+            src,
             (gltf) => {
                 prepareModel(gltf.scene, model);
                 resolve(gltf.scene);
@@ -544,6 +546,32 @@ function loadModel(modelId) {
 
     showThreeViewer();
     applyViewerRenderSettings(model);
+
+    if (loadedModel) {
+        scene.remove(loadedModel);
+        loadedModel = null;
+    }
+
+    if (mainModelCache.has(modelId)) {
+        hideOverlay();
+        container.querySelector(".model-error")?.remove();
+        loadedModel = mainModelCache.get(modelId);
+        scene.add(loadedModel);
+        fitModelToView(loadedModel);
+        resizeRenderer();
+        setProgress(100);
+
+        document.querySelectorAll(".detail-chip").forEach((c) => c.classList.remove("active"));
+        document.querySelectorAll(".frame-detail-btn").forEach((c) => c.classList.remove("active"));
+        const card = document.getElementById("drum-detail-card");
+        if (card) card.setAttribute("hidden", "");
+
+        if (typeof window.__museum3dReady === "function") {
+            window.__museum3dReady(controls, camera, defaultCameraPosition.clone());
+        }
+        return;
+    }
+
     showOverlay();
     container.querySelector(".model-error")?.remove();
 
@@ -555,6 +583,7 @@ function loadModel(modelId) {
             clearModel();
             loadedModel = gltf.scene;
             prepareModel(loadedModel, model);
+            mainModelCache.set(modelId, loadedModel);
             scene.add(loadedModel);
             fitModelToView(loadedModel);
             resizeRenderer();
@@ -562,6 +591,7 @@ function loadModel(modelId) {
             hideOverlay();
 
             document.querySelectorAll(".detail-chip").forEach((c) => c.classList.remove("active"));
+            document.querySelectorAll(".frame-detail-btn").forEach((c) => c.classList.remove("active"));
             const card = document.getElementById("drum-detail-card");
             if (card) card.setAttribute("hidden", "");
 
