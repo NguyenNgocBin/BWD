@@ -531,38 +531,7 @@
         const token = urlToken || auth.token;
         let user = auth.user;
 
-        // --- DEBUG: visible panel ---
-        const dbg = document.createElement("div");
-        dbg.id = "authDebugPanel";
-        Object.assign(dbg.style, {
-            position: "fixed", top: "0", left: "0", right: "0", zIndex: "99999",
-            padding: "12px 18px", background: "#111", color: "#0f0",
-            fontFamily: "monospace", fontSize: "13px", lineHeight: "1.5",
-            borderBottom: "2px solid #0f0", whiteSpace: "pre-wrap"
-        });
-        const closeBtn = document.createElement("button");
-        closeBtn.textContent = "✕ Đóng";
-        Object.assign(closeBtn.style, {
-            position: "absolute", top: "8px", right: "12px",
-            background: "#333", color: "#fff", border: "1px solid #666",
-            padding: "4px 10px", cursor: "pointer", borderRadius: "4px"
-        });
-        closeBtn.onclick = () => dbg.remove();
-        dbg.appendChild(closeBtn);
-
-        const textSpan = document.createElement("div");
-        textSpan.textContent =
-            "[TRẠNG THÁI ĐĂNG NHẬP]\n" +
-            "Token URL              : " + (urlToken ? "CÓ (" + urlToken.substring(0, 25) + "...)" : "KHÔNG") + "\n" +
-            "Token bộ nhớ           : " + (auth.token ? "CÓ (" + auth.token.substring(0, 25) + "...)" : "KHÔNG") + "\n" +
-            "Token sử dụng          : " + (token ? "CÓ" : "KHÔNG") + "\n" +
-            "User giải mã           : " + (user ? user.username + " / " + user.email : "CHƯA ĐỒNG BỘ");
-        dbg.appendChild(textSpan);
-        document.body?.prepend(dbg);
-
         if (!token) {
-            textSpan.textContent += "\n\n>>> BẠN CHƯA ĐĂNG NHẬP: Chưa có token trong trình duyệt.\nBấm vào liên kết bên dưới để đăng nhập.";
-            dbg.style.color = "#ffb84d";
             if (els.name) els.name.textContent = "Chưa đăng nhập";
             if (els.subtitle) {
                 els.subtitle.innerHTML = 'Bạn chưa đăng nhập. Vui lòng <a href="./login.html?v=11" style="color:#d99b28;text-decoration:underline;font-weight:700;">Đăng nhập tại đây</a> để xem hồ sơ và điểm số của bạn.';
@@ -574,7 +543,6 @@
             if (els.progressChart) els.progressChart.innerHTML = '<p style="text-align:center;padding:24px;color:#888;">Đăng nhập để xem biểu đồ tiến bộ.</p>';
             return;
         }
-        textSpan.textContent += "\n\n>>> Đã tìm thấy token! Đang đồng bộ hồ sơ từ máy chủ...";
 
         renderUser(user);
         if (window.DongSonAuth?.renderHeaderAuth) {
@@ -618,24 +586,8 @@
                 if (!cached) renderGameData(null, []);
             }
 
-            const dbgEl = document.getElementById("authDebugPanel");
-            if (dbgEl) {
-                const span = dbgEl.querySelector("div");
-                if (span) span.textContent += "\n>>> ĐỒNG BỘ THÀNH CÔNG! Bạn đã đăng nhập đầy đủ.";
-                window.setTimeout(() => {
-                    dbgEl.style.transition = "opacity 0.8s ease";
-                    dbgEl.style.opacity = "0";
-                    window.setTimeout(() => dbgEl.remove(), 800);
-                }, 3000);
-            }
         } catch (error) {
             console.error("fetchCurrentUser failed:", error);
-            const dbgEl = document.getElementById("authDebugPanel");
-            if (dbgEl) {
-                const span = dbgEl.querySelector("div");
-                if (span) span.textContent += "\n\n>>> LỖI ĐỒNG BỘ: " + (error.message || error) + " (status: " + (error.status || "N/A") + ")";
-                dbgEl.style.color = "#ff6b6b";
-            }
             if (error.status === 401) {
                 if (els.subtitle) {
                     els.subtitle.innerHTML = 'Phiên đăng nhập đã hết hạn hoặc chưa đồng bộ. Vui lòng <a href="./login.html?v=11" style="color:#d99b28;text-decoration:underline;font-weight:700;">Đăng nhập lại tại đây</a>.';
