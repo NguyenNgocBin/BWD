@@ -78,12 +78,12 @@
     function profileHrefFor(button) {
         const href = button?.dataset.loginHref || button?.getAttribute("href") || "";
         if (href.includes("../login.html")) {
-            return "../profile.html";
+            return "../profile.html?v=11";
         }
         if (href.includes("./pages/login.html") || href.includes("pages/login.html")) {
-            return "./pages/profile.html";
+            return "./pages/profile.html?v=11";
         }
-        return "./profile.html";
+        return "./profile.html?v=11";
     }
 
     function renderHeaderAuth() {

@@ -519,6 +519,9 @@
         const urlParams = new URLSearchParams(window.location.search);
         const urlToken = urlParams.get("token");
         if (urlToken) {
+            try { localStorage.setItem("authToken", urlToken); } catch(e) {}
+            try { sessionStorage.setItem("authToken", urlToken); } catch(e) {}
+            try { document.cookie = `authToken=${encodeURIComponent(urlToken)}; path=/; max-age=604800; SameSite=Lax`; } catch(e) {}
             try {
                 window.history.replaceState({}, document.title, window.location.pathname);
             } catch (e) {}
@@ -533,14 +536,14 @@
         dbg.id = "authDebugPanel";
         Object.assign(dbg.style, {
             position: "fixed", top: "0", left: "0", right: "0", zIndex: "99999",
-            padding: "14px 20px", background: "#111", color: "#0f0",
-            fontFamily: "monospace", fontSize: "13px", lineHeight: "1.6",
+            padding: "12px 18px", background: "#111", color: "#0f0",
+            fontFamily: "monospace", fontSize: "13px", lineHeight: "1.5",
             borderBottom: "2px solid #0f0", whiteSpace: "pre-wrap"
         });
         const closeBtn = document.createElement("button");
-        closeBtn.textContent = "✕ Đóng thông báo";
+        closeBtn.textContent = "✕ Đóng";
         Object.assign(closeBtn.style, {
-            position: "absolute", top: "10px", right: "16px",
+            position: "absolute", top: "8px", right: "12px",
             background: "#333", color: "#fff", border: "1px solid #666",
             padding: "4px 10px", cursor: "pointer", borderRadius: "4px"
         });
@@ -549,7 +552,7 @@
 
         const textSpan = document.createElement("div");
         textSpan.textContent =
-            "[AUTH DEBUG TRẠNG THÁI ĐĂNG NHẬP]\n" +
+            "[TRẠNG THÁI ĐĂNG NHẬP]\n" +
             "Token URL              : " + (urlToken ? "CÓ (" + urlToken.substring(0, 25) + "...)" : "KHÔNG") + "\n" +
             "Token bộ nhớ           : " + (auth.token ? "CÓ (" + auth.token.substring(0, 25) + "...)" : "KHÔNG") + "\n" +
             "Token sử dụng          : " + (token ? "CÓ" : "KHÔNG") + "\n" +
@@ -558,12 +561,17 @@
         document.body?.prepend(dbg);
 
         if (!token) {
-            textSpan.textContent += "\n\n>>> BẠN CHƯA ĐĂNG NHẬP: Chưa tìm thấy token trong trình duyệt.\nVui lòng bấm vào nút 'Đăng nhập ngay' trên giao diện để đăng nhập.";
+            textSpan.textContent += "\n\n>>> BẠN CHƯA ĐĂNG NHẬP: Chưa có token trong trình duyệt.\nBấm vào liên kết bên dưới để đăng nhập.";
             dbg.style.color = "#ffb84d";
             if (els.name) els.name.textContent = "Chưa đăng nhập";
             if (els.subtitle) {
-                els.subtitle.innerHTML = 'Vui lòng <a href="./login.html" style="color:#d99b28;text-decoration:underline;font-weight:700;">Đăng nhập tại đây</a> để xem hồ sơ và điểm số của bạn.';
+                els.subtitle.innerHTML = 'Bạn chưa đăng nhập. Vui lòng <a href="./login.html?v=11" style="color:#d99b28;text-decoration:underline;font-weight:700;">Đăng nhập tại đây</a> để xem hồ sơ và điểm số của bạn.';
             }
+            if (els.achievementCards) els.achievementCards.innerHTML = '<p>Đăng nhập để xem điểm từng game.</p>';
+            if (els.badgeGrid) els.badgeGrid.innerHTML = '<p>Đăng nhập để xem bộ sưu tập huy hiệu.</p>';
+            if (els.dailyMissionList) els.dailyMissionList.innerHTML = '<p>Đăng nhập để xem nhiệm vụ hằng ngày.</p>';
+            if (els.historyList) els.historyList.innerHTML = '<p>Đăng nhập để xem lịch sử hoạt động.</p>';
+            if (els.progressChart) els.progressChart.innerHTML = '<p style="text-align:center;padding:24px;color:#888;">Đăng nhập để xem biểu đồ tiến bộ.</p>';
             return;
         }
         textSpan.textContent += "\n\n>>> Đã tìm thấy token! Đang đồng bộ hồ sơ từ máy chủ...";
@@ -610,30 +618,27 @@
                 if (!cached) renderGameData(null, []);
             }
 
-            const dbg = document.getElementById("authDebugPanel");
-            if (dbg) {
-                const textSpan = dbg.querySelector("div");
-                if (textSpan) textSpan.textContent += "\n>>> ĐỒNG BỘ DỮ LIỆU THÀNH CÔNG 100%! Bạn đã đăng nhập đầy đủ.";
+            const dbgEl = document.getElementById("authDebugPanel");
+            if (dbgEl) {
+                const span = dbgEl.querySelector("div");
+                if (span) span.textContent += "\n>>> ĐỒNG BỘ THÀNH CÔNG! Bạn đã đăng nhập đầy đủ.";
                 window.setTimeout(() => {
-                    dbg.style.transition = "opacity 0.8s ease";
-                    dbg.style.opacity = "0";
-                    window.setTimeout(() => dbg.remove(), 800);
-                }, 3500);
+                    dbgEl.style.transition = "opacity 0.8s ease";
+                    dbgEl.style.opacity = "0";
+                    window.setTimeout(() => dbgEl.remove(), 800);
+                }, 3000);
             }
         } catch (error) {
             console.error("fetchCurrentUser failed:", error);
-            const dbg = document.getElementById("authDebugPanel");
-            if (dbg) {
-                dbg.textContent += "\n\n>>> fetchCurrentUser ERROR: " + (error.message || error) + " (status: " + (error.status || "N/A") + ")";
+            const dbgEl = document.getElementById("authDebugPanel");
+            if (dbgEl) {
+                const span = dbgEl.querySelector("div");
+                if (span) span.textContent += "\n\n>>> LỖI ĐỒNG BỘ: " + (error.message || error) + " (status: " + (error.status || "N/A") + ")";
+                dbgEl.style.color = "#ff6b6b";
             }
             if (error.status === 401) {
-                if (dbg) {
-                    dbg.textContent += "\n>>> 401 - Phiên đăng nhập đã hết hạn.";
-                    dbg.style.color = "#f44";
-                }
-                clearAuth("Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.");
                 if (els.subtitle) {
-                    els.subtitle.innerHTML = 'Phiên đăng nhập đã hết hạn. Vui lòng <a href="./login.html" style="color:#d99b28;text-decoration:underline;font-weight:700;">Đăng nhập lại tại đây</a>.';
+                    els.subtitle.innerHTML = 'Phiên đăng nhập đã hết hạn hoặc chưa đồng bộ. Vui lòng <a href="./login.html?v=11" style="color:#d99b28;text-decoration:underline;font-weight:700;">Đăng nhập lại tại đây</a>.';
                 }
             }
         }

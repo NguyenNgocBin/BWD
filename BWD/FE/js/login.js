@@ -151,7 +151,7 @@
             }
 
             setMessage("Đăng nhập thành công! Đang chuyển đến trang cá nhân...", true);
-            window.location.href = "./profile.html?token=" + encodeURIComponent(data.token);
+            window.location.href = "./profile.html?v=11&token=" + encodeURIComponent(data.token);
         } catch (error) {
             setMessage(error.message || "Không đăng nhập được, vui lòng thử lại", false);
             if (submitButton) submitButton.disabled = false;
@@ -190,7 +190,7 @@
         const user = auth?.user;
         if (token && user) {
             if (message) {
-                message.innerHTML = `Bạn đang đăng nhập với tài khoản <strong>${user.username || user.email}</strong>. <a href="./profile.html" style="color:#d99b28;text-decoration:underline;font-weight:700;">Vào trang cá nhân</a> hoặc đăng nhập tài khoản khác bên dưới.`;
+                message.innerHTML = `Bạn đang đăng nhập với tài khoản <strong>${user.username || user.email}</strong>. <a href="./profile.html?v=11" style="color:#d99b28;text-decoration:underline;font-weight:700;">Vào trang cá nhân</a> hoặc đăng nhập tài khoản khác bên dưới.`;
                 message.classList.add("is-success");
             }
         }

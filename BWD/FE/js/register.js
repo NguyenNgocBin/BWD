@@ -196,7 +196,7 @@
                 await register({ username, email, password });
                 setMessage("Đăng ký thành công, chuyển sang đăng nhập", true);
                 window.setTimeout(() => {
-                    window.location.href = "./login.html";
+                    window.location.href = "./login.html?v=11";
                 }, 900);
             } catch (error) {
                 setMessage(error.message || "Không đăng ký được, vui lòng thử lại", false);

@@ -12,7 +12,11 @@ if hasattr(sys.stdout, "reconfigure"):
 if hasattr(sys.stderr, "reconfigure"):
     sys.stderr.reconfigure(encoding="utf-8")
 
+import dotenv
+
 from database.bootstrap import initialize_database
+
+dotenv.load_dotenv(BASE_DIR / ".env")
 
 
 def main():

@@ -176,29 +176,29 @@ def _post_json(url, payload, timeout=30):
 def _resolve_model_name():
     """Keep stable model names stable instead of silently switching aliases."""
 
-    configured = os.getenv("GEMINI_MODEL", "gemini-2.5-flash").strip()
+    configured = os.getenv("GEMINI_MODEL", "gemini-3.6-flash").strip()
     deprecated_models = {
-        "gemini-1.5-flash": "gemini-2.5-flash",
-        "gemini-2.0-flash-lite-001": "gemini-2.5-flash",
+        "gemini-1.5-flash": "gemini-3.6-flash",
+        "gemini-2.0-flash-lite-001": "gemini-3.6-flash",
+        "gemini-2.5-flash": "gemini-3.6-flash",
     }
-    return deprecated_models.get(configured, configured or "gemini-2.5-flash")
+    return deprecated_models.get(configured, configured or "gemini-3.6-flash")
 
 
 def _generation_config(model):
     try:
-        max_output_tokens = int(os.getenv("GEMINI_MAX_OUTPUT_TOKENS", "1024"))
+        max_output_tokens = int(os.getenv("GEMINI_MAX_OUTPUT_TOKENS", "4096"))
     except (TypeError, ValueError):
-        max_output_tokens = 1024
+        max_output_tokens = 4096
 
     config = {
         "temperature": 0.2,
         "topP": 0.8,
-        "maxOutputTokens": max(256, min(max_output_tokens, 8192)),
+        "maxOutputTokens": max(1024, min(max_output_tokens, 8192)),
     }
 
-    # RAG fact lookup does not need the 2.5 Flash reasoning budget. Leaving it
-    # dynamic can consume the output budget before the cited answer is written.
-    if model.startswith("gemini-2.5-flash") and "image" not in model:
+    # Only gemini-2.5 models require thinkingBudget
+    if model.startswith("gemini-2.5") and "image" not in model:
         config["thinkingConfig"] = {"thinkingBudget": 0}
     return config
 
