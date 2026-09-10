@@ -151,7 +151,7 @@
             }
 
             setMessage("Đăng nhập thành công! Đang chuyển đến trang cá nhân...", true);
-            window.location.href = "./profile.html";
+            window.location.href = "./profile.html?token=" + encodeURIComponent(data.token);
         } catch (error) {
             setMessage(error.message || "Không đăng nhập được, vui lòng thử lại", false);
             if (submitButton) submitButton.disabled = false;

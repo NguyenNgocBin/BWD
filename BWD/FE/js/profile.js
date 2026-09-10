@@ -516,14 +516,17 @@
     }
 
     async function hydrateProfile() {
-        const lsToken = localStorage.getItem("authToken");
-        const ssToken = sessionStorage.getItem("authToken");
-        const lsUser = localStorage.getItem("authUser");
-        const ssUser = sessionStorage.getItem("authUser");
-        const token = lsToken || ssToken;
-        const rawUser = lsUser || ssUser;
-        let user = null;
-        try { user = rawUser ? JSON.parse(rawUser) : null; } catch (_) {}
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlToken = urlParams.get("token");
+        if (urlToken) {
+            try {
+                window.history.replaceState({}, document.title, window.location.pathname);
+            } catch (e) {}
+        }
+
+        const auth = getStoredAuth();
+        const token = urlToken || auth.token;
+        let user = auth.user;
 
         // --- DEBUG: visible panel ---
         const dbg = document.createElement("div");
@@ -547,12 +550,10 @@
         const textSpan = document.createElement("div");
         textSpan.textContent =
             "[AUTH DEBUG TRẠNG THÁI ĐĂNG NHẬP]\n" +
-            "localStorage.authToken : " + (lsToken ? "CÓ (" + lsToken.substring(0, 30) + "...)" : "NULL") + "\n" +
-            "sessionStorage.authToken: " + (ssToken ? "CÓ (" + ssToken.substring(0, 30) + "...)" : "NULL") + "\n" +
-            "localStorage.authUser  : " + (lsUser ? "CÓ (" + lsUser.substring(0, 50) + "...)" : "NULL") + "\n" +
-            "sessionStorage.authUser : " + (ssUser ? "CÓ (" + ssUser.substring(0, 50) + "...)" : "NULL") + "\n" +
+            "Token URL              : " + (urlToken ? "CÓ (" + urlToken.substring(0, 25) + "...)" : "KHÔNG") + "\n" +
+            "Token bộ nhớ           : " + (auth.token ? "CÓ (" + auth.token.substring(0, 25) + "...)" : "KHÔNG") + "\n" +
             "Token sử dụng          : " + (token ? "CÓ" : "KHÔNG") + "\n" +
-            "User giải mã           : " + (user ? user.username + " / " + user.email : "KHÔNG");
+            "User giải mã           : " + (user ? user.username + " / " + user.email : "CHƯA ĐỒNG BỘ");
         dbg.appendChild(textSpan);
         document.body?.prepend(dbg);
 
@@ -589,7 +590,11 @@
 
         try {
             const freshUser = await currentUserRequest;
-            persistUser(freshUser);
+            if (window.DongSonAuth?.saveAuth) {
+                window.DongSonAuth.saveAuth(token, freshUser);
+            } else {
+                persistUser(freshUser);
+            }
             renderUser(freshUser);
             if (window.DongSonAuth?.renderHeaderAuth) {
                 window.DongSonAuth.renderHeaderAuth();
