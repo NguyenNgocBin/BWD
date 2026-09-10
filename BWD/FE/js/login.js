@@ -189,10 +189,10 @@
         const token = auth?.token || localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
         const user = auth?.user;
         if (token && user) {
-            setMessage(`Bạn đã đăng nhập với tài khoản "${user.username || user.email}". Đang vào trang cá nhân...`, true);
-            window.setTimeout(() => {
-                window.location.href = "./profile.html";
-            }, 800);
+            if (message) {
+                message.innerHTML = `Bạn đang đăng nhập với tài khoản <strong>${user.username || user.email}</strong>. <a href="./profile.html" style="color:#d99b28;text-decoration:underline;font-weight:700;">Vào trang cá nhân</a> hoặc đăng nhập tài khoản khác bên dưới.`;
+                message.classList.add("is-success");
+            }
         }
     }
 

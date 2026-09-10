@@ -207,15 +207,11 @@
     }
 
     function checkExistingSession() {
-        const token = localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
-        const rawUser = localStorage.getItem("authUser") || sessionStorage.getItem("authUser");
-        if (token && rawUser) {
-            try {
-                const user = JSON.parse(rawUser);
-                if (user && user.id) {
-                    window.location.replace("./profile.html");
-                }
-            } catch (_) {}
+        const auth = window.DongSonAuth?.getStoredAuth ? window.DongSonAuth.getStoredAuth() : null;
+        const token = auth?.token || localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
+        const user = auth?.user;
+        if (token && user) {
+            setMessage(`Bạn đang đăng nhập với tài khoản "${user.username || user.email}".`, true);
         }
     }
 
