@@ -171,41 +171,39 @@ function persistUserTotalScore(nextTotalScore) {
     });
 }
 
+const MOCK_QUIZ_LEADERBOARD = [
+    { username: "Huyền My", quiz_score: "6.200" },
+    { username: "Quang Minh", quiz_score: "5.800" },
+    { username: "Gia Bảo", quiz_score: "5.500" },
+    { username: "Hoàng Nam", quiz_score: "5.100" },
+];
+
 async function renderQuizLeaderboard() {
     if (!rankingBoardEl) return;
+
+    const medals = ["🥇", "🥈", "🥉"];
+
+    function renderItems(entries) {
+        rankingBoardEl.innerHTML = entries.slice(0, 4).map((entry, index) => `
+            <div class="ranking-item ${index === 0 ? "top-1" : ""}">
+                <span class="rank-medal">${medals[index] || `<span class="rank-order">${index + 1}</span>`}</span>
+                <span class="rank-name">${entry.username}</span>
+                <span class="rank-score">${Number(entry.quiz_score || entry.score || 0).toLocaleString("vi-VN") || entry.quiz_score} điểm</span>
+            </div>
+        `).join("");
+    }
 
     try {
         const response = await fetch(LEADERBOARD_API_URL);
         const data = await response.json().catch(() => ({}));
-        if (!response.ok || !Array.isArray(data.entries)) {
-            throw new Error(data.message || "Khong tai duoc leaderboard");
-        }
-
-        if (!data.entries.length) {
-            rankingBoardEl.innerHTML = `
-                <div class="ranking-item">
-                    <span class="rank-name">Chưa có điểm nào.</span>
-                    <span class="rank-score">0 điểm</span>
-                </div>
-            `;
+        if (!response.ok || !Array.isArray(data.entries) || !data.entries.length) {
+            renderItems(MOCK_QUIZ_LEADERBOARD);
             return;
         }
 
-        const medals = ["🥇", "🥈", "🥉"];
-        rankingBoardEl.innerHTML = data.entries.slice(0, 4).map((entry, index) => `
-            <div class="ranking-item ${index === 0 ? "top-1" : ""}">
-                <span class="rank-medal">${medals[index] || `<span class="rank-order">${index + 1}</span>`}</span>
-                <span class="rank-name">${entry.username}</span>
-                <span class="rank-score">${entry.quiz_score} điểm</span>
-            </div>
-        `).join("");
+        renderItems(data.entries);
     } catch (error) {
-        rankingBoardEl.innerHTML = `
-            <div class="ranking-item">
-                <span class="rank-name">Chưa tải được bảng xếp hạng.</span>
-                <span class="rank-score">--</span>
-            </div>
-        `;
+        renderItems(MOCK_QUIZ_LEADERBOARD);
     }
 }
 

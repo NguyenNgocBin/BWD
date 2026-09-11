@@ -59,39 +59,80 @@ def _get_connection_pool():
 
 @contextmanager
 def get_connection():
+    global _connection_pool
     pool = _get_connection_pool()
     connection = pool.getconn()
+    is_broken = False
     try:
+        if connection.closed != 0:
+            try:
+                pool.putconn(connection, close=True)
+            except Exception:
+                pass
+            connection = pool.getconn()
         yield connection
         connection.commit()
+    except (psycopg2.OperationalError, psycopg2.DatabaseError, psycopg2.InterfaceError):
+        is_broken = True
+        try:
+            connection.rollback()
+        except Exception:
+            pass
+        raise
     except Exception:
-        connection.rollback()
+        try:
+            connection.rollback()
+        except Exception:
+            pass
         raise
     finally:
-        pool.putconn(connection)
+        try:
+            pool.putconn(connection, close=is_broken)
+        except Exception:
+            pass
 
 
 # Chay truy van va lay ve duy nhat mot dong du lieu.
 def fetch_one(query, params=None):
-    with get_connection() as connection:
-        with connection.cursor() as cursor:
-            cursor.execute(query, params or ())
-            return cursor.fetchone()
+    try:
+        with get_connection() as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(query, params or ())
+                return cursor.fetchone()
+    except (psycopg2.OperationalError, psycopg2.DatabaseError, psycopg2.InterfaceError):
+        with get_connection() as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(query, params or ())
+                return cursor.fetchone()
 
 
 # Chay truy van va lay ve nhieu dong du lieu.
 def fetch_all(query, params=None):
-    with get_connection() as connection:
-        with connection.cursor() as cursor:
-            cursor.execute(query, params or ())
-            return cursor.fetchall()
+    try:
+        with get_connection() as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(query, params or ())
+                return cursor.fetchall()
+    except (psycopg2.OperationalError, psycopg2.DatabaseError, psycopg2.InterfaceError):
+        with get_connection() as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(query, params or ())
+                return cursor.fetchall()
 
 
 # Chay truy van insert, update, delete va co the lay ve mot dong neu can.
 def execute(query, params=None, fetch_one_result=False):
-    with get_connection() as connection:
-        with connection.cursor() as cursor:
-            cursor.execute(query, params or ())
-            result = cursor.fetchone() if fetch_one_result else None
-            connection.commit()
-            return result
+    try:
+        with get_connection() as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(query, params or ())
+                result = cursor.fetchone() if fetch_one_result else None
+                connection.commit()
+                return result
+    except (psycopg2.OperationalError, psycopg2.DatabaseError, psycopg2.InterfaceError):
+        with get_connection() as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(query, params or ())
+                result = cursor.fetchone() if fetch_one_result else None
+                connection.commit()
+                return result

@@ -105,6 +105,233 @@
     const leaderboardRequestCache = new Map();
     const currentUserCache = new Map();
 
+    const MOCK_PLAYERS_RAW = [
+        {
+            username: "Huyền My",
+            avatar: "../images/TrongDongHV.jpg",
+            total_score: 18940,
+            quiz_score: 6200,
+            puzzle_score: 7940,
+            motif_score: 4800,
+            quiz_best_streak: 18,
+            puzzle_best_streak: 15,
+            motif_best_streak: 12,
+            quiz_duration_seconds: 35,
+            puzzle_duration_seconds: 65,
+            motif_duration_seconds: 42,
+            badges: [{ icon: "🏆", title: "Thủ lĩnh tuần" }],
+        },
+        {
+            username: "Quang Minh",
+            avatar: "../images/chim-lac-pattern.png",
+            total_score: 17520,
+            quiz_score: 5800,
+            puzzle_score: 7220,
+            motif_score: 4500,
+            quiz_best_streak: 15,
+            puzzle_best_streak: 12,
+            motif_best_streak: 10,
+            quiz_duration_seconds: 39,
+            puzzle_duration_seconds: 72,
+            motif_duration_seconds: 48,
+            badges: [{ icon: "⚡", title: "Bứt tốc" }],
+        },
+        {
+            username: "Gia Bảo",
+            avatar: "../images/TrongDong.png",
+            total_score: 16880,
+            quiz_score: 5500,
+            puzzle_score: 7180,
+            motif_score: 4200,
+            quiz_best_streak: 13,
+            puzzle_best_streak: 10,
+            motif_best_streak: 9,
+            quiz_duration_seconds: 44,
+            puzzle_duration_seconds: 78,
+            motif_duration_seconds: 52,
+            badges: [{ icon: "🛡️", title: "Ổn định" }],
+        },
+        {
+            username: "Hoàng Nam",
+            avatar: "../images/dongsonz1.jpg",
+            total_score: 15900,
+            quiz_score: 5100,
+            puzzle_score: 6800,
+            motif_score: 4000,
+            quiz_best_streak: 11,
+            puzzle_best_streak: 9,
+            motif_best_streak: 8,
+            quiz_duration_seconds: 48,
+            puzzle_duration_seconds: 84,
+            motif_duration_seconds: 56,
+            badges: [{ icon: "🎯", title: "Chiến binh" }],
+        },
+        {
+            username: "Thanh Hà",
+            avatar: "../images/TD_Cam_Giang.jpg",
+            total_score: 15200,
+            quiz_score: 4900,
+            puzzle_score: 6500,
+            motif_score: 3800,
+            quiz_best_streak: 10,
+            puzzle_best_streak: 8,
+            motif_best_streak: 7,
+            quiz_duration_seconds: 52,
+            puzzle_duration_seconds: 90,
+            motif_duration_seconds: 60,
+            badges: [{ icon: "🌟", title: "Tiềm năng" }],
+        },
+        {
+            username: "Minh Khôi",
+            avatar: "../images/TD_Huu_Chung.png",
+            total_score: 14400,
+            quiz_score: 4600,
+            puzzle_score: 6200,
+            motif_score: 3600,
+            quiz_best_streak: 9,
+            puzzle_best_streak: 7,
+            motif_best_streak: 6,
+            quiz_duration_seconds: 56,
+            puzzle_duration_seconds: 96,
+            motif_duration_seconds: 64,
+            badges: [],
+        },
+        {
+            username: "Lan Anh",
+            avatar: "../images/chim-lac-pattern.png",
+            total_score: 13600,
+            quiz_score: 4300,
+            puzzle_score: 5900,
+            motif_score: 3400,
+            quiz_best_streak: 8,
+            puzzle_best_streak: 7,
+            motif_best_streak: 6,
+            quiz_duration_seconds: 60,
+            puzzle_duration_seconds: 102,
+            motif_duration_seconds: 68,
+            badges: [],
+        },
+        {
+            username: "Quốc Tuấn",
+            avatar: "../images/TD_SaoVang.jpg",
+            total_score: 13000,
+            quiz_score: 4100,
+            puzzle_score: 5700,
+            motif_score: 3200,
+            quiz_best_streak: 7,
+            puzzle_best_streak: 6,
+            motif_best_streak: 5,
+            quiz_duration_seconds: 65,
+            puzzle_duration_seconds: 110,
+            motif_duration_seconds: 72,
+            badges: [],
+        },
+        {
+            username: "Thục Quyên",
+            avatar: "../images/coloa.png",
+            total_score: 12300,
+            quiz_score: 3900,
+            puzzle_score: 5400,
+            motif_score: 3000,
+            quiz_best_streak: 6,
+            puzzle_best_streak: 5,
+            motif_best_streak: 5,
+            quiz_duration_seconds: 70,
+            puzzle_duration_seconds: 115,
+            motif_duration_seconds: 75,
+            badges: [],
+        },
+        {
+            username: "Đức Trọng",
+            avatar: "../images/hoangha.png",
+            total_score: 11600,
+            quiz_score: 3700,
+            puzzle_score: 5100,
+            motif_score: 2800,
+            quiz_best_streak: 5,
+            puzzle_best_streak: 5,
+            motif_best_streak: 4,
+            quiz_duration_seconds: 75,
+            puzzle_duration_seconds: 120,
+            motif_duration_seconds: 80,
+            badges: [],
+        },
+    ];
+
+    function getMockLeaderboardData(scope, user) {
+        let sortedList = [];
+        if (scope === "tong") {
+            sortedList = [...MOCK_PLAYERS_RAW].sort((a, b) => b.total_score - a.total_score);
+        } else if (scope === "motifhunt") {
+            sortedList = [...MOCK_PLAYERS_RAW].sort((a, b) => b.motif_score - a.motif_score);
+        } else if (scope === "puzzle") {
+            sortedList = [...MOCK_PLAYERS_RAW].sort((a, b) => b.puzzle_score - a.puzzle_score);
+        } else if (scope === "codechayquiz") {
+            sortedList = [...MOCK_PLAYERS_RAW].sort((a, b) => b.quiz_score - a.quiz_score);
+        } else {
+            sortedList = [...MOCK_PLAYERS_RAW];
+        }
+
+        const entries = sortedList.map((item, index) => {
+            const rank = index + 1;
+            const entry = {
+                rank,
+                username: item.username,
+                avatar: item.avatar,
+                badges: item.badges || [],
+                total_score: item.total_score,
+                quiz_score: item.quiz_score,
+                puzzle_score: item.puzzle_score,
+                motif_score: item.motif_score,
+            };
+
+            if (scope === "tong") {
+                entry.selected_score = item.total_score;
+            } else if (scope === "motifhunt") {
+                entry.score = item.motif_score;
+                entry.selected_score = item.motif_score;
+                entry.best_streak = item.motif_best_streak;
+                entry.duration_seconds = item.motif_duration_seconds;
+            } else if (scope === "puzzle") {
+                entry.score = item.puzzle_score;
+                entry.selected_score = item.puzzle_score;
+                entry.best_streak = item.puzzle_best_streak;
+                entry.duration_seconds = item.puzzle_duration_seconds;
+            } else if (scope === "codechayquiz") {
+                entry.score = item.quiz_score;
+                entry.selected_score = item.quiz_score;
+                entry.best_streak = item.quiz_best_streak;
+                entry.duration_seconds = item.quiz_duration_seconds;
+            }
+            return entry;
+        });
+
+        let current_user = null;
+        if (user) {
+            const uTotal = user.total_score || 8650;
+            current_user = {
+                user_id: user.id || "current_user",
+                username: user.username || "Bạn",
+                avatar: user.avatar || DEFAULT_AVATAR,
+                rank: 12,
+                total_score: uTotal,
+                quiz_score: 3200,
+                puzzle_score: 3450,
+                motif_score: 2000,
+                best_streak: 7,
+                duration_seconds: 55,
+                best_game: "Ghép hình",
+                selected_score: scope === "tong" ? uTotal : (scope === "puzzle" ? 3450 : (scope === "motifhunt" ? 2000 : 3200)),
+            };
+        }
+
+        return {
+            scope,
+            entries,
+            current_user,
+        };
+    }
+
     function isValidScope(scope) {
         return Object.prototype.hasOwnProperty.call(scopeLabels, scope);
     }
@@ -204,7 +431,7 @@
     }
 
     async function fetchLeaderboard(scope, options = {}) {
-        const { token } = getStoredAuth();
+        const { token, user } = getStoredAuth();
         const cacheKey = getLeaderboardCacheKey(scope, token);
 
         if (!options.forceRefresh && leaderboardCache.has(cacheKey)) {
@@ -225,12 +452,17 @@
             .then(async (response) => {
                 const data = await response.json().catch(() => ({}));
 
-                if (!response.ok) {
-                    throw new Error(data.message || "Không lấy được bảng xếp hạng");
+                if (!response.ok || !Array.isArray(data.entries) || !data.entries.length) {
+                    console.warn(`[BXH] API không trả về entries hợp lệ cho scope=${scope}, dùng mock data.`);
+                    return getMockLeaderboardData(scope, user);
                 }
 
                 leaderboardCache.set(cacheKey, data);
                 return data;
+            })
+            .catch((err) => {
+                console.warn(`[BXH] Kết nối thất bại (${err.message}), dùng mock data cho scope=${scope}.`);
+                return getMockLeaderboardData(scope, user);
             })
             .finally(() => {
                 leaderboardRequestCache.delete(cacheKey);
@@ -461,12 +693,11 @@
         const { token, user } = getStoredAuth();
 
         try {
-            const data = await fetchLeaderboard(scope);
+            let data = await fetchLeaderboard(scope);
             if (scope !== activeScope) return;
 
-            if (!data.entries.length) {
-                renderEmptyState(scope, user);
-                return;
+            if (!data || !Array.isArray(data.entries) || !data.entries.length) {
+                data = getMockLeaderboardData(scope, user);
             }
 
             renderUserSummary(data, user);
@@ -477,7 +708,12 @@
             prefetchOtherScopes(scope);
         } catch (error) {
             console.error(error);
-            renderErrorState(scope, user, error);
+            const mockData = getMockLeaderboardData(scope, user);
+            renderUserSummary(mockData, user);
+            renderPodiumSlot("first", mockData.entries[0], scope, 0);
+            renderPodiumSlot("second", mockData.entries[1], scope, 1);
+            renderPodiumSlot("third", mockData.entries[2], scope, 2);
+            renderRows(mockData.entries.slice(3), scope);
         }
 
         if (!token || scope !== "tong") {

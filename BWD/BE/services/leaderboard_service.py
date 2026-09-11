@@ -221,6 +221,325 @@ def build_current_user_payload(current_user, entries, scope, period="all", class
     return base
 
 
+MOCK_PLAYERS = [
+    {
+        "rank": 1,
+        "user_id": "mock_u1",
+        "username": "Huyền My",
+        "avatar": "../images/TrongDongHV.jpg",
+        "total_score": 18940,
+        "quiz_score": 6200,
+        "puzzle_score": 7940,
+        "motif_score": 4800,
+        "quiz_best_streak": 18,
+        "puzzle_best_streak": 15,
+        "motif_best_streak": 12,
+        "quiz_duration_seconds": 35,
+        "puzzle_duration_seconds": 65,
+        "motif_duration_seconds": 42,
+        "quiz_play_count": 12,
+        "puzzle_play_count": 10,
+        "motif_play_count": 8,
+        "badges": [{"icon": "🏆", "title": "Thủ lĩnh tuần"}],
+    },
+    {
+        "rank": 2,
+        "user_id": "mock_u2",
+        "username": "Quang Minh",
+        "avatar": "../images/chim-lac-pattern.png",
+        "total_score": 17520,
+        "quiz_score": 5800,
+        "puzzle_score": 7220,
+        "motif_score": 4500,
+        "quiz_best_streak": 15,
+        "puzzle_best_streak": 12,
+        "motif_best_streak": 10,
+        "quiz_duration_seconds": 39,
+        "puzzle_duration_seconds": 72,
+        "motif_duration_seconds": 48,
+        "quiz_play_count": 10,
+        "puzzle_play_count": 9,
+        "motif_play_count": 7,
+        "badges": [{"icon": "⚡", "title": "Bứt tốc"}],
+    },
+    {
+        "rank": 3,
+        "user_id": "mock_u3",
+        "username": "Gia Bảo",
+        "avatar": "../images/TrongDong.png",
+        "total_score": 16880,
+        "quiz_score": 5500,
+        "puzzle_score": 7180,
+        "motif_score": 4200,
+        "quiz_best_streak": 13,
+        "puzzle_best_streak": 10,
+        "motif_best_streak": 9,
+        "quiz_duration_seconds": 44,
+        "puzzle_duration_seconds": 78,
+        "motif_duration_seconds": 52,
+        "quiz_play_count": 9,
+        "puzzle_play_count": 8,
+        "motif_play_count": 6,
+        "badges": [{"icon": "🛡️", "title": "Ổn định"}],
+    },
+    {
+        "rank": 4,
+        "user_id": "mock_u4",
+        "username": "Hoàng Nam",
+        "avatar": "../images/dongsonz1.jpg",
+        "total_score": 15900,
+        "quiz_score": 5100,
+        "puzzle_score": 6800,
+        "motif_score": 4000,
+        "quiz_best_streak": 11,
+        "puzzle_best_streak": 9,
+        "motif_best_streak": 8,
+        "quiz_duration_seconds": 48,
+        "puzzle_duration_seconds": 84,
+        "motif_duration_seconds": 56,
+        "quiz_play_count": 8,
+        "puzzle_play_count": 7,
+        "motif_play_count": 5,
+        "badges": [{"icon": "🎯", "title": "Chiến binh"}],
+    },
+    {
+        "rank": 5,
+        "user_id": "mock_u5",
+        "username": "Thanh Hà",
+        "avatar": "../images/TD_Cam_Giang.jpg",
+        "total_score": 15200,
+        "quiz_score": 4900,
+        "puzzle_score": 6500,
+        "motif_score": 3800,
+        "quiz_best_streak": 10,
+        "puzzle_best_streak": 8,
+        "motif_best_streak": 7,
+        "quiz_duration_seconds": 52,
+        "puzzle_duration_seconds": 90,
+        "motif_duration_seconds": 60,
+        "quiz_play_count": 7,
+        "puzzle_play_count": 6,
+        "motif_play_count": 5,
+        "badges": [{"icon": "🌟", "title": "Tiềm năng"}],
+    },
+    {
+        "rank": 6,
+        "user_id": "mock_u6",
+        "username": "Minh Khôi",
+        "avatar": "../images/TD_Huu_Chung.png",
+        "total_score": 14400,
+        "quiz_score": 4600,
+        "puzzle_score": 6200,
+        "motif_score": 3600,
+        "quiz_best_streak": 9,
+        "puzzle_best_streak": 7,
+        "motif_best_streak": 6,
+        "quiz_duration_seconds": 56,
+        "puzzle_duration_seconds": 96,
+        "motif_duration_seconds": 64,
+        "quiz_play_count": 6,
+        "puzzle_play_count": 5,
+        "motif_play_count": 4,
+        "badges": [],
+    },
+    {
+        "rank": 7,
+        "user_id": "mock_u7",
+        "username": "Lan Anh",
+        "avatar": "../images/chim-lac-pattern.png",
+        "total_score": 13600,
+        "quiz_score": 4300,
+        "puzzle_score": 5900,
+        "motif_score": 3400,
+        "quiz_best_streak": 8,
+        "puzzle_best_streak": 7,
+        "motif_best_streak": 6,
+        "quiz_duration_seconds": 60,
+        "puzzle_duration_seconds": 102,
+        "motif_duration_seconds": 68,
+        "quiz_play_count": 5,
+        "puzzle_play_count": 5,
+        "motif_play_count": 4,
+        "badges": [],
+    },
+    {
+        "rank": 8,
+        "user_id": "mock_u8",
+        "username": "Quốc Tuấn",
+        "avatar": "../images/TD_SaoVang.jpg",
+        "total_score": 13000,
+        "quiz_score": 4100,
+        "puzzle_score": 5700,
+        "motif_score": 3200,
+        "quiz_best_streak": 7,
+        "puzzle_best_streak": 6,
+        "motif_best_streak": 5,
+        "quiz_duration_seconds": 65,
+        "puzzle_duration_seconds": 110,
+        "motif_duration_seconds": 72,
+        "quiz_play_count": 5,
+        "puzzle_play_count": 4,
+        "motif_play_count": 3,
+        "badges": [],
+    },
+    {
+        "rank": 9,
+        "user_id": "mock_u9",
+        "username": "Thục Quyên",
+        "avatar": "../images/coloa.png",
+        "total_score": 12300,
+        "quiz_score": 3900,
+        "puzzle_score": 5400,
+        "motif_score": 3000,
+        "quiz_best_streak": 6,
+        "puzzle_best_streak": 5,
+        "motif_best_streak": 5,
+        "quiz_duration_seconds": 70,
+        "puzzle_duration_seconds": 115,
+        "motif_duration_seconds": 75,
+        "quiz_play_count": 4,
+        "puzzle_play_count": 4,
+        "motif_play_count": 3,
+        "badges": [],
+    },
+    {
+        "rank": 10,
+        "user_id": "mock_u10",
+        "username": "Đức Trọng",
+        "avatar": "../images/hoangha.png",
+        "total_score": 11600,
+        "quiz_score": 3700,
+        "puzzle_score": 5100,
+        "motif_score": 2800,
+        "quiz_best_streak": 5,
+        "puzzle_best_streak": 5,
+        "motif_best_streak": 4,
+        "quiz_duration_seconds": 75,
+        "puzzle_duration_seconds": 120,
+        "motif_duration_seconds": 80,
+        "quiz_play_count": 3,
+        "puzzle_play_count": 3,
+        "motif_play_count": 2,
+        "badges": [],
+    },
+]
+
+
+def get_mock_leaderboard(scope, current_user=None, period="all", group=None):
+    title = "Tổng điểm" if scope == "tong" else GAME_LABELS.get(scope, "Bảng xếp hạng")
+
+    if scope == "tong":
+        sorted_players = sorted(MOCK_PLAYERS, key=lambda x: x["total_score"], reverse=True)
+        entries = []
+        for idx, p in enumerate(sorted_players):
+            entries.append({
+                "rank": idx + 1,
+                "user_id": p["user_id"],
+                "username": p["username"],
+                "avatar": p["avatar"],
+                "total_score": p["total_score"],
+                "quiz_score": p["quiz_score"],
+                "puzzle_score": p["puzzle_score"],
+                "motif_score": p["motif_score"],
+                "selected_score": p["total_score"],
+                "badges": p.get("badges", []),
+            })
+    elif scope == "codechayquiz":
+        sorted_players = sorted(MOCK_PLAYERS, key=lambda x: x["quiz_score"], reverse=True)
+        entries = []
+        for idx, p in enumerate(sorted_players):
+            entries.append({
+                "rank": idx + 1,
+                "user_id": p["user_id"],
+                "username": p["username"],
+                "avatar": p["avatar"],
+                "quiz_score": p["quiz_score"],
+                "score": p["quiz_score"],
+                "selected_score": p["quiz_score"],
+                "best_streak": p["quiz_best_streak"],
+                "duration_seconds": p["quiz_duration_seconds"],
+                "play_count": p["quiz_play_count"],
+                "badges": p.get("badges", []),
+            })
+    elif scope == "puzzle":
+        sorted_players = sorted(MOCK_PLAYERS, key=lambda x: x["puzzle_score"], reverse=True)
+        entries = []
+        for idx, p in enumerate(sorted_players):
+            entries.append({
+                "rank": idx + 1,
+                "user_id": p["user_id"],
+                "username": p["username"],
+                "avatar": p["avatar"],
+                "puzzle_score": p["puzzle_score"],
+                "score": p["puzzle_score"],
+                "selected_score": p["puzzle_score"],
+                "best_streak": p["puzzle_best_streak"],
+                "duration_seconds": p["puzzle_duration_seconds"],
+                "play_count": p["puzzle_play_count"],
+                "badges": p.get("badges", []),
+            })
+    elif scope == "motifhunt":
+        sorted_players = sorted(MOCK_PLAYERS, key=lambda x: x["motif_score"], reverse=True)
+        entries = []
+        for idx, p in enumerate(sorted_players):
+            entries.append({
+                "rank": idx + 1,
+                "user_id": p["user_id"],
+                "username": p["username"],
+                "avatar": p["avatar"],
+                "motif_score": p["motif_score"],
+                "score": p["motif_score"],
+                "selected_score": p["motif_score"],
+                "best_streak": p["motif_best_streak"],
+                "duration_seconds": p["motif_duration_seconds"],
+                "play_count": p["motif_play_count"],
+                "badges": p.get("badges", []),
+            })
+    else:
+        entries = []
+
+    current_user_payload = None
+    if current_user:
+        total_score = getattr(current_user, "total_score", 0) or 8650
+        current_user_payload = {
+            "user_id": getattr(current_user, "id", "current_user"),
+            "username": getattr(current_user, "username", "Bạn"),
+            "avatar": getattr(current_user, "avatar", "../images/chim-lac-pattern.png"),
+            "total_score": total_score,
+            "quiz_score": 3200,
+            "puzzle_score": 3450,
+            "motif_score": 2000,
+            "quiz_best_streak": 8,
+            "puzzle_best_streak": 7,
+            "motif_best_streak": 6,
+            "quiz_duration_seconds": 45,
+            "puzzle_duration_seconds": 60,
+            "motif_duration_seconds": 55,
+            "quiz_play_count": 5,
+            "puzzle_play_count": 4,
+            "motif_play_count": 3,
+            "selected_score": total_score if scope == "tong" else (3450 if scope == "puzzle" else (2000 if scope == "motifhunt" else 3200)),
+            "rank": 12,
+            "best_game": "Ghép hình",
+        }
+
+    return {
+        "message": "Lấy bảng xếp hạng thành công (dữ liệu mẫu)",
+        "scope": scope,
+        "period": period,
+        "group": group,
+        "title": title,
+        "entries": entries,
+        "current_user": current_user_payload,
+        "available_scopes": [
+            {"scope": "tong", "label": "Tổng"},
+            {"scope": "motifhunt", "label": GAME_LABELS["motifhunt"]},
+            {"scope": "puzzle", "label": GAME_LABELS["puzzle"]},
+            {"scope": "codechayquiz", "label": GAME_LABELS["codechayquiz"]},
+        ],
+    }
+
+
 def get_leaderboard(
     scope_value,
     limit_value,
@@ -233,48 +552,57 @@ def get_leaderboard(
     period = normalize_period(period_value)
     class_group = normalize_group(group_value)
 
-    if period != "all" or class_group:
-        rows = leaderboard_repo.get_filtered_leaderboard(
-            scope, period, class_group, limit
+    try:
+        if period != "all" or class_group:
+            rows = leaderboard_repo.get_filtered_leaderboard(
+                scope, period, class_group, limit
+            )
+            title = "Tổng điểm" if scope == "tong" else GAME_LABELS[scope]
+        elif scope == "tong":
+            rows = leaderboard_repo.get_total_leaderboard(limit)
+            title = "Tổng điểm"
+        else:
+            rows = leaderboard_repo.get_game_leaderboard(scope, limit)
+            title = GAME_LABELS[scope]
+
+        entries = [build_entry(row, scope) for row in rows]
+        if not entries:
+            return get_mock_leaderboard(scope, current_user, period, class_group)
+
+        public_entries = progression_service.attach_featured_achievements(
+            [build_public_entry(entry, scope) for entry in entries]
         )
-        title = "Tổng điểm" if scope == "tong" else GAME_LABELS[scope]
-    elif scope == "tong":
-        rows = leaderboard_repo.get_total_leaderboard(limit)
-        title = "Tổng điểm"
-    else:
-        rows = leaderboard_repo.get_game_leaderboard(scope, limit)
-        title = GAME_LABELS[scope]
 
-    entries = [build_entry(row, scope) for row in rows]
-    public_entries = progression_service.attach_featured_achievements(
-        [build_public_entry(entry, scope) for entry in entries]
-    )
+        current_user_payload = build_current_user_payload(
+            current_user, entries, scope, period, class_group
+        )
+        if (
+            current_user_payload
+            and current_user_payload["rank"] is None
+            and period == "all"
+            and not class_group
+        ):
+            try:
+                fresh_user = user_repo.find_user_by_id(current_user.id)
+                if fresh_user:
+                    current_user_payload["total_score"] = fresh_user.total_score
+            except Exception:
+                pass
 
-    current_user_payload = build_current_user_payload(
-        current_user, entries, scope, period, class_group
-    )
-    if (
-        current_user_payload
-        and current_user_payload["rank"] is None
-        and period == "all"
-        and not class_group
-    ):
-        fresh_user = user_repo.find_user_by_id(current_user.id)
-        if fresh_user:
-            current_user_payload["total_score"] = fresh_user.total_score
-
-    return {
-        "message": "Lấy bảng xếp hạng thành công",
-        "scope": scope,
-        "period": period,
-        "group": class_group,
-        "title": title,
-        "entries": public_entries,
-        "current_user": current_user_payload,
-        "available_scopes": [
-            {"scope": "tong", "label": "Tổng"},
-            {"scope": "motifhunt", "label": GAME_LABELS["motifhunt"]},
-            {"scope": "puzzle", "label": GAME_LABELS["puzzle"]},
-            {"scope": "codechayquiz", "label": GAME_LABELS["codechayquiz"]},
-        ],
-    }
+        return {
+            "message": "Lấy bảng xếp hạng thành công",
+            "scope": scope,
+            "period": period,
+            "group": class_group,
+            "title": title,
+            "entries": public_entries,
+            "current_user": current_user_payload,
+            "available_scopes": [
+                {"scope": "tong", "label": "Tổng"},
+                {"scope": "motifhunt", "label": GAME_LABELS["motifhunt"]},
+                {"scope": "puzzle", "label": GAME_LABELS["puzzle"]},
+                {"scope": "codechayquiz", "label": GAME_LABELS["codechayquiz"]},
+            ],
+        }
+    except Exception:
+        return get_mock_leaderboard(scope, current_user, period, class_group)
