@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,400;1,700&family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Manrope:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,700;1,6..72,400;1,6..72,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,700;1,6..72,400;1,6..72,700&display=swap');
 
 :root {
     --bg: #2d251f;
@@ -14,27 +14,12 @@
     --red-son: #9e2f1c;
     --patina: #2f6f64;
     --indigo: #203a5b;
-    --line: rgba(196, 147, 63, 0.3);
+    --line: rgba(216, 195, 163, 0.22);
     --shadow: 0 16px 40px rgba(23, 19, 15, 0.38);
-
-    /* Treasure Map Font & Button Tokens */
-    --font-heading: 'Playfair Display', serif;
-    --font-button: 'Cinzel', 'Playfair Display', serif;
-    --font-body: 'Manrope', 'Be Vietnam Pro', sans-serif;
-
-    /* Button Colors */
-    --btn-gold-color: #c4933f;
-    --btn-gold-bg: rgba(196, 147, 63, 0.08);
-    --btn-gold-border: rgba(196, 147, 63, 0.3);
-    --btn-active-color: #2c1a0e;
-    --btn-active-bg: linear-gradient(180deg, #e0b85a 0%, #c8a04a 100%);
-    --btn-active-border: #7a5520;
-
-    /* Ancient Treasure Map: Sharp Right Angles (Góc vuông) */
-    --radius-sm: 0px;
-    --radius-md: 0px;
-    --radius-lg: 0px;
-    --radius-pill: 0px;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-pill: 999px;
 }
 
 /* RESET */
@@ -44,23 +29,12 @@
     box-sizing: border-box;
 }
 
-/* ========================================================
-   ANTIQUE TREASURE MAP & ARCHAEOLOGICAL SCROLL STYLING
-   - Square corners (Góc vuông) across ALL components
-   - Antique gold/bronze button tokens with 'Cinzel'
-   ======================================================== */
-*,
-*::before,
-*::after {
-    border-radius: 0 !important;
-}
-
 html {
     scroll-behavior: smooth;
 }
 
 body {
-    font-family: var(--font-body);
+    font-family: "Manrope", sans-serif;
     background: var(--bg);
     color: var(--text);
     line-height: 1.6;
@@ -79,116 +53,8 @@ a {
 button {
     border: none;
     cursor: pointer;
-    font-family: var(--font-button);
+    font-family: inherit;
     background: transparent;
-}
-
-/* ========================================================
-   UNIVERSAL BUTTON & TAB TOKENS (CINZEL + TREASURE MAP)
-   ======================================================== */
-/* Tab button & Inactive Button — default */
-.tab-btn,
-.filter-btn,
-.scope-btn,
-.btn-secondary,
-.ghost-btn,
-.btn-ghost,
-.toolbar-btn {
-    padding: 8px 24px;
-    font-family: var(--font-button) !important;
-    font-size: 0.78rem !important;
-    letter-spacing: 0.18em !important;
-    text-transform: uppercase !important;
-    color: #c4933f !important;
-    background: rgba(196, 147, 63, 0.08) !important;
-    border: 1px solid rgba(196, 147, 63, 0.3) !important;
-    box-shadow: none !important;
-    transition: all 0.2s ease !important;
-    cursor: pointer !important;
-    border-radius: 0 !important;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 600;
-}
-
-.tab-btn:hover,
-.filter-btn:hover,
-.scope-btn:hover,
-.btn-secondary:hover,
-.ghost-btn:hover,
-.btn-ghost:hover {
-    background: rgba(196, 147, 63, 0.18) !important;
-    border-color: rgba(196, 147, 63, 0.6) !important;
-    color: #ffd36d !important;
-    transform: translateY(-1px);
-}
-
-/* Tab button & Primary CTA — active state */
-.tab-btn.active,
-.tab-btn[aria-selected="true"],
-.filter-btn.active,
-.scope-btn.active,
-.hero-btn,
-.btn-primary,
-.btn-login,
-.btn-submit {
-    color: #2c1a0e !important;
-    background: linear-gradient(180deg, #e0b85a 0%, #c8a04a 100%) !important;
-    border: 1px solid #7a5520 !important;
-    box-shadow:
-        0 2px 8px rgba(44, 26, 14, 0.4),
-        inset 0 1px 0 rgba(255, 220, 150, 0.3) !important;
-    font-family: var(--font-button) !important;
-    font-size: 0.82rem !important;
-    letter-spacing: 0.18em !important;
-    text-transform: uppercase !important;
-    font-weight: 700 !important;
-    border-radius: 0 !important;
-    transition: all 0.2s ease !important;
-    cursor: pointer !important;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.hero-btn:hover,
-.btn-primary:hover,
-.btn-login:hover,
-.btn-submit:hover {
-    background: linear-gradient(180deg, #ebd07a 0%, #d4ac56 100%) !important;
-    border-color: #946927 !important;
-    box-shadow:
-        0 4px 14px rgba(44, 26, 14, 0.5),
-        inset 0 1px 0 rgba(255, 235, 180, 0.5) !important;
-    transform: translateY(-1px);
-}
-
-/* Antique Treasure Map Framing */
-.card,
-.quickstart-card,
-.artifact-card,
-.feature-card,
-.timeline-card,
-.topic-card,
-.play-card,
-.leaderboard-card,
-.stat-card,
-.modal-content,
-.ds-chat-panel,
-.gateway-card,
-.terminal-panel,
-.tab-wrap,
-.table-section,
-.doc-card,
-.search-box,
-input,
-select,
-textarea {
-    border-radius: 0 !important;
-    border: 1px solid rgba(196, 147, 63, 0.32) !important;
 }
 
 /* CONTAINER */

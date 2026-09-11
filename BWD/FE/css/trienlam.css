@@ -128,57 +128,39 @@ body {
 
 .hero-enter-btn,
 .hero-ghost-btn,
-.toolbar-btn,
-.toolbar-btn-secondary {
+.toolbar-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 44px;
-    padding: 10px 24px;
-    border-radius: 0 !important;
-    font-family: var(--font-button);
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 0.18em;
+    min-height: 50px;
+    padding: 14px 22px;
+    border-radius: 12px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    transition: all 0.2s ease;
-    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, border-color 0.25s ease;
 }
 
 .hero-enter-btn,
 .toolbar-btn {
-    color: #2c1a0e !important;
-    background: linear-gradient(180deg, #e0b85a 0%, #c8a04a 100%) !important;
-    border: 1px solid #7a5520 !important;
-    box-shadow:
-        0 2px 8px rgba(44, 26, 14, 0.4),
-        inset 0 1px 0 rgba(255, 220, 150, 0.3) !important;
+    border: 1px solid rgba(240, 207, 119, 0.72);
+    background: linear-gradient(135deg, #d99b28, #ffd978);
+    color: #1a0f04;
+    box-shadow: 0 10px 24px rgba(201, 146, 42, 0.28);
 }
 
 .hero-ghost-btn,
 .toolbar-btn-secondary {
-    color: #c4933f !important;
-    background: rgba(196, 147, 63, 0.08) !important;
-    border: 1px solid rgba(196, 147, 63, 0.3) !important;
-    box-shadow: none !important;
+    border: 1px solid rgba(240, 207, 119, 0.34);
+    background: rgba(47, 111, 100, 0.12);
+    color: #ffd978;
 }
 
 .hero-enter-btn:hover,
-.toolbar-btn:hover {
-    background: linear-gradient(180deg, #ebd07a 0%, #d4ac56 100%) !important;
-    border-color: #946927 !important;
-    box-shadow:
-        0 4px 14px rgba(44, 26, 14, 0.5),
-        inset 0 1px 0 rgba(255, 235, 180, 0.5) !important;
-    transform: translateY(-1px);
-}
-
 .hero-ghost-btn:hover,
-.toolbar-btn-secondary:hover {
-    background: rgba(196, 147, 63, 0.18) !important;
-    border-color: rgba(196, 147, 63, 0.6) !important;
-    color: #ffd36d !important;
-    transform: translateY(-1px);
+.toolbar-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 28px rgba(255, 215, 0, 0.22);
 }
 
 .trienlam-hero-preview {
