@@ -170,47 +170,48 @@
   margin-top: 10px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  background: #1e1915;
-  border: 1px solid rgba(61, 92, 76, 0.45);
-  border-radius: 14px;
+  background: rgba(30, 25, 21, 0.85);
+  border: 1px solid rgba(196, 147, 63, 0.3);
+  border-radius: 0 !important;
   overflow: hidden;
+  gap: 4px;
+  padding: 4px;
 }
 
+/* Tab button — default (inactive) */
 .tab-btn {
-  border: 0 !important;
-  color: #6b9080 !important;
-  background: transparent !important;
-  padding: 15px 10px;
-  font-size: 14px;
+  padding: 10px 16px;
+  font-family: 'Cinzel', 'Playfair Display', serif !important;
+  font-size: 0.78rem !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase !important;
+  color: #c4933f !important;
+  background: rgba(196, 147, 63, 0.08) !important;
+  border: 1px solid rgba(196, 147, 63, 0.3) !important;
+  box-shadow: none !important;
+  transition: all 0.2s ease !important;
+  cursor: pointer !important;
+  border-radius: 0 !important;
   font-weight: 600;
-  letter-spacing: 0.04em;
-  position: relative;
-  transition: color 0.25s, background 0.25s;
-  border-right: 1px solid rgba(61, 92, 76, 0.25) !important;
-}
-
-.tab-btn:last-child {
-  border-right: 0;
 }
 
 .tab-btn:hover:not(.active) {
-  color: var(--bronze-light);
-  background: rgba(61, 92, 76, 0.18);
+  color: #ffd36d !important;
+  background: rgba(196, 147, 63, 0.18) !important;
+  border-color: rgba(196, 147, 63, 0.6) !important;
 }
 
-.tab-btn.active {
-  color: #ffd978 !important;
-  background: rgba(201, 146, 42, 0.12) !important;
-}
-
-.tab-btn.active::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--bronze-light), transparent);
+/* Tab button — active state */
+.tab-btn.active,
+.tab-btn[aria-selected="true"] {
+  color: #2c1a0e !important;
+  background: linear-gradient(180deg, #e0b85a 0%, #c8a04a 100%) !important;
+  border: 1px solid #7a5520 !important;
+  box-shadow:
+    0 2px 8px rgba(44, 26, 14, 0.4),
+    inset 0 1px 0 rgba(255, 220, 150, 0.3) !important;
+  border-radius: 0 !important;
+  font-weight: 700;
 }
 
 /* ============================================================
@@ -796,12 +797,11 @@ body>main :is(.btn-secondary,
   .ghost-btn,
   .learn-btn.ghost,
   .hero-ghost-btn,
-  .toolbar-btn-secondary,
-  .tab-btn) {
+  .toolbar-btn-secondary) {
   border-color: rgba(201, 146, 42, 0.34);
   color: #ffd978;
 }
 
-body>main :is(.leader-table thead th, .leaderboard-rest-head, .tab-btn.active) {
+body>main :is(.leader-table thead th, .leaderboard-rest-head) {
   color: var(--ds-patina-soft);
 }

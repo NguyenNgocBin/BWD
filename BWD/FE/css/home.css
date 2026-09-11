@@ -121,36 +121,52 @@ main {
     align-items: center;
     justify-content: center;
     min-width: 170px;
-    padding: 15px 24px;
-    border-radius: 12px;
-    font-weight: 800;
-    letter-spacing: 0.08em;
+    padding: 13px 28px;
+    border-radius: 0 !important;
+    font-family: var(--font-button);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
     position: relative;
     overflow: hidden;
     isolation: isolate;
-    transition: transform 0.3s, box-shadow 0.3s, background 0.3s, border-color 0.3s;
+    transition: transform 0.25s, box-shadow 0.25s, background 0.25s, border-color 0.25s;
+    cursor: pointer;
 }
 
 .hero-btn {
-    border: 1px solid rgba(240, 207, 119, 0.7);
-    background: #d99b28;
-    color: #1a0e00;
-    box-shadow: 0 8px 24px rgba(201, 146, 42, 0.32);
+    color: #2c1a0e !important;
+    background: linear-gradient(180deg, #e0b85a 0%, #c8a04a 100%) !important;
+    border: 1px solid #7a5520 !important;
+    box-shadow:
+        0 2px 8px rgba(44, 26, 14, 0.4),
+        inset 0 1px 0 rgba(255, 220, 150, 0.3) !important;
 }
 
 .btn-secondary,
 .ghost-btn {
-    border: 1px solid rgba(240, 207, 119, 0.44);
-    background: rgba(217, 155, 40, 0.1);
-    color: #ffd978;
+    color: #c4933f !important;
+    background: rgba(196, 147, 63, 0.08) !important;
+    border: 1px solid rgba(196, 147, 63, 0.3) !important;
+    box-shadow: none !important;
 }
 
-.hero-btn:hover,
+.hero-btn:hover {
+    background: linear-gradient(180deg, #ebd07a 0%, #d4ac56 100%) !important;
+    border-color: #946927 !important;
+    box-shadow:
+        0 4px 14px rgba(44, 26, 14, 0.5),
+        inset 0 1px 0 rgba(255, 235, 180, 0.5) !important;
+    transform: translateY(-2px);
+}
+
 .btn-secondary:hover,
 .ghost-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 0 28px rgba(255, 215, 0, 0.24);
+    background: rgba(196, 147, 63, 0.18) !important;
+    border-color: rgba(196, 147, 63, 0.6) !important;
+    color: #ffd36d !important;
+    transform: translateY(-2px);
 }
 
 .hero-btn::after,

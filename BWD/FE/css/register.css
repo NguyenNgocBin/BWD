@@ -1,4 +1,4 @@
-﻿/* Register page - giao diện tạo tài khoản theo theme Đông Sơn. */
+/* Register page - giao diện tạo tài khoản theo theme Đông Sơn. */
 
 .auth-page {
     --auth-bronze: #a36a2a;
@@ -348,22 +348,32 @@
 
 .auth-button {
     width: 100%;
-    min-height: 54px;
+    min-height: 50px;
     margin-top: 10px;
-    padding: 15px 18px;
-    border-radius: 12px;
-    background: linear-gradient(135deg, #c9922a, #ffd978);
-    color: #1a0e00;
-    box-shadow: 0 2px 12px rgba(201, 146, 42, 0.32);
-    font-weight: 800;
-    letter-spacing: 0.08em;
+    padding: 12px 18px;
+    border-radius: 0 !important;
+    font-family: var(--font-button);
+    font-size: 0.82rem;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    transition: transform 0.2s ease, box-shadow 0.22s ease, filter 0.22s ease;
+    font-weight: 700;
+    color: #2c1a0e !important;
+    background: linear-gradient(180deg, #e0b85a 0%, #c8a04a 100%) !important;
+    border: 1px solid #7a5520 !important;
+    box-shadow:
+        0 2px 8px rgba(44, 26, 14, 0.4),
+        inset 0 1px 0 rgba(255, 220, 150, 0.3) !important;
+    transition: all 0.2s ease;
+    cursor: pointer;
 }
 
 .auth-button:hover {
-    filter: brightness(0.96);
-    box-shadow: 0 12px 30px rgba(201, 146, 42, 0.28);
+    background: linear-gradient(180deg, #ebd07a 0%, #d4ac56 100%) !important;
+    border-color: #946927 !important;
+    box-shadow:
+        0 4px 14px rgba(44, 26, 14, 0.5),
+        inset 0 1px 0 rgba(255, 235, 180, 0.5) !important;
+    transform: translateY(-1px);
 }
 
 .auth-button:active {

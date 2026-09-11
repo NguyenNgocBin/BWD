@@ -1,4 +1,4 @@
-﻿/* Trò chơi page - khu vực chọn thử thách và nhiệm vụ nhận điểm. */
+/* Trò chơi page - khu vực chọn thử thách và nhiệm vụ nhận điểm. */
 
 .trochoi-page {
     --bronze: #a36a2a;
@@ -95,40 +95,50 @@
     align-items: center;
     justify-content: center;
     min-width: 150px;
-    min-height: 46px;
-    padding: 13px 20px;
-    border: 1px solid transparent;
-    border-radius: 12px;
-    font-size: 13px;
-    font-weight: 800;
-    letter-spacing: 0.06em;
+    min-height: 44px;
+    padding: 10px 24px;
+    border-radius: 0 !important;
+    font-family: var(--font-button);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    transition: transform 0.24s ease, box-shadow 0.24s ease, background 0.24s ease, border-color 0.24s ease;
+    transition: all 0.2s ease;
+    cursor: pointer;
 }
 
 .btn-primary {
-    border-color: rgba(240, 207, 119, 0.7);
-    background: linear-gradient(135deg, #c9922a, #ffd978);
-    color: #1a0e00;
-    box-shadow: 0 2px 12px rgba(201, 146, 42, 0.32);
+    color: #2c1a0e !important;
+    background: linear-gradient(180deg, #e0b85a 0%, #c8a04a 100%) !important;
+    border: 1px solid #7a5520 !important;
+    box-shadow:
+        0 2px 8px rgba(44, 26, 14, 0.4),
+        inset 0 1px 0 rgba(255, 220, 150, 0.3) !important;
 }
 
 .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 30px rgba(201, 146, 42, 0.28);
+    background: linear-gradient(180deg, #ebd07a 0%, #d4ac56 100%) !important;
+    border-color: #946927 !important;
+    box-shadow:
+        0 4px 14px rgba(44, 26, 14, 0.5),
+        inset 0 1px 0 rgba(255, 235, 180, 0.5) !important;
+    transform: translateY(-1px);
 }
 
 .btn-ghost,
 .card-btn {
-    border-color: rgba(200, 154, 60, 0.36);
-    background: rgba(47, 39, 31, 0.5);
-    color: #ffd978;
+    color: #c4933f !important;
+    background: rgba(196, 147, 63, 0.08) !important;
+    border: 1px solid rgba(196, 147, 63, 0.3) !important;
+    box-shadow: none !important;
 }
 
 .btn-ghost:hover,
 .card-btn:hover {
-    border-color: rgba(240, 207, 119, 0.7);
-    background: rgba(201, 146, 42, 0.12);
+    background: rgba(196, 147, 63, 0.18) !important;
+    border-color: rgba(196, 147, 63, 0.6) !important;
+    color: #ffd36d !important;
+    transform: translateY(-1px);
 }
 
 .hero-card {
