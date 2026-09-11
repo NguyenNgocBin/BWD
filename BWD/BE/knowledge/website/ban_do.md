@@ -4,11 +4,11 @@ document_id: website.guide.ban_do
 title: Trang Bản đồ
 corpus: website
 topic: Hướng dẫn sử dụng bản đồ
-entities: ["Trang Bản đồ", "Leaflet", "OpenStreetMap", "Hoàng Sa", "Trường Sa"]
+entities: ["Trang Bản đồ", "Google Maps", "Hoàng Sa", "Trường Sa"]
 references:
   - "repo:BWD/FE/pages/Map.html"
   - "repo:BWD/FE/js/map.js"
-updated_at: '2026-07-14'
+updated_at: '2026-09-09'
 reviewed_by: 'Nhóm dự án — rà soát kỹ thuật'
 review_status: code_verified
 confidence: high
@@ -18,7 +18,7 @@ document_type: website_guide
 
 # Trang Bản đồ
 
-Trang Bản đồ là bản đồ tương tác của website Đông Sơn. Trang sử dụng Leaflet và OpenStreetMap để hiển thị các điểm phát hiện trống đồng, bảo tàng liên quan đến Đông Sơn và hai quần đảo Hoàng Sa, Trường Sa.
+Trang Bản đồ là bản đồ tương tác của website Đông Sơn. Trang sử dụng nền tảng Google Maps để hiển thị các điểm phát hiện trống đồng, bảo tàng liên quan đến Đông Sơn và hai quần đảo Hoàng Sa, Trường Sa, hỗ trợ 3 chế độ xem: Đường sá (Roadmap), Vệ tinh (Satellite/Hybrid) và Địa hình (Terrain).
 
 ## Đường dẫn và mục tiêu
 
@@ -50,8 +50,7 @@ Mục tiêu:
    - Bảo tàng Trưng bày Cổ vật Thành Cổ Loa.
 
 3. Biển đảo:
-   - Quần đảo Trường Sa.
-   - Quần đảo Hoàng Sa.
+   - Nền tảng bản đồ Google Maps đã thể hiện tự nhiên, đầy đủ và chuẩn xác thông tin quần đảo Hoàng Sa và quần đảo Trường Sa của Việt Nam trên Biển Đông, không cần biểu tượng tùy biến đè lên.
 
 ## Chú giải biểu tượng
 
@@ -63,7 +62,7 @@ Các marker trống đồng dùng ảnh icon trống đồng thu nhỏ. Viền m
 - Tây Nguyên: đỏ.
 - Nam Bộ: xanh dương.
 
-Marker bảo tàng dùng biểu tượng bảo tàng. Marker biển đảo dùng biểu tượng đảo.
+Marker bảo tàng dùng biểu tượng bảo tàng.
 
 Trống đồng Cẩm Giang được đặt tại khu vực thôn Phú Lai, xã Cẩm Giang, huyện Cẩm Thủy, tỉnh Thanh Hóa.
 
@@ -74,7 +73,8 @@ Trống đồng Quỳ Chử được phát hiện năm 1980 tại Quỳ Chử, x
 ## Cách tương tác
 
 - Kéo bản đồ để di chuyển.
-- Phóng to/thu nhỏ bằng nút zoom Leaflet ở góc dưới phải.
+- Phóng to/thu nhỏ bằng nút zoom hoặc cuộn chuột.
+- Chuyển đổi chế độ hiển thị bản đồ Google Maps trên thanh công cụ: "Đường sá", "Vệ tinh", "Địa hình".
 - Bấm marker để xem chi tiết địa điểm.
 - Khi bấm marker, bản đồ sẽ zoom tới địa điểm đó và mở panel thông tin.
 - Bấm nút đóng trong panel để ẩn thông tin.

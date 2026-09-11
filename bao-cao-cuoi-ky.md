@@ -17,7 +17,7 @@
 - **CSS3:** thiết kế bố cục, màu sắc, hiệu ứng, responsive layout và giao diện theo chủ đề văn hóa Đông Sơn.
 - **JavaScript thuần:** xử lý tương tác người dùng, game, hiệu ứng, lưu dữ liệu tạm bằng `localStorage`/`sessionStorage` và gọi API backend.
 - **Three.js:** hiển thị mô hình 3D trống đồng định dạng `.glb`, hỗ trợ xoay, phóng to/thu nhỏ, tự xoay và xem toàn màn hình.
-- **Leaflet + OpenStreetMap:** xây dựng bản đồ các địa điểm, hiện vật và khu vực liên quan đến văn hóa Đông Sơn.
+- **Google Maps:** xây dựng bản đồ tương tác hiển thị các địa điểm, hiện vật và khu vực liên quan đến văn hóa Đông Sơn với các chế độ Đường sá, Vệ tinh, Địa hình.
 - **MediaPipe Tasks Vision:** nhận diện khuôn mặt/nghiêng đầu trong game quiz đúng sai.
 - **Google Fonts / Material Symbols:** sử dụng font và biểu tượng cho giao diện đăng nhập, đăng ký.
 - **Canvas API:** tạo hiệu ứng nền/particle cho trang chủ.
@@ -109,7 +109,7 @@ Các bảng/view chính trong CSDL:
 
 ### 5. Trang Bản đồ Đông Sơn - `FE/pages/Map.html`
 
-- Sử dụng Leaflet và OpenStreetMap để hiển thị bản đồ di sản Đông Sơn.
+- Sử dụng Google Maps để hiển thị bản đồ di sản Đông Sơn (hỗ trợ các chế độ Đường sá, Vệ tinh, Địa hình).
 - Có marker cho các địa điểm/hiện vật như trống Ngọc Lũ, Sông Đà, Hoàng Hạ, Cổ Loa, Cẩm Giang, Hữu Chung, Sao Vàng, Sông Mã, Quỳ Chử...
 - Mỗi địa điểm có thông tin chi tiết, hình ảnh, khu vực, năm phát hiện và mô tả lịch sử.
 - Giúp người dùng hiểu sự phân bố địa lý của hiện vật Đông Sơn trên không gian Việt Nam.
@@ -181,7 +181,7 @@ Các bảng/view chính trong CSDL:
 - Có backend Flask phục vụ xác thực, hồ sơ, phiên chơi game và chatbot AI.
 - Có cơ sở dữ liệu PostgreSQL/Supabase với schema rõ ràng.
 - Có chức năng 3D tương tác bằng Three.js và mô hình GLB.
-- Có bản đồ tương tác bằng Leaflet/OpenStreetMap.
+- Có bản đồ tương tác bằng Google Maps.
 - Có chatbot AI sử dụng mô hình RAG trên kho tri thức Đông Sơn.
 - Giao diện có sử dụng hình ảnh, video, hiệu ứng và bố cục responsive để tăng trải nghiệm người dùng.
 

@@ -4,7 +4,10 @@
     }
     window.__BXH_PAGE_INITIALIZED__ = true;
 
-    const BACKEND_ORIGIN = "http://localhost:5000";
+    const BACKEND_ORIGIN =
+        window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+            ? "http://localhost:5001"
+            : "https://bwd-backend.vercel.app";
     const AUTH_API_BASE_URL = `${BACKEND_ORIGIN}/api/v1/auth`;
     const LEADERBOARD_API_URL = `${BACKEND_ORIGIN}/api/v1/leaderboard/`;
     const DEFAULT_AVATAR = "../images/chim-lac-pattern.png";
@@ -130,6 +133,9 @@
     }
 
     function getStoredAuth() {
+        if (window.DongSonAuth?.getStoredAuth) {
+            return window.DongSonAuth.getStoredAuth();
+        }
         const token = localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
         const rawUser = localStorage.getItem("authUser") || sessionStorage.getItem("authUser");
 
@@ -201,7 +207,7 @@
     }
 
     async function fetchLeaderboard(scope, options = {}) {
-        const { token } = getStoredAuth();
+        const { token, user } = getStoredAuth();
         const cacheKey = getLeaderboardCacheKey(scope, token);
 
         if (!options.forceRefresh && leaderboardCache.has(cacheKey)) {
@@ -223,7 +229,7 @@
                 const data = await response.json().catch(() => ({}));
 
                 if (!response.ok) {
-                    throw new Error(data.message || "Không lấy được bảng xếp hạng");
+                    throw new Error(data.message || `Lỗi máy chủ (${response.status})`);
                 }
 
                 leaderboardCache.set(cacheKey, data);
@@ -458,10 +464,10 @@
         const { token, user } = getStoredAuth();
 
         try {
-            const data = await fetchLeaderboard(scope);
+            let data = await fetchLeaderboard(scope);
             if (scope !== activeScope) return;
 
-            if (!data.entries.length) {
+            if (!data || !Array.isArray(data.entries) || !data.entries.length) {
                 renderEmptyState(scope, user);
                 return;
             }
@@ -545,4 +551,9 @@
     });
     render(initialScope);
     initLazyCardAnimation();
+    window.addEventListener("dongson:auth-changed", () => {
+        leaderboardCache.clear();
+        leaderboardRequestCache.clear();
+        render(activeScope);
+    });
 })();

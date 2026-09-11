@@ -22,5 +22,8 @@ body { background: linear-gradient(180deg,#241a13,#16110d); color:#eee2cf; }
 .artifact-questions summary { cursor:pointer; color:#f2d37d; font-weight:800; }
 .artifact-more { margin-top:36px; }
 .artifact-more nav { display:flex; flex-wrap:wrap; gap:10px; }
-.artifact-more a { padding:10px 14px; border:1px solid rgba(201,146,42,.3); border-radius:999px; color:#f2d37d; }
+.artifact-more a { padding:10px 16px; border:1px solid rgba(201,146,42,.35); border-radius:999px; color:#f2d37d; text-decoration:none; transition:all .2s ease; cursor:pointer; background:rgba(36,26,19,.8); }
+.artifact-more a:hover { background:rgba(201,146,42,.25); border-color:#d49b28; color:#fff; }
+.artifact-more a[aria-current="page"], .artifact-more a.active { background:#c9922a; color:#18100a; font-weight:800; border-color:#c9922a; }
+.artifact-image img { transition: opacity .25s ease; }
 @media(max-width:760px){.artifact-hero,.artifact-content{grid-template-columns:1fr}.artifact-image{min-height:300px}.artifact-facts{grid-template-columns:1fr}.artifact-questions,.artifact-map-panel{grid-column:auto}}

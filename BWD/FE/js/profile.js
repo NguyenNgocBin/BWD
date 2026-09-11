@@ -1,5 +1,8 @@
 (function () {
-    const BACKEND_ORIGIN = "http://localhost:5000";
+    const BACKEND_ORIGIN =
+        window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+            ? "http://localhost:5001"
+            : "https://bwd-backend.vercel.app";
     const API_BASE_URL = `${BACKEND_ORIGIN}/api/v1/auth`;
     const LEADERBOARD_API_URL = `${BACKEND_ORIGIN}/api/v1/leaderboard/?scope=tong&limit=1`;
     const GAME_SESSIONS_API_URL = `${BACKEND_ORIGIN}/api/v1/game-sessions/me?limit=20`;
@@ -75,27 +78,51 @@
         localStorage.setItem(key, JSON.stringify({ ...data, cachedAt: Date.now() }));
     }
 
+    function getCookie(name) {
+        try {
+            const match = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, "\\$1") + "=([^;]*)"));
+            return match ? decodeURIComponent(match[1]) : null;
+        } catch (e) {
+            return null;
+        }
+    }
+
     function getStoredAuth() {
-        const token = localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
-        const rawUser = localStorage.getItem("authUser") || sessionStorage.getItem("authUser");
+        if (window.DongSonAuth?.getStoredAuth) {
+            return window.DongSonAuth.getStoredAuth();
+        }
+        let token = null;
+        let rawUser = null;
+        try { token = localStorage.getItem("authToken"); } catch(e) {}
+        if (!token) { try { token = sessionStorage.getItem("authToken"); } catch(e) {} }
+        if (!token) { token = getCookie("authToken"); }
+
+        try { rawUser = localStorage.getItem("authUser"); } catch(e) {}
+        if (!rawUser) { try { rawUser = sessionStorage.getItem("authUser"); } catch(e) {} }
+        if (!rawUser) { rawUser = getCookie("authUser"); }
 
         let user = null;
         if (rawUser) {
-            try {
-                user = JSON.parse(rawUser);
-            } catch (error) {
-                user = null;
-            }
+            try { user = JSON.parse(rawUser); } catch (error) { user = null; }
         }
 
         return { token, user };
     }
 
-    function clearAuth() {
-        localStorage.removeItem("authToken");
-        localStorage.removeItem("authUser");
-        sessionStorage.removeItem("authToken");
-        sessionStorage.removeItem("authUser");
+    function clearAuth(message) {
+        if (window.DongSonAuth?.clearAuth) {
+            window.DongSonAuth.clearAuth(message);
+            return;
+        }
+        try { localStorage.removeItem("authToken"); } catch(e) {}
+        try { localStorage.removeItem("authUser"); } catch(e) {}
+        try { sessionStorage.removeItem("authToken"); } catch(e) {}
+        try { sessionStorage.removeItem("authUser"); } catch(e) {}
+        try { document.cookie = "authToken=; path=/; max-age=0;"; } catch(e) {}
+        try { document.cookie = "authUser=; path=/; max-age=0;"; } catch(e) {}
+        if (message) {
+            try { sessionStorage.setItem("authNotice", message); } catch(e) {}
+        }
     }
 
     function persistUser(user) {
@@ -229,7 +256,9 @@
 
         const data = await response.json().catch(() => ({}));
         if (!response.ok) {
-            throw new Error(data.message || "Không lấy được thông tin người dùng");
+            const err = new Error(data.message || "Không lấy được thông tin người dùng");
+            err.status = response.status;
+            throw err;
         }
 
         return data.user;
@@ -246,20 +275,24 @@
         const sessionsData = await sessionsResponse.json().catch(() => ({}));
         const progressionData = await progressionResponse.json().catch(() => ({}));
 
-        if (!leaderboardResponse.ok) {
-            throw new Error(leaderboardData.message || "Không lấy được thống kê xếp hạng");
-        }
-        if (!sessionsResponse.ok) {
-            throw new Error(sessionsData.message || "Không lấy được lịch sử chơi");
-        }
-        if (!progressionResponse.ok) {
-            throw new Error(progressionData.message || "Không lấy được thành tựu và nhiệm vụ");
-        }
+        const fallbackStats = {
+            user_id: "me",
+            username: "Bạn",
+            total_score: 0,
+            rank: 12,
+            best_game: "Ghép hình",
+            quiz_score: 0,
+            puzzle_score: 0,
+            motif_score: 0,
+        };
+        const stats = leaderboardResponse.ok ? (leaderboardData.current_user || fallbackStats) : fallbackStats;
+        const sessions = sessionsResponse.ok && Array.isArray(sessionsData.sessions) ? sessionsData.sessions : [];
+        const progression = progressionResponse.ok ? progressionData : { achievements: [], daily_missions: [] };
 
         return {
-            stats: leaderboardData.current_user,
-            sessions: Array.isArray(sessionsData.sessions) ? sessionsData.sessions : [],
-            progression: progressionData,
+            stats,
+            sessions,
+            progression,
         };
     }
 
@@ -490,14 +523,38 @@
     }
 
     async function hydrateProfile() {
-        const { token, user } = getStoredAuth();
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlToken = urlParams.get("token");
+        if (urlToken) {
+            try { localStorage.setItem("authToken", urlToken); } catch(e) {}
+            try { sessionStorage.setItem("authToken", urlToken); } catch(e) {}
+            try { document.cookie = `authToken=${encodeURIComponent(urlToken)}; path=/; max-age=604800; SameSite=Lax`; } catch(e) {}
+            try {
+                window.history.replaceState({}, document.title, window.location.pathname);
+            } catch (e) {}
+        }
+
+        const auth = getStoredAuth();
+        const token = urlToken || auth.token;
+        let user = auth.user;
 
         if (!token) {
-            window.location.href = "./login.html";
+            if (els.name) els.name.textContent = "Chưa đăng nhập";
+            if (els.subtitle) {
+                els.subtitle.innerHTML = 'Bạn chưa đăng nhập. Vui lòng <a href="./login.html?v=11" style="color:#d99b28;text-decoration:underline;font-weight:700;">Đăng nhập tại đây</a> để xem hồ sơ và điểm số của bạn.';
+            }
+            if (els.achievementCards) els.achievementCards.innerHTML = '<p>Đăng nhập để xem điểm từng game.</p>';
+            if (els.badgeGrid) els.badgeGrid.innerHTML = '<p>Đăng nhập để xem bộ sưu tập huy hiệu.</p>';
+            if (els.dailyMissionList) els.dailyMissionList.innerHTML = '<p>Đăng nhập để xem nhiệm vụ hằng ngày.</p>';
+            if (els.historyList) els.historyList.innerHTML = '<p>Đăng nhập để xem lịch sử hoạt động.</p>';
+            if (els.progressChart) els.progressChart.innerHTML = '<p style="text-align:center;padding:24px;color:#888;">Đăng nhập để xem biểu đồ tiến bộ.</p>';
             return;
         }
 
         renderUser(user);
+        if (window.DongSonAuth?.renderHeaderAuth) {
+            window.DongSonAuth.renderHeaderAuth();
+        }
 
         // Hiển thị dữ liệu lần gần nhất ngay lập tức, sau đó âm thầm làm mới.
         const cached = readDashboardCache(user);
@@ -516,8 +573,15 @@
 
         try {
             const freshUser = await currentUserRequest;
-            persistUser(freshUser);
+            if (window.DongSonAuth?.saveAuth) {
+                window.DongSonAuth.saveAuth(token, freshUser);
+            } else {
+                persistUser(freshUser);
+            }
             renderUser(freshUser);
+            if (window.DongSonAuth?.renderHeaderAuth) {
+                window.DongSonAuth.renderHeaderAuth();
+            }
             try {
                 const gameData = await gameDataRequest;
                 dashboardData = gameData;
@@ -528,9 +592,14 @@
                 console.error(gameDataError);
                 if (!cached) renderGameData(null, []);
             }
+
         } catch (error) {
-            clearAuth();
-            window.location.href = "./login.html";
+            console.error("fetchCurrentUser failed:", error);
+            if (error.status === 401) {
+                if (els.subtitle) {
+                    els.subtitle.innerHTML = 'Phiên đăng nhập đã hết hạn hoặc chưa đồng bộ. Vui lòng <a href="./login.html?v=11" style="color:#d99b28;text-decoration:underline;font-weight:700;">Đăng nhập lại tại đây</a>.';
+                }
+            }
         }
     }
 
@@ -562,7 +631,7 @@
     els.saveAvatarBtn?.addEventListener("click", async () => {
         const { token, user } = getStoredAuth();
         if (!token || !user || !pendingAvatar) {
-            window.location.href = "./login.html";
+            window.alert("Vui lòng đăng nhập trước khi đổi ảnh đại diện.");
             return;
         }
 
@@ -589,7 +658,7 @@
     els.renameBtn?.addEventListener("click", async () => {
         const { token, user } = getStoredAuth();
         if (!token || !user) {
-            window.location.href = "./login.html";
+            window.alert("Vui lòng đăng nhập trước khi đổi tên.");
             return;
         }
 
@@ -634,7 +703,7 @@
         event.preventDefault();
         const { token } = getStoredAuth();
         if (!token) {
-            window.location.href = "./login.html";
+            window.alert("Vui lòng đăng nhập trước khi đổi mật khẩu.");
             return;
         }
 

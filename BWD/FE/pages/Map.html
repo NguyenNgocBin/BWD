@@ -1,8 +1,8 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bản đồ Đông Sơn</title>
     <meta name="description"
@@ -14,10 +14,10 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
         integrity="sha256-p4NxAoJBhIINfQp5rFztp9an7dScI4vHLotG0JxBv2M=" crossorigin="">
-    <link rel="stylesheet" href="../css/base.css">
-    <link rel="stylesheet" href="../css/layout.css">
-    <link rel="stylesheet" href="../css/chatbox.css">
-    <link rel="stylesheet" href="../css/map.css">
+    <link rel="stylesheet" href="../css/base.css?v=20260911-orig">
+    <link rel="stylesheet" href="../css/layout.css?v=20260911-orig">
+    <link rel="stylesheet" href="../css/chatbox.css?v=20260911-orig">
+    <link rel="stylesheet" href="../css/map.css?v=20260911-orig">
 </head>
 
 <body>
@@ -33,7 +33,7 @@
                 <a href="./trienlam.html" class="menu-link">Triển lãm</a>
                 <a href="./trochoi.html" class="menu-link">Trò chơi</a>
                 <a href="./bxh.html" class="menu-link">Xếp hạng</a>
-                <a href="./profile.html" class="menu-link">Cá nhân</a>
+                <a href="./profile.html?v=11" class="menu-link">Cá nhân</a>
                 <a href="./tailieu.html" class="menu-link">Tài liệu</a>
                 <a href="./Map.html" class="menu-link active">Bản đồ</a>
             </nav>
@@ -51,9 +51,7 @@
                     <span class="section-label">Bản đồ bảo tàng số</span>
                     <h1>Khám phá dấu ấn Đông Sơn trên bản đồ Việt Nam</h1>
                     <p>
-                        Bản đồ hiển thị các nơi phát hiện trống đồng, bảo tàng, không gian văn hóa Đông Sơn và hai quần
-                        đảo
-                        Hoàng Sa, Trường Sa của Việt Nam. Hãy kéo, phóng to và bấm vào từng biểu tượng để xem thông tin.
+                        Bản đồ hiển thị các nơi phát hiện trống đồng, bảo tàng và không gian văn hóa Đông Sơn trên lãnh thổ Việt Nam. Hãy kéo, phóng to và bấm vào từng biểu tượng để xem thông tin.
                     </p>
                 </div>
 
@@ -73,8 +71,6 @@
                         <li><span class="legend-icon"
                                 style="background:linear-gradient(145deg,#f4dfbb,#a36a2a);">🏛</span><span>Bảo tàng
                                 trưng bày, lưu giữ hiện vật Đông Sơn</span></li>
-                        <li><span class="legend-icon">🏝</span><span>Quần đảo Hoàng Sa, Trường Sa của Việt Nam</span>
-                        </li>
                     </ul>
                 </aside>
             </div>
@@ -85,11 +81,16 @@
                 <div class="map-panel">
                     <div class="map-toolbar">
                         <div>
-                            <span class="panel-label">Leaflet + OpenStreetMap</span>
+                            <span class="panel-label">Google Maps</span>
                             <strong>Bản đồ Việt Nam và di sản Đông Sơn</strong>
                         </div>
 
                         <div class="map-toolbar-actions">
+                            <div class="map-type-group" role="group" aria-label="Chế độ hiển thị bản đồ">
+                                <button class="map-type-btn active" id="mapTypeRoadmap" type="button" title="Bản đồ đường sá Google Maps">Đường sá</button>
+                                <button class="map-type-btn" id="mapTypeSatellite" type="button" title="Ảnh vệ tinh Google Maps">Vệ tinh</button>
+                                <button class="map-type-btn" id="mapTypeTerrain" type="button" title="Bản đồ địa hình Google Maps">Địa hình</button>
+                            </div>
                             <button class="map-view-btn" id="mapOverviewBtn" type="button">Toàn cảnh</button>
                         </div>
                     </div>
@@ -140,11 +141,11 @@
         </div>
     </footer>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js?v=11"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-    <script src="../js/auth-ui.js"></script>
-    <script src="../js/map.js"></script>
-    <script src="../js/chatbox-ui.js"></script>
+    <script src="../js/auth-ui.js?v=11"></script>
+    <script src="../js/map.js?v=11"></script>
+    <script src="../js/chatbox-ui.js?v=12"></script>
 </body>
 
 </html>

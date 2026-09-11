@@ -2,19 +2,305 @@
 <html lang="vi">
 
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Triển lãm Đông Sơn - Bảo tàng số</title>
     <meta name="description"
-        content="Khám phá triển lãm trực tuyến văn hóa Đông Sơn – mô hình trống đồng 3D tương tác và không gian trưng bày số.">
-    <link rel="stylesheet" href="../css/base.css">
-    <link rel="stylesheet" href="../css/layout.css">
-    <link rel="stylesheet" href="../css/trienlam.css">
-    <link rel="stylesheet" href="../css/chatbox.css">
+        content="Khám phá triển lãm trực tuyến văn hóa Đông Sơn, mô hình trống đồng 3D tương tác và không gian trưng bày số.">
+    <link rel="stylesheet" href="../css/base.css?v=20260911-orig">
+    <link rel="stylesheet" href="../css/layout.css?v=20260911-orig">
+    <link rel="stylesheet" href="../css/trienlam.css?v=20260911-orig">
+    <link rel="stylesheet" href="../css/chatbox.css?v=20260911-orig">
+    <style>
+        /* Phong cách bảo tàng số - Không glassmorphism, không colored glow, tương phản chuẩn mực */
+        .frame-details-panel {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            z-index: 7;
+            width: 220px;
+            max-height: calc(100% - 32px);
+            overflow-y: auto;
+            background: #1c1611;
+            border: 1px solid #3d3024;
+            border-radius: 8px;
+            padding: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+        }
+        .frame-details-title {
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #33271d;
+            color: #d99b28;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+        .frame-details-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .frame-detail-btn {
+            display: flex !important;
+            align-items: center !important;
+            gap: 10px !important;
+            width: 100% !important;
+            padding: 8px 10px !important;
+            border-radius: 6px !important;
+            border: 1px solid #33281f !important;
+            background: #241c15 !important;
+            color: #f7f0e3 !important;
+            font-size: 13px !important;
+            font-weight: 600 !important;
+            cursor: pointer !important;
+            text-align: left !important;
+            transition: background 0.15s ease, border-color 0.15s ease !important;
+        }
+        .frame-detail-btn:hover {
+            background: #2d231a !important;
+            border-color: #554130 !important;
+            color: #ffffff !important;
+        }
+        .frame-detail-btn .f-num {
+            width: 24px !important;
+            height: 24px !important;
+            border-radius: 4px !important;
+            background: #2e2319 !important;
+            border: 1px solid #4d3a28 !important;
+            color: #ffd978 !important;
+            display: inline-grid !important;
+            place-items: center !important;
+            font-size: 12px !important;
+            font-weight: 700 !important;
+            flex-shrink: 0 !important;
+        }
+        .frame-detail-btn:hover .f-num {
+            background: #3d3023 !important;
+            border-color: #73573c !important;
+            color: #ffffff !important;
+        }
+        .frame-detail-btn.active {
+            background: #362a1f !important;
+            border-color: #c48b26 !important;
+            color: #ffffff !important;
+            box-shadow: none !important;
+        }
+        .frame-detail-btn.active .f-num {
+            background: #c48b26 !important;
+            border-color: #c48b26 !important;
+            color: #140e09 !important;
+            font-weight: 800 !important;
+            box-shadow: none !important;
+        }
+        .frame-detail-btn .f-text {
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+            white-space: nowrap !important;
+        }
+        .frame-btn-reset {
+            border-style: dashed !important;
+            border-color: #4a3a2a !important;
+            margin-top: 4px !important;
+        }
+        .frame-coords-tool {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            z-index: 7;
+        }
+        .btn-get-coords {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            border-radius: 6px;
+            border: 1px solid #3d3024;
+            background: #1c1611;
+            color: #ffd978;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            transition: background 0.15s ease, border-color 0.15s ease;
+        }
+        .btn-get-coords:hover {
+            background: #282018;
+            border-color: #5c4735;
+            color: #ffffff;
+        }
+        .coords-modal {
+            position: absolute;
+            top: 56px;
+            right: 16px;
+            z-index: 10;
+            width: min(360px, calc(100% - 32px));
+            padding: 16px 18px;
+            border-radius: 8px;
+            border: 1px solid #3d3024;
+            background: #18120d;
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.75);
+        }
+        .coords-modal[hidden] {
+            display: none !important;
+        }
+        .coords-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            color: #ffd978;
+            font-size: 14px;
+            font-weight: 700;
+        }
+        .coords-modal-close {
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            border: 1px solid #3d3024;
+            background: #241c15;
+            color: #dfd3c0;
+            font-size: 16px;
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            line-height: 1;
+            transition: background 0.15s ease, color 0.15s ease;
+        }
+        .coords-modal-close:hover {
+            color: #ffffff;
+            background: #33271d;
+            border-color: #554130;
+        }
+        .coords-desc {
+            color: #dfd3c0;
+            font-size: 12px;
+            line-height: 1.5;
+            margin: 0 0 10px;
+        }
+        .coords-desc code {
+            background: #241c15;
+            color: #ffd978;
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid #3d3024;
+        }
+        .coords-code {
+            background: #120e0a;
+            border: 1px solid #33271d;
+            border-radius: 6px;
+            padding: 10px 12px;
+            color: #f4dfbb;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 12px;
+            line-height: 1.5;
+            margin: 0 0 12px;
+            white-space: pre-wrap;
+            word-break: break-all;
+            max-height: 170px;
+            overflow-y: auto;
+        }
+        .coords-modal-footer {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .coords-copy-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border-radius: 6px;
+            border: 1px solid #c48b26;
+            background: #c48b26;
+            color: #140e09;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.15s ease, border-color 0.15s ease;
+        }
+        .coords-copy-btn:hover {
+            background: #d99b28;
+            border-color: #d99b28;
+        }
+        .coords-copy-toast {
+            color: #86efac;
+            font-size: 12px;
+            font-weight: 600;
+            display: none;
+        }
+        .coords-copy-toast.is-shown {
+            display: inline-block;
+        }
+        /* Chi tiết chip dưới frame */
+        .detail-chip {
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 8px !important;
+            padding: 8px 14px 8px 10px !important;
+            border-radius: 6px !important;
+            border: 1px solid #3d3024 !important;
+            background: #251d16 !important;
+            color: #f7f0e3 !important;
+            font-size: 13px !important;
+            font-weight: 600 !important;
+            cursor: pointer !important;
+            transition: background 0.15s ease, border-color 0.15s ease !important;
+        }
+        .detail-chip .detail-num {
+            width: 24px !important;
+            height: 24px !important;
+            border-radius: 4px !important;
+            background: #2e2319 !important;
+            border: 1px solid #4d3a28 !important;
+            color: #ffd978 !important;
+            display: inline-grid !important;
+            place-items: center !important;
+            font-size: 12px !important;
+            font-weight: 700 !important;
+        }
+        .detail-chip:hover {
+            background: #2e241c !important;
+            border-color: #5a4836 !important;
+            color: #ffffff !important;
+        }
+        .detail-chip.active {
+            background: #362a1f !important;
+            border-color: #c48b26 !important;
+            color: #ffffff !important;
+            box-shadow: none !important;
+        }
+        .detail-chip.active .detail-num {
+            background: #c48b26 !important;
+            border-color: #c48b26 !important;
+            color: #140e09 !important;
+            font-weight: 800 !important;
+        }
+        @media (max-width: 768px) {
+            .frame-details-panel {
+                top: 10px;
+                left: 10px;
+                width: 170px;
+                padding: 8px;
+            }
+            .frame-detail-btn {
+                font-size: 11px !important;
+                padding: 6px 8px !important;
+            }
+            .btn-get-coords {
+                top: 10px;
+                right: 10px;
+                font-size: 11px;
+                padding: 6px 10px;
+            }
+        }
+    </style>
     <script type="importmap">
         {
             "imports": {
-                "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+                "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js?v=11",
                 "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
             }
         }
@@ -34,7 +320,7 @@
                 <a href="./trienlam.html" class="menu-link active">Triển lãm</a>
                 <a href="./trochoi.html" class="menu-link">Trò chơi</a>
                 <a href="./bxh.html" class="menu-link">Xếp hạng</a>
-                <a href="./profile.html" class="menu-link">Cá nhân</a>
+                <a href="./profile.html?v=11" class="menu-link">Cá nhân</a>
                 <a href="./tailieu.html" class="menu-link">Tài liệu</a>
                 <a href="./Map.html" class="menu-link">Bản đồ</a>
             </nav>
@@ -51,8 +337,8 @@
         <section class="trienlam-hero">
             <div class="container trienlam-hero-grid">
                 <div class="trienlam-hero-copy">
-                    <span class="section-label">Triển lãm trực tuyến</span>
-                    <h1>Bước vào không gian trống đồng Đông Sơn</h1>
+                    <p class="hero-kicker">Triển lãm trực tuyến</p>
+                    <h1>Không gian di sản trống đồng Đông Sơn</h1>
                     <p class="hero-lead">
                         Khám phá các mô hình 3D, quan sát từng dải hoa văn và tiếp tục hành trình trong không gian
                         triển lãm trực tuyến.
@@ -68,15 +354,15 @@
                     <div class="preview-orbit">
                         <img src="../images/TrongDongHV.jpg" alt="Trống đồng Đông Sơn">
                         <div class="preview-badge">
-                            <span class="preview-badge-label">Hiện vật tiêu điểm</span>
+                            <span class="preview-badge-label">Hiện vật tiêu biểu</span>
                             <strong>Trống đồng Đông Sơn</strong>
                             <small>Biểu tượng văn hóa Việt cổ hơn 2.000 năm</small>
                         </div>
                     </div>
 
                     <article class="preview-note">
-                        <span class="preview-kicker">Điểm nhấn</span>
-                        <p>Trống đồng được đặt làm tâm điểm để người xem đi thẳng vào trải nghiệm triển lãm chính.</p>
+                        <span class="preview-kicker">Tiêu điểm</span>
+                        <p>Trống đồng được chọn làm trung tâm để bắt đầu hành trình tìm hiểu văn hóa Đông Sơn.</p>
                     </article>
                 </aside>
             </div>
@@ -111,8 +397,8 @@
         <section class="museum3d-section" id="model3d-section">
             <div class="container">
                 <div class="museum3d-header">
-                    <span class="panel-label">Mô hình tương tác</span>
-                    <h2>Thư viện hiện vật 3D</h2>
+                    <p class="section-kicker">Khảo sát hiện vật</p>
+                    <h2>Thư viện mô hình 3D</h2>
                     <p class="museum3d-desc">
                         Chọn một hiện vật để mở viewer lớn, xoay tự do và phóng to các chi tiết tạo hình.
                     </p>
@@ -175,37 +461,163 @@
                                 <strong id="model-active-title">Trống đồng Đông Sơn 3</strong>
                             </div>
                             <div class="model-detail-actions">
-                                <button class="ctrl-btn" id="btn-autorotate" onclick="toggleAutoRotate()"
+                                <button class="ctrl-btn" id="btn-zoom-in" type="button" title="Phóng to gần hơn (Zoom In)">
+                                    ＋ Phóng to
+                                </button>
+                                <button class="ctrl-btn" id="btn-zoom-out" type="button" title="Thu nhỏ xa hơn (Zoom Out)">
+                                    － Thu nhỏ
+                                </button>
+                                <button class="ctrl-btn" id="btn-autorotate" type="button" onclick="toggleAutoRotate()"
                                     title="Bật/tắt tự xoay">
-                                    ⟳ Tự xoay
+                                    Tự xoay
                                 </button>
-                                <button class="ctrl-btn" onclick="resetCamera()" title="Đặt lại góc nhìn">
-                                    ⊙ Góc mặc định
+                                <button class="ctrl-btn" type="button" onclick="resetCamera()" title="Đặt lại góc nhìn toàn cảnh">
+                                    Toàn cảnh
                                 </button>
-                                <button class="ctrl-btn" onclick="toggleFullscreen3D()" title="Toàn màn hình">
-                                    ⛶ Toàn màn hình
+                                <button class="ctrl-btn" type="button" onclick="toggleFullscreen3D()" title="Toàn màn hình">
+                                    Toàn màn hình
                                 </button>
                             </div>
                         </div>
 
                         <div class="museum3d-frame" id="museum3d-frame">
+                            <!-- Bảng nút bấm chi tiết trực tiếp trong góc khung 3D -->
+                            <div class="frame-details-panel" id="frame-details-panel">
+                                <div class="frame-details-title">
+                                    Góc nhìn chi tiết
+                                </div>
+                                <div class="frame-details-list">
+                                    <button class="frame-detail-btn" type="button" data-detail-num="1" title="Mặt trời trung tâm">
+                                        <span class="f-num">1</span>
+                                        <span class="f-text">Mặt trời trung tâm</span>
+                                    </button>
+                                    <button class="frame-detail-btn" type="button" data-detail-num="2" title="Vành chim Lạc">
+                                        <span class="f-num">2</span>
+                                        <span class="f-text">Vành chim Lạc</span>
+                                    </button>
+                                    <button class="frame-detail-btn" type="button" data-detail-num="3" title="Giã gạo & Nhà sàn">
+                                        <span class="f-num">3</span>
+                                        <span class="f-text">Giã gạo & Nhà sàn</span>
+                                    </button>
+                                    <button class="frame-detail-btn" type="button" data-detail-num="4" title="Thuyền chiến tang trống">
+                                        <span class="f-num">4</span>
+                                        <span class="f-text">Thuyền chiến</span>
+                                    </button>
+                                    <button class="frame-detail-btn" type="button" data-detail-num="5" title="Quai trống chữ U">
+                                        <span class="f-num">5</span>
+                                        <span class="f-text">Quai trống chữ U</span>
+                                    </button>
+                                    <button class="frame-detail-btn" type="button" data-detail-num="6" title="Chân đế vững chãi">
+                                        <span class="f-num">6</span>
+                                        <span class="f-text">Chân đế trống</span>
+                                    </button>
+                                    <button class="frame-detail-btn frame-btn-reset" type="button" id="btn-frame-reset" title="Xem lại toàn cảnh">
+                                        <span class="f-num">0</span>
+                                        <span class="f-text">Toàn cảnh</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Công cụ lấy tọa độ góc nhìn trực tiếp -->
+                            <div class="frame-coords-tool">
+                                <button class="btn-get-coords" id="btn-get-coords" type="button" title="Lấy tọa độ camera và tâm nhìn hiện tại">
+                                    <span>Lấy tọa độ góc nhìn</span>
+                                </button>
+                                <div class="coords-modal" id="coords-modal" hidden>
+                                    <div class="coords-modal-header">
+                                        <strong>Tọa độ góc nhìn</strong>
+                                        <button class="coords-modal-close" id="btn-close-coords-modal" type="button" aria-label="Đóng">×</button>
+                                    </div>
+                                    <p class="coords-desc">Xoay và zoom đến góc bạn ưng ý, sau đó sao chép mã dán vào <code>drumDetailsData</code> trong <code>museum3d.js</code>:</p>
+                                    <pre class="coords-code" id="coords-output">Đang đọc tọa độ...</pre>
+                                    <div class="coords-modal-footer">
+                                        <button class="coords-copy-btn" id="btn-copy-coords" type="button">Sao chép mã tọa độ</button>
+                                        <span class="coords-copy-toast" id="coords-copy-toast">Đã sao chép vào bộ nhớ tạm</span>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="model-loading-overlay" id="model-loading-overlay">
                                 <div class="model-loading-inner">
                                     <div class="model-loading-ring"></div>
                                     <span class="model-loading-title">Đang tải mô hình 3D</span>
                                     <span class="model-loading-pct" id="model-load-pct">0%</span>
-                                    <span class="model-loading-note">Đang tải dữ liệu tối ưu, vui lòng giữ trang mở</span>
+                                    <span class="model-loading-note">Đang chuẩn bị dữ liệu mô hình, vui lòng đợi giây lát</span>
                                     <span class="model-loading-track"><span id="model-load-bar"></span></span>
                                 </div>
+                            </div>
+
+                            <div class="frame-floating-controls" aria-label="Điều khiển phóng thu">
+                                <button class="floating-btn" id="float-zoom-in" type="button" aria-label="Phóng to" title="Phóng to gần hơn">＋</button>
+                                <button class="floating-btn" id="float-zoom-out" type="button" aria-label="Thu nhỏ" title="Thu nhỏ xa hơn">－</button>
+                                <button class="floating-btn" id="float-reset" type="button" aria-label="Toàn cảnh" title="Góc toàn cảnh">0</button>
                             </div>
 
                             <div id="canvas-container"></div>
 
                             <div class="museum3d-hint" id="museum3d-hint">
-                                <span>Kéo để xoay · Cuộn để zoom chậm</span>
+                                <span>Kéo chuột để xoay 360° · Cuộn chuột hoặc nút ＋/－ để zoom · Chọn số 1 đến 6 để quan sát chi tiết</span>
                                 <button class="hint-close"
                                     onclick="document.getElementById('museum3d-hint').style.display='none'"
                                     aria-label="Đóng gợi ý">×</button>
+                            </div>
+                        </div>
+
+                        <!-- ── CHI TIẾT HOA VĂN ĐƯỢC ĐÁNH SỐ (INTERACTIVE DETAILS) ── -->
+                        <div class="drum-details-container" id="drum-details-container">
+                            <div class="drum-details-header">
+                                <div class="drum-details-title-wrap">
+                                    <p class="drum-details-kicker">Khảo sát hoa văn</p>
+                                    <h3>Chi tiết đặc trưng trên trống đồng</h3>
+                                </div>
+                                <p class="drum-details-hint">Chọn số thứ tự để chuyển góc nhìn đến từng chi tiết:</p>
+                            </div>
+
+                            <div class="drum-details-chips" id="drum-details-chips" role="tablist" aria-label="Danh sách chi tiết hoa văn">
+                                <button class="detail-chip" type="button" data-detail-num="1" role="tab" aria-selected="false">
+                                    <span class="detail-num">1</span>
+                                    <span class="detail-name">Mặt trời trung tâm</span>
+                                </button>
+                                <button class="detail-chip" type="button" data-detail-num="2" role="tab" aria-selected="false">
+                                    <span class="detail-num">2</span>
+                                    <span class="detail-name">Vành chim Lạc</span>
+                                </button>
+                                <button class="detail-chip" type="button" data-detail-num="3" role="tab" aria-selected="false">
+                                    <span class="detail-num">3</span>
+                                    <span class="detail-name">Cảnh giã gạo & nhà sàn</span>
+                                </button>
+                                <button class="detail-chip" type="button" data-detail-num="4" role="tab" aria-selected="false">
+                                    <span class="detail-num">4</span>
+                                    <span class="detail-name">Thuyền chiến tang trống</span>
+                                </button>
+                                <button class="detail-chip" type="button" data-detail-num="5" role="tab" aria-selected="false">
+                                    <span class="detail-num">5</span>
+                                    <span class="detail-name">Quai trống chữ U</span>
+                                </button>
+                                <button class="detail-chip" type="button" data-detail-num="6" role="tab" aria-selected="false">
+                                    <span class="detail-num">6</span>
+                                    <span class="detail-name">Chân đế vững chãi</span>
+                                </button>
+                                <button class="detail-chip detail-chip-reset" type="button" id="btn-chip-reset" title="Xem toàn cảnh hiện vật">
+                                    <span class="detail-num">0</span>
+                                    <span class="detail-name">Toàn cảnh</span>
+                                </button>
+                            </div>
+
+                            <div class="drum-detail-card" id="drum-detail-card" hidden>
+                                <div class="detail-card-header">
+                                    <span class="detail-card-kicker" id="detail-card-badge">Chi tiết 01</span>
+                                    <button class="detail-card-close" id="btn-close-detail-card" type="button" aria-label="Đóng chi tiết">×</button>
+                                </div>
+                                <h4 id="detail-card-title">Ngôi sao mặt trời trung tâm (14 tia)</h4>
+                                <p id="detail-card-desc">Trung tâm mặt trống là hình ngôi sao nhiều cánh đúc nổi tượng trưng cho Mặt Trời...</p>
+                                <div class="detail-card-meta">
+                                    <span class="detail-card-loc" id="detail-card-loc"><span class="meta-label">Vị trí:</span> Chính giữa mặt trống</span>
+                                    <span class="detail-card-sign" id="detail-card-sign"><span class="meta-label">Ý nghĩa:</span> Nguồn cội của ánh sáng và sự sống</span>
+                                </div>
+                                <div class="detail-card-actions">
+                                    <button class="detail-card-btn" type="button" id="btn-detail-back-overview">Xem toàn cảnh hiện vật</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -401,9 +813,9 @@
             }
         }
     </script>
-    <script src="../js/auth-ui.js"></script>
-    <script src="../js/chatbox-ui.js"></script>
-    <script type="module" src="../js/museum3d.js?v=20260712-preview-models"></script>
+    <script src="../js/auth-ui.js?v=11"></script>
+    <script src="../js/chatbox-ui.js?v=12"></script>
+    <script type="module" src="../js/museum3d.js?v=13"></script>
 </body>
 
 </html>

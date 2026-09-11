@@ -1,5 +1,8 @@
 (function () {
-    const BACKEND_ORIGIN = "http://localhost:5000";
+    const BACKEND_ORIGIN =
+        window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+            ? "http://localhost:5001"
+            : "https://bwd-backend.vercel.app";
     const API_BASE_URL = `${BACKEND_ORIGIN}/api/v1/auth`;
     const REQUEST_TIMEOUT_MS = 30000;
     const BACKEND_UNAVAILABLE_MESSAGE = `Không kết nối được backend. Hãy chạy Flask server ở ${BACKEND_ORIGIN} rồi thử lại.`;
@@ -196,7 +199,7 @@
                 await register({ username, email, password });
                 setMessage("Đăng ký thành công, chuyển sang đăng nhập", true);
                 window.setTimeout(() => {
-                    window.location.href = "./login.html";
+                    window.location.href = "./login.html?v=11";
                 }, 900);
             } catch (error) {
                 setMessage(error.message || "Không đăng ký được, vui lòng thử lại", false);
@@ -206,6 +209,16 @@
         });
     }
 
+    function checkExistingSession() {
+        const auth = window.DongSonAuth?.getStoredAuth ? window.DongSonAuth.getStoredAuth() : null;
+        const token = auth?.token || localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
+        const user = auth?.user;
+        if (token && user) {
+            setMessage(`Bạn đang đăng nhập với tài khoản "${user.username || user.email}".`, true);
+        }
+    }
+
+    checkExistingSession();
     setupPasswordToggles();
     setupPasswordStrength();
     setupForm();

@@ -90,7 +90,23 @@ def optional_auth(handler):
         except jwt.InvalidTokenError:
             return flask.jsonify({"message": "Token xác thực không hợp lệ. Vui lòng đăng nhập lại.", "code": "TOKEN_INVALID"}), 401
 
-        flask.g.current_user = user_repo.find_user_by_id(payload.get("user_id"))
+        try:
+            flask.g.current_user = user_repo.find_user_by_id(payload.get("user_id"))
+        except Exception:
+            class FallbackUser:
+                def __init__(self, uid, uname, em=""):
+                    self.id = uid
+                    self.username = uname
+                    self.email = em
+                    self.avatar = "../images/chim-lac-pattern.png"
+                    self.total_score = 0
+                    self.class_group = None
+            flask.g.current_user = FallbackUser(
+                payload.get("user_id"),
+                payload.get("username", "Người chơi"),
+                payload.get("email", "")
+            )
+
         if not flask.g.current_user:
             return flask.jsonify({"message": "Tài khoản của phiên đăng nhập không còn tồn tại.", "code": "USER_NOT_FOUND"}), 401
         return handler(*args, **kwargs)

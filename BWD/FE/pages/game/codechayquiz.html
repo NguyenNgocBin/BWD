@@ -1,14 +1,14 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz</title>
-    <link rel="stylesheet" href="../../css/layout.css">
-    <link rel="stylesheet" href="../../css/base.css">
-    <link rel="stylesheet" href="../../css/game/codechayquiz.css?v=20260419-6">
-    <link rel="stylesheet" href="../../css/chatbox.css">
+    <link rel="stylesheet" href="../../css/layout.css?v=20260911-orig">
+    <link rel="stylesheet" href="../../css/base.css?v=20260911-orig">
+    <link rel="stylesheet" href="../../css/game/codechayquiz.css?v=20260911-orig">
+    <link rel="stylesheet" href="../../css/chatbox.css?v=20260911-orig">
 </head>
 
 <body>
@@ -24,7 +24,7 @@
                 <a href="../trienlam.html" class="menu-link">Triển lãm</a>
                 <a href="../trochoi.html" class="menu-link active">Trò chơi</a>
                 <a href="../bxh.html" class="menu-link">Xếp hạng</a>
-                <a href="../profile.html" class="menu-link">Cá nhân</a>
+                <a href="../profile.html?v=11" class="menu-link">Cá nhân</a>
                 <a href="../tailieu.html" class="menu-link">Tài liệu</a>
                 <a href="../Map.html" class="menu-link">Bản đồ</a>
             </nav>
@@ -73,6 +73,11 @@
                 </aside>
 
                 <section class="camera-preview">
+                    <div class="camera-question-bar" id="camera-question-bar" style="display: none;">
+                        <span class="q-badge" id="camera-q-badge">CÂU 1/25</span>
+                        <span class="q-title" id="camera-q-title"></span>
+                    </div>
+
                     <div class="camera-frame">
                         <video id="webcam" autoplay playsinline muted></video>
                     </div>
@@ -238,9 +243,9 @@
         </div>
     </footer>
 
-    <script src="../../js/auth-ui.js"></script>
-    <script type="module" src="../../js/game/codechayquiz.js?v=20260419-6"></script>
-    <script src="../../js/chatbox-ui.js"></script>
+    <script src="../../js/auth-ui.js?v=11"></script>
+    <script type="module" src="../../js/game/codechayquiz.js?v=13"></script>
+    <script src="../../js/chatbox-ui.js?v=12"></script>
 </body>
 
 </html>

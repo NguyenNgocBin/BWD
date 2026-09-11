@@ -246,6 +246,26 @@ def get_leaderboard(
         title = GAME_LABELS[scope]
 
     entries = [build_entry(row, scope) for row in rows]
+    if not entries:
+        current_user_payload = build_current_user_payload(
+            current_user, [], scope, period, class_group
+        )
+        return {
+            "message": "Chưa có dữ liệu bảng xếp hạng",
+            "scope": scope,
+            "period": period,
+            "group": class_group,
+            "title": title,
+            "entries": [],
+            "current_user": current_user_payload,
+            "available_scopes": [
+                {"scope": "tong", "label": "Tổng"},
+                {"scope": "motifhunt", "label": GAME_LABELS["motifhunt"]},
+                {"scope": "puzzle", "label": GAME_LABELS["puzzle"]},
+                {"scope": "codechayquiz", "label": GAME_LABELS["codechayquiz"]},
+            ],
+        }
+
     public_entries = progression_service.attach_featured_achievements(
         [build_public_entry(entry, scope) for entry in entries]
     )
@@ -259,9 +279,12 @@ def get_leaderboard(
         and period == "all"
         and not class_group
     ):
-        fresh_user = user_repo.find_user_by_id(current_user.id)
-        if fresh_user:
-            current_user_payload["total_score"] = fresh_user.total_score
+        try:
+            fresh_user = user_repo.find_user_by_id(current_user.id)
+            if fresh_user:
+                current_user_payload["total_score"] = fresh_user.total_score
+        except Exception:
+            pass
 
     return {
         "message": "Lấy bảng xếp hạng thành công",

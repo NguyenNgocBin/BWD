@@ -1,7 +1,10 @@
 const TOTAL_TIME = 120;
 const STORAGE_KEY = "dongson_motif_hunt_v2";
 const FLIP_BACK_DELAY = 900;
-const BACKEND_ORIGIN = "http://localhost:5000";
+const BACKEND_ORIGIN =
+    window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+        ? "http://localhost:5001"
+        : "https://bwd-backend.vercel.app";
 const GAME_SESSION_API_URL = `${BACKEND_ORIGIN}/api/v1/game-sessions/`;
 
 const motifs = [
@@ -88,6 +91,9 @@ const state = {
 };
 
 function getStoredAuth() {
+    if (window.DongSonAuth?.getStoredAuth) {
+        return window.DongSonAuth.getStoredAuth();
+    }
     const token = localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
     const rawUser = localStorage.getItem("authUser") || sessionStorage.getItem("authUser");
 
@@ -482,6 +488,13 @@ function startGame() {
     updateHud();
     setStatus("Ván mới bắt đầu. Hãy lật lá đầu tiên.");
     startTimer();
+
+    const board = document.getElementById("motif-board");
+    if (board) {
+        const headerHeight = 70;
+        const targetTop = board.getBoundingClientRect().top + window.pageYOffset - headerHeight - 10;
+        window.scrollTo({ top: Math.max(0, targetTop), behavior: "smooth" });
+    }
 }
 
 if (startBtn) {

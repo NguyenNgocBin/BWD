@@ -1,5 +1,8 @@
 (function () {
-    const BACKEND_ORIGIN = "http://localhost:5000";
+    const BACKEND_ORIGIN =
+        window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+            ? "http://localhost:5001"
+            : "https://bwd-backend.vercel.app";
     const API_BASE_URL = `${BACKEND_ORIGIN}/api/v1/auth`;
     const REQUEST_TIMEOUT_MS = 30000;
     const BACKEND_UNAVAILABLE_MESSAGE = `Không kết nối được backend. Hãy chạy Flask server ở ${BACKEND_ORIGIN} rồi thử lại.`;
@@ -109,55 +112,94 @@
         });
     }
 
+    async function handleLogin() {
+        clearErrors();
+        setMessage("");
+
+        const email = form?.email?.value?.trim()?.toLowerCase() || "";
+        const password = form?.password?.value || "";
+        let isValid = true;
+
+        if (!email) {
+            setFieldError("email", "Vui lòng nhập email");
+            isValid = false;
+        } else if (!isValidEmail(email)) {
+            setFieldError("email", "Email không hợp lệ");
+            isValid = false;
+        }
+
+        if (!password) {
+            setFieldError("password", "Vui lòng nhập mật khẩu");
+            isValid = false;
+        }
+
+        if (!isValid) return;
+
+        const submitButton = document.getElementById("loginSubmitBtn") || form.querySelector(".auth-button");
+        if (submitButton) submitButton.disabled = true;
+
+        try {
+            setMessage("Đang xác thực tài khoản...", true);
+            const data = await login(email, password);
+
+            if (window.DongSonAuth?.saveAuth) {
+                window.DongSonAuth.saveAuth(data.token, data.user);
+            } else {
+                try { localStorage.setItem("authToken", data.token); } catch(e) {}
+                try { localStorage.setItem("authUser", JSON.stringify(data.user)); } catch(e) {}
+                try { sessionStorage.setItem("authToken", data.token); } catch(e) {}
+                try { sessionStorage.setItem("authUser", JSON.stringify(data.user)); } catch(e) {}
+                try { document.cookie = `authToken=${encodeURIComponent(data.token)}; path=/; max-age=604800; SameSite=Lax`; } catch(e) {}
+                try { document.cookie = `authUser=${encodeURIComponent(JSON.stringify(data.user))}; path=/; max-age=604800; SameSite=Lax`; } catch(e) {}
+            }
+
+            setMessage("Đăng nhập thành công! Đang chuyển đến trang cá nhân...", true);
+            window.location.href = "./profile.html?v=11&token=" + encodeURIComponent(data.token);
+        } catch (error) {
+            setMessage(error.message || "Không đăng nhập được, vui lòng thử lại", false);
+            if (submitButton) submitButton.disabled = false;
+        }
+    }
+
     function setupForm() {
         if (!form) return;
 
-        form.addEventListener("submit", async (event) => {
+        form.addEventListener("submit", (event) => {
             event.preventDefault();
-            clearErrors();
-            setMessage("");
+            handleLogin();
+        });
 
-            const email = form.email.value.trim().toLowerCase();
-            const password = form.password.value;
-            let isValid = true;
+        const btn = document.getElementById("loginSubmitBtn");
+        if (btn) {
+            btn.addEventListener("click", (event) => {
+                event.preventDefault();
+                handleLogin();
+            });
+        }
 
-            if (!email) {
-                setFieldError("email", "Vui lòng nhập email");
-                isValid = false;
-            } else if (!isValidEmail(email)) {
-                setFieldError("email", "Email không hợp lệ");
-                isValid = false;
-            }
-
-            if (!password) {
-                setFieldError("password", "Vui lòng nhập mật khẩu");
-                isValid = false;
-            }
-
-            if (!isValid) return;
-
-            const submitButton = form.querySelector(".auth-button");
-            submitButton.disabled = true;
-
-            try {
-                const data = await login(email, password);
-                const storage = form.remember.checked ? localStorage : sessionStorage;
-                localStorage.removeItem("authToken");
-                localStorage.removeItem("authUser");
-                sessionStorage.removeItem("authToken");
-                sessionStorage.removeItem("authUser");
-                storage.setItem("authToken", data.token);
-                storage.setItem("authUser", JSON.stringify(data.user));
-                setMessage("Đăng nhập thành công", true);
-                window.location.href = "./profile.html";
-            } catch (error) {
-                setMessage(error.message || "Không đăng nhập được, vui lòng thử lại", false);
-            } finally {
-                submitButton.disabled = false;
-            }
+        form.querySelectorAll("input").forEach((input) => {
+            input.addEventListener("keydown", (event) => {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                    handleLogin();
+                }
+            });
         });
     }
 
+    function checkExistingSession() {
+        const auth = window.DongSonAuth?.getStoredAuth ? window.DongSonAuth.getStoredAuth() : null;
+        const token = auth?.token || localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
+        const user = auth?.user;
+        if (token && user) {
+            if (message) {
+                message.innerHTML = `Bạn đang đăng nhập với tài khoản <strong>${user.username || user.email}</strong>. <a href="./profile.html?v=11" style="color:#d99b28;text-decoration:underline;font-weight:700;">Vào trang cá nhân</a> hoặc đăng nhập tài khoản khác bên dưới.`;
+                message.classList.add("is-success");
+            }
+        }
+    }
+
+    checkExistingSession();
     setupPasswordToggles();
     setupSocialButtons();
     setupForm();

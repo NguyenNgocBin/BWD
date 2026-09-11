@@ -6,12 +6,14 @@ create table if not exists users (
     password_hash varchar(255) not null,
     avatar varchar(255) not null default 'default-avatar.png',
     total_score integer not null default 0,
+    class_group varchar(120),
     created_at timestamptz not null default now(),
     updated_at timestamptz not null default now()
 );
 
 create index if not exists idx_users_username on users (username);
 create index if not exists idx_users_email on users (email);
+create index if not exists idx_users_class_group on users (class_group);
 
 -- Bang luu danh sach game trong he thong.
 create table if not exists games (
