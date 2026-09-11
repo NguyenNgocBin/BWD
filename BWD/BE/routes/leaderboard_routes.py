@@ -6,6 +6,6 @@ import middlewares.auth_middleware as auth_middleware
 
 leaderboard_bp = flask.Blueprint("leaderboard", __name__)
 
-leaderboard_bp.route("/", methods=["GET"])(
+leaderboard_bp.route("/", methods=["GET"], strict_slashes=False)(
     auth_middleware.optional_auth(leaderboard_controller.get_leaderboard)
 )
