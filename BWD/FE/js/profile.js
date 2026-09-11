@@ -1,5 +1,8 @@
 (function () {
-    const BACKEND_ORIGIN = "http://localhost:5001";
+    const BACKEND_ORIGIN =
+        window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+            ? "http://localhost:5001"
+            : "https://bwd-backend.vercel.app";
     const API_BASE_URL = `${BACKEND_ORIGIN}/api/v1/auth`;
     const LEADERBOARD_API_URL = `${BACKEND_ORIGIN}/api/v1/leaderboard/?scope=tong&limit=1`;
     const GAME_SESSIONS_API_URL = `${BACKEND_ORIGIN}/api/v1/game-sessions/me?limit=20`;

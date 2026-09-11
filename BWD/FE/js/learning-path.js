@@ -1,6 +1,10 @@
 (function(){
     const STORAGE_KEY="dongsonLearningPathV1";
-    const API="http://localhost:5001/api/v1/game-sessions/me?limit=50";
+    const BACKEND_ORIGIN =
+        window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+            ? "http://localhost:5001"
+            : "https://bwd-backend.vercel.app";
+    const API = `${BACKEND_ORIGIN}/api/v1/game-sessions/me?limit=50`;
     let activeLesson=1;
     let completed;
     try { completed=new Set(JSON.parse(localStorage.getItem(STORAGE_KEY)||"[]")); }

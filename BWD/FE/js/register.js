@@ -1,5 +1,8 @@
 (function () {
-    const BACKEND_ORIGIN = "http://localhost:5001";
+    const BACKEND_ORIGIN =
+        window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+            ? "http://localhost:5001"
+            : "https://bwd-backend.vercel.app";
     const API_BASE_URL = `${BACKEND_ORIGIN}/api/v1/auth`;
     const REQUEST_TIMEOUT_MS = 30000;
     const BACKEND_UNAVAILABLE_MESSAGE = `Không kết nối được backend. Hãy chạy Flask server ở ${BACKEND_ORIGIN} rồi thử lại.`;

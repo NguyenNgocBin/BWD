@@ -1,5 +1,9 @@
 (function () {
-    const API_BASE_URL = "http://localhost:5001/api/v1/auth";
+    const BACKEND_ORIGIN =
+        window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+            ? "http://localhost:5001"
+            : "https://bwd-backend.vercel.app";
+    const API_BASE_URL = `${BACKEND_ORIGIN}/api/v1/auth`;
     const track = document.getElementById("gamesTrack");
     const controls = document.querySelectorAll(".slide-btn");
     const heroName = document.getElementById("gameHeroName");

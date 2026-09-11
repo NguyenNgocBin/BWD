@@ -5,7 +5,10 @@ const LEVELS = {
 };
 
 const MAX_TIME = 60;
-const BACKEND_ORIGIN = "http://localhost:5001";
+const BACKEND_ORIGIN =
+    window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+        ? "http://localhost:5001"
+        : "https://bwd-backend.vercel.app";
 const GAME_SESSION_API_URL = `${BACKEND_ORIGIN}/api/v1/game-sessions/`;
 const LEADERBOARD_API_URL = `${BACKEND_ORIGIN}/api/v1/leaderboard/?scope=puzzle&limit=10`;
 

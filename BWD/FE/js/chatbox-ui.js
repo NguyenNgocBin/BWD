@@ -1,6 +1,10 @@
 (() => {
-  const CHAT_API_ENDPOINT = "http://localhost:5001/api/v1/chat/ask";
-  const CHAT_FEEDBACK_ENDPOINT = "http://localhost:5001/api/v1/chat/feedback";
+  const BACKEND_ORIGIN =
+    window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+      ? "http://localhost:5001"
+      : "https://bwd-backend.vercel.app";
+  const CHAT_API_ENDPOINT = `${BACKEND_ORIGIN}/api/v1/chat/ask`;
+  const CHAT_FEEDBACK_ENDPOINT = `${BACKEND_ORIGIN}/api/v1/chat/feedback`;
   const FALLBACK_MESSAGE =
     "Hiện tại AI Đông Sơn chưa kết nối được máy chủ. Bạn vui lòng thử lại sau.";
   const INITIAL_SUGGESTIONS = [
