@@ -650,6 +650,12 @@ levelButtons.forEach((btn) => {
 startBtn.addEventListener("click", () => {
     hidePopup();
     startLevel();
+    const stage = document.querySelector(".puzzle-stage");
+    if (stage) {
+        const headerHeight = 70;
+        const targetTop = stage.getBoundingClientRect().top + window.pageYOffset - headerHeight - 10;
+        window.scrollTo({ top: Math.max(0, targetTop), behavior: "smooth" });
+    }
 });
 
 resetBtn.addEventListener("click", () => {

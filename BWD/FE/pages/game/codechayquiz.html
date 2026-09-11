@@ -7,7 +7,7 @@
     <title>Quiz</title>
     <link rel="stylesheet" href="../../css/layout.css">
     <link rel="stylesheet" href="../../css/base.css">
-    <link rel="stylesheet" href="../../css/game/codechayquiz.css?v=20260419-6">
+    <link rel="stylesheet" href="../../css/game/codechayquiz.css?v=13">
     <link rel="stylesheet" href="../../css/chatbox.css?v=12">
 </head>
 
@@ -73,6 +73,11 @@
                 </aside>
 
                 <section class="camera-preview">
+                    <div class="camera-question-bar" id="camera-question-bar" style="display: none;">
+                        <span class="q-badge" id="camera-q-badge">CÂU 1/25</span>
+                        <span class="q-title" id="camera-q-title"></span>
+                    </div>
+
                     <div class="camera-frame">
                         <video id="webcam" autoplay playsinline muted></video>
                     </div>
@@ -239,7 +244,7 @@
     </footer>
 
     <script src="../../js/auth-ui.js?v=11"></script>
-    <script type="module" src="../../js/game/codechayquiz.js?v=11"></script>
+    <script type="module" src="../../js/game/codechayquiz.js?v=13"></script>
     <script src="../../js/chatbox-ui.js?v=12"></script>
 </body>
 

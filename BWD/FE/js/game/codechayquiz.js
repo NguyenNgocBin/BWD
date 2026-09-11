@@ -86,6 +86,23 @@ const accuracyValueEl = document.getElementById("accuracy-value");
 const bestScoreValueEl = document.getElementById("best-score-value");
 const chapterProgressItems = Array.from(document.querySelectorAll("#chapter-progress-list .progress-item"));
 const rankingBoardEl = document.querySelector(".ranking-list");
+const cameraQuestionBarEl = document.getElementById("camera-question-bar");
+const cameraQBadgeEl = document.getElementById("camera-q-badge");
+const cameraQTitleEl = document.getElementById("camera-q-title");
+
+function scrollToQuestionArea() {
+    const target = document.querySelector(".question-intro") || document.querySelector(".game-content");
+    if (!target) return;
+
+    const header = document.querySelector("header.header");
+    const headerHeight = header ? header.offsetHeight : 70;
+    const targetTop = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 12;
+
+    window.scrollTo({
+        top: Math.max(0, targetTop),
+        behavior: "smooth",
+    });
+}
 
 let currentQuestionIndex = 0;
 let score = 0;
@@ -291,6 +308,11 @@ function updateChapterProgressUI() {
 }
 
 function setIdleUI() {
+    document.body.classList.remove("game-active");
+    if (cameraQuestionBarEl) {
+        cameraQuestionBarEl.style.display = "none";
+    }
+
     questionEl.textContent = "Nhấn Bắt đầu để chơi";
     if (questionSubtitleEl) {
         questionSubtitleEl.textContent = "Hãy định vị khuôn mặt vào khung hình để hệ thống xác nhận danh tính trước khi bắt đầu.";
@@ -393,6 +415,14 @@ function loadQuestion() {
         questionSubtitleEl.textContent = `${chapter.title} - Câu ${questionInChapter}/${QUESTIONS_PER_CHAPTER}. Nghiêng trái để chọn A, nghiêng phải để chọn B.`;
     }
 
+    if (cameraQuestionBarEl && cameraQTitleEl) {
+        cameraQuestionBarEl.style.display = "flex";
+        if (cameraQBadgeEl) {
+            cameraQBadgeEl.textContent = `CÂU ${currentQuestionIndex + 1}/${QUESTIONS.length}`;
+        }
+        cameraQTitleEl.textContent = current.question;
+    }
+
     answerAEl.textContent = `A. ${current.A}`;
     answerBEl.textContent = `B. ${current.B}`;
     answerAEl.disabled = false;
@@ -414,12 +444,21 @@ function loadQuestion() {
     nextChapterBtn.classList.remove("show");
     updateChapterProgressUI();
     resetTimer();
+
+    // Luôn đảm bảo màn hình cuộn mượt đến đúng vị trí câu hỏi và camera
+    window.requestAnimationFrame(() => {
+        scrollToQuestionArea();
+    });
 }
 
 function openChapterBreak() {
     clearInterval(timer);
     isLocked = true;
     gameStarted = false;
+    document.body.classList.remove("game-active");
+    if (cameraQuestionBarEl) {
+        cameraQuestionBarEl.style.display = "none";
+    }
     isWaitingForNextChapter = true;
     waitingForCenter = false;
 
@@ -441,6 +480,10 @@ async function endGame() {
     clearInterval(timer);
     isLocked = true;
     gameStarted = false;
+    document.body.classList.remove("game-active");
+    if (cameraQuestionBarEl) {
+        cameraQuestionBarEl.style.display = "none";
+    }
     isWaitingForNextChapter = false;
     waitingForCenter = false;
 
@@ -732,6 +775,9 @@ async function initSystem() {
 async function startGame() {
     if (isInitializing || gameStarted) return;
 
+    // Cuộn màn hình ngay khi nhấn nút bắt đầu để người dùng nhìn thấy câu hỏi
+    scrollToQuestionArea();
+
     isInitializing = true;
     startBtn.disabled = true;
     startBtn.textContent = "Đang khởi tạo...";
@@ -758,6 +804,7 @@ async function startGame() {
         currentQuestionEl.textContent = "1";
 
         gameStarted = true;
+        document.body.classList.add("game-active");
         isLocked = false;
         isWaitingForNextChapter = false;
         hasChosenByHead = false;
@@ -773,6 +820,12 @@ async function startGame() {
 
         updateAchievementUI();
         loadQuestion();
+
+        // Tự động đẩy màn hình lên vùng câu hỏi và camera một lần nữa sau khi luồng video ổn định
+        window.requestAnimationFrame(() => {
+            scrollToQuestionArea();
+            setTimeout(scrollToQuestionArea, 120);
+        });
     } finally {
         isInitializing = false;
     }
@@ -781,6 +834,7 @@ async function startGame() {
 async function restartGame() {
     clearInterval(timer);
     gameStarted = false;
+    document.body.classList.remove("game-active");
     isLocked = false;
     waitingForCenter = false;
     centerStreak = 0;
@@ -790,6 +844,7 @@ async function restartGame() {
     sessionSaved = false;
 
     setIdleUI();
+    scrollToQuestionArea();
     await startGame();
 }
 
@@ -798,8 +853,12 @@ function startNextChapter() {
 
     isWaitingForNextChapter = false;
     gameStarted = true;
+    document.body.classList.add("game-active");
     headStatusEl.textContent = cameraStarted ? "Đang nhìn thẳng" : "Camera đang tắt";
     loadQuestion();
+    window.requestAnimationFrame(() => {
+        scrollToQuestionArea();
+    });
 }
 
 async function toggleCamera() {

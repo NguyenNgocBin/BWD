@@ -485,6 +485,13 @@ function startGame() {
     updateHud();
     setStatus("Ván mới bắt đầu. Hãy lật lá đầu tiên.");
     startTimer();
+
+    const board = document.getElementById("motif-board");
+    if (board) {
+        const headerHeight = 70;
+        const targetTop = board.getBoundingClientRect().top + window.pageYOffset - headerHeight - 10;
+        window.scrollTo({ top: Math.max(0, targetTop), behavior: "smooth" });
+    }
 }
 
 if (startBtn) {

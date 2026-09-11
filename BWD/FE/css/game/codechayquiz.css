@@ -1,4 +1,4 @@
-﻿* {
+* {
     margin: 0;
     box-sizing: border-box;
 }
@@ -118,6 +118,8 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
+    scroll-margin-top: 85px;
+    transition: all 0.3s ease;
 }
 
 .question-intro h1 {
@@ -126,12 +128,35 @@ body {
     line-height: 1.3;
     margin-bottom: 12px;
     color: #f6f1e8;
+    transition: font-size 0.3s ease;
 }
 
 .question-intro p {
     font-size: 16px;
     color: rgba(255, 255, 255, 0.78);
     line-height: 1.6;
+}
+
+/* Khi trò chơi đang hoạt động: Tinh gọn khung câu hỏi để luôn vừa vặn trong màn hình cùng camera */
+.game-active .question-intro {
+    padding: 16px 20px;
+    min-height: auto;
+    border-left-width: 5px;
+    border-left-color: #ffd978;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
+}
+
+.game-active .question-intro h1 {
+    font-size: 24px;
+    margin-bottom: 6px;
+    color: #ffffff;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.game-active .question-intro p {
+    font-size: 14px;
+    color: #f2e3be;
+    line-height: 1.4;
 }
 
 /* CAMERA */
@@ -226,6 +251,56 @@ body {
     border: 1px solid rgba(212, 175, 55, 0.08);
     z-index: 2;
     pointer-events: none;
+}
+
+/* BANNER CÂU HỎI TRỰC TIẾP TRÊN MÀN HÌNH CAMERA */
+.camera-question-bar {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    right: 12px;
+    z-index: 6;
+    background: rgba(22, 17, 13, 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(212, 175, 55, 0.45);
+    border-radius: 12px;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.6);
+    pointer-events: none;
+    animation: fadeInQuestionBar 0.25s ease;
+}
+
+@keyframes fadeInQuestionBar {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.camera-question-bar .q-badge {
+    background: #d4af37;
+    color: #1a1209;
+    font-weight: 800;
+    font-size: 11.5px;
+    letter-spacing: 0.5px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.camera-question-bar .q-title {
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.35;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 
 /* ANSWERS */
