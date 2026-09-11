@@ -14,9 +14,10 @@ class FastDevHTTPRequestHandler(SimpleHTTPRequestHandler):
         # Heavy static assets (3D models, images, videos, fonts): cache aggressively in browser
         elif any(clean_path.endswith(ext) for ext in (".glb", ".gltf", ".bin", ".jpg", ".jpeg", ".png", ".webp", ".gif", ".mp4", ".woff2", ".woff", ".ttf", ".svg")):
             self.send_header("Cache-Control", "public, max-age=86400, immutable")
-        # Versioned CSS and JS (busted via ?v=...): cache for fast instant switches
+        # CSS and JS: always revalidate so style changes apply immediately
         elif any(clean_path.endswith(ext) for ext in (".css", ".js")):
-            self.send_header("Cache-Control", "public, max-age=3600")
+            self.send_header("Cache-Control", "no-cache, must-revalidate")
+            self.send_header("Pragma", "no-cache")
         else:
             self.send_header("Cache-Control", "no-cache")
 
