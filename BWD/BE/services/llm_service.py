@@ -120,7 +120,7 @@ def validate_answer_citations(answer, source_count):
     return bool(citations) and all(1 <= value <= source_count for value in citations)
 
 
-def _post_json(url, payload, timeout=30):
+def _post_json(url, payload, timeout=15):
     data = json.dumps(payload).encode("utf-8")
 
     request = urllib.request.Request(
@@ -175,21 +175,20 @@ def _post_json(url, payload, timeout=30):
 
 def _resolve_model_name():
     """Keep stable model names stable instead of silently switching aliases."""
-
-    configured = os.getenv("GEMINI_MODEL", "gemini-3.6-flash").strip()
+    configured = os.getenv("GEMINI_MODEL", "gemini-flash-lite-latest").strip()
     deprecated_models = {
-        "gemini-1.5-flash": "gemini-3.6-flash",
-        "gemini-2.0-flash-lite-001": "gemini-3.6-flash",
-        "gemini-2.5-flash": "gemini-3.6-flash",
+        "gemini-1.5-flash": "gemini-flash-lite-latest",
+        "gemini-2.0-flash-lite-001": "gemini-flash-lite-latest",
+        "gemini-3.6-flash": "gemini-flash-lite-latest",
     }
-    return deprecated_models.get(configured, configured or "gemini-3.6-flash")
+    return deprecated_models.get(configured, configured or "gemini-flash-lite-latest")
 
 
 def _generation_config(model):
     try:
-        max_output_tokens = int(os.getenv("GEMINI_MAX_OUTPUT_TOKENS", "4096"))
+        max_output_tokens = int(os.getenv("GEMINI_MAX_OUTPUT_TOKENS", "2048"))
     except (TypeError, ValueError):
-        max_output_tokens = 4096
+        max_output_tokens = 2048
 
     config = {
         "temperature": 0.2,
@@ -210,29 +209,24 @@ def _generate_with_gemini(prompt):
         raise LLMError(
             "Thiếu GEMINI_API_KEYS hoặc GEMINI_API_KEY trong file .env"
         )
-        
+
     api_keys = [k.strip() for k in keys_str.split(",") if k.strip()]
     if not api_keys:
         raise LLMError("Danh sách API Key rỗng")
 
     model = _resolve_model_name()
+    api_key = api_keys[0]
 
     payload = {
         "systemInstruction": {
             "parts": [
-                {
-                    "text": SYSTEM_PROMPT
-                }
+                {"text": SYSTEM_PROMPT}
             ]
         },
         "contents": [
             {
                 "role": "user",
-                "parts": [
-                    {
-                        "text": prompt
-                    }
-                ]
+                "parts": [{"text": prompt}],
             }
         ],
         "generationConfig": _generation_config(model),
@@ -240,17 +234,16 @@ def _generate_with_gemini(prompt):
 
     # Do not fan out across free-tier keys after a quota failure. One request
     # performs at most one provider call; the chat layer returns a safe fallback.
-    api_key = api_keys[0]
     url = (
         "https://generativelanguage.googleapis.com/"
         f"v1beta/models/{model}:generateContent"
         f"?key={api_key}"
     )
-    data = _post_json(url=url, payload=payload)
+    data = _post_json(url=url, payload=payload, timeout=15)
     candidates = data.get("candidates", [])
     if not candidates:
         raise LLMError(
-            f"Gemini không trả về dữ liệu: {data}",
+            "Gemini không trả về candidate nào",
             code="provider_empty_response",
         )
 
@@ -268,7 +261,16 @@ def _generate_with_gemini(prompt):
         )
 
     parts = candidate.get("content", {}).get("parts", [])
-    answer = "\n".join(part.get("text", "") for part in parts).strip()
+    # Filter out thought parts from reasoning models
+    answer_parts = [
+        part.get("text", "")
+        for part in parts
+        if not part.get("thought") and part.get("text")
+    ]
+    answer = "\n".join(answer_parts).strip()
+    if not answer and parts:
+        answer = "\n".join(part.get("text", "") for part in parts if part.get("text")).strip()
+
     if not answer:
         raise LLMError(
             "Gemini trả về câu trả lời rỗng",
